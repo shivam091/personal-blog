@@ -16,6 +16,27 @@ I’m a software engineer, freelancer, and lifelong learner passionate about bui
 - 🤝 Open to collaboration on Ruby on Rails open-source projects
 - 🧠 Looking for mentorship and support in back-end development
 
+<svg viewBox="0 0 200 200" width="200" height="200">
+  <ellipse id="bubble" cx="100" cy="100" rx="40" ry="20" fill="skyblue" />
+</svg>
+
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Start ellipse -->
+  <ellipse id="morphEllipse" cx="150" cy="100" rx="40" ry="20" fill="cornflowerblue"/>
+</svg>
+
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <polygon id="poly" points="50,150 150,50 250,150" fill="tomato"/>
+</svg>
+
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <polygon id="polyMorph" points="50,150 150,50 250,150" fill="magenta"/>
+</svg>
+
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <polyline points="60, 110 65, 120 70, 115 75, 130 80, 125 85, 140 90, 135 95, 150 100, 145"/>
+</svg>
+
 <!-- ## GitHub Statistics
 
 {% details summary="📊 Show my **GitHub stats**" %}
