@@ -11,7 +11,6 @@ export default class HeaderDrawer {
   static focusableElements = null;
   static animation = null;
   static isOpen = false;
-  static hamburger = null;
   static lastFocused = null;
 
   static openDrawer() {
@@ -22,7 +21,6 @@ export default class HeaderDrawer {
 
     this.animation.playbackRate = 1;
     this.animation.play();
-    this.hamburger?.animateMorph(0, 1);
     this.animateNavItemsIn();
 
     // Focus first link in drawer
@@ -36,7 +34,6 @@ export default class HeaderDrawer {
     this.toggleButton?.setAttribute("aria-expanded", "false");
 
     this.animation.reverse();
-    this.hamburger?.animateMorph(1, 0);
 
     this.animateNavItemsOut();
 

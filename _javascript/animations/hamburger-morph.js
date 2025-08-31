@@ -1,43 +1,52 @@
-import SpringGroup from "./../utils/animations/spring-group";
-import { BASE_FRAMES } from "./../constants/hamburger-frames";
-import HamburgerIcon from "./hamburger-icon";
-import { lerp } from "./../utils/animations";
+import {
+  BASE_FRAMES,
+  HOVER_FRAMES,
+  PRESSED_FRAME
+} from "./../constants/hamburger-frames";
+import LineMorph from "./../utils/animations/line-morph";
 
 export default class HamburgerMorph {
-  constructor(button) {
-    this.button = button;
-    this.svg = button.querySelector("svg");
-    const [top, middle, bottom] = this.svg.querySelectorAll("line");
-    this.lines = [top, middle, bottom];
+  constructor(button, config = { stiffness: 0.12, damping: 0.75 }) {
+    this.toggleButton = document.querySelector(".toggle-menu");
+    if (!this.toggleButton) return;
+
+    this.svg = this.toggleButton.querySelector("svg");
+    this.lines = Array.from(this.svg.querySelectorAll("line"));
+
     this.isOpen = false;
+    this.isHovering = false;
+    this.isPressed = false;
+    this.hoverTimeout = null;
 
-    this.frames = BASE_FRAMES;
-
-    // Springs
-    this.springs = this.lines.map((line, i) => {
-      const initial = { ...this.frames.closed[i] };
-      const group = new SpringGroup(initial, { stiffness: 0.12, damping: 0.75 });
-      group.subscribe(values => {
-        line.setAttribute("x1", values.x1);
-        line.setAttribute("y1", values.y1);
-        line.setAttribute("x2", values.x2);
-        line.setAttribute("y2", values.y2);
-        line.style.opacity = values.opacity;
-      });
-      return group;
-    });
-
-    // Interactions manager
-    this.interactions = new HamburgerIcon(this);
+    this.morph = new LineMorph(this.lines, config);
 
     this.observeDrawerState();
     this.syncWithDrawer();
+
+    this.addHoverEvents();
+    this.addPressEvents();
+  }
+
+  get hoverDuration() { return 150; }
+
+  getCurrentFrame(type = "base") {
+    const state = this.isOpen ? "open" : "closed";
+    switch (type) {
+      case "hover": return HOVER_FRAMES[state];
+      case "pressed": return PRESSED_FRAME;
+      default: return BASE_FRAMES[state];
+    }
   }
 
   morphLines(targetFrames) {
-    this.springs.forEach((group, i) => {
-      group.setTarget(targetFrames[i]);
-    });
+    this.morph.morph(targetFrames);
+  }
+
+  clearHoverTimeout() {
+    if (this.hoverTimeout) {
+      clearTimeout(this.hoverTimeout);
+      this.hoverTimeout = null;
+    }
   }
 
   observeDrawerState() {
@@ -46,23 +55,61 @@ export default class HamburgerMorph {
   }
 
   syncWithDrawer() {
-    const open = document.documentElement.getAttribute("data-drawer") === "open";
-    const state = open ? "open" : "closed";
-    this.morphLines(this.frames[state]);
-    this.isOpen = open;
+    this.isOpen = document.documentElement.getAttribute("data-drawer") === "open";
+    this.morphLines(this.getCurrentFrame("base"));
   }
 
-  animateMorph(fromProgress, toProgress) {
-    const targetFrames = this.frames.closed.map((c, i) => {
-      const o = this.frames.open[i];
-      return {
-        x1: lerp(c.x1, o.x1, toProgress),
-        y1: lerp(c.y1, o.y1, toProgress),
-        x2: lerp(c.x2, o.x2, toProgress),
-        y2: lerp(c.y2, o.y2, toProgress),
-        opacity: lerp(c.opacity, o.opacity, toProgress)
-      };
-    });
-    this.morphLines(targetFrames);
+  handleHoverIn = () => {
+    this.clearHoverTimeout();
+    this.isHovering = true;
+    this.morphLines(this.getCurrentFrame("hover"));
+    this.hoverTimeout = setTimeout(this.handleHoverOut, this.hoverDuration);
+  }
+
+  handleHoverOut = () => {
+    this.clearHoverTimeout();
+    this.isHovering = false;
+    this.morphLines(this.getCurrentFrame("base"));
+  }
+
+  morphToPressed() {
+    this.clearHoverTimeout();
+    this.isHovering = false;
+    this.morphLines(this.getCurrentFrame("pressed"));
+  }
+
+  restoreFromPressed() {
+    const frame = this.isHovering
+      ? this.getCurrentFrame("hover")
+      : this.getCurrentFrame("base");
+    this.morphLines(frame);
+  }
+
+  addHoverEvents() {
+    ["mouseenter", "touchstart"].forEach(evt =>
+      this.toggleButton.addEventListener(evt, this.handleHoverIn, { passive: true })
+    );
+  }
+
+  addPressEvents() {
+    const pressIn = () => {
+      if (this.isPressed) return;
+      this.isPressed = true;
+      this.morphToPressed();
+    };
+
+    const pressOut = () => {
+      if (!this.isPressed) return;
+      this.isPressed = false;
+      this.restoreFromPressed();
+    };
+
+    ["mousedown", "touchstart"].forEach(evt =>
+      this.toggleButton.addEventListener(evt, pressIn, { passive: true })
+    );
+
+    ["mouseup", "mouseleave", "touchend", "touchcancel"].forEach(evt =>
+      this.toggleButton.addEventListener(evt, pressOut)
+    );
   }
 }
