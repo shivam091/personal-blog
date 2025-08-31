@@ -38,6 +38,14 @@ export default class HamburgerMorph {
     }
   }
 
+  /**
+   * Accepts targetFrames as an array like BASE_FRAMES.closed (3 objects)
+   * Maps them to the shape LineMorph.morph expects:
+   * [
+   *   [ [x1,y1], [x2,y2], [opacity, 0] ], // first line
+   *   ...
+   * ]
+   */
   morphLines(targetFrames) {
     this.morph.morph(targetFrames);
   }
