@@ -9,6 +9,9 @@ parts:
   - getting-started-with-css-grid
   - mastering-css-grid
   - responsive-css-grid-layouts
+changelog:
+  - date: 2025-07-11
+    change: "Initial publication"
 ---
 
 🚀 **CSS Grid Fundamentals** is your all-in-one guide to mastering layout design — the modern, efficient way.

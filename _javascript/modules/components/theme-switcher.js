@@ -1,6 +1,6 @@
-export default class ThemeSwitcher {
-  static THEME_KEY = "theme";
+import { THEME_KEY, DEFAULT_COLOR_MODE } from "./../../constants/constants";
 
+export default class ThemeSwitcher {
   static get container() {
     return document.querySelector("[data-theme-switcher]");
   }
@@ -23,7 +23,7 @@ export default class ThemeSwitcher {
   static apply(theme) {
     const actualTheme = this.getEffectiveTheme(theme);
     document.documentElement.setAttribute("data-theme", actualTheme);
-    localStorage.setItem(this.THEME_KEY, theme);
+    localStorage.setItem(THEME_KEY, theme);
     this.updateDropdown(theme);
   }
 
@@ -47,7 +47,7 @@ export default class ThemeSwitcher {
     });
 
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-      const savedTheme = localStorage.getItem(this.THEME_KEY) || "system";
+      const savedTheme = localStorage.getItem(THEME_KEY) || DEFAULT_COLOR_MODE;
       if (savedTheme === "system") {
         this.apply("system");
       }
@@ -57,7 +57,7 @@ export default class ThemeSwitcher {
   static initialize() {
     if (!this.container) return;
 
-    const savedTheme = localStorage.getItem(this.THEME_KEY) || "system";
+    const savedTheme = localStorage.getItem(THEME_KEY) || "system";
     this.apply(savedTheme);
 
     this.setupDropdownListeners();

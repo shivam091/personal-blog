@@ -31,11 +31,14 @@ button:not(:disabled)
   cursor: pointer
 
 .btn
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: $space-sm
   background-color: var(--color-bg-control)
   color: var(--color-fg-control)
   border-color: var(--color-border-control)
   border-radius: $border-radius-default
-  line-height: $line-height-tight
   padding: $space-sm
   font-size: $fluid-font-size-sm
   font-weight: $font-weight-semi-bold
@@ -56,6 +59,21 @@ button:not(:disabled)
     background-color: var(--color-bg-control-disabled)
     color: var(--color-fg-control-disabled)
     border-color: var(--color-border-control-disabled)
+
+  .btn-text
+    margin: 0 auto
+    flex: 1
+    text-align: center
+
+  .icon-left
+    margin-right: auto
+
+  .icon-right
+    margin-left: auto
+
+  &:has(.icon-left),
+  &:has(.icon-right)
+    gap: $space-none
 
 .btn-sm
   padding: $space-xs

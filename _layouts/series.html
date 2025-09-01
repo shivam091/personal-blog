@@ -9,6 +9,8 @@ layout: page
     {{ content }}
   </div>
 
+  {% include changelog.html %}
+
   <h2 class="section">Posts</h2>
   {% include posts/list.html posts = page.posts %}
 

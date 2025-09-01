@@ -1,65 +1,21 @@
 {%- assign total_pages = paginator.total_pages -%}
 
-  {%- assign current = paginator.page -%}
-  {%- assign trail = paginator.page_trail -%}
-  {%- assign first_url = paginator.first_page_path | relative_url -%}
-  {%- assign last_url = paginator.last_page_path | replace: "/index.html", "/" | relative_url -%}
-  {%- assign per_page = paginator.per_page -%}
-  {%- assign start_index = per_page | times: current | minus: per_page | plus: 1 -%}
-  {%- assign end_index = per_page | times: current -%}
-  {%- if end_index > paginator.total_posts -%}
-    {%- assign end_index = paginator.total_posts -%}
-  {%- endif -%}
+<div class="pagination-wrapper">
+  {% if total_pages > 1 %}
+  <nav class="pagination" role="navigation" aria-label="Pagination">
+    {%- if paginator.previous_page -%}
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="page-link" aria-label="Newer" rel="prev">
+        {% svg chevron-left %}
+        Newer
+      </a>
+    {%- endif -%}
 
-  <div class="pagination-wrapper">
-    {% if total_pages > 1 %}
-    <nav class="pagination" role="navigation" aria-label="Pagination">
-      {%- if current > 1 -%}
-        <a href="{{ first_url }}" class="page-link" aria-label="First" rel="first">&laquo; First</a>
-      {%- endif -%}
-
-      {%- if paginator.previous_page -%}
-        <a href="{{ paginator.previous_page_path | relative_url }}" class="page-link" aria-label="Previous" rel="prev">&lsaquo; Prev</a>
-      {%- endif -%}
-
-      {%- if trail -%}
-        {%- assign first_trail = trail | first -%}
-        {%- assign last_trail = trail | last -%}
-
-        {%- if first_trail.num > 1 -%}
-          <span class="page-link">&hellip;</span>
-        {%- endif -%}
-
-        {%- for trail_page in trail -%}
-          {%- assign trail_num = trail_page.num -%}
-          {%- assign page_url = trail_page.path | replace: "/index.html", "/" | relative_url -%}
-          {%- if trail_num == 1 -%}
-            {%- assign page_url = first_url -%}
-          {%- endif -%}
-
-          {%- if trail_num == current -%}
-            <span class="page-link active" aria-current="page">{{ trail_num }}</span>
-          {%- else -%}
-            <a href="{{ page_url }}" class="page-link">{{ trail_num }}</a>
-          {%- endif -%}
-        {%- endfor -%}
-
-        {%- if last_trail.num < total_pages -%}
-          <span class="page-link">&hellip;</span>
-        {%- endif -%}
-      {%- endif -%}
-
-      {%- if paginator.next_page -%}
-        <a href="{{ paginator.next_page_path | relative_url }}" class="page-link" aria-label="Next" rel="next">Next &rsaquo;</a>
-      {%- endif -%}
-
-      {%- if current < total_pages -%}
-        <a href="{{ last_url }}" class="page-link" aria-label="Last" rel="last">Last &raquo;</a>
-      {%- endif -%}
-    </nav>
-    {% endif %}
-    <div class="pagination-meta">
-      <div class="page-info middle-dot-separator">Page {{ current }} of {{ total_pages }}</div>
-      <div class="record-info middle-dot-separator">Displaying {{ start_index }} to {{ end_index }} of {{ paginator.total_posts }} in total</div>
-    </div>
-  </div>
+    {%- if paginator.next_page -%}
+      <a href="{{ paginator.next_page_path | relative_url }}" class="page-link" aria-label="Older" rel="next">
+        Older
+        {% svg chevron-right %}
+      </a>
+    {%- endif -%}
+  </nav>
+  {% endif %}
+</div>

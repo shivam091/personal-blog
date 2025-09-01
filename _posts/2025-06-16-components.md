@@ -3,7 +3,7 @@ layout: post
 title: "Components"
 date: 2025-06-16 18:20
 tags: [typography, design, styleguide]
-categories: [General]
+category: General
 excerpt: This post is a comprehensive test of various components. It includes alerts, code blocks, buttons, and more.
 slug: components
 image:

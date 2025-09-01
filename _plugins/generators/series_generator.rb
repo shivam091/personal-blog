@@ -23,6 +23,7 @@ module Jekyll
         "series_id"     => series_id,
         "series_meta"   => frontmatter,
         "excerpt"       => frontmatter["excerpt"],
+        "changelog"     => frontmatter["changelog"],
         "posts"         => posts,
         "series_index"  => index + 1,
         "series_total"  => total,

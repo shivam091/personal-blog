@@ -121,16 +121,10 @@
 
 .toggle-menu
   display: none
+  @include transition-properties(transform, $duration: $motion-duration-default, $easing: $motion-easing-smooth)
 
   @include breakpoint.max(md)
     display: block
 
-  .icon-hamburger
-    @include transition-properties(transform, $duration: $motion-duration-default, $easing: $motion-easing-smooth)
-
-    @at-root [data-drawer="open"] &
-      transform: scale(1.5)
-
-      .toggle-menu:active
-        .icon-hamburger
-          transform: scale(1.5)
+  @at-root [data-drawer="open"] &
+    transform: scale(1.5)

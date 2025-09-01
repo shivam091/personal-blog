@@ -20,7 +20,9 @@ module Jekyll
     def render(context)
       site = context.registers[:site]
 
-      summary_html = Kramdown::Document.new(@summary).to_html_extended
+      summary_resolved = Liquid::Template.parse(@summary).render(context)
+
+      summary_html = Kramdown::Document.new(summary_resolved).to_html_extended
       content_html = Kramdown::Document.new(super.strip).to_html_extended
 
       <<~HTML

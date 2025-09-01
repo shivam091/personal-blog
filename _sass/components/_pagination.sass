@@ -2,49 +2,28 @@
 
 .pagination-wrapper
   display: flex
-  justify-content: space-between
-  align-items: center
-  margin-block: $fluid-space-base $fluid-space-sm
+  justify-content: center
   flex-direction: row
-
-  @media (max-width: 1024px)
-    flex-direction: column-reverse
-    gap: $space-sm
+  margin-block: $fluid-space-base
 
 .pagination
   display: flex
   flex-wrap: wrap
   justify-content: center
   align-items: center
-
-  &-meta
-    display: flex
-    flex-wrap: wrap
-    align-items: center
-    color: var(--color-fg-muted)
-    font-size: $font-size-sm
-    text-align: center
+  gap: $space-sm
 
 .page-link
+  display: inline-flex
+  align-items: center
+  gap: $space-xs
   padding: $space-sm $space-md
   background-color: var(--color-bg-control)
   color: var(--color-fg-control)
   border: $border-default
-  font-size: $font-size-sm
-  margin-left: -1px
+  border-radius: $border-radius-sm
 
-  &:first-child
-    border-radius: $border-radius-sm 0 0 $border-radius-sm
-
-  &:last-child
-    border-radius: 0 $border-radius-sm $border-radius-sm 0
-
-  &.active
-    background-color: var(--color-bg-accent-emphasis)
-    color: var(--color-fg-on-emphasis)
-    pointer-events: none
-
-  &:hover:not(.active)
+  &:hover
     background-color: var(--color-bg-control-hover)
     border-color: var(--color-border-control)
     text-decoration: none

@@ -4,7 +4,7 @@ title: "Responsive CSS Grid Layouts: `fr` Units, `minmax()`, `auto-fill`, and `a
 date: 2025-07-09 15:20
 shortinfo: "Smarter layouts without rigid breakpoints."
 tags: [css, grid, beginner, responsive, layout, fr-units, minmax, media-queries, container-queries, auto-fit, auto-fill]
-categories: [CSS]
+category: CSS
 excerpt: "Learn how to build truly responsive CSS Grid layouts using `fr` units, `minmax()`, `auto-fit`, `auto-fill`, and modern media & container queries."
 series: css-grid-fundamentals
 slug: responsive-css-grid-layouts
@@ -13,6 +13,13 @@ image:
   width: 1200
   height: 630
   alt: Colorful flat-design illustration showcasing responsive CSS Grid techniques, including fr units, minmax(), auto-fit, media queries, and container queries.
+changelog:
+  - date: 2025-08-24
+    change: "Added shortinfo"
+  - date: 2025-08-08
+    change: "Updated tags and categories"
+  - date: 2025-07-09
+    change: "Initial publication"
 ---
 
 ## Introduction

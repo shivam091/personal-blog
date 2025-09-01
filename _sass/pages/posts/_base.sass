@@ -10,6 +10,7 @@
   grid-template-columns: 80ch 1fr
   grid-template-areas: "post-content toc"
   column-gap: $space-xl
+  margin-top: $space-base
 
   @include breakpoint.max(xl)
     grid-template-columns: 70ch 1fr
@@ -59,6 +60,7 @@
   font-weight: $font-weight-medium
   line-height: $line-height-relaxed
   color: var(--color-fg-accent-muted)
+  margin-block-end: $space-sm
 
 .post-excerpt
   margin: $space-none
