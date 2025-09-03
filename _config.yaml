@@ -29,6 +29,9 @@ kramdown:
 google_analytics:
   id: "G-W5GHEJ51PD"
 
+formspree:
+  id: "xpwjdwgq"
+
 include:
   - assets
 

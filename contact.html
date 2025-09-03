@@ -1,0 +1,68 @@
+---
+layout: page
+title: Contact Harshal
+permalink: /contact
+---
+
+<section class="contact-layout">
+  <div class="contact-intro">
+    <p>
+      I’d love to hear from you! Whether it’s feedback, a question about a post, or a collaboration idea, feel free to reach out.
+      I always enjoy connecting with readers — just use the form below to share your questions, comments, or ideas.
+    </p>
+    <p>
+      If you have a question, please check the <strong>Frequently Asked Questions</strong>
+      <span class="right-text">over on the right</span>
+      <span class="below-text">below</span>
+      — you might find the answer you’re looking for. 😄
+    </p>
+  </div>
+
+  <div class="contact-section">
+    <div class="contact-form-container">
+      <form id="contact-form" class="contact-form" method="post" action="https://formspree.io/f/{{ site.formspree.id }}">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Preferred Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="_replyto">Email Address</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+        </div>
+
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+
+        <button class="btn" type="submit">
+          <span class="btn-text">Send Message</span>
+          <span class="icon-right">
+            {% svg arrow-right %}
+          </span>
+        </button>
+      </form>
+    </div>
+    <p class=recaptcha-disclaimer>
+      This site is protected by reCAPTCHA and the Google
+      <a target="_blank" href="https://policies.google.com/privacy">Privacy Policy</a>
+      and
+      <a target="_blank" href="https://policies.google.com/terms">Terms of Service</a>
+      apply.
+    </p>
+  </div>
+
+  <div class="contact-faq">
+    <h2>Frequently Asked Questions</h2>
+    {% for faq in site.data.faqs %}
+      {% details summary="{{faq.question}}" %}
+        {{ faq.answer }}
+      {% enddetails %}
+    {% endfor %}
+  </div>
+</section>

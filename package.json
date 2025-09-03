@@ -27,6 +27,7 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "counterapi": "^2.1.2",
+    "recaptcha-v3": "^1.11.3",
     "typed.js": "^2.0.16",
     "vanilla-lazyload": "^19.1.3"
   }
