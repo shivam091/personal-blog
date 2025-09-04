@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Contact Harshal" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Harshal V. LADHE","url":"https://shivam091.github.io"},"dateModified":"2025-09-03T16:35:20+05:30","description":"I’m a software engineer, freelancer, and lifelong learner passionate about building clean, scalable web solutions. I contribute to open-source, embrace minimalism in code and life, and stay curious about emerging tech.","headline":"Contact Harshal","url":"https://shivam091.github.io/contact"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Harshal V. LADHE","url":"https://shivam091.github.io"},"dateModified":"2025-09-04T19:27:59+05:30","description":"I’m a software engineer, freelancer, and lifelong learner passionate about building clean, scalable web solutions. I contribute to open-source, embrace minimalism in code and life, and stay curious about emerging tech.","headline":"Contact Harshal","url":"https://shivam091.github.io/contact"}</script>
 <!-- End Jekyll SEO tag -->
 <!-- Favicon -->
 <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/icons/apple-icon-57x57.png">
@@ -322,7 +322,7 @@
 
   <div class="contact-section">
     <div class="contact-form-container">
-      <form class="contact-form" method="post" action="https://formspree.io/f/your-form-id">
+      <form id="contact-form" class="contact-form" method="post" action="https://formspree.io/f/xpwjdwgq">
         <div class="form-row">
           <div class="form-group">
             <label for="name">Preferred Name</label>
@@ -331,7 +331,7 @@
 
           <div class="form-group">
             <label for="_replyto">Email Address</label>
-            <input type="email" id="email" name="_replyto" placeholder="john.doe@domain.com" required />
+            <input type="email" id="email" name="email" placeholder="john.doe@domain.com" required />
           </div>
         </div>
 
@@ -340,9 +340,18 @@
           <textarea id="message" name="message" rows="6" required></textarea>
         </div>
 
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+
         <button type="submit">Send Message</button>
       </form>
     </div>
+    <p class=recaptcha-disclaimer>
+      This site is protected by reCAPTCHA and the Google
+      <a target="_blank" href="https://policies.google.com/privacy">Privacy Policy</a>
+      and
+      <a target="_blank" href="https://policies.google.com/terms">Terms of Service</a>
+      apply.
+    </p>
   </div>
 
   <div class="contact-faq">
