@@ -17,7 +17,7 @@
   </defs>
 
   <!-- Digit 0 -->
-  <symbol id="segment-0" viewBox="0 0 24 40">
+  <symbol id="digit-0" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -28,7 +28,7 @@
   </symbol>
 
   <!-- Digit 1 -->
-  <symbol id="segment-1" viewBox="0 0 24 40">
+  <symbol id="digit-1" viewBox="0 0 24 40">
     <use href="#seg-a" class="off" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -39,7 +39,7 @@
   </symbol>
 
   <!-- Digit 2 -->
-  <symbol id="segment-2" viewBox="0 0 24 40">
+  <symbol id="digit-2" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="off" />
@@ -50,7 +50,7 @@
   </symbol>
 
   <!-- Digit 3 -->
-  <symbol id="segment-3" viewBox="0 0 24 40">
+  <symbol id="digit-3" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -61,7 +61,7 @@
   </symbol>
 
   <!-- Digit 4 -->
-  <symbol id="segment-4" viewBox="0 0 24 40">
+  <symbol id="digit-4" viewBox="0 0 24 40">
     <use href="#seg-a" class="off" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -72,7 +72,7 @@
   </symbol>
 
   <!-- Digit 5 -->
-  <symbol id="segment-5" viewBox="0 0 24 40">
+  <symbol id="digit-5" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="off" />
     <use href="#seg-c" class="on" />
@@ -83,7 +83,7 @@
   </symbol>
 
   <!-- Digit 6 -->
-  <symbol id="segment-6" viewBox="0 0 24 40">
+  <symbol id="digit-6" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="off" />
     <use href="#seg-c" class="on" />
@@ -94,7 +94,7 @@
   </symbol>
 
   <!-- Digit 7 -->
-  <symbol id="segment-7" viewBox="0 0 24 40">
+  <symbol id="digit-7" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -105,7 +105,7 @@
   </symbol>
 
   <!-- Digit 8 -->
-  <symbol id="segment-8" viewBox="0 0 24 40">
+  <symbol id="digit-8" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -116,7 +116,7 @@
   </symbol>
 
   <!-- Digit 9 -->
-  <symbol id="segment-9" viewBox="0 0 24 40">
+  <symbol id="digit-9" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
