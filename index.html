@@ -182,52 +182,8 @@
             <feMergeNode in="SourceGraphic"/>
           </feMerge>
         </filter>
-
-        <!-- Gradients, filters, and masks for Sun & Moon -->
-        <radialGradient id="sun-photosphere" cx="50%" cy="50%" r="55%">
-          <stop offset="0%"  stop-color="#FFFBE6"/>
-          <stop offset="45%" stop-color="#FFD36B"/>
-          <stop offset="100%" stop-color="#FF9F1A"/>
-        </radialGradient>
-        <radialGradient id="sun-corona" cx="50%" cy="50%" r="65%">
-          <stop offset="0%"   stop-color="rgba(255, 210, 90, 0.8)"/>
-          <stop offset="70%"  stop-color="rgba(255, 160, 40, 0.25)"/>
-          <stop offset="100%" stop-color="rgba(255, 140, 0, 0)"/>
-        </radialGradient>
-        <filter id="sun-glow" x="-150%" y="-150%" width="400%" height="400%">
-          <feGaussianBlur stdDeviation="8" result="blur"/>
-          <feMerge>
-            <feMergeNode in="blur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-        <filter id="sun-breathe" x="-150%" y="-150%" width="400%" height="400%">
-          <feGaussianBlur stdDeviation="14">
-            <animate attributeName="stdDeviation" values="12;16;12" dur="6s" repeatCount="indefinite"/>
-          </feGaussianBlur>
-        </filter>
-
-        <radialGradient id="moon-core" cx="50%" cy="50%" r="55%">
-          <stop offset="0%"  stop-color="#F2F2F2"/>
-          <stop offset="65%" stop-color="#D9D9D9"/>
-          <stop offset="100%" stop-color="#C9C9C9"/>
-        </radialGradient>
-        <filter id="moon-noise" x="-50%" y="-50%" width="200%" height="200%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" seed="7" result="noise"/>
-          <feColorMatrix type="matrix"
-            values="0 0 0 0 0.6
-                    0 0 0 0 0.6
-                    0 0 0 0 0.6
-                    0 0 0 -0.9 1" result="maria"/>
-          <feGaussianBlur stdDeviation="0.8" in="maria" result="mariaBlur"/>
-          <feBlend in="SourceGraphic" in2="mariaBlur" mode="multiply"/>
-        </filter>
-        <mask id="moon-phase-mask">
-          <rect x="0" y="0" width="5120" height="456" fill="black"/>
-          <circle id="moon-mask-disc" cx="0" cy="0" r="60" fill="white"/>
-          <circle id="moon-phase-disc" cx="0" cy="0" r="60" fill="black"/>
-        </mask>
       </defs>
+
       <g filter="url(#glow)">
         <use href="#star" x="1630" y="10" width="12" height="12">
           <animate attributeName="opacity" values="0.75;1;0.75" dur="6.2s" begin="0.5s" repeatCount="indefinite" />
@@ -366,35 +322,6 @@
           <animate attributeName="opacity" values="0.75;1;0.75" dur="6.2s" begin="0.9s" repeatCount="indefinite" />
           <animateTransform attributeName="transform" type="translate" values="0 0; 7 3; 0 0" dur="20s" repeatCount="indefinite" />
         </use>
-      </g>
-      <g id="sun">
-        <circle cx="2800" cy="120" r="50" fill="url(#sun-corona)" filter="url(#sun-breathe)"/>
-        <circle cx="2800" cy="120" r="30" fill="url(#sun-photosphere)" filter="url(#sun-glow)">
-          <animate attributeName="opacity" values="0.98;1;0.98" dur="8s" repeatCount="indefinite"/>
-        </circle>
-      </g>
-
-      <!-- Moon -->
-      <g id="moon">
-        <circle id="moon-body" cx="4800" cy="110" r="60" fill="url(#moon-core)" filter="url(#moon-noise)" mask="url(#moon-phase-mask)"/>
-        <circle cx="4800" cy="110" r="70" fill="none" opacity="0.35" filter="url(#sun-glow)"/>
-      </g>
-      <g stroke="white" stroke-width="2" opacity="0.8">
-        <!-- Left → Right -->
-        <line x1="0" y1="0" x2="20" y2="0">
-          <animateTransform attributeName="transform" type="translate" values="-200 200; 5120 -200" dur="2s" begin="10s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0;1;0" dur="2s" begin="10s" repeatCount="indefinite" />
-        </line>
-        <line x1="0" y1="0" x2="15" y2="0">
-          <animateTransform attributeName="transform" type="translate" values="-100 500; 5120 200" dur="1.8s" begin="25s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0;1;0" dur="1.8s" begin="25s" repeatCount="indefinite" />
-        </line>
-
-        <!-- Right → Left -->
-        <line x1="0" y1="0" x2="20" y2="0">
-          <animateTransform attributeName="transform" type="translate" values="5300 300; -200 100" dur="2s" begin="15s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0;1;0" dur="2s" begin="15s" repeatCount="indefinite" />
-        </line>
       </g>
     </svg>
   </div>
@@ -767,6 +694,12 @@
 <section class="trending-tags" aria-labelledby="trending-tags-heading">
   <h2 id="trending-tags-heading" class="section">Trending Tags</h2>
   <ul class="tags">
+    <li class="tag"><a href="/tag/frontend" class="tag-link link-muted"
+           rel="tag" aria-label="Tag: frontend">
+          <span class="tag-name">#frontend</span>
+        </a>
+        <span class="tag-count">4</span>
+      </li>
     <li class="tag"><a href="/tag/css" class="tag-link link-muted"
            rel="tag" aria-label="Tag: css">
           <span class="tag-name">#css</span>
@@ -776,12 +709,6 @@
     <li class="tag"><a href="/tag/layout" class="tag-link link-muted"
            rel="tag" aria-label="Tag: layout">
           <span class="tag-name">#layout</span>
-        </a>
-        <span class="tag-count">4</span>
-      </li>
-    <li class="tag"><a href="/tag/frontend" class="tag-link link-muted"
-           rel="tag" aria-label="Tag: frontend">
-          <span class="tag-name">#frontend</span>
         </a>
         <span class="tag-count">4</span>
       </li>
@@ -796,18 +723,6 @@
           <span class="tag-name">#beginner</span>
         </a>
         <span class="tag-count">3</span>
-      </li>
-    <li class="tag"><a href="/tag/responsive" class="tag-link link-muted"
-           rel="tag" aria-label="Tag: responsive">
-          <span class="tag-name">#responsive</span>
-        </a>
-        <span class="tag-count">2</span>
-      </li>
-    <li class="tag"><a href="/tag/css-grid" class="tag-link link-muted"
-           rel="tag" aria-label="Tag: css-grid">
-          <span class="tag-name">#css-grid</span>
-        </a>
-        <span class="tag-count">2</span>
       </li>
     <li class="tag"><a href="/tag/typography" class="tag-link link-muted"
            rel="tag" aria-label="Tag: typography">
@@ -824,6 +739,18 @@
     <li class="tag"><a href="/tag/styleguide" class="tag-link link-muted"
            rel="tag" aria-label="Tag: styleguide">
           <span class="tag-name">#styleguide</span>
+        </a>
+        <span class="tag-count">2</span>
+      </li>
+    <li class="tag"><a href="/tag/css-grid" class="tag-link link-muted"
+           rel="tag" aria-label="Tag: css-grid">
+          <span class="tag-name">#css-grid</span>
+        </a>
+        <span class="tag-count">2</span>
+      </li>
+    <li class="tag"><a href="/tag/responsive" class="tag-link link-muted"
+           rel="tag" aria-label="Tag: responsive">
+          <span class="tag-name">#responsive</span>
         </a>
         <span class="tag-count">2</span>
       </li>
@@ -867,13 +794,13 @@
   <ul class="recently-updated-list">
   
     <li>
-      <a href="/post/unleashing-css-logical-properties" class="recently-updated-post link-muted">
+      <a href="/post/mastering-js-operators" class="recently-updated-post link-muted">
         <svg version="1.0" role="img" class="icon icon-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <line x1="5" y1="12" x2="18" y2="12" />
   <polyline points="12 5 19 12 12 19" />
 </svg>
 
-        Unleashing CSS Logical Properties
+        Mastering JavaScript Operators: A Complete Guide with Examples
       </a>
     </li>
   
@@ -889,13 +816,24 @@
     </li>
   
     <li>
+      <a href="/post/components" class="recently-updated-post link-muted">
+        <svg version="1.0" role="img" class="icon icon-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="5" y1="12" x2="18" y2="12" />
+  <polyline points="12 5 19 12 12 19" />
+</svg>
+
+        Components
+      </a>
+    </li>
+  
+    <li>
       <a href="/post/getting-started-with-css-grid" class="recently-updated-post link-muted">
         <svg version="1.0" role="img" class="icon icon-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <line x1="5" y1="12" x2="18" y2="12" />
   <polyline points="12 5 19 12 12 19" />
 </svg>
 
-        Getting Started with CSS Grid: A Beginner's Guide to 2D Layouts
+        Getting Started with CSS Grid: A Beginner’s Guide to 2D Layouts
       </a>
     </li>
   
@@ -907,17 +845,6 @@
 </svg>
 
         Mastering CSS Grid: Grid Areas, Item Alignment, and Spanning
-      </a>
-    </li>
-  
-    <li>
-      <a href="/post/responsive-css-grid-layouts" class="recently-updated-post link-muted">
-        <svg version="1.0" role="img" class="icon icon-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="5" y1="12" x2="18" y2="12" />
-  <polyline points="12 5 19 12 12 19" />
-</svg>
-
-        Responsive CSS Grid Layouts: `fr` Units, `minmax()`, `auto-fill`, and `auto-fit` Explained
       </a>
     </li>
   
