@@ -5,7 +5,7 @@
   <subtitle>I’m a software engineer, freelancer, and lifelong learner passionate about building clean, scalable web solutions. I contribute to open-source, embrace minimalism in code and life, and stay curious about emerging tech.</subtitle>
   <id>https://shivam091.github.io/</id>
   <icon>https://shivam091.github.io/img/favicon.png</icon>
-  <updated>2025-09-04T22:30:40+05:30</updated>
+  <updated>2025-09-04T22:36:03+05:30</updated>
   <rights>© 2025 Harshal V. LADHE</rights>
 
   <link rel="alternate" type="text/html" href="https://shivam091.github.io" />
@@ -26,7 +26,7 @@
     <id>https://shivam091.github.io/post/unleashing-css-logical-properties</id>
 
     <published>2025-08-24T10:22:19+05:30</published>
-    <updated>2025-08-24T10:22:19+05:30</updated>
+    <updated>2025-09-01T10:49:00+05:30</updated>
 
     
     <media:thumbnail
@@ -1914,9 +1914,11 @@ your logical properties. This ensures that browsers without logical property sup
 </details>
 
 <h2  id="conclusion" dir="auto">Conclusion</h2>
-<p  dir="auto">CSS Logical Properties are the future of responsive, internationalized web design. They eliminate the need for duplicate styles for different
-writing directions, ensuring your layouts adapt naturally to any language or script.</p>
-<p  dir="auto">By adopting them now, you’re creating layouts that are <strong>direction-aware</strong>, <strong>international-ready</strong>, and <strong>easy to maintain</strong>—without the extra headaches.</p>]]></content>
+<p  dir="auto">CSS Logical Properties aren’t just about cleaner code — they represent the future of responsive, internationalized web design.
+By thinking in terms of flow-relative directions instead of fixed sides, you create layouts that are naturally direction-aware, resilient,
+and easier to maintain across languages and scripts.</p>
+<p  dir="auto">Start small: replace <code  class="highlighter-rouge notranslate">margin-left</code> with <code  class="highlighter-rouge notranslate">margin-inline-start</code>, or <code  class="highlighter-rouge notranslate">width</code> with <code  class="highlighter-rouge notranslate">inline-size</code>. Over time, your CSS will become not only simpler,
+but also future-proof and truly international-ready.</p>]]></content>
 
     
       <category term="css" scheme="urn:taxonomy:tag" />
@@ -1956,8 +1958,8 @@ writing directions, ensuring your layouts adapt naturally to any language or scr
     <link rel="alternate" type="text/html" href="https://shivam091.github.io/post/mastering-js-operators" />
     <id>https://shivam091.github.io/post/mastering-js-operators</id>
 
-    <published>2025-08-08T22:28:06+05:30</published>
-    <updated>2025-08-08T22:28:06+05:30</updated>
+    <published>2025-09-01T12:57:31+05:30</published>
+    <updated>2025-09-01T12:57:31+05:30</updated>
 
     
 
@@ -2673,7 +2675,7 @@ expression’s result is implicitly returned.</p>
     <id>https://shivam091.github.io/post/responsive-css-grid-layouts</id>
 
     <published>2025-07-09T15:21:11+05:30</published>
-    <updated>2025-08-14T08:42:44+05:30</updated>
+    <updated>2025-09-01T10:49:00+05:30</updated>
 
     
     <media:thumbnail
@@ -3903,7 +3905,7 @@ Use <strong><code  class="highlighter-rouge notranslate">auto-fill</code></stron
     <id>https://shivam091.github.io/post/mastering-css-grid</id>
 
     <published>2025-07-09T15:21:11+05:30</published>
-    <updated>2025-08-14T08:42:44+05:30</updated>
+    <updated>2025-09-01T10:49:00+05:30</updated>
 
     
     <media:thumbnail
@@ -5568,7 +5570,7 @@ form what’s known as the <strong>implicit grid</strong>.</p>
     <id>https://shivam091.github.io/post/getting-started-with-css-grid</id>
 
     <published>2025-07-09T15:21:11+05:30</published>
-    <updated>2025-08-14T08:42:44+05:30</updated>
+    <updated>2025-09-01T10:49:00+05:30</updated>
 
     
     <media:thumbnail
@@ -6163,7 +6165,7 @@ like fr (fraction of available space).</p></li>
     <id>https://shivam091.github.io/post/components</id>
 
     <published>2025-06-16T19:10:40+05:30</published>
-    <updated>2025-08-26T10:32:05+05:30</updated>
+    <updated>2025-09-01T10:49:00+05:30</updated>
 
     
     <media:thumbnail
@@ -6175,277 +6177,7 @@ like fr (fraction of available space).</p></li>
     <summary type="html">
       This post is a comprehensive test of various components. It includes alerts, code blocks, buttons, and more.
     </summary>
-    <content type="html"><![CDATA[<div class="playground">
-  <!-- Toolbar -->
-  <div class="toolbar">
-    <div class="brand">
-      <span class="dot close"><svg version="1.0" role="img" class="icon icon-circle-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <circle cx="12" cy="12" r="12" />
-</svg>
-</span>
-      <span class="dot minimize"><svg version="1.0" role="img" class="icon icon-circle-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <circle cx="12" cy="12" r="12" />
-</svg>
-</span>
-      <span class="dot maximize"><svg version="1.0" role="img" class="icon icon-circle-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <circle cx="12" cy="12" r="12" />
-</svg>
-</span>
-      <span class="title">Code Playground</span>
-    </div>
-    <div class="actions">
-      <button class="cp-btn" data-cp-reset=""><svg version="1.0" role="img" class="icon icon-skip-back" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="5" y1="19" x2="5" y2="5" />
-  <polygon points="19 20 9 12 19 4 19 20" />
-</svg>
-</button>
-      <button class="cp-btn" data-cp-reset=""><svg version="1.0" role="img" class="icon icon-hash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="4" y1="9" x2="20" y2="9" />
-  <line x1="4" y1="15" x2="20" y2="15" />
-  <line x1="10" y1="3" x2="8" y2="21" />
-  <line x1="16" y1="3" x2="14" y2="21" />
-</svg>
-</button>
-      <button class="cp-btn" data-cp-export=""><svg version="1.0" role="img" class="icon icon-download" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-  <polyline points="7 10 12 15 17 10" />
-  <line x1="12" y1="15" x2="12" y2="3" />
-</svg>
-</button>
-      
-      <a href="https://codepen.io/shivam091/pen/NPGavRO" class="cp-btn" target="_blank" title="Open in CodePen"><svg version="1.0" role="img" class="icon icon-external-link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <mask id="external-icon-mask">
-    <rect x="0" y="0" width="24" height="24" fill="white" />
-    <rect x="10" y="0" width="16" height="14" fill="black" />
-  </mask>
-  <rect x="3" y="6" width="15" height="15" rx="2" mask="url(#external-icon-mask)" />
-  <path d="M 10 14 L 20 4 h -6 h 6 v 6" stroke="currentColor" style="transition: stroke .25s;" />
-</svg>
-</a>
-      
-    </div>
-  </div>
-
-  <!-- Main -->
-  <div class="pen" data-code-playground="" data-autorun="true">
-    <div class="editors-col">
-      <!-- Editor Tabs -->
-      <div class="tabs" role="tablist" aria-label="Editor Tabs">
-        
-        <button class="tab" role="tab" aria-selected="true" data-tab="html" id="tab-html">HTML</button>
-        
-        
-        <button class="tab" role="tab" aria-selected="false" data-tab="css" id="tab-css">CSS</button>
-        
-        
-        <button class="tab" role="tab" aria-selected="false" data-tab="js" id="tab-js">JS</button>
-        
-        <div class="spacer"></div>
-      </div>
-
-      <!-- Editors -->
-      <div class="editors">
-        
-        <div class="editor" role="tabpanel" aria-hidden="false" aria-labelledby="tab-html" data-editor="html">
-          <div class="editor-actions">
-            <button class="cp-btn" data-copy-target="#code-html" title="Copy code"><svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-  <path d="m9 14 2 2 4-4" stroke-opacity="0" />
-</svg>
-</button>
-            <button class="cp-btn" data-beautify="html" title="Beautify code"><svg version="1.0" role="img" class="icon icon-magic-wand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-  <defs>
-    <!-- Sparkle symbol -->
-    <symbol id="sparkle" viewBox="0 0 10 10">
-      <polygon points="4.6,5.4 6.6,6.0 7.2,8.0 8.0,6.0 10.0,5.4 8.0,4.8 7.2,2.8 6.6,4.8" stroke-width="1" />
-    </symbol>
-  </defs>
-
-  <!-- Wand (handle + head grouped together) -->
-  <g transform="rotate(-45 10 15)" stroke-width="2">
-    <!-- Full wand body -->
-    <rect x="0" y="12" width="24" height="5" rx="2" />
-
-    <!-- Divider between handle and head -->
-    <line x1="18" y1="12" x2="18" y2="16" />
-  </g>
-
-  <!-- Sparkles using <use> -->
-  <use href="#sparkle" x="-9" y="-9" width="18" height="18" />
-  <use href="#sparkle" x="9" y="14" width="16" height="16" />
-  <use href="#sparkle" x="15" y="-10" width="17" height="17" />
-</svg>
-</button>
-          </div>
-          <textarea spellcheck="false" id="code-html">&lt;div class=&quot;card&quot;&gt;
-  &lt;h1&gt;Hello, I&#39;m Harshal LADHE 👋&lt;/h1&gt;
-  &lt;p&gt;
-    Edit HTML, CSS, and JS, then hit
-    &lt;strong&gt;Run&lt;/strong&gt;
-    or enable
-    &lt;em&gt;Auto‑run&lt;/em&gt;.
-  &lt;/p&gt;
-  &lt;button id=&quot;btn&quot;&gt;Click me&lt;/button&gt;
-&lt;/div&gt;
-</textarea>
-        </div>
-        
-        
-        <div class="editor" role="tabpanel" aria-hidden="true" aria-labelledby="tab-css" data-editor="css">
-          <div class="editor-actions">
-            <button class="cp-btn" data-copy-target="#code-css" title="Copy code"><svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-  <path d="m9 14 2 2 4-4" stroke-opacity="0" />
-</svg>
-</button>
-            <button class="cp-btn" data-beautify="css" title="Beautify code"><svg version="1.0" role="img" class="icon icon-magic-wand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-  <defs>
-    <!-- Sparkle symbol -->
-    <symbol id="sparkle" viewBox="0 0 10 10">
-      <polygon points="4.6,5.4 6.6,6.0 7.2,8.0 8.0,6.0 10.0,5.4 8.0,4.8 7.2,2.8 6.6,4.8" stroke-width="1" />
-    </symbol>
-  </defs>
-
-  <!-- Wand (handle + head grouped together) -->
-  <g transform="rotate(-45 10 15)" stroke-width="2">
-    <!-- Full wand body -->
-    <rect x="0" y="12" width="24" height="5" rx="2" />
-
-    <!-- Divider between handle and head -->
-    <line x1="18" y1="12" x2="18" y2="16" />
-  </g>
-
-  <!-- Sparkles using <use> -->
-  <use href="#sparkle" x="-9" y="-9" width="18" height="18" />
-  <use href="#sparkle" x="9" y="14" width="16" height="16" />
-  <use href="#sparkle" x="15" y="-10" width="17" height="17" />
-</svg>
-</button>
-          </div>
-          <textarea spellcheck="false" id="code-css">:root {
-  --brand: #0ebeff;
-  --ink: #111827;
-}
-body {
-  font-family: system-ui, sans-serif;
-  margin: 0;
-}
-.card {
-  width: min(680px, 90%);
-  margin: 2rem auto;
-  padding: 1.25rem 1.5rem;
-  border-radius: 14px;
-  background: #ffffff;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-h1 {
-  margin: 0 0 0.5rem;
-  font-size: clamp(1.5rem, 1rem + 2vw, 2rem);
-  color: #0f172a;
-}
-p {
-  color: #334155;
-}
-#btn {
-  background: var(--brand);
-  color: white;
-  border: 0;
-  padding: 0.6rem 0.9rem;
-  border-radius: 999px;
-  font-weight: 700;
-  cursor: pointer;
-}
-#btn:hover {
-  filter: brightness(0.95);
-}
-</textarea>
-        </div>
-        
-        
-        <div class="editor" role="tabpanel" aria-hidden="true" aria-labelledby="tab-js" data-editor="js">
-          <div class="editor-actions">
-            <button class="cp-btn" data-copy-target="#code-js" title="Copy code"><svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-  <path d="m9 14 2 2 4-4" stroke-opacity="0" />
-</svg>
-</button>
-            <button class="cp-btn" data-beautify="js" title="Beautify code"><svg version="1.0" role="img" class="icon icon-magic-wand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-  <defs>
-    <!-- Sparkle symbol -->
-    <symbol id="sparkle" viewBox="0 0 10 10">
-      <polygon points="4.6,5.4 6.6,6.0 7.2,8.0 8.0,6.0 10.0,5.4 8.0,4.8 7.2,2.8 6.6,4.8" stroke-width="1" />
-    </symbol>
-  </defs>
-
-  <!-- Wand (handle + head grouped together) -->
-  <g transform="rotate(-45 10 15)" stroke-width="2">
-    <!-- Full wand body -->
-    <rect x="0" y="12" width="24" height="5" rx="2" />
-
-    <!-- Divider between handle and head -->
-    <line x1="18" y1="12" x2="18" y2="16" />
-  </g>
-
-  <!-- Sparkles using <use> -->
-  <use href="#sparkle" x="-9" y="-9" width="18" height="18" />
-  <use href="#sparkle" x="9" y="14" width="16" height="16" />
-  <use href="#sparkle" x="15" y="-10" width="17" height="17" />
-</svg>
-</button>
-          </div>
-          <textarea spellcheck="false" id="code-js">document.getElementById(&#39;btn&#39;).addEventListener(&#39;click&#39;, () =&gt; {
-  console.info(&quot;Boop! CodePen‑style playground ✅&quot;)
-});
-</textarea>
-        </div>
-        
-      </div>
-    </div>
-
-    <!-- Preview -->
-    <div class="preview-col">
-      <div class="preview">
-        <div class="preview-tabs" role="tablist">
-          <button class="tab" role="tab" aria-selected="true" data-preview="result">Result</button>
-          <button class="tab" role="tab" aria-selected="false" data-preview="console">Console</button>
-          <div class="spacer"></div>
-          <label class="check">
-            <input type="checkbox" data-cp-autorun="" checked="" /> Auto-run
-          </label>
-        </div>
-        <div class="preview-panels">
-          <div class="preview-panel" data-panel="result" aria-hidden="false">
-            <div class="preview-actions">
-              <button class="cp-btn" data-cp-run=""><svg version="1.0" role="img" class="icon icon-refresh" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
-  <path d="M21 3v5h-5" />
-  <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
-  <path d="M8 16H3v5" />
-</svg>
-</button>
-            </div>
-            <iframe class="preview-iframe" title="Result"></iframe>
-          </div>
-          <div class="preview-panel" data-panel="console" aria-hidden="true">
-            <div class="preview-actions">
-              <button class="cp-btn" data-cp-clear-console=""><svg version="1.0" role="img" class="icon icon-circle-slash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="12" cy="12" r="10" />
-  <path d="M22 2 2 22" />&lt;/path&gt;
-</svg>
-</button>
-            </div>
-            <div class="console" id="cp-console"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<h2  id="codeblocks" dir="auto">Codeblocks</h2>
+    <content type="html"><![CDATA[<h2  id="codeblocks" dir="auto">Codeblocks</h2>
 <div class="code-block" data-copy-code="">
   <div class="code-block-header" role="region" aria-labelledby="code-lang-label">
     <div class="code-block-button-group" aria-hidden="true">
@@ -6791,7 +6523,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
     <id>https://shivam091.github.io/post/typography</id>
 
     <published>2025-06-07T18:47:49+05:30</published>
-    <updated>2025-08-14T08:42:44+05:30</updated>
+    <updated>2025-09-01T10:49:00+05:30</updated>
 
     
     <media:thumbnail
