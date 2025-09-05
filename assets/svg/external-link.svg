@@ -1,0 +1,8 @@
+<svg version="1.0" role="img" class="icon icon-external-link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <mask id="external-icon-mask">
+    <rect x="0" y="0" width="24" height="24" fill="white" />
+    <rect x="10" y="0" width="16" height="14" fill="black" />
+  </mask>
+  <rect x="3" y="6" width="15" height="15" rx="2" mask="url(#external-icon-mask)" />
+  <path d="M 10 14 L 20 4 h -6 h 6 v 6" stroke="currentColor" style="transition: stroke .25s;" />
+</svg>
