@@ -28,7 +28,7 @@
 <meta name="twitter:image:alt" content="Demonstration of layout components" />
 <meta property="twitter:title" content="Components" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Harshal V. LADHE","url":"https://shivam091.github.io"},"dateModified":"2025-09-01T10:49:00+05:30","datePublished":"2025-06-16T18:20:00+05:30","description":"This post is a comprehensive test of various components. It includes alerts, code blocks, buttons, and more.","headline":"Components","image":{"width":1200,"height":630,"alt":"Demonstration of layout components","url":"https://shivam091.github.io/assets/img/posts/components/cover.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://shivam091.github.io/post/components"},"url":"https://shivam091.github.io/post/components"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Harshal V. LADHE","url":"https://shivam091.github.io"},"dateModified":"2025-08-26T10:32:05+05:30","datePublished":"2025-06-16T18:20:00+05:30","description":"This post is a comprehensive test of various components. It includes alerts, code blocks, buttons, and more.","headline":"Components","image":{"width":1200,"height":630,"alt":"Demonstration of layout components","url":"https://shivam091.github.io/assets/img/posts/components/cover.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://shivam091.github.io/post/components"},"url":"https://shivam091.github.io/post/components"}</script>
 <!-- End Jekyll SEO tag -->
 <!-- Favicon -->
 <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/icons/apple-icon-57x57.png">
@@ -314,7 +314,7 @@
 <section class="page-content" aria-label="Components">
   <article class="post" itemscope itemtype="https://schema.org/BlogPosting" aria-labelledby="page-title">
   <meta itemprop="datePublished" content="2025-06-16T19:10:40+05:30">
-  <meta itemprop="dateModified" content="2025-09-01T10:49:00+05:30">
+  <meta itemprop="dateModified" content="2025-08-26T10:32:05+05:30">
   <meta itemprop="headline" content="Components">
   <meta itemprop="mainEntityOfPage" content="https://shivam091.github.io/post/components">
 
@@ -341,8 +341,8 @@
 </svg>
 
     <span class="visually-hidden">Last updated:</span>
-    <time datetime='2025-09-01T10:49:00+05:30' aria-label='Last updated on September 01, 2025 at 10:49 AM' role='time' data-tooltip='Mon, September 01, 2025 10:49 AM' data-tooltip-position='bottom' tabindex='0'>
-  September 01, 2025
+    <time datetime='2025-08-26T10:32:05+05:30' aria-label='Last updated on August 26, 2025 at 10:32 AM' role='time' data-tooltip='Tue, August 26, 2025 10:32 AM' data-tooltip-position='bottom' tabindex='0'>
+  August 26, 2025
 </time>
 
   </div>
@@ -355,7 +355,7 @@
 </svg>
 
   <span class="visually-hidden">Estimated reading time:</span>
-  <span data-tooltip="189 words" data-tooltip-position="bottom" tabindex="0">2 min read</span>
+  <span data-tooltip="313 words" data-tooltip-position="bottom" tabindex="0">2 min read</span>
 </div>
 
 
@@ -366,7 +366,277 @@
 
   <div class="post-layout">
     <div class="post-content" itemprop="articleBody">
-      <h2 id="codeblocks" dir="auto">Codeblocks<a href="#codeblocks" class="heading-anchor" aria-label="Permalink: Codeblocks">#</a>
+      <div class="playground">
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="brand">
+      <span class="dot close"><svg version="1.0" role="img" class="icon icon-circle-fill" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
+  <circle cx="12" cy="12" r="12"></circle>
+</svg>
+</span>
+      <span class="dot minimize"><svg version="1.0" role="img" class="icon icon-circle-fill" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
+  <circle cx="12" cy="12" r="12"></circle>
+</svg>
+</span>
+      <span class="dot maximize"><svg version="1.0" role="img" class="icon icon-circle-fill" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
+  <circle cx="12" cy="12" r="12"></circle>
+</svg>
+</span>
+      <span class="title">Code Playground</span>
+    </div>
+    <div class="actions">
+      <button class="cp-btn" data-cp-reset=""><svg version="1.0" role="img" class="icon icon-skip-back" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="5" y1="19" x2="5" y2="5"></line>
+  <polygon points="19 20 9 12 19 4 19 20"></polygon>
+</svg>
+</button>
+      <button class="cp-btn" data-cp-reset=""><svg version="1.0" role="img" class="icon icon-hash" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="4" y1="9" x2="20" y2="9"></line>
+  <line x1="4" y1="15" x2="20" y2="15"></line>
+  <line x1="10" y1="3" x2="8" y2="21"></line>
+  <line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+</button>
+      <button class="cp-btn" data-cp-export=""><svg version="1.0" role="img" class="icon icon-download" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+  <polyline points="7 10 12 15 17 10"></polyline>
+  <line x1="12" y1="15" x2="12" y2="3"></line>
+</svg>
+</button>
+      
+      <a href="https://codepen.io/shivam091/pen/NPGavRO" class="cp-btn" target="_blank" title="Open in CodePen"><svg version="1.0" role="img" class="icon icon-external-link" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <mask id="external-icon-mask">
+    <rect x="0" y="0" width="24" height="24" fill="white"></rect>
+    <rect x="10" y="0" width="16" height="14" fill="black"></rect>
+  </mask>
+  <rect x="3" y="6" width="15" height="15" rx="2" mask="url(#external-icon-mask)"></rect>
+  <path d="M 10 14 L 20 4 h -6 h 6 v 6" stroke="currentColor" style="transition: stroke .25s;"></path>
+</svg>
+</a>
+      
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="pen" data-code-playground="" data-autorun="true">
+    <div class="editors-col">
+      <!-- Editor Tabs -->
+      <div class="tabs" role="tablist" aria-label="Editor Tabs">
+        
+        <button class="tab" role="tab" aria-selected="true" data-tab="html" id="tab-html">HTML</button>
+        
+        
+        <button class="tab" role="tab" aria-selected="false" data-tab="css" id="tab-css">CSS</button>
+        
+        
+        <button class="tab" role="tab" aria-selected="false" data-tab="js" id="tab-js">JS</button>
+        
+        <div class="spacer"></div>
+      </div>
+
+      <!-- Editors -->
+      <div class="editors">
+        
+        <div class="editor" role="tabpanel" aria-hidden="false" aria-labelledby="tab-html" data-editor="html">
+          <div class="editor-actions">
+            <button class="cp-btn" data-copy-target="#code-html" title="Copy code"><svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+  <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
+</svg>
+</button>
+            <button class="cp-btn" data-beautify="html" title="Beautify code"><svg version="1.0" role="img" class="icon icon-magic-wand" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <!-- Sparkle symbol -->
+    <symbol id="sparkle" viewbox="0 0 10 10">
+      <polygon points="4.6,5.4 6.6,6.0 7.2,8.0 8.0,6.0 10.0,5.4 8.0,4.8 7.2,2.8 6.6,4.8" stroke-width="1"></polygon>
+    </symbol>
+  </defs>
+
+  <!-- Wand (handle + head grouped together) -->
+  <g transform="rotate(-45 10 15)" stroke-width="2">
+    <!-- Full wand body -->
+    <rect x="0" y="12" width="24" height="5" rx="2"></rect>
+
+    <!-- Divider between handle and head -->
+    <line x1="18" y1="12" x2="18" y2="16"></line>
+  </g>
+
+  <!-- Sparkles using <use> -->
+  <use href="#sparkle" x="-9" y="-9" width="18" height="18"></use>
+  <use href="#sparkle" x="9" y="14" width="16" height="16"></use>
+  <use href="#sparkle" x="15" y="-10" width="17" height="17"></use>
+</svg>
+</button>
+          </div>
+          <textarea spellcheck="false" id="code-html">&lt;div class="card"&gt;
+  &lt;h1&gt;Hello, I'm Harshal LADHE 👋&lt;/h1&gt;
+  &lt;p&gt;
+    Edit HTML, CSS, and JS, then hit
+    &lt;strong&gt;Run&lt;/strong&gt;
+    or enable
+    &lt;em&gt;Auto‑run&lt;/em&gt;.
+  &lt;/p&gt;
+  &lt;button id="btn"&gt;Click me&lt;/button&gt;
+&lt;/div&gt;
+</textarea>
+        </div>
+        
+        
+        <div class="editor" role="tabpanel" aria-hidden="true" aria-labelledby="tab-css" data-editor="css">
+          <div class="editor-actions">
+            <button class="cp-btn" data-copy-target="#code-css" title="Copy code"><svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+  <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
+</svg>
+</button>
+            <button class="cp-btn" data-beautify="css" title="Beautify code"><svg version="1.0" role="img" class="icon icon-magic-wand" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <!-- Sparkle symbol -->
+    <symbol id="sparkle" viewbox="0 0 10 10">
+      <polygon points="4.6,5.4 6.6,6.0 7.2,8.0 8.0,6.0 10.0,5.4 8.0,4.8 7.2,2.8 6.6,4.8" stroke-width="1"></polygon>
+    </symbol>
+  </defs>
+
+  <!-- Wand (handle + head grouped together) -->
+  <g transform="rotate(-45 10 15)" stroke-width="2">
+    <!-- Full wand body -->
+    <rect x="0" y="12" width="24" height="5" rx="2"></rect>
+
+    <!-- Divider between handle and head -->
+    <line x1="18" y1="12" x2="18" y2="16"></line>
+  </g>
+
+  <!-- Sparkles using <use> -->
+  <use href="#sparkle" x="-9" y="-9" width="18" height="18"></use>
+  <use href="#sparkle" x="9" y="14" width="16" height="16"></use>
+  <use href="#sparkle" x="15" y="-10" width="17" height="17"></use>
+</svg>
+</button>
+          </div>
+          <textarea spellcheck="false" id="code-css">:root {
+  --brand: #0ebeff;
+  --ink: #111827;
+}
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+}
+.card {
+  width: min(680px, 90%);
+  margin: 2rem auto;
+  padding: 1.25rem 1.5rem;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.5rem, 1rem + 2vw, 2rem);
+  color: #0f172a;
+}
+p {
+  color: #334155;
+}
+#btn {
+  background: var(--brand);
+  color: white;
+  border: 0;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+#btn:hover {
+  filter: brightness(0.95);
+}
+</textarea>
+        </div>
+        
+        
+        <div class="editor" role="tabpanel" aria-hidden="true" aria-labelledby="tab-js" data-editor="js">
+          <div class="editor-actions">
+            <button class="cp-btn" data-copy-target="#code-js" title="Copy code"><svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+  <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
+</svg>
+</button>
+            <button class="cp-btn" data-beautify="js" title="Beautify code"><svg version="1.0" role="img" class="icon icon-magic-wand" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <!-- Sparkle symbol -->
+    <symbol id="sparkle" viewbox="0 0 10 10">
+      <polygon points="4.6,5.4 6.6,6.0 7.2,8.0 8.0,6.0 10.0,5.4 8.0,4.8 7.2,2.8 6.6,4.8" stroke-width="1"></polygon>
+    </symbol>
+  </defs>
+
+  <!-- Wand (handle + head grouped together) -->
+  <g transform="rotate(-45 10 15)" stroke-width="2">
+    <!-- Full wand body -->
+    <rect x="0" y="12" width="24" height="5" rx="2"></rect>
+
+    <!-- Divider between handle and head -->
+    <line x1="18" y1="12" x2="18" y2="16"></line>
+  </g>
+
+  <!-- Sparkles using <use> -->
+  <use href="#sparkle" x="-9" y="-9" width="18" height="18"></use>
+  <use href="#sparkle" x="9" y="14" width="16" height="16"></use>
+  <use href="#sparkle" x="15" y="-10" width="17" height="17"></use>
+</svg>
+</button>
+          </div>
+          <textarea spellcheck="false" id="code-js">document.getElementById('btn').addEventListener('click', () =&gt; {
+  console.info("Boop! CodePen‑style playground ✅")
+});
+</textarea>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- Preview -->
+    <div class="preview-col">
+      <div class="preview">
+        <div class="preview-tabs" role="tablist">
+          <button class="tab" role="tab" aria-selected="true" data-preview="result">Result</button>
+          <button class="tab" role="tab" aria-selected="false" data-preview="console">Console</button>
+          <div class="spacer"></div>
+          <label class="check">
+            <input type="checkbox" data-cp-autorun="" checked> Auto-run
+          </label>
+        </div>
+        <div class="preview-panels">
+          <div class="preview-panel" data-panel="result" aria-hidden="false">
+            <div class="preview-actions">
+              <button class="cp-btn" data-cp-run=""><svg version="1.0" role="img" class="icon icon-refresh" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+  <path d="M21 3v5h-5"></path>
+  <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+  <path d="M8 16H3v5"></path>
+</svg>
+</button>
+            </div>
+            <iframe class="preview-iframe" title="Result"></iframe>
+          </div>
+          <div class="preview-panel" data-panel="console" aria-hidden="true">
+            <div class="preview-actions">
+              <button class="cp-btn" data-cp-clear-console=""><svg version="1.0" role="img" class="icon icon-circle-slash" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10"></circle>
+  <path d="M22 2 2 22"></path>&lt;/path&gt;
+</svg>
+</button>
+            </div>
+            <div class="console" id="cp-console"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 id="codeblocks" dir="auto">Codeblocks<a href="#codeblocks" class="heading-anchor" aria-label="Permalink: Codeblocks">#</a>
 </h2>
 <div class="code-block" data-copy-code="">
   <div class="code-block-header" role="region" aria-labelledby="code-lang-label">
@@ -705,34 +975,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
 
     </div>
 
-    <div class="toc-wrapper">
-  <h2 id="toc-heading">
-    Table of contents
-  </h2>
-  <nav class="toc" aria-labelledby="toc-heading" role="doc-toc">
-    <ul class="toc-level toc-level-2">
-<li><a href="#codeblocks" class="toc-link toc-link-level-2">Codeblocks</a>
-</li>
-<li><a href="#alerts" class="toc-link toc-link-level-2">Alerts</a>
-<ul class="toc-level toc-level-3">
-<li><a href="#default" class="toc-link toc-link-level-3">Default</a>
-</li>
-<li><a href="#with-icon-heading-and-dismiss" class="toc-link toc-link-level-3">With icon, heading, and dismiss</a>
-</li>
-<li><a href="#with-icon-outline-and-dismiss" class="toc-link toc-link-level-3">With icon, outline, and dismiss</a>
-</li>
-<li><a href="#with-links" class="toc-link toc-link-level-3">With links</a>
-</li>
-<li><a href="#markdown-support" class="toc-link toc-link-level-3">Markdown support</a>
-</li>
-<li><a href="#markdown-enabled-alert" class="toc-link toc-link-level-3">Markdown enabled alert</a>
-</li>
-</ul>
-</ul>
-
-  </nav>
-</div>
-
+    
   </div>
 <div class="post-meta post-meta-secondary" role="group" aria-label="Post metadata">
     
@@ -769,9 +1012,6 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
 
 
   </div>
-
-  
-
 
   <footer class="post-footer">
     <p>I hope you’ve found this post informative and helpful. Thank you for reading!</p>
@@ -868,7 +1108,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
   </defs>
 
   <!-- Digit 0 -->
-  <symbol id="segment-0" viewBox="0 0 24 40">
+  <symbol id="digit-0" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -879,7 +1119,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
   </symbol>
 
   <!-- Digit 1 -->
-  <symbol id="segment-1" viewBox="0 0 24 40">
+  <symbol id="digit-1" viewBox="0 0 24 40">
     <use href="#seg-a" class="off" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -890,7 +1130,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
   </symbol>
 
   <!-- Digit 2 -->
-  <symbol id="segment-2" viewBox="0 0 24 40">
+  <symbol id="digit-2" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="off" />
@@ -901,7 +1141,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
   </symbol>
 
   <!-- Digit 3 -->
-  <symbol id="segment-3" viewBox="0 0 24 40">
+  <symbol id="digit-3" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -912,7 +1152,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
   </symbol>
 
   <!-- Digit 4 -->
-  <symbol id="segment-4" viewBox="0 0 24 40">
+  <symbol id="digit-4" viewBox="0 0 24 40">
     <use href="#seg-a" class="off" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -923,7 +1163,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
   </symbol>
 
   <!-- Digit 5 -->
-  <symbol id="segment-5" viewBox="0 0 24 40">
+  <symbol id="digit-5" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="off" />
     <use href="#seg-c" class="on" />
@@ -934,7 +1174,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
   </symbol>
 
   <!-- Digit 6 -->
-  <symbol id="segment-6" viewBox="0 0 24 40">
+  <symbol id="digit-6" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="off" />
     <use href="#seg-c" class="on" />
@@ -945,7 +1185,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
   </symbol>
 
   <!-- Digit 7 -->
-  <symbol id="segment-7" viewBox="0 0 24 40">
+  <symbol id="digit-7" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -956,7 +1196,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
   </symbol>
 
   <!-- Digit 8 -->
-  <symbol id="segment-8" viewBox="0 0 24 40">
+  <symbol id="digit-8" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -967,7 +1207,7 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
   </symbol>
 
   <!-- Digit 9 -->
-  <symbol id="segment-9" viewBox="0 0 24 40">
+  <symbol id="digit-9" viewBox="0 0 24 40">
     <use href="#seg-a" class="on" />
     <use href="#seg-b" class="on" />
     <use href="#seg-c" class="on" />
@@ -1029,15 +1269,15 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
         <li class="related-post">
           <article class="card">
             <header class="card-header">
-              <h2 class="card-title post-title" title="Mastering JavaScript Operators: A Complete Guide with Examples">
-                <a href="/post/mastering-js-operators" class="card-link" aria-label="Read post: Mastering JavaScript Operators: A Complete Guide with Examples">
-                  Mastering JavaScript Operators: A Complete Guide with Examples
+              <h2 class="card-title post-title" title="Unleashing CSS Logical Properties">
+                <a href="/post/unleashing-css-logical-properties" class="card-link" aria-label="Read post: Unleashing CSS Logical Properties">
+                  Unleashing CSS Logical Properties
                 </a>
               </h2>
             </header>
             <div class="card-body">
               
-                <div class="post-excerpt" title="Learn every JavaScript operator with clear syntax, use cases, and examples—from arithmetic to optional chaining, bitwise, and beyond."><p  dir="auto">Learn every JavaScript operator with clear syntax, use cases, and examples—from arithmetic to optional chaining, bitwise, and beyond.</p></div>
+                <div class="post-excerpt" title="Future-proof your layouts with CSS Logical Properties — one set of styles that adapts across languages, directions, and writing modes — no more messy RTL hacks or duplicate stylesheets."><p  dir="auto">Future-proof your layouts with CSS Logical Properties — one set of styles that adapts across languages, directions, and writing modes — no more messy RTL hacks or duplicate stylesheets.</p></div>
               
             </div>
             <footer class="card-footer">
@@ -1048,8 +1288,8 @@ An example showing the <code class="language-plaintext highlighter-rouge">warnin
 </svg>
 
   <span class="visually-hidden">Published at:</span>
-  <time datetime='2025-09-05T19:39:07+05:30' aria-label='Published on September 05, 2025 at 07:39 PM' role='time' data-tooltip='Fri, September 05, 2025 07:39 PM' data-tooltip-position='bottom' tabindex='0'>
-  September 05, 2025
+  <time datetime='2025-08-24T10:22:19+05:30' aria-label='Published on August 24, 2025 at 10:22 AM' role='time' data-tooltip='Sun, August 24, 2025 10:22 AM' data-tooltip-position='bottom' tabindex='0'>
+  August 24, 2025
 </time>
 
 </div>
