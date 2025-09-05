@@ -1,54 +1,28 @@
 # frozen_string_literal: true
 
+require "time"
+
 Jekyll::Hooks.register :site, :post_read do |site|
   all_pages = site.pages + site.posts.docs
 
   all_pages.each do |page|
     path = page.path
-    return unless File.exist?(path)
-    return unless system("git", "ls-files", "--error-unmatch", path, out: File::NULL, err: File::NULL)
+    next unless File.exist?(path)
 
-    # Full changelog with markdown support and ISO strict date+time+tz format
-    log_entries = `git log --reverse --pretty="%H|%ad|%an|%ae|%B---END---" --date=iso-strict "#{path}"`
+    # Skip if file is not tracked by git
+    tracked = system("git", "ls-files", "--error-unmatch", path, out: File::NULL, err: File::NULL)
+    next unless tracked
 
-    seen = Set.new
-    changelog = {}
-    published_at, last_modified_at = nil
+    begin
+      # Get first commit (oldest) and last commit (newest)
+      published_raw = `git log --diff-filter=A --follow --format="%ad" --date=iso-strict "#{path}" | tail -1`.strip
+      modified_raw  = `git log -1 --format="%ad" --date=iso-strict "#{path}"`.strip
 
-    log_entries.split("---END---").each_with_index do |entry, idx|
-      parts = entry.strip.split("|", 5)
-      next unless parts.size == 5
-
-      hash, datetime_raw, author, email, message = parts.map(&:strip)
-      next if seen.include?(hash) || message.empty?
-
-      seen << hash
-
-      begin
-        datetime = Time.parse(datetime_raw).iso8601
-      rescue ArgumentError
-        next
-      end
-
-      published_at ||= datetime
-      last_modified_at = datetime  # Last one will be latest due to `--reverse`
-
-      date_key = datetime[0..9] # "YYYY-MM-DD"
-      type = message[/^(feat|fix|refactor|chore|docs|test|style)(?=\:)/i, 1]&.downcase || "other"
-
-      changelog[date_key] ||= []
-      changelog[date_key] << {
-        "hash" => hash,
-        "datetime" => datetime,
-        "author" => author,
-        "email" => email,
-        "type" => type,
-        "message" => message
-      }
+      page.data["published_at"]     = Time.parse(published_raw).iso8601 unless published_raw.empty?
+      page.data["last_modified_at"] = Time.parse(modified_raw).iso8601  unless modified_raw.empty?
+    rescue => e
+      Jekyll.logger.warn "Changelog:", "Failed to parse git dates for #{path} (#{e.class}: #{e.message})"
+      next
     end
-
-    page.data["published_at"] = published_at
-    page.data["last_modified_at"] = last_modified_at
-    page.data["changelog"] = changelog unless changelog.empty?
   end
 end

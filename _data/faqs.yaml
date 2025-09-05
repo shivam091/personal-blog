@@ -1,0 +1,43 @@
+- question: "What tools or stack do you use for this site?"
+  answer: |
+    This site is built with **Jekyll** for static site generation, styled with **Sass (SCSS)**, and uses **vanilla JavaScript** for interactivity.
+    I use **esbuild** to bundle and optimize the JS and CSS, and the site is hosted on **GitHub Pages**.
+
+- question: "What topics do you usually write about?"
+  answer: "I mainly cover web development, coding best practices, and personal technical projects. Occasionally, I also share tutorials and experiments."
+
+- question: "How often do you publish new posts?"
+  answer: "I try to publish regularly, usually once every 1–2 weeks. You can subscribe to my [Atom feed](/atom.xml) to stay updated."
+
+- question: "How can I stay updated with new posts?"
+  answer: "You can subscribe to my Atom feed to get notified whenever I publish a new article. Most feed readers support Atom just like RSS. [Subscribe here](/atom.xml)."
+
+- question: "Do you earn money from this blog?"
+  answer: "No, this is a personal blog and not monetized. I write to share knowledge and document experiments."
+
+- question: "Can I use your code snippets in my own projects?"
+  answer: "Yes. Unless otherwise specified, all code snippets shared here are free to use. Attribution is appreciated but not required."
+
+- question: "Can I share or republish your articles or posts?"
+  answer: "You’re welcome to share links to posts on social media, newsletters, or elsewhere. If you’d like to republish excerpts, please provide proper credit and a link back to the original article."
+
+- question: "Can I suggest a topic or tutorial for a future post?"
+  answer: "Yes, you can suggest ideas through the contact form. While I can’t promise to cover every request, I do consider suggestions when planning new content."
+
+- question: "Are you available for job opportunities or freelance work?"
+  answer: |
+    Yes — I’m open to relevant opportunities, whether full-time, freelance, or collaborations.
+
+    If you’d like to discuss, feel free to reach out through the contact form.
+
+- question: "Do you accept guest posts or collaborations?"
+  answer: |
+    I don’t accept guest posts — this is a personal blog, and I’m the only one who publishes here.
+
+    However, I’m open to collaborations such as projects, speaking, or knowledge sharing. Feel free to reach out through the contact form if you’d like to discuss.
+
+- question: "Will you respond to all messages sent through the contact form?"
+  answer: "I read all messages, but replies are not guaranteed. Depending on volume, it may take me time to respond — or I may not be able to reply at all."
+
+- question: "Do you offer personalized help or consulting?"
+  answer: "This blog is primarily for sharing general knowledge. I can’t provide one-on-one troubleshooting or support through the contact form, though I may occasionally consider freelance opportunities."

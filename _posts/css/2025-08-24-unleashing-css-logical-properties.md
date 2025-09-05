@@ -5,13 +5,18 @@ date: 2025-08-24 10:22
 shortinfo: "Design once, adapt everywhere."
 excerpt: "Future-proof your layouts with CSS Logical Properties — one set of styles that adapts across languages, directions, and writing modes — no more messy RTL hacks or duplicate stylesheets."
 tags: [css, web-development, layout, responsive, rtl, logical-properties, writing-modes, internationalization, i18n, frontend, best-practices, globalization, accessibility]
-categories: [CSS]
+category: CSS
 slug: unleashing-css-logical-properties
 image:
   path: /assets/img/posts/css/unleashing-css-logical-properties/cover.png
   width: 1200
   height: 800
-  alt:
+  alt: "Cover image with the title text 'Unleashing CSS Logical Properties' and arrows showing inline and block axes"
+changelog:
+  - date: 2025-09-01
+    change: "Updated conclusion and added alt for cover image"
+  - date: 2025-08-24
+    change: "Initial publication"
 ---
 
 ## Introduction
@@ -501,7 +506,9 @@ html[dir="rtl"] .card {
 
 ## Conclusion
 
-CSS Logical Properties are the future of responsive, internationalized web design. They eliminate the need for duplicate styles for different
-writing directions, ensuring your layouts adapt naturally to any language or script.
+CSS Logical Properties aren’t just about cleaner code — they represent the future of responsive, internationalized web design.
+By thinking in terms of flow-relative directions instead of fixed sides, you create layouts that are naturally direction-aware, resilient,
+and easier to maintain across languages and scripts.
 
-By adopting them now, you’re creating layouts that are **direction-aware**, **international-ready**, and **easy to maintain**—without the extra headaches.
+Start small: replace `margin-left` with `margin-inline-start`, or `width` with `inline-size`. Over time, your CSS will become not only simpler,
+but also future-proof and truly international-ready.

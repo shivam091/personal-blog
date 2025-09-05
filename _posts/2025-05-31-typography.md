@@ -3,7 +3,7 @@ layout: post
 title: "Text and Typography"
 date: 2025-05-31 01:00
 tags: [typography, design, styleguide]
-categories: [General]
+category: General
 excerpt: This post is a comprehensive test of various HTML elements. It includes headings, paragraphs, lists, tables, forms, code, and more.
 toc: false
 slug: typography

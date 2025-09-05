@@ -1,0 +1,62 @@
+@use "abstracts/tokens" as *
+@use "abstracts/mixins/breakpoints" as breakpoint
+
+.contact-layout
+  display: grid
+  grid-template-columns: 1fr 1fr
+  grid-template-rows: auto 1fr
+  grid-template-areas: "contact-intro contact-questions" "contact-section contact-questions"
+  gap: $space-lg
+
+  @include breakpoint.max(md)
+    grid-template-columns: 1fr
+    grid-template-areas: "contact-intro" "contact-questions" "contact-section"
+
+.contact-intro
+  grid-area: contact-intro
+
+  .below-text
+    display: none
+
+    @include breakpoint.max(md)
+      display: inline
+
+  .right-text
+    display: inline
+
+    @include breakpoint.max(md)
+      display: none
+
+.contact-section
+  grid-area: contact-section
+  position: sticky
+  top: calc($header-height + $space-base)
+  align-self: start
+
+.contact-form-container
+  border: $border-width-extra-thick solid var(--color-border-transparent)
+  background: linear-gradient(var(--color-bg-muted), var(--color-bg-muted)) padding-box, repeating-linear-gradient(45deg, var(--color-bg-danger-emphasis) 0 15px, var(--color-bg-default) 15px 25px, var(--color-bg-accent-emphasis) 25px 40px, var(--color-bg-default) 40px 50px) border-box
+  border-radius: $border-radius-lg
+
+.contact-form
+  display: grid
+  gap: $space-base
+  background: var(--color-bg-default)
+  padding: $space-md
+
+.recaptcha-disclaimer
+  font-size: $font-size-sm
+  color: var(--color-fg-accent-muted)
+  margin-top: $space-xl
+
+.contact-faq
+  grid-area: contact-questions
+  background: var(--color-bg-cloud-300)
+  border-radius: $border-radius-default
+  padding: $space-base
+  border: 1px solid var(--color-border-muted)
+
+  h2
+    font-size: $font-size-lg
+    font-family: $font-stack-monospace
+    letter-spacing: 1px

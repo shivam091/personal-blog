@@ -18,15 +18,15 @@ export default class RetroCounter {
     return clean.replace(/[^a-z0-9]/gi, "-").toLowerCase();
   }
 
-  renderDigits(count) {
+  renderSegments(count) {
     const padded = count.toString().padStart(6, "0");
     this.container.innerHTML = ""; // Clear old
 
     [...padded].forEach((digit, index) => {
       const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-      svg.classList.add("digit");
-      use.setAttributeNS("http://www.w3.org/1999/xlink", "href", `#digit-${digit}`);
+      svg.classList.add("segment");
+      use.setAttributeNS("http://www.w3.org/1999/xlink", "href", `#segment-${digit}`);
       svg.appendChild(use);
       this.container.appendChild(svg);
     });
@@ -43,7 +43,7 @@ export default class RetroCounter {
       const result = await this.client.up(this.key);
       const hitCount = result.data.up_count ?? 0
       this.updateAriaLabel(hitCount);
-      this.renderDigits(hitCount);
+      this.renderSegments(hitCount);
     } catch (err) {
       this.container.innerHTML = "ERROR";
       console.error("Counter error:", err);

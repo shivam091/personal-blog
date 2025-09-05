@@ -47,6 +47,19 @@
     display: inline-flex
     align-items: center
 
+[data-line-numbers="off"]
+  .gutter
+    display: none
+
+[data-line-numbers="on"]
+  .icon-hash
+    stroke: hsl(from var(--color-fg-attention) h s l / 0.55)
+
+.gutter
+  .lineno
+    border-radius: 0
+    border-right: $border-default
+
 .code-block-button-group
   .code-block-action
     .icon-circle-fill
@@ -64,14 +77,6 @@
   .code-maximize
     .icon-circle-fill
       fill: var(--color-bg-success-emphasis)
-
-.gutter
-  &.hidden
-    display: none
-
-  .lineno
-    border-radius: 0
-    border-right: $border-default
 
 [data-copy-code],
 [data-copy-link],

@@ -1,0 +1,13 @@
+{% if page.changelog %}
+  <section class="page-changelog" aria-labelledby="changelog-title">
+    <h2 id="changelog-title">Changelog</h2>
+    <ul>
+      {% for entry in page.changelog %}
+        <li>
+          <time datetime="{{ entry.date | date_to_xmlschema }}">{{ entry.date | date: "%B %d, %Y" }}</time>
+          — {{ entry.change }}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}

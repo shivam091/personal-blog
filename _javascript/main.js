@@ -13,6 +13,7 @@ import CodeBlockUtils from "./utils/code-block-utils";
 import LazyLoader from "./modules/components/lazy-loader";
 import RetroCounter from "./components/retro-counter";
 import Scrollspy from "./components/scroll-spy";
+import ContactForm from "./modules/contact-form";
 
 import { bindHeroTyped } from "./components/hero";
 
@@ -29,6 +30,7 @@ Clipboard.initAll();
 Alert.init();
 CodeBlockUtils.initAll();
 LazyLoader.init();
+ContactForm.init();
 
 RetroCounter.initAll("[data-retro-counter]", {
   version: "v2",

@@ -3,9 +3,18 @@ export default class CodeBlockUtils {
     const btn = wrapper.querySelector(".btn-toggle-lines");
     const gutter = wrapper.querySelector(".gutter");
 
-    btn?.addEventListener("click", () => {
-      gutter.classList.toggle("hidden");
+    if (!btn || !gutter) return;
+
+    btn.addEventListener("click", () => {
+      const current = wrapper.getAttribute("data-line-numbers") || "on";
+      const next = current === "on" ? "off" : "on";
+      wrapper.setAttribute("data-line-numbers", next);
     });
+
+    // Initialize if not already set
+    if (!wrapper.hasAttribute("data-line-numbers")) {
+      wrapper.setAttribute("data-line-numbers", "on");
+    }
   }
 
   static initAll() {
