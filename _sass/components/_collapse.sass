@@ -1,0 +1,27 @@
+@use "abstracts/tokens" as *
+
+.collapse
+  margin-block: $space-lg
+
+  .collapse-toggle
+    display: flex
+    align-items: center
+    gap: $space-sm
+    padding: $space-none
+    background: none
+    border: 0
+    font-size: $font-size-base
+    font-weight: $font-weight-semi-bold
+    width: 100%
+
+    .icon
+      width: $size-lg
+      height: $size-lg
+
+  .collapse-content
+    padding-left: $space-xl
+    overflow: hidden
+    opacity: 0
+    height: 0
+    transform: translateY(-15px)
+    will-change: transform, opacity

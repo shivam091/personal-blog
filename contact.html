@@ -60,9 +60,15 @@ permalink: /contact
   <div class="contact-faq">
     <h2>Frequently Asked Questions</h2>
     {% for faq in site.data.faqs %}
-      {% details summary="{{faq.question}}" %}
-        {{ faq.answer }}
-      {% enddetails %}
+      <div class="collapse">
+        <button class="collapse-toggle">
+          {% svg plus %}
+          <span>{{faq.question}}</span>
+        </button>
+        <div class="collapse-content">
+          {{ faq.answer | markdownify }}
+        </div>
+      </div>
     {% endfor %}
   </div>
 </section>

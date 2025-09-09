@@ -1,8 +1,10 @@
 import * as PopperUtils from "./../../utils/popper";
 import * as DomUtils from "./../../utils/dom";
+import useTouch from "../../hooks/use-touch";
 
 export default class Tooltip {
   static tooltipMap = new WeakMap();
+  static isTouch = useTouch();
 
   static get tooltipElements() {
     return document.querySelectorAll("[data-tooltip]");
@@ -59,7 +61,7 @@ export default class Tooltip {
     target.setAttribute("aria-describedby", tooltip.id);
     this.tooltipMap.set(target, tooltip);
 
-    if ("ontouchstart" in window) {
+    if (this.isTouch) {
       setTimeout(() => this.hide({ currentTarget: target }), delay);
     }
   }
@@ -145,8 +147,10 @@ export default class Tooltip {
       el.addEventListener("focus", (event) => this.show(event));
       el.addEventListener("blur", (event) => this.hide(event));
 
-      el.addEventListener("touchstart", (event) => this.show(event), { passive: true });
-      el.addEventListener("touchend", (event) => this.hide(event), { passive: true });
+      if (this.isTouch) {
+        el.addEventListener("touchstart", (event) => this.show(event), { passive: true });
+        el.addEventListener("touchend", (event) => this.hide(event), { passive: true });
+      }
 
       // el.addEventListener("pointerdown", (event) => this.show(event));
       // el.addEventListener("pointerup", (event) => this.hide(event));
