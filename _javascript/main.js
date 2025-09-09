@@ -16,6 +16,7 @@ import Scrollspy from "./components/scroll-spy";
 import ContactForm from "./modules/contact-form";
 
 import TransformBoop from "./animations/transform-boop";
+
 import IconArrowRight from "./animations/icons/arrow-right";
 
 import { bindHeroTyped } from "./components/hero";
