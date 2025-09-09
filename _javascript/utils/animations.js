@@ -1,25 +1,4 @@
 /**
- * Linear interpolation between two numbers
- * @param {number} startValue - The starting value (when t = 0).
- * @param {number} endValue - The ending value (when t = 1).
- * @param {number} t - Interpolation factor (0 to 1, can go beyond for extrapolation).
- * @returns {number} Interpolated value between startValue and endValue.
- */
-export function lerp(startValue, endValue, t) {
-  return startValue + (endValue - startValue) * t;
-}
-
-/**
- * Clamp a number between min and max
- * @param {number} value
- * @param {number} min
- * @param {number} max
- */
-export function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max);
-}
-
-/**
  * Remap a number from one range to another
  * @param {number} value - input number
  * @param {number} inMin
@@ -73,44 +52,4 @@ export function animate(onUpdate, duration = 300, easing = t => t, onComplete) {
   }
 
   requestAnimationFrame(step);
-}
-
-/**
- * Spring animation using Hooke's law approximation
- * @param {function(number)} onUpdate
- * @param {object} config - { stiffness, damping, mass, initialVelocity }
- * @param {function=} onComplete
- */
-export function spring(onUpdate, config = {}, onComplete) {
-  const {
-    stiffness = 0.1,   // how strong spring pulls back
-    damping = 0.8,     // energy loss per frame
-    mass = 1,
-    initialVelocity = 0,
-    threshold = 0.001  // stop condition
-  } = config;
-
-  let position = 0;       // start (0)
-  let velocity = initialVelocity;
-
-  function step() {
-    // Spring force F = -kx
-    const force = -stiffness * position;
-    // Acceleration = Force / mass
-    const accel = force / mass;
-
-    velocity = velocity + accel;
-    velocity *= damping;  // apply friction/damping
-    position += velocity;
-
-    onUpdate(1 - position); // progress from 0->1
-
-    if (Math.abs(velocity) > threshold || Math.abs(position) > threshold) {
-      requestAnimationFrame(step);
-    } else if (onComplete) {
-      onComplete();
-    }
-  }
-
-  step();
 }
