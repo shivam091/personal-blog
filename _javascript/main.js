@@ -15,6 +15,9 @@ import RetroCounter from "./components/retro-counter";
 import Scrollspy from "./components/scroll-spy";
 import ContactForm from "./modules/contact-form";
 
+import TransformBoop from "./animations/transform-boop";
+import IconArrowRight from "./animations/icons/arrow-right";
+
 import { bindHeroTyped } from "./components/hero";
 
 HeaderGlassEffect.initialize();
@@ -44,3 +47,15 @@ new Scrollspy(".toc-wrapper", {
 });
 
 bindHeroTyped();
+
+TransformBoop.initialize(".alert-dismiss .icon-times", { rotate: 15, scaleX: 1.2 });
+TransformBoop.initialize(".icon-arrow-up", { translateY: -3 });
+TransformBoop.initialize(".icon-search", { rotate: 10, scaleX: 1.1 });
+TransformBoop.initialize(".icon-clipboard-check, .icon-hash", { scaleX: 1.1 });
+TransformBoop.initialize(".icon-adjust", { rotate: -45, scaleX: 1.1 });
+
+IconArrowRight.initialize();
+IconHash.initialize();
+IconList.initialize();
+IconStretchyGuy.initialize();
+IconRSS.initialize();
