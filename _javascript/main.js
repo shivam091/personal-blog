@@ -16,7 +16,8 @@ import Scrollspy from "./components/scroll-spy";
 import ContactForm from "./modules/contact-form";
 
 import TransformBoop from "./animations/transform-boop";
-import IconArrowRight from "./animations/icons/arrow-right";
+
+import ArrowRight from "./animations/icons/arrow-right";
 
 import { bindHeroTyped } from "./components/hero";
 
@@ -52,3 +53,5 @@ TransformBoop.initialize(".alert-dismiss .icon-times", { rotate: 15, scaleX: 1.2
 TransformBoop.initialize(".icon-arrow-up", { translateY: -3 });
 TransformBoop.initialize(".icon-search", { rotate: 10, scaleX: 1.1 });
 TransformBoop.initialize(".icon-clipboard-check, .icon-hash", { scaleX: 1.1 });
+
+ArrowRight.initialize();
