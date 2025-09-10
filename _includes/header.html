@@ -29,8 +29,8 @@
       {% svg search %}
     </button>
 
-    <div class="dropdown" data-dropdown data-theme-switcher>
-      <button type="button" class="dropdown-toggle header-action theme-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Toggle color scheme">
+    <div class="dropdown header-action" data-dropdown data-theme-switcher>
+      <button type="button" class="dropdown-toggle theme-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Toggle color scheme">
         {% svg adjust %}
       </button>
 
@@ -48,10 +48,10 @@
       </ul>
     </div>
 
-    <a href="{{ '/atom.xml' | relative_url }}" class="header-action atom-feed" aria-label="Atom Feed" target="_blank"
+    <a href="{{ '/atom.xml' | relative_url }}" class="header-action rss-feed" aria-label="Atom Feed" target="_blank"
        rel="alternate" type="application/atom+xml" data-analytics-event="subscribe_feed" data-analytics-label="Atom Feed"
        data-analytics-category="engagement">
-       {% svg atom %}
+       {% svg rss %}
     </a>
 
     <button class="header-action toggle-menu" aria-label="Toggle menu" aria-controls="header-drawer">

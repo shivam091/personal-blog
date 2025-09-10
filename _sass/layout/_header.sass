@@ -4,6 +4,7 @@
 @use "abstracts/animations/scooch" as *
 @use "abstracts/animations/self-draw" as *
 @use "abstracts/animations/fade-in" as *
+@use "abstracts/animations/drop-icon" as *
 
 .site-header
   display: flex
@@ -52,7 +53,7 @@
     font-weight: $font-weight-medium
     letter-spacing: 0.02em
     display: inline-flex
-    gap: 0.25rem
+    gap: 0.1875rem
 
     .first-name
       display: inline-block
@@ -113,18 +114,31 @@
     padding: $space-sm
     font-size: $fluid-font-size-sm
     font-weight: $font-weight-semi-bold
+    animation: drop-icon calc(0.5s + var(--index) * 0.1s) cubic-bezier(0.17, 0.67, 0.2, 1) both
+    animation-delay: calc(var(--index) * 0.1s)
 
     &:hover,
     &:focus
       background-color: var(--color-bg-control-transparent)
       border-color: var(--color-border-control-transparent-hover)
 
+    @for $i from 1 through 6
+      &:nth-child(#{$i})
+        --index: #{$i}
+
+    .dropdown-toggle
+      background-color: inherit
+      border-color: inherit
+      color: inherit;
+
 .toggle-menu
   display: none
-  @include transition-properties(transform, $duration: $motion-duration-default, $easing: $motion-easing-smooth)
 
   @include breakpoint.max(md)
     display: block
 
-  @at-root [data-drawer="open"] &
-    transform: scale(1.5)
+  .icon-hamburger
+    @include transition-properties(transform, $duration: $motion-duration-default, $easing: $motion-easing-smooth)
+
+    @at-root [data-drawer="open"] &
+      transform: scale(1.5)

@@ -10,7 +10,7 @@
 
 - key: soft-dark
   label: Soft Dark
-  icon: eclipse
+  icon: sun-dim
   description: "Use soft dark mode"
 
 - key: dark
