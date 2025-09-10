@@ -19,10 +19,10 @@
         {% endif %}
       </div>
       <footer class="card-footer">
-        <div class="post-meta post-meta-primary">
-          {% include posts/published-at.html post = post %}
-          {% include posts/categories.html post = post %}
-          {% include posts/read-time.html post = post %}
+        <div class="page-meta page-meta-primary">
+          {% include pages/published-at.html item = post %}
+          {% include pages/categories.html item = post %}
+          {% include pages/read-time.html item = post %}
         </div>
       </footer>
     </article>

@@ -1,13 +1,33 @@
 @use "abstracts/tokens" as *
 @use "abstracts/mixins/transition-properties" as *
 
-button
-  background-color: var(--color-bg-control-transparent)
-  color: var(--color-fg-control)
-  border: $border-width-default solid var(--color-border-control-transparent)
+button,
+[type='button'],
+[type='reset'],
+[type='submit']
+  -webkit-appearance: button
+  cursor: pointer
+  border: none
+  background: none
+  color: inherit
+  font: inherit
+  line-height: inherit
+  padding: 0
+  margin: 0
+
+.btn
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  gap: $space-sm
   padding: $space-sm
+  background-color: var(--color-bg-control-transparent)
+  border: $border-width-default solid var(--color-border-control-transparent)
   font-size: $fluid-font-size-sm
   font-weight: $font-weight-semi-bold
+  border-radius: $border-radius-default
+
+  @include transition-properties((background-color, color, border-color), $duration: $motion-duration-fast, $easing: $motion-easing-in-out)
 
   &:hover,
   &:focus
@@ -17,48 +37,6 @@ button
   &.active
     background-color: var(--color-bg-control-transparent-active)
     border-color: var(--color-border-control-transparent-active)
-
-[type=button],
-[type=reset],
-[type=submit],
-button
-  -webkit-appearance: button
-
-[type=button]:not(:disabled),
-[type=reset]:not(:disabled),
-[type=submit]:not(:disabled),
-button:not(:disabled)
-  cursor: pointer
-
-.btn
-  display: flex
-  align-items: center
-  justify-content: center
-  gap: $space-sm
-  background-color: var(--color-bg-control)
-  color: var(--color-fg-control)
-  border-color: var(--color-border-control)
-  border-radius: $border-radius-default
-  padding: $space-sm
-  font-size: $fluid-font-size-sm
-  font-weight: $font-weight-semi-bold
-
-  @include transition-properties((background-color, color, border-color), $duration: $motion-duration-fast, $easing: $motion-easing-in-out)
-
-  &:hover,
-  &:focus
-    background-color: var(--color-bg-control-hover)
-    border-color: var(--color-border-control)
-
-  &.active
-    background-color: var(--color-bg-control-active)
-
-  &:disabled,
-  &.disabled,
-  &[aria-disabled=true]
-    background-color: var(--color-bg-control-disabled)
-    color: var(--color-fg-control-disabled)
-    border-color: var(--color-border-control-disabled)
 
   .btn-text
     margin: 0 auto
@@ -74,6 +52,27 @@ button:not(:disabled)
   &:has(.icon-left),
   &:has(.icon-right)
     gap: $space-none
+
+.btn-secondary
+  background-color: var(--color-bg-control)
+  color: var(--color-fg-control)
+  border: $border-width-default solid var(--color-border-control)
+
+  &:hover,
+  &:focus
+    background-color: var(--color-bg-control-hover)
+    border-color: var(--color-border-control)
+
+  &.active
+    background-color: var(--color-bg-control-active)
+
+  &:disabled,
+  &.disabled,
+  &[aria-disabled='true']
+    background-color: var(--color-bg-control-disabled)
+    color: var(--color-fg-control-disabled)
+    border-color: var(--color-border-control-disabled)
+    cursor: not-allowed
 
 .btn-sm
   padding: $space-xs

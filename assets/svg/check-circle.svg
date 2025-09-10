@@ -1,4 +1,6 @@
-<svg version="1.1" class="icon icon-check-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8s8 3.589 8 8s-3.589 8-8 8z" />
-  <path d="M9.999 13.587L7.7 11.292l-1.412 1.416l3.713 3.705l6.706-6.706l-1.414-1.414z" />
+<svg version="1.1" role="img" class="icon icon-check-circle" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <!-- Circle -->
+  <circle cx="12" cy="12" r="10" />
+  <!-- Checkmark-->
+  <polyline points="8 12.5 11 15.5 16 9.5" />
 </svg>

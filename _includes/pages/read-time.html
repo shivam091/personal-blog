@@ -1,0 +1,10 @@
+{%- assign item = include.item -%}
+{%- assign item_content = item.content -%}
+{%- assign words = item_content | words -%}
+{%- assign read_time = item_content | read_time -%}
+
+<div class="page-meta-item page-read-time">
+  {% svg clock %}
+  <span class="visually-hidden">Estimated reading time:</span>
+  <span data-tooltip="{{ words }} words" data-tooltip-position="bottom" tabindex="0">{{ read_time }} min read</span>
+</div>
