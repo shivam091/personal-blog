@@ -27,5 +27,9 @@ details
       font-weight: $font-weight-semi-bold
 
   .content
+    opacity: 0
+    transform: translateY(-15px)
+    will-change: transform, opacity
+
     &:not(:has(ul, ol))
       padding-left: calc($space-lg + $space-sm)

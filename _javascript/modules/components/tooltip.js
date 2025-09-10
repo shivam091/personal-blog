@@ -145,8 +145,8 @@ export default class Tooltip {
       el.addEventListener("focus", (event) => this.show(event));
       el.addEventListener("blur", (event) => this.hide(event));
 
-      el.addEventListener("touchstart", (event) => this.show(event));
-      el.addEventListener("touchend", (event) => this.hide(event));
+      el.addEventListener("touchstart", (event) => this.show(event), { passive: true });
+      el.addEventListener("touchend", (event) => this.hide(event), { passive: true });
 
       // el.addEventListener("pointerdown", (event) => this.show(event));
       // el.addEventListener("pointerup", (event) => this.hide(event));

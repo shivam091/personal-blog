@@ -57,7 +57,7 @@ export default class ThemeSwitcher {
   static initialize() {
     if (!this.container) return;
 
-    const savedTheme = localStorage.getItem(THEME_KEY) || "system";
+    const savedTheme = localStorage.getItem(THEME_KEY) || DEFAULT_COLOR_MODE;
     this.apply(savedTheme);
 
     this.setupDropdownListeners();

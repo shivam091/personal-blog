@@ -20,7 +20,7 @@
     font-size: $font-size-sm
     margin-bottom: $space-none
 
-    @include transition-properties((background-color, border-color, color), $duration: $motion-duration-fast, $easing: $motion-easing-in-out)
+    @include transition-properties((background-color), $duration: $motion-duration-fast, $easing: $motion-easing-in-out)
 
     &:hover
       background-color: var(--color-bg-control-transparent-hover)
@@ -38,3 +38,9 @@
       border-radius: $border-radius-pill
       border: $border-neutral-muted
       text-align: center
+
+.tag-link
+  color: var(--color-fg-muted)
+
+  &:hover
+    color: var(--color-fg-accent)
