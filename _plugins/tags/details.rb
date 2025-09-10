@@ -28,12 +28,10 @@ module Jekyll
       <<~HTML
         <details>
           <summary>
-            #{inline_svg(context, "plus.svg")}
+            #{inline_svg(context, "flat.svg")}
             #{summary_html}
           </summary>
-          <div class="content">
-            #{content_html}
-          </div>
+          #{content_html}
         </details>
       HTML
     end

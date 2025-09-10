@@ -30,7 +30,7 @@ permalink: /categories
               {% include posts/count.html post_count = post_count %}
             </span>
           </span>
-          <button type="button" class="btn-sm accordion-toggle" aria-expanded="false"
+          <button type="button" class="btn btn-sm accordion-toggle" aria-expanded="false"
                   aria-label="Toggle all posts of {{ category_name }}"
                   aria-controls="{{ category_name | slugify }}-posts">
             {% svg chevron-down %}

@@ -29,7 +29,7 @@
 
 - type: atom
   label: Atom Feed
-  icon: atom
+  icon: rss
   href: "/atom.xml"
   analytics:
     event: subscribe_feed

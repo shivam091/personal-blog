@@ -1,3 +1,3 @@
-<svg version="1.0" role="img" class="icon icon-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path fill-rule="evenodd" d="M18.707 7.293a1 1 0 0 1 0 1.414l-7.996 7.996-.003.004a1 1 0 0 1-1.415 0l-4-4a1 1 0 1 1 1.414-1.414L10 14.586l7.293-7.293a1 1 0 0 1 1.414 0Z" clip-rule="evenodd" />
+<svg version="1.1" role="img" class="icon icon-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <polyline points="20 6 9 17 4 12" />
 </svg>

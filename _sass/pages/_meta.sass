@@ -1,17 +1,17 @@
 @use "abstracts/tokens" as *
 @use "abstracts/mixins/breakpoints" as breakpoint
 
-.post-meta
+.page-meta
   font-size: $font-size-sm
   color: var(--color-fg-muted)
 
-.post-meta-item
+.page-meta-item
   display: inline-flex
   align-items: center
   gap: $space-xs
   flex-wrap: wrap
 
-.post-meta-primary
+.page-meta-primary
   display: inline-grid
   grid-auto-flow: column
   grid-auto-columns: max-content
@@ -24,16 +24,16 @@
     grid-auto-flow: initial
     grid-template-columns: repeat(2, 1fr)
 
-    > .post-meta-item:nth-child(even)
+    > .page-meta-item:nth-child(even)
       justify-self: end
 
   @include breakpoint.max(sm)
     grid-template-columns: 1fr
 
-    > .post-meta-item
+    > .page-meta-item
       justify-self: start
 
-.post-meta-secondary
+.page-meta-secondary
   display: flex
   align-items: start
   flex-direction: column

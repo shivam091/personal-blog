@@ -32,10 +32,10 @@ module Jekyll
               #{lang_label}
             </div>
             <div class="code-actions">
-              <button type="button" class="btn btn-sm btn-toggle-lines" aria-label="Toggle line numbers" data-tooltip="Toggle line numbers">
+              <button type="button" class="btn btn-sm btn-secondary btn-toggle-lines" aria-label="Toggle line numbers" data-tooltip="Toggle line numbers">
                 #{inline_svg(context, "hash.svg")}
               </button>
-              <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
+              <button type="button" class="btn btn-sm btn-secondary btn-copy" aria-label="Copy code" data-tooltip="Copy">
                 #{inline_svg(context, "clipboard-check.svg")}
               </button>
             </div>

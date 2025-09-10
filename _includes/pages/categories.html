@@ -1,8 +1,10 @@
-{% if post.categories %}
-  <div class="post-meta-item post-categories" role="list">
+{%- assign categories = include.item.categories -%}
+
+{% if categories.size > 0 %}
+  <div class="page-meta-item page-categories" role="list">
     {% svg diamonds %}
     <span class="visually-hidden">Categories:</span>
-    {% for category in post.categories %}
+    {% for category in categories %}
     {%- if include.link == true -%}
       <a href="/category{{ category | slugify | relative_url }}" class="badge" aria-label="Category: {{ category }}" rel="category" role="listitem">{{ category }}</a>
     {% else %}

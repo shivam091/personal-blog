@@ -2,16 +2,24 @@
   <div class="drawer-container">
     <nav class="drawer-navigation" role="navigation" aria-label="Main Navigation">
       <ul class="nav-list">
-        {% for item in site.data.main_nav %}
+      {% for item in site.data.main_nav %}
         <li class="nav-item">
-           <a href="{{ item.href | relative_url }}" class="nav-link" {% if page.url == item.href %} aria-current="page" {% endif %}>
-             {% svg {{item.icon}} %}
-             {{ item.title }}
-           </a>
+        {% if item.href contains "http" %}
+          <a href="{{ item.href }}" class="nav-link" target="_blank" rel="noopener noreferrer" {% if page.url == item.href %} aria-current="page" {% endif %}>
+            {% svg {{ item.icon }} %}
+            {{ item.title }}
+          </a>
+        {% else %}
+          <a href="{{ item.href | relative_url }}" class="nav-link" {% if page.url == item.href %} aria-current="page" {% endif %}>
+            {% svg {{ item.icon }} %}
+            {{ item.title }}
+          </a>
+        {% endif %}
         </li>
-        {% endfor %}
+      {% endfor %}
       </ul>
     </nav>
+
     <div class="drawer-visuals">
       <svg viewBox="0 0 788 265" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="visual-cloud-shape" focusable="false" aria-hidden="true">
         <path d="M681.771 38.1111C693.771 38.1111 688.271 -2.38884 759.771 0.111155C770.228 0.476802 779.338 1.54837 787.271 3.11155V264.111H0.770948C0.770948 264.111 -9.72906 229.611 46.7709 192.611C103.271 155.611 148.271 182.611 153.271 181.611C158.271 180.611 153.771 139.111 230.771 123.111C307.771 107.111 322.771 138.111 332.271 136.111C341.771 134.111 336.771 87.6111 405.271 74.1111C473.771 60.6112 497.771 89.1112 505.771 88.1111C513.771 87.1111 510.271 37.1111 574.271 21.6111C638.271 6.11115 669.771 38.1111 681.771 38.1111Z" class="visual-cloud-path" />
@@ -25,6 +33,7 @@
         {% endfor %}
       </ul>
     </div>
+
     <footer class="drawer-footer">
       <ul class="footer-links" aria-label="Legal links">
         {% for item in site.data.legal_links %}
