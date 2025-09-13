@@ -182,8 +182,52 @@
             <feMergeNode in="SourceGraphic"/>
           </feMerge>
         </filter>
-      </defs>
 
+        <!-- Gradients, filters, and masks for Sun & Moon -->
+        <radialGradient id="sun-photosphere" cx="50%" cy="50%" r="55%">
+          <stop offset="0%"  stop-color="#FFFBE6"/>
+          <stop offset="45%" stop-color="#FFD36B"/>
+          <stop offset="100%" stop-color="#FF9F1A"/>
+        </radialGradient>
+        <radialGradient id="sun-corona" cx="50%" cy="50%" r="65%">
+          <stop offset="0%"   stop-color="rgba(255, 210, 90, 0.8)"/>
+          <stop offset="70%"  stop-color="rgba(255, 160, 40, 0.25)"/>
+          <stop offset="100%" stop-color="rgba(255, 140, 0, 0)"/>
+        </radialGradient>
+        <filter id="sun-glow" x="-150%" y="-150%" width="400%" height="400%">
+          <feGaussianBlur stdDeviation="8" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+        <filter id="sun-breathe" x="-150%" y="-150%" width="400%" height="400%">
+          <feGaussianBlur stdDeviation="14">
+            <animate attributeName="stdDeviation" values="12;16;12" dur="6s" repeatCount="indefinite"/>
+          </feGaussianBlur>
+        </filter>
+
+        <radialGradient id="moon-core" cx="50%" cy="50%" r="55%">
+          <stop offset="0%"  stop-color="#F2F2F2"/>
+          <stop offset="65%" stop-color="#D9D9D9"/>
+          <stop offset="100%" stop-color="#C9C9C9"/>
+        </radialGradient>
+        <filter id="moon-noise" x="-50%" y="-50%" width="200%" height="200%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" seed="7" result="noise"/>
+          <feColorMatrix type="matrix"
+            values="0 0 0 0 0.6
+                    0 0 0 0 0.6
+                    0 0 0 0 0.6
+                    0 0 0 -0.9 1" result="maria"/>
+          <feGaussianBlur stdDeviation="0.8" in="maria" result="mariaBlur"/>
+          <feBlend in="SourceGraphic" in2="mariaBlur" mode="multiply"/>
+        </filter>
+        <mask id="moon-phase-mask">
+          <rect x="0" y="0" width="5120" height="456" fill="black"/>
+          <circle id="moon-mask-disc" cx="0" cy="0" r="60" fill="white"/>
+          <circle id="moon-phase-disc" cx="0" cy="0" r="60" fill="black"/>
+        </mask>
+      </defs>
       <g filter="url(#glow)">
         <use href="#star" x="1630" y="10" width="12" height="12">
           <animate attributeName="opacity" values="0.75;1;0.75" dur="6.2s" begin="0.5s" repeatCount="indefinite" />
@@ -323,6 +367,35 @@
           <animateTransform attributeName="transform" type="translate" values="0 0; 7 3; 0 0" dur="20s" repeatCount="indefinite" />
         </use>
       </g>
+      <g id="sun">
+        <circle cx="2800" cy="120" r="50" fill="url(#sun-corona)" filter="url(#sun-breathe)"/>
+        <circle cx="2800" cy="120" r="30" fill="url(#sun-photosphere)" filter="url(#sun-glow)">
+          <animate attributeName="opacity" values="0.98;1;0.98" dur="8s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+
+      <!-- Moon -->
+      <g id="moon">
+        <circle id="moon-body" cx="4800" cy="110" r="60" fill="url(#moon-core)" filter="url(#moon-noise)" mask="url(#moon-phase-mask)"/>
+        <circle cx="4800" cy="110" r="70" fill="none" opacity="0.35" filter="url(#sun-glow)"/>
+      </g>
+      <g stroke="white" stroke-width="2" opacity="0.8">
+        <!-- Left → Right -->
+        <line x1="0" y1="0" x2="20" y2="0">
+          <animateTransform attributeName="transform" type="translate" values="-200 200; 5120 -200" dur="2s" begin="10s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0;1;0" dur="2s" begin="10s" repeatCount="indefinite" />
+        </line>
+        <line x1="0" y1="0" x2="15" y2="0">
+          <animateTransform attributeName="transform" type="translate" values="-100 500; 5120 200" dur="1.8s" begin="25s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0;1;0" dur="1.8s" begin="25s" repeatCount="indefinite" />
+        </line>
+
+        <!-- Right → Left -->
+        <line x1="0" y1="0" x2="20" y2="0">
+          <animateTransform attributeName="transform" type="translate" values="5300 300; -200 100" dur="2s" begin="15s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0;1;0" dur="2s" begin="15s" repeatCount="indefinite" />
+        </line>
+      </g>
     </svg>
   </div>
   <div class="sky-layer sky-layer-front" role="presentation">
@@ -404,27 +477,8 @@
           <li>
             <button type="button" class="dropdown-item" role="menuitem" aria-label="Use light mode"
                     data-color-scheme="light" data-theme-switcher-list-items>
-              <svg version="1.0" role="img" class="icon icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2">
-  <!-- Sun core -->
-  <circle cx="12" cy="12" r="4.5" />
-
-  <!-- Rays -->
-  <!-- Top (N) -->
-  <line x1="12" y1="2" x2="12" y2="4" />
-  <!-- Bottom (S) -->
-  <line x1="12" y1="20" x2="12" y2="22" />
-  <!-- Left (W) -->
-  <line x1="2" y1="12" x2="4" y2="12" />
-  <!-- Right (E) -->
-  <line x1="20" y1="12" x2="22" y2="12" />
-  <!-- Top-left (NW) -->
-  <line x1="5" y1="5" x2="6.5" y2="6.5" />
-  <!-- Top-right (NE) -->
-  <line x1="17.5" y1="6.5" x2="19" y2="5" />
-  <!-- Bottom-left (SW) -->
-  <line x1="5" y1="19" x2="6.5" y2="17.5" />
-  <!-- Bottom-right (SE) -->
-  <line x1="17.5" y1="17.5" x2="19" y2="19" />
+              <svg version="1.0" role="img" class="icon icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
+  <path d="M4.069 13h-4.069v-2h4.069c-.041.328-.069.661-.069 1s.028.672.069 1zm3.034-7.312l-2.881-2.881-1.414 1.414 2.881 2.881c.411-.529.885-1.003 1.414-1.414zm11.209 1.414l2.881-2.881-1.414-1.414-2.881 2.881c.528.411 1.002.886 1.414 1.414zm-6.312-3.102c.339 0 .672.028 1 .069v-4.069h-2v4.069c.328-.041.661-.069 1-.069zm0 16c-.339 0-.672-.028-1-.069v4.069h2v-4.069c-.328.041-.661.069-1 .069zm7.931-9c.041.328.069.661.069 1s-.028.672-.069 1h4.069v-2h-4.069zm-3.033 7.312l2.88 2.88 1.415-1.414-2.88-2.88c-.412.528-.886 1.002-1.415 1.414zm-11.21-1.415l-2.88 2.88 1.414 1.414 2.88-2.88c-.528-.411-1.003-.885-1.414-1.414zm2.312-4.897c0 2.206 1.794 4 4 4s4-1.794 4-4-1.794-4-4-4-4 1.794-4 4zm10 0c0 3.314-2.686 6-6 6s-6-2.686-6-6 2.686-6 6-6 6 2.686 6 6z" />
 </svg>
 
               Light
@@ -535,11 +589,11 @@
 
           
   <div class="post-meta-item post-categories" role="list">
-    <svg version="1.0" role="img" class="icon icon-diamonds" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" focusable="false">
-  <polygon points="12,2 15.5,5.5 12,9 8.5,5.5" />
-  <polygon points="2,12 5.5,8.5 9,12 5.5,15.5" />
-  <polygon points="22,12 18.5,8.5 15,12 18.5,15.5" />
-  <polygon points="12,22 8.5,18.5 12,15 15.5,18.5" />
+    <svg version="1.0" role="img" class="icon icon-diamonds" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="1.25rem" height="1.25rem" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="m12 2 3.5 3.5L12 9 8.5 5.5 12 2Z" style="transform: translateY(0px);" />
+  <path d="M5.5 8.5 9 12l-3.5 3.5L2 12l3.5-3.5Z" style="transform: translateX(0px);" />
+  <path d="M18.5 8.5 22 12l-3.5 3.5L15 12l3.5-3.5Z" style="transform: translateX(0px);" />
+  <path d="m12 15 3.5 3.5L12 22l-3.5-3.5L12 15Z" style="transform: translateY(0px);">
 </svg>
 
     <span class="visually-hidden">Categories:</span>
@@ -604,11 +658,11 @@
 
           
   <div class="post-meta-item post-categories" role="list">
-    <svg version="1.0" role="img" class="icon icon-diamonds" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" focusable="false">
-  <polygon points="12,2 15.5,5.5 12,9 8.5,5.5" />
-  <polygon points="2,12 5.5,8.5 9,12 5.5,15.5" />
-  <polygon points="22,12 18.5,8.5 15,12 18.5,15.5" />
-  <polygon points="12,22 8.5,18.5 12,15 15.5,18.5" />
+    <svg version="1.0" role="img" class="icon icon-diamonds" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="1.25rem" height="1.25rem" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="m12 2 3.5 3.5L12 9 8.5 5.5 12 2Z" style="transform: translateY(0px);" />
+  <path d="M5.5 8.5 9 12l-3.5 3.5L2 12l3.5-3.5Z" style="transform: translateX(0px);" />
+  <path d="M18.5 8.5 22 12l-3.5 3.5L15 12l3.5-3.5Z" style="transform: translateX(0px);" />
+  <path d="m12 15 3.5 3.5L12 22l-3.5-3.5L12 15Z" style="transform: translateY(0px);">
 </svg>
 
     <span class="visually-hidden">Categories:</span>
@@ -673,11 +727,11 @@
 
           
   <div class="post-meta-item post-categories" role="list">
-    <svg version="1.0" role="img" class="icon icon-diamonds" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" focusable="false">
-  <polygon points="12,2 15.5,5.5 12,9 8.5,5.5" />
-  <polygon points="2,12 5.5,8.5 9,12 5.5,15.5" />
-  <polygon points="22,12 18.5,8.5 15,12 18.5,15.5" />
-  <polygon points="12,22 8.5,18.5 12,15 15.5,18.5" />
+    <svg version="1.0" role="img" class="icon icon-diamonds" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="1.25rem" height="1.25rem" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="m12 2 3.5 3.5L12 9 8.5 5.5 12 2Z" style="transform: translateY(0px);" />
+  <path d="M5.5 8.5 9 12l-3.5 3.5L2 12l3.5-3.5Z" style="transform: translateX(0px);" />
+  <path d="M18.5 8.5 22 12l-3.5 3.5L15 12l3.5-3.5Z" style="transform: translateX(0px);" />
+  <path d="m12 15 3.5 3.5L12 22l-3.5-3.5L12 15Z" style="transform: translateY(0px);">
 </svg>
 
     <span class="visually-hidden">Categories:</span>
@@ -713,12 +767,6 @@
 <section class="trending-tags" aria-labelledby="trending-tags-heading">
   <h2 id="trending-tags-heading" class="section">Trending Tags</h2>
   <ul class="tags">
-    <li class="tag"><a href="/tag/frontend" class="tag-link link-muted"
-           rel="tag" aria-label="Tag: frontend">
-          <span class="tag-name">#frontend</span>
-        </a>
-        <span class="tag-count">4</span>
-      </li>
     <li class="tag"><a href="/tag/css" class="tag-link link-muted"
            rel="tag" aria-label="Tag: css">
           <span class="tag-name">#css</span>
@@ -728,6 +776,12 @@
     <li class="tag"><a href="/tag/layout" class="tag-link link-muted"
            rel="tag" aria-label="Tag: layout">
           <span class="tag-name">#layout</span>
+        </a>
+        <span class="tag-count">4</span>
+      </li>
+    <li class="tag"><a href="/tag/frontend" class="tag-link link-muted"
+           rel="tag" aria-label="Tag: frontend">
+          <span class="tag-name">#frontend</span>
         </a>
         <span class="tag-count">4</span>
       </li>
@@ -761,15 +815,15 @@
         </a>
         <span class="tag-count">2</span>
       </li>
-    <li class="tag"><a href="/tag/css-grid" class="tag-link link-muted"
-           rel="tag" aria-label="Tag: css-grid">
-          <span class="tag-name">#css-grid</span>
-        </a>
-        <span class="tag-count">2</span>
-      </li>
     <li class="tag"><a href="/tag/responsive" class="tag-link link-muted"
            rel="tag" aria-label="Tag: responsive">
           <span class="tag-name">#responsive</span>
+        </a>
+        <span class="tag-count">2</span>
+      </li>
+    <li class="tag"><a href="/tag/css-grid" class="tag-link link-muted"
+           rel="tag" aria-label="Tag: css-grid">
+          <span class="tag-name">#css-grid</span>
         </a>
         <span class="tag-count">2</span>
       </li>
@@ -813,13 +867,24 @@
   <ul class="recently-updated-list">
   
     <li>
-      <a href="/post/mastering-js-operators" class="recently-updated-post link-muted">
+      <a href="/post/components" class="recently-updated-post link-muted">
         <svg version="1.0" role="img" class="icon icon-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <line x1="5" y1="12" x2="18" y2="12" />
   <polyline points="12 5 19 12 12 19" />
 </svg>
 
-        Mastering JavaScript Operators: A Complete Guide with Examples
+        Components
+      </a>
+    </li>
+  
+    <li>
+      <a href="/post/unleashing-css-logical-properties" class="recently-updated-post link-muted">
+        <svg version="1.0" role="img" class="icon icon-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="5" y1="12" x2="18" y2="12" />
+  <polyline points="12 5 19 12 12 19" />
+</svg>
+
+        Unleashing CSS Logical Properties
       </a>
     </li>
   
@@ -835,24 +900,13 @@
     </li>
   
     <li>
-      <a href="/post/components" class="recently-updated-post link-muted">
-        <svg version="1.0" role="img" class="icon icon-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="5" y1="12" x2="18" y2="12" />
-  <polyline points="12 5 19 12 12 19" />
-</svg>
-
-        Components
-      </a>
-    </li>
-  
-    <li>
       <a href="/post/getting-started-with-css-grid" class="recently-updated-post link-muted">
         <svg version="1.0" role="img" class="icon icon-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <line x1="5" y1="12" x2="18" y2="12" />
   <polyline points="12 5 19 12 12 19" />
 </svg>
 
-        Getting Started with CSS Grid: A Beginner’s Guide to 2D Layouts
+        Getting Started with CSS Grid: A Beginner's Guide to 2D Layouts
       </a>
     </li>
   
