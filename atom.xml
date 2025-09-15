@@ -5,7 +5,7 @@
   <subtitle>I’m a software engineer, freelancer, and lifelong learner passionate about building clean, scalable web solutions. I contribute to open-source, embrace minimalism in code and life, and stay curious about emerging tech.</subtitle>
   <id>https://shivam091.github.io/</id>
   <icon>https://shivam091.github.io/img/favicon.png</icon>
-  <updated>2025-09-15T10:33:50+05:30</updated>
+  <updated>2025-09-15T11:20:02+05:30</updated>
   <rights>© 2025 Harshal V. LADHE</rights>
 
   <link rel="alternate" type="text/html" href="https://shivam091.github.io" />
@@ -9831,7 +9831,7 @@ like fr (fraction of available space).</p></li>
     <id>https://shivam091.github.io/post/components</id>
 
     <published>2025-06-16T19:10:40+05:30</published>
-    <updated>2025-09-01T10:49:00+05:30</updated>
+    <updated>2025-09-12T12:20:00+05:30</updated>
 
     
     <media:thumbnail
@@ -9843,7 +9843,10 @@ like fr (fraction of available space).</p></li>
     <summary type="html">
       This post is a comprehensive test of various components. It includes alerts, code blocks, buttons, and more.
     </summary>
-    <content type="html"><![CDATA[<h2  id="codeblocks" dir="auto">Codeblocks</h2>
+    <content type="html"><![CDATA[<iframe height="500" style="width: 100%;" scrolling="no" title="JS Demo" src="https://codepen.io/team/codepen/embed/preview/PNaGbb" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+</iframe>
+
+<h2  id="codeblocks" dir="auto">Codeblocks</h2>
 <div class="code-block" data-copy-code="">
   <div class="code-block-header" role="region" aria-labelledby="code-lang-label">
     <div class="code-block-button-group" aria-hidden="true">
