@@ -1,6 +1,0 @@
-<svg version="1.1" role="img" class="icon icon-check-circle" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-  <!-- Circle -->
-  <circle cx="12" cy="12" r="10" />
-  <!-- Checkmark-->
-  <polyline points="8 12.5 11 15.5 16 9.5" />
-</svg>
