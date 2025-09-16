@@ -254,8 +254,19 @@
           <li>
             <button type="button" class="dropdown-item" role="menuitem" aria-label="Use light mode"
                     data-color-scheme="light" data-theme-switcher-list-items>
-              <svg version="1.0" role="img" class="icon icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path d="M4.069 13h-4.069v-2h4.069c-.041.328-.069.661-.069 1s.028.672.069 1zm3.034-7.312l-2.881-2.881-1.414 1.414 2.881 2.881c.411-.529.885-1.003 1.414-1.414zm11.209 1.414l2.881-2.881-1.414-1.414-2.881 2.881c.528.411 1.002.886 1.414 1.414zm-6.312-3.102c.339 0 .672.028 1 .069v-4.069h-2v4.069c.328-.041.661-.069 1-.069zm0 16c-.339 0-.672-.028-1-.069v4.069h2v-4.069c-.328.041-.661.069-1 .069zm7.931-9c.041.328.069.661.069 1s-.028.672-.069 1h4.069v-2h-4.069zm-3.033 7.312l2.88 2.88 1.415-1.414-2.88-2.88c-.412.528-.886 1.002-1.415 1.414zm-11.21-1.415l-2.88 2.88 1.414 1.414 2.88-2.88c-.528-.411-1.003-.885-1.414-1.414zm2.312-4.897c0 2.206 1.794 4 4 4s4-1.794 4-4-1.794-4-4-4-4 1.794-4 4zm10 0c0 3.314-2.686 6-6 6s-6-2.686-6-6 2.686-6 6-6 6 2.686 6 6z" />
+              <svg version="1.0" role="img" class="icon icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <!-- Sun core -->
+  <circle cx="12" cy="12" r="4.5" />
+
+  <!-- Rays -->
+  <line x1="12" y1="1" x2="12" y2="4" />    <!-- Top (N) -->
+  <line x1="12" y1="20" x2="12" y2="23" />  <!-- Bottom (S) -->
+  <line x1="1" y1="12" x2="4" y2="12" />    <!-- Left (W) -->
+  <line x1="20" y1="12" x2="23" y2="12" />  <!-- Right (E) -->
+  <line x1="4" y1="4" x2="6" y2="6" />      <!-- Top-left (NW) -->
+  <line x1="18" y1="6" x2="20" y2="4" />    <!-- Top-right (NE) -->
+  <line x1="4" y1="20" x2="6" y2="18" />    <!-- Bottom-left (SW) -->
+  <line x1="18" y1="18" x2="20" y2="20" />  <!-- Bottom-right (SE) -->
 </svg>
 
               Light
@@ -264,8 +275,19 @@
           <li>
             <button type="button" class="dropdown-item" role="menuitem" aria-label="Use soft dark mode"
                     data-color-scheme="soft-dark" data-theme-switcher-list-items>
-              <svg version="1.0" role="img" class="icon icon-eclipse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path d="M4.069 13h-4.069v-2h4.069c-.041.328-.069.661-.069 1s.028.672.069 1zm1.618 3.897l-2.879 2.88 1.414 1.414 2.879-2.88c-.527-.411-1.001-.885-1.414-1.414zm1.416-11.209l-2.88-2.881-1.415 1.414 2.881 2.881c.411-.529.885-1.003 1.414-1.414zm11.208 1.414l2.881-2.881-1.414-1.414-2.881 2.881c.529.411 1.003.886 1.414 1.414zm-5.311-3.033v-4.069h-2v4.069c.328-.041.66-.069 1-.069.34 0 .672.028 1 .069zm3.898 14.243l2.88 2.88 1.415-1.414-2.881-2.88c-.411.528-.885 1.002-1.414 1.414zm3.033-7.312c.041.328.069.661.069 1s-.028.672-.069 1h4.069v-2h-4.069zm-8.931 8.931v4.069h2v-4.069c-.328.041-.66.069-1 .069-.34 0-.672-.028-1-.069zm7-7.931c0 3.314-2.686 6-6 6-3.315 0-6-2.686-6-6s2.685-6 6-6c3.314 0 6 2.686 6 6zm-2 0c0-2.19-1.818-3.963-4-3.994 2.533 1.816 2.61 6.119 0 7.988 2.182-.031 4-1.804 4-3.994z" />
+              <svg version="1.0" role="img" class="icon icon-sun-dim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <!-- Sun core -->
+  <circle cx="12" cy="12" r="4" />
+
+  <!-- Rays -->
+  <line x1="12" y1="2" x2="12" y2="4" />    <!-- Top (N) -->
+  <line x1="12" y1="20" x2="12" y2="22" />  <!-- Bottom (S) -->
+  <line x1="2" y1="12" x2="4" y2="12" />    <!-- Left (W) -->
+  <line x1="20" y1="12" x2="22" y2="12" />  <!-- Right (E) -->
+  <line x1="5" y1="5" x2="6" y2="6" />      <!-- Top-left (NW) -->
+  <line x1="18" y1="6" x2="19" y2="5" />    <!-- Top-right (NE) -->
+  <line x1="5" y1="19" x2="6" y2="18" />    <!-- Bottom-left (SW) -->
+  <line x1="18" y1="18" x2="19" y2="19" />  <!-- Bottom-right (SE) -->
 </svg>
 
               Soft Dark
@@ -287,8 +309,13 @@
     <a href="/atom.xml" class="header-action atom-feed" aria-label="Atom Feed" target="_blank"
        rel="alternate" type="application/atom+xml" data-analytics-event="subscribe_feed" data-analytics-label="Atom Feed"
        data-analytics-category="engagement">
-       <svg version="1.0" role="img" class="icon icon-atom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path d="M12,11a1,1,0,1,0,1,1A1,1,0,0,0,12,11Zm7.62,1,.11-.14C21.08,10,21.4,8.29,20.66,7S18.26,5.14,16,5.37l-.18,0C14.91,3.3,13.56,2,12,2S9.09,3.3,8.19,5.4L8,5.37C5.74,5.14,4.08,5.71,3.34,7s-.42,3,.93,4.86l.11.14-.11.14C2.92,14,2.6,15.71,3.34,17,4,18.1,5.27,18.68,7,18.68c.31,0,.63,0,1-.05l.18,0C9.09,20.7,10.44,22,12,22s2.91-1.3,3.81-3.4l.18,0c.34,0,.66.05,1,.05,1.77,0,3.07-.58,3.7-1.68.74-1.29.42-3-.93-4.86ZM5.07,8c.25-.44,1-.68,2-.68l.49,0a14.78,14.78,0,0,0-.35,1.87,15,15,0,0,0-1.45,1.25C5,9.44,4.78,8.5,5.07,8Zm0,8c-.29-.5,0-1.44.67-2.47a15,15,0,0,0,1.45,1.25,14.94,14.94,0,0,0,.35,1.88C6.3,16.74,5.36,16.5,5.07,16ZM12,4c.56,0,1.23.66,1.8,1.83a17.6,17.6,0,0,0-1.8.63,17.6,17.6,0,0,0-1.8-.63C10.77,4.66,11.44,4,12,4Zm0,16c-.56,0-1.23-.66-1.8-1.83a17.6,17.6,0,0,0,1.8-.63,17.6,17.6,0,0,0,1.8.63C13.23,19.34,12.56,20,12,20Zm2.93-6.31c-.46.32-.93.62-1.43.91s-1,.55-1.5.78q-.75-.35-1.5-.78c-.5-.29-1-.59-1.43-.91C9,13.15,9,12.59,9,12s0-1.15.07-1.69c.46-.32.93-.62,1.43-.91s1-.55,1.5-.78q.75.35,1.5.78c.5.29,1,.59,1.43.91,0,.54.07,1.1.07,1.69S15,13.15,14.93,13.69Zm4,2.31c-.29.5-1.23.75-2.47.66a14.94,14.94,0,0,0,.35-1.88,15,15,0,0,0,1.45-1.25C19,14.56,19.22,15.5,18.93,16Zm-.67-5.53a15,15,0,0,0-1.45-1.25,14.78,14.78,0,0,0-.35-1.87l.49,0c1,0,1.73.24,2,.68S19,9.44,18.26,10.47Z" />
+       <svg version="1.0" role="img" class="icon icon-atom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2">
+  <!-- nucleus -->
+  <circle cx="5" cy="19" r="1.6" fill="currentColor" />
+  <!-- small arc -->
+  <circle cx="4" cy="20" r="9" fill="none" stroke-dasharray="14 43" stroke-dashoffset="14" />
+  <!-- large arc -->
+  <circle cx="4" cy="20" r="16" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="25 76" stroke-dashoffset="25" />
 </svg>
 
     </a>
@@ -327,8 +354,11 @@
 
     <div class="post-meta post-meta-primary" role="group" aria-label="Post metadata">
       <div class="post-meta-item post-published-date">
-  <svg version="1.0" role="img" class="icon icon-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path fill-rule="evenodd" d="M7.38 2.041a2.101 2.101 0 0 0-1.336.83c-.271.366-.372.643-.461 1.256l-.021.145-.33.027c-1.048.087-1.9.548-2.448 1.32-.495.698-.575 1.124-.704 3.729-.141 2.873-.054 8.133.163 9.763.166 1.251 1.111 2.311 2.322 2.605 1.193.29 8.654.397 12.81.184 1.862-.096 2.12-.136 2.704-.423.797-.39 1.438-1.182 1.636-2.019.258-1.086.386-6.851.226-10.11-.127-2.574-.217-3.047-.7-3.723-.556-.781-1.403-1.239-2.453-1.326l-.329-.027-.021-.145c-.09-.613-.19-.89-.461-1.256-.349-.472-.803-.74-1.413-.836-.41-.064-1.183-.023-1.514.081-.734.231-1.323.915-1.453 1.689l-.05.297h-3.073l-.05-.297c-.13-.774-.717-1.456-1.454-1.69-.301-.095-1.231-.138-1.59-.074Zm1.048 2.057c.054.082.06.234.05 1.04-.007.657-.025.956-.058.99-.028.027-.18.047-.372.05-.482.002-.46.051-.475-1.059-.016-1.156-.031-1.117.453-1.117.313 0 .343.007.402.096Zm7.969.001c.054.083.062.23.05 1.02-.015 1.11.008 1.061-.475 1.058-.192-.002-.343-.022-.371-.05-.033-.033-.051-.332-.059-.99-.015-1.178-.032-1.135.452-1.135.315 0 .344.007.403.097Zm3.558 5.41c.097 2.442.084 6.05-.077 8.387-.034.474-.072.93-.086 1.013-.06.365-.437.77-.809.867-.16.043-.994.102-2.328.166-1.42.067-6.136.092-7.868.04-2.737-.08-3.675-.146-3.936-.28-.412-.21-.585-.485-.647-1.03-.204-1.8-.258-6.102-.132-9.172 1.92 0 13.928.009 15.883.009Z" clip-rule="evenodd" />
+  <svg version="1.0" role="img" class="icon icon-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <rect x="3" y="5" width="18" height="16" rx="2" ry="2" />
+  <line x1="8" y1="3.5" x2="8" y2="6.5" />
+  <line x1="16" y1="3.5" x2="16" y2="6.5" />
+  <line x1="3" y1="10" x2="21" y2="10" />
 </svg>
 
   <span class="visually-hidden">Published at:</span>
@@ -353,9 +383,12 @@
 
 
 <div class="post-meta-item post-read-time">
-  <svg version="1.0" role="img" class="icon icon-clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path fill-rule="evenodd" d="M12 6a1 1 0 0 1 1 1v5a1 1 0 0 1-.293.707l-3.5 3.5a1 1 0 0 1-1.414-1.414L11 11.586V7a1 1 0 0 1 1-1z" clip-rule="evenodd" />
-  <path fill-rule="evenodd" d="M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12z" clip-rule="evenodd" />
+  <svg version="1.0" role="img" class="icon icon-clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <!-- <path fill-rule="evenodd" d="M12 6a1 1 0 0 1 1 1v5a1 1 0 0 1-.293.707l-3.5 3.5a1 1 0 0 1-1.414-1.414L11 11.586V7a1 1 0 0 1 1-1z" clip-rule="evenodd" />
+  <path fill-rule="evenodd" d="M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12z" clip-rule="evenodd" /> -->
+  <circle cx="12" cy="12" r="9" />
+  <line x1="12" y1="12" x2="12" y2="8" />
+  <line x1="12" y1="12" x2="16" y2="12" />
 </svg>
 
   <span class="visually-hidden">Estimated reading time:</span>
@@ -448,7 +481,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -526,7 +559,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -618,7 +651,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -685,7 +718,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -760,7 +793,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -847,7 +880,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -947,7 +980,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -1057,7 +1090,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -1137,7 +1170,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -1272,7 +1305,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -1350,7 +1383,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -1473,7 +1506,7 @@
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
   <path d="m9 14 2 2 4-4" stroke-opacity="0"></path>
@@ -1708,11 +1741,11 @@ Use <strong><code class="highlighter-rouge notranslate">auto-fill</code></strong
 <div class="post-meta post-meta-secondary" role="group" aria-label="Post metadata">
     
   <div class="post-meta-item post-categories" role="list">
-    <svg version="1.0" role="img" class="icon icon-diamonds" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="1.25rem" height="1.25rem" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-  <path d="m12 2 3.5 3.5L12 9 8.5 5.5 12 2Z" style="transform: translateY(0px);" />
-  <path d="M5.5 8.5 9 12l-3.5 3.5L2 12l3.5-3.5Z" style="transform: translateX(0px);" />
-  <path d="M18.5 8.5 22 12l-3.5 3.5L15 12l3.5-3.5Z" style="transform: translateX(0px);" />
-  <path d="m12 15 3.5 3.5L12 22l-3.5-3.5L12 15Z" style="transform: translateY(0px);">
+    <svg version="1.0" role="img" class="icon icon-diamonds" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" focusable="false">
+  <polygon points="12,2 15.5,5.5 12,9 8.5,5.5" />
+  <polygon points="2,12 5.5,8.5 9,12 5.5,15.5" />
+  <polygon points="22,12 18.5,8.5 15,12 18.5,15.5" />
+  <polygon points="12,22 8.5,18.5 12,15 15.5,18.5" />
 </svg>
 
     <span class="visually-hidden">Categories:</span>
@@ -1724,10 +1757,10 @@ Use <strong><code class="highlighter-rouge notranslate">auto-fill</code></strong
 
     
   <div class="post-meta-item post-tags" role="list">
-    <svg version="1.0" role="img" class="icon icon-tag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path fill-rule="evenodd" d="M14.025 4.159c.083-.058.228-.103.452-.066l3.95.659a1 1 0 0 1 .822.822l.658 3.949c.037.224-.008.37-.066.452-.755 1.079-2.516 3.022-4.45 4.97-1.929 1.941-3.94 3.796-5.16 4.71a.424.424 0 0 1-.514.004c-1.71-1.186-4.19-3.665-5.376-5.376a.424.424 0 0 1 .004-.515c.914-1.22 2.769-3.23 4.71-5.158 1.948-1.935 3.891-3.696 4.97-4.451Zm.781-2.038c-.61-.102-1.317-.028-1.927.399-1.235.864-3.286 2.736-5.233 4.67-1.953 1.941-3.895 4.036-4.901 5.38a2.423 2.423 0 0 0-.048 2.853c1.323 1.907 3.973 4.557 5.88 5.88.865.6 2 .592 2.854-.047 1.343-1.007 3.438-2.948 5.379-4.902 1.934-1.947 3.806-3.998 4.67-5.232.427-.61.501-1.319.4-1.928l-.659-3.95a3 3 0 0 0-2.466-2.465l-3.949-.658ZM16.008 8l-.001.003c0 .002-.001.002-.002.002l-.002.002h-.006l-.002-.001-.002-.003v-.006c0-.002.001-.002.002-.002l.002-.002h.006c.002 0 .002.001.003.002v.002l.002.002V8ZM16 6.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" clip-rule="evenodd" />
+    <svg version="1.0" role="img" class="icon icon-tag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <polygon points="11 21,3 13,13 3,21 3,21 11" />
+  <circle cx="16" cy="8" r="0.5" />
 </svg>
-
     <span class="visually-hidden">Tags:</span>
     
       <a href="/tag/css" class="badge" aria-label="Tag: css" rel="tag" role="listitem">css</a>
@@ -1799,16 +1832,15 @@ Use <strong><code class="highlighter-rouge notranslate">auto-fill</code></strong
   <a href="https://x.com/intent/tweet?via=shivam091&text=Responsive%20CSS%20Grid%20Layouts:%20%60fr%60%20Units,%20%60minmax()%60,%20%60auto-fill%60,%20and%20%60auto-fit%60%20Explained&url=https%3A%2F%2Fshivam091.github.io%2Fpost%2Fresponsive-css-grid-layouts" class="share-link"
        onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
        aria-label="Share on Twitter" data-tooltip="Twitter">
-      <svg version="1.0" role="img" class="icon icon-twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path d="M22,5.8a8.49,8.49,0,0,1-2.36.64,4.13,4.13,0,0,0,1.81-2.27,8.21,8.21,0,0,1-2.61,1,4.1,4.1,0,0,0-7,3.74A11.64,11.64,0,0,1,3.39,4.62a4.16,4.16,0,0,0-.55,2.07A4.09,4.09,0,0,0,4.66,10.1,4.05,4.05,0,0,1,2.8,9.59v.05a4.1,4.1,0,0,0,3.3,4A3.93,3.93,0,0,1,5,13.81a4.9,4.9,0,0,1-.77-.07,4.11,4.11,0,0,0,3.83,2.84A8.22,8.22,0,0,1,3,18.34a7.93,7.93,0,0,1-1-.06,11.57,11.57,0,0,0,6.29,1.85A11.59,11.59,0,0,0,20,8.45c0-.17,0-.35,0-.53A8.43,8.43,0,0,0,22,5.8Z" />
+      <svg version="1.0" role="img" class="icon icon-twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
 </svg>
-
     </a>
   <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fshivam091.github.io%2Fpost%2Fresponsive-css-grid-layouts" class="share-link"
        onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
        aria-label="Share on Facebook" data-tooltip="Facebook">
-      <svg version="1.0" role="img" class="icon icon-facebook" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path d="M20.9,2H3.1A1.1,1.1,0,0,0,2,3.1V20.9A1.1,1.1,0,0,0,3.1,22h9.58V14.25h-2.6v-3h2.6V9a3.64,3.64,0,0,1,3.88-4,20.26,20.26,0,0,1,2.33.12v2.7H17.3c-1.26,0-1.5.6-1.5,1.47v1.93h3l-.39,3H15.8V22h5.1A1.1,1.1,0,0,0,22,20.9V3.1A1.1,1.1,0,0,0,20.9,2Z" />
+      <svg version="1.0" role="img" class="icon icon-facebook" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
 </svg>
 
     </a>
@@ -1823,8 +1855,10 @@ Use <strong><code class="highlighter-rouge notranslate">auto-fill</code></strong
   <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fshivam091.github.io%2Fpost%2Fresponsive-css-grid-layouts" class="share-link"
        onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
        aria-label="Share on LinkedIn" data-tooltip="LinkedIn">
-      <svg version="1.0" role="img" class="icon icon-linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path d="M20.47,2H3.53A1.45,1.45,0,0,0,2.06,3.43V20.57A1.45,1.45,0,0,0,3.53,22H20.47a1.45,1.45,0,0,0,1.47-1.43V3.43A1.45,1.45,0,0,0,20.47,2ZM8.09,18.74h-3v-9h3ZM6.59,8.48h0a1.56,1.56,0,1,1,0-3.12,1.57,1.57,0,1,1,0,3.12ZM18.91,18.74h-3V13.91c0-1.21-.43-2-1.52-2A1.65,1.65,0,0,0,12.85,13a2,2,0,0,0-.1.73v5h-3s0-8.18,0-9h3V11A3,3,0,0,1,15.46,9.5c2,0,3.45,1.29,3.45,4.06Z" />
+      <svg version="1.0" role="img" class="icon icon-linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+  <rect width="4" height="12" x="2" y="9" />
+  <circle cx="4" cy="4" r="2" />
 </svg>
 
     </a>
@@ -1839,8 +1873,9 @@ Use <strong><code class="highlighter-rouge notranslate">auto-fill</code></strong
   <a href="mailto:?subject=Responsive%20CSS%20Grid%20Layouts:%20%60fr%60%20Units,%20%60minmax()%60,%20%60auto-fill%60,%20and%20%60auto-fit%60%20Explained&body=Check%20this%20out:%20https%3A%2F%2Fshivam091.github.io%2Fpost%2Fresponsive-css-grid-layouts" class="share-link"
        onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
        aria-label="Share on Email" data-tooltip="Email">
-      <svg version="1.0" role="img" class="icon icon-envelope" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M2 7C2 5.34315 3.34315 4 5 4H19C20.6569 4 22 5.34315 22 7V17C22 18.6569 20.6569 20 19 20H5C3.34315 20 2 18.6569 2 17V7ZM4.26834 6.31832L11.4233 11.3689C11.769 11.6129 12.231 11.6129 12.5767 11.3689L19.7317 6.31832C19.5491 6.12247 19.2889 6 19 6H5C4.71114 6 4.45089 6.12247 4.26834 6.31832ZM20 8.57698L13.7301 13.0028C12.6929 13.735 11.3071 13.735 10.2699 13.0028L4 8.57698V17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17V8.57698Z" />
+      <svg version="1.0" role="img" class="icon icon-envelope" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <rect x="3" y="6" width="18" height="14" rx="2" ry="2" />
+  <polyline points="4 7 12 14 20 7" />
 </svg>
 
     </a>
@@ -2019,8 +2054,11 @@ Use <strong><code class="highlighter-rouge notranslate">auto-fill</code></strong
             <footer class="card-footer">
               <div class="post-meta">
                 <div class="post-meta-item post-published-date">
-  <svg version="1.0" role="img" class="icon icon-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path fill-rule="evenodd" d="M7.38 2.041a2.101 2.101 0 0 0-1.336.83c-.271.366-.372.643-.461 1.256l-.021.145-.33.027c-1.048.087-1.9.548-2.448 1.32-.495.698-.575 1.124-.704 3.729-.141 2.873-.054 8.133.163 9.763.166 1.251 1.111 2.311 2.322 2.605 1.193.29 8.654.397 12.81.184 1.862-.096 2.12-.136 2.704-.423.797-.39 1.438-1.182 1.636-2.019.258-1.086.386-6.851.226-10.11-.127-2.574-.217-3.047-.7-3.723-.556-.781-1.403-1.239-2.453-1.326l-.329-.027-.021-.145c-.09-.613-.19-.89-.461-1.256-.349-.472-.803-.74-1.413-.836-.41-.064-1.183-.023-1.514.081-.734.231-1.323.915-1.453 1.689l-.05.297h-3.073l-.05-.297c-.13-.774-.717-1.456-1.454-1.69-.301-.095-1.231-.138-1.59-.074Zm1.048 2.057c.054.082.06.234.05 1.04-.007.657-.025.956-.058.99-.028.027-.18.047-.372.05-.482.002-.46.051-.475-1.059-.016-1.156-.031-1.117.453-1.117.313 0 .343.007.402.096Zm7.969.001c.054.083.062.23.05 1.02-.015 1.11.008 1.061-.475 1.058-.192-.002-.343-.022-.371-.05-.033-.033-.051-.332-.059-.99-.015-1.178-.032-1.135.452-1.135.315 0 .344.007.403.097Zm3.558 5.41c.097 2.442.084 6.05-.077 8.387-.034.474-.072.93-.086 1.013-.06.365-.437.77-.809.867-.16.043-.994.102-2.328.166-1.42.067-6.136.092-7.868.04-2.737-.08-3.675-.146-3.936-.28-.412-.21-.585-.485-.647-1.03-.204-1.8-.258-6.102-.132-9.172 1.92 0 13.928.009 15.883.009Z" clip-rule="evenodd" />
+  <svg version="1.0" role="img" class="icon icon-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <rect x="3" y="5" width="18" height="16" rx="2" ry="2" />
+  <line x1="8" y1="3.5" x2="8" y2="6.5" />
+  <line x1="16" y1="3.5" x2="16" y2="6.5" />
+  <line x1="3" y1="10" x2="21" y2="10" />
 </svg>
 
   <span class="visually-hidden">Published at:</span>
@@ -2052,8 +2090,11 @@ Use <strong><code class="highlighter-rouge notranslate">auto-fill</code></strong
             <footer class="card-footer">
               <div class="post-meta">
                 <div class="post-meta-item post-published-date">
-  <svg version="1.0" role="img" class="icon icon-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path fill-rule="evenodd" d="M7.38 2.041a2.101 2.101 0 0 0-1.336.83c-.271.366-.372.643-.461 1.256l-.021.145-.33.027c-1.048.087-1.9.548-2.448 1.32-.495.698-.575 1.124-.704 3.729-.141 2.873-.054 8.133.163 9.763.166 1.251 1.111 2.311 2.322 2.605 1.193.29 8.654.397 12.81.184 1.862-.096 2.12-.136 2.704-.423.797-.39 1.438-1.182 1.636-2.019.258-1.086.386-6.851.226-10.11-.127-2.574-.217-3.047-.7-3.723-.556-.781-1.403-1.239-2.453-1.326l-.329-.027-.021-.145c-.09-.613-.19-.89-.461-1.256-.349-.472-.803-.74-1.413-.836-.41-.064-1.183-.023-1.514.081-.734.231-1.323.915-1.453 1.689l-.05.297h-3.073l-.05-.297c-.13-.774-.717-1.456-1.454-1.69-.301-.095-1.231-.138-1.59-.074Zm1.048 2.057c.054.082.06.234.05 1.04-.007.657-.025.956-.058.99-.028.027-.18.047-.372.05-.482.002-.46.051-.475-1.059-.016-1.156-.031-1.117.453-1.117.313 0 .343.007.402.096Zm7.969.001c.054.083.062.23.05 1.02-.015 1.11.008 1.061-.475 1.058-.192-.002-.343-.022-.371-.05-.033-.033-.051-.332-.059-.99-.015-1.178-.032-1.135.452-1.135.315 0 .344.007.403.097Zm3.558 5.41c.097 2.442.084 6.05-.077 8.387-.034.474-.072.93-.086 1.013-.06.365-.437.77-.809.867-.16.043-.994.102-2.328.166-1.42.067-6.136.092-7.868.04-2.737-.08-3.675-.146-3.936-.28-.412-.21-.585-.485-.647-1.03-.204-1.8-.258-6.102-.132-9.172 1.92 0 13.928.009 15.883.009Z" clip-rule="evenodd" />
+  <svg version="1.0" role="img" class="icon icon-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <rect x="3" y="5" width="18" height="16" rx="2" ry="2" />
+  <line x1="8" y1="3.5" x2="8" y2="6.5" />
+  <line x1="16" y1="3.5" x2="16" y2="6.5" />
+  <line x1="3" y1="10" x2="21" y2="10" />
 </svg>
 
   <span class="visually-hidden">Published at:</span>
@@ -2085,8 +2126,11 @@ Use <strong><code class="highlighter-rouge notranslate">auto-fill</code></strong
             <footer class="card-footer">
               <div class="post-meta">
                 <div class="post-meta-item post-published-date">
-  <svg version="1.0" role="img" class="icon icon-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path fill-rule="evenodd" d="M7.38 2.041a2.101 2.101 0 0 0-1.336.83c-.271.366-.372.643-.461 1.256l-.021.145-.33.027c-1.048.087-1.9.548-2.448 1.32-.495.698-.575 1.124-.704 3.729-.141 2.873-.054 8.133.163 9.763.166 1.251 1.111 2.311 2.322 2.605 1.193.29 8.654.397 12.81.184 1.862-.096 2.12-.136 2.704-.423.797-.39 1.438-1.182 1.636-2.019.258-1.086.386-6.851.226-10.11-.127-2.574-.217-3.047-.7-3.723-.556-.781-1.403-1.239-2.453-1.326l-.329-.027-.021-.145c-.09-.613-.19-.89-.461-1.256-.349-.472-.803-.74-1.413-.836-.41-.064-1.183-.023-1.514.081-.734.231-1.323.915-1.453 1.689l-.05.297h-3.073l-.05-.297c-.13-.774-.717-1.456-1.454-1.69-.301-.095-1.231-.138-1.59-.074Zm1.048 2.057c.054.082.06.234.05 1.04-.007.657-.025.956-.058.99-.028.027-.18.047-.372.05-.482.002-.46.051-.475-1.059-.016-1.156-.031-1.117.453-1.117.313 0 .343.007.402.096Zm7.969.001c.054.083.062.23.05 1.02-.015 1.11.008 1.061-.475 1.058-.192-.002-.343-.022-.371-.05-.033-.033-.051-.332-.059-.99-.015-1.178-.032-1.135.452-1.135.315 0 .344.007.403.097Zm3.558 5.41c.097 2.442.084 6.05-.077 8.387-.034.474-.072.93-.086 1.013-.06.365-.437.77-.809.867-.16.043-.994.102-2.328.166-1.42.067-6.136.092-7.868.04-2.737-.08-3.675-.146-3.936-.28-.412-.21-.585-.485-.647-1.03-.204-1.8-.258-6.102-.132-9.172 1.92 0 13.928.009 15.883.009Z" clip-rule="evenodd" />
+  <svg version="1.0" role="img" class="icon icon-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <rect x="3" y="5" width="18" height="16" rx="2" ry="2" />
+  <line x1="8" y1="3.5" x2="8" y2="6.5" />
+  <line x1="16" y1="3.5" x2="16" y2="6.5" />
+  <line x1="3" y1="10" x2="21" y2="10" />
 </svg>
 
   <span class="visually-hidden">Published at:</span>
@@ -2147,32 +2191,40 @@ Use <strong><code class="highlighter-rouge notranslate">auto-fill</code></strong
            data-tooltip="GitHub" aria-label="GitHub"
            
            >
-          <svg version="1.0" role="img" class="icon icon-github" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path d="M12,2.2467A10.00042,10.00042,0,0,0,8.83752,21.73419c.5.08752.6875-.21247.6875-.475,0-.23749-.01251-1.025-.01251-1.86249C7,19.85919,6.35,18.78423,6.15,18.22173A3.636,3.636,0,0,0,5.125,16.8092c-.35-.1875-.85-.65-.01251-.66248A2.00117,2.00117,0,0,1,6.65,17.17169a2.13742,2.13742,0,0,0,2.91248.825A2.10376,2.10376,0,0,1,10.2,16.65923c-2.225-.25-4.55-1.11254-4.55-4.9375a3.89187,3.89187,0,0,1,1.025-2.6875,3.59373,3.59373,0,0,1,.1-2.65s.83747-.26251,2.75,1.025a9.42747,9.42747,0,0,1,5,0c1.91248-1.3,2.75-1.025,2.75-1.025a3.59323,3.59323,0,0,1,.1,2.65,3.869,3.869,0,0,1,1.025,2.6875c0,3.83747-2.33752,4.6875-4.5625,4.9375a2.36814,2.36814,0,0,1,.675,1.85c0,1.33752-.01251,2.41248-.01251,2.75,0,.26251.1875.575.6875.475A10.0053,10.0053,0,0,0,12,2.2467Z" />
+          <svg version="1.0" role="img" class="icon icon-github" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+  <path d="M9 18c-4.51 2-5-2-7-2" />
 </svg>
 
         </a><a href="https://www.linkedin.com/in/shivam091" class="footer-link" target="_blank"
            data-tooltip="LinkedIn" aria-label="LinkedIn"
            
            >
-          <svg version="1.0" role="img" class="icon icon-linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path d="M20.47,2H3.53A1.45,1.45,0,0,0,2.06,3.43V20.57A1.45,1.45,0,0,0,3.53,22H20.47a1.45,1.45,0,0,0,1.47-1.43V3.43A1.45,1.45,0,0,0,20.47,2ZM8.09,18.74h-3v-9h3ZM6.59,8.48h0a1.56,1.56,0,1,1,0-3.12,1.57,1.57,0,1,1,0,3.12ZM18.91,18.74h-3V13.91c0-1.21-.43-2-1.52-2A1.65,1.65,0,0,0,12.85,13a2,2,0,0,0-.1.73v5h-3s0-8.18,0-9h3V11A3,3,0,0,1,15.46,9.5c2,0,3.45,1.29,3.45,4.06Z" />
+          <svg version="1.0" role="img" class="icon icon-linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+  <rect width="4" height="12" x="2" y="9" />
+  <circle cx="4" cy="4" r="2" />
 </svg>
 
         </a><a href="https://www.instagram.com/taurusian_soul" class="footer-link" target="_blank"
            data-tooltip="Instagram" aria-label="Instagram"
            
            >
-          <svg version="1.0" role="img" class="icon icon-instagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path d="M17.34,5.46h0a1.2,1.2,0,1,0,1.2,1.2A1.2,1.2,0,0,0,17.34,5.46Zm4.6,2.42a7.59,7.59,0,0,0-.46-2.43,4.94,4.94,0,0,0-1.16-1.77,4.7,4.7,0,0,0-1.77-1.15,7.3,7.3,0,0,0-2.43-.47C15.06,2,14.72,2,12,2s-3.06,0-4.12.06a7.3,7.3,0,0,0-2.43.47A4.78,4.78,0,0,0,3.68,3.68,4.7,4.7,0,0,0,2.53,5.45a7.3,7.3,0,0,0-.47,2.43C2,8.94,2,9.28,2,12s0,3.06.06,4.12a7.3,7.3,0,0,0,.47,2.43,4.7,4.7,0,0,0,1.15,1.77,4.78,4.78,0,0,0,1.77,1.15,7.3,7.3,0,0,0,2.43.47C8.94,22,9.28,22,12,22s3.06,0,4.12-.06a7.3,7.3,0,0,0,2.43-.47,4.7,4.7,0,0,0,1.77-1.15,4.85,4.85,0,0,0,1.16-1.77,7.59,7.59,0,0,0,.46-2.43c0-1.06.06-1.4.06-4.12S22,8.94,21.94,7.88ZM20.14,16a5.61,5.61,0,0,1-.34,1.86,3.06,3.06,0,0,1-.75,1.15,3.19,3.19,0,0,1-1.15.75,5.61,5.61,0,0,1-1.86.34c-1,.05-1.37.06-4,.06s-3,0-4-.06A5.73,5.73,0,0,1,6.1,19.8,3.27,3.27,0,0,1,5,19.05a3,3,0,0,1-.74-1.15A5.54,5.54,0,0,1,3.86,16c0-1-.06-1.37-.06-4s0-3,.06-4A5.54,5.54,0,0,1,4.21,6.1,3,3,0,0,1,5,5,3.14,3.14,0,0,1,6.1,4.2,5.73,5.73,0,0,1,8,3.86c1,0,1.37-.06,4-.06s3,0,4,.06a5.61,5.61,0,0,1,1.86.34A3.06,3.06,0,0,1,19.05,5,3.06,3.06,0,0,1,19.8,6.1,5.61,5.61,0,0,1,20.14,8c.05,1,.06,1.37.06,4S20.19,15,20.14,16ZM12,6.87A5.13,5.13,0,1,0,17.14,12,5.12,5.12,0,0,0,12,6.87Zm0,8.46A3.33,3.33,0,1,1,15.33,12,3.33,3.33,0,0,1,12,15.33Z" />
+          <svg version="1.0" role="img" class="icon icon-instagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <!-- outer rounded square -->
+  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+  <!-- lens (circle instead of path) -->
+  <circle cx="12" cy="12" r="4" />
+  <!-- small viewfinder dot -->
+  <circle cx="17.5" cy="6.5" r="0.5" />
 </svg>
-
         </a><a href="mailto:harshal.ladhe.1@gmail.com" class="footer-link" target="_blank"
            data-tooltip="Email " aria-label="Email "
            
            >
-          <svg version="1.0" role="img" class="icon icon-envelope" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M2 7C2 5.34315 3.34315 4 5 4H19C20.6569 4 22 5.34315 22 7V17C22 18.6569 20.6569 20 19 20H5C3.34315 20 2 18.6569 2 17V7ZM4.26834 6.31832L11.4233 11.3689C11.769 11.6129 12.231 11.6129 12.5767 11.3689L19.7317 6.31832C19.5491 6.12247 19.2889 6 19 6H5C4.71114 6 4.45089 6.12247 4.26834 6.31832ZM20 8.57698L13.7301 13.0028C12.6929 13.735 11.3071 13.735 10.2699 13.0028L4 8.57698V17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17V8.57698Z" />
+          <svg version="1.0" role="img" class="icon icon-envelope" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <rect x="3" y="6" width="18" height="14" rx="2" ry="2" />
+  <polyline points="4 7 12 14 20 7" />
 </svg>
 
         </a><a href="/assets/docs/resume.pdf" class="footer-link" target="_blank"
@@ -2195,8 +2247,13 @@ Use <strong><code class="highlighter-rouge notranslate">auto-fill</code></strong
              data-analytics-label="Atom Feed"
              data-analytics-category="engagement"
            >
-          <svg version="1.0" role="img" class="icon icon-atom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-  <path d="M12,11a1,1,0,1,0,1,1A1,1,0,0,0,12,11Zm7.62,1,.11-.14C21.08,10,21.4,8.29,20.66,7S18.26,5.14,16,5.37l-.18,0C14.91,3.3,13.56,2,12,2S9.09,3.3,8.19,5.4L8,5.37C5.74,5.14,4.08,5.71,3.34,7s-.42,3,.93,4.86l.11.14-.11.14C2.92,14,2.6,15.71,3.34,17,4,18.1,5.27,18.68,7,18.68c.31,0,.63,0,1-.05l.18,0C9.09,20.7,10.44,22,12,22s2.91-1.3,3.81-3.4l.18,0c.34,0,.66.05,1,.05,1.77,0,3.07-.58,3.7-1.68.74-1.29.42-3-.93-4.86ZM5.07,8c.25-.44,1-.68,2-.68l.49,0a14.78,14.78,0,0,0-.35,1.87,15,15,0,0,0-1.45,1.25C5,9.44,4.78,8.5,5.07,8Zm0,8c-.29-.5,0-1.44.67-2.47a15,15,0,0,0,1.45,1.25,14.94,14.94,0,0,0,.35,1.88C6.3,16.74,5.36,16.5,5.07,16ZM12,4c.56,0,1.23.66,1.8,1.83a17.6,17.6,0,0,0-1.8.63,17.6,17.6,0,0,0-1.8-.63C10.77,4.66,11.44,4,12,4Zm0,16c-.56,0-1.23-.66-1.8-1.83a17.6,17.6,0,0,0,1.8-.63,17.6,17.6,0,0,0,1.8.63C13.23,19.34,12.56,20,12,20Zm2.93-6.31c-.46.32-.93.62-1.43.91s-1,.55-1.5.78q-.75-.35-1.5-.78c-.5-.29-1-.59-1.43-.91C9,13.15,9,12.59,9,12s0-1.15.07-1.69c.46-.32.93-.62,1.43-.91s1-.55,1.5-.78q.75.35,1.5.78c.5.29,1,.59,1.43.91,0,.54.07,1.1.07,1.69S15,13.15,14.93,13.69Zm4,2.31c-.29.5-1.23.75-2.47.66a14.94,14.94,0,0,0,.35-1.88,15,15,0,0,0,1.45-1.25C19,14.56,19.22,15.5,18.93,16Zm-.67-5.53a15,15,0,0,0-1.45-1.25,14.78,14.78,0,0,0-.35-1.87l.49,0c1,0,1.73.24,2,.68S19,9.44,18.26,10.47Z" />
+          <svg version="1.0" role="img" class="icon icon-atom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2">
+  <!-- nucleus -->
+  <circle cx="5" cy="19" r="1.6" fill="currentColor" />
+  <!-- small arc -->
+  <circle cx="4" cy="20" r="9" fill="none" stroke-dasharray="14 43" stroke-dashoffset="14" />
+  <!-- large arc -->
+  <circle cx="4" cy="20" r="16" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="25 76" stroke-dashoffset="25" />
 </svg>
 
         </a>
