@@ -5,7 +5,7 @@
   <subtitle>I’m a software engineer, freelancer, and lifelong learner passionate about building clean, scalable web solutions. I contribute to open-source, embrace minimalism in code and life, and stay curious about emerging tech.</subtitle>
   <id>https://shivam091.github.io/</id>
   <icon>https://shivam091.github.io/img/favicon.png</icon>
-  <updated>2025-09-17T22:30:05+05:30</updated>
+  <updated>2025-09-17T23:12:06+05:30</updated>
   <rights>© 2025 Harshal V. LADHE</rights>
 
   <link rel="alternate" type="text/html" href="https://shivam091.github.io" />
@@ -100,7 +100,7 @@ exponentiation. They work on numbers and always return a numeric result.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -175,7 +175,7 @@ exponentiation. They work on numbers and always return a numeric result.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -245,7 +245,7 @@ exponentiation. They work on numbers and always return a numeric result.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -303,7 +303,7 @@ exponentiation. They work on numbers and always return a numeric result.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -365,7 +365,7 @@ checking even/odd numbers or cycling through array indices.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -425,7 +425,7 @@ checking even/odd numbers or cycling through array indices.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -494,7 +494,7 @@ checking even/odd numbers or cycling through array indices.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -571,7 +571,7 @@ checking even/odd numbers or cycling through array indices.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -658,7 +658,7 @@ checking even/odd numbers or cycling through array indices.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -731,7 +731,7 @@ checking even/odd numbers or cycling through array indices.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -800,7 +800,7 @@ shifting. These are commonly used in low-level programming, optimizations, or wh
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -863,7 +863,7 @@ shifting. These are commonly used in low-level programming, optimizations, or wh
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -926,7 +926,7 @@ shifting. These are commonly used in low-level programming, optimizations, or wh
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -984,7 +984,7 @@ shifting. These are commonly used in low-level programming, optimizations, or wh
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1046,7 +1046,7 @@ shifting. These are commonly used in low-level programming, optimizations, or wh
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1104,7 +1104,7 @@ shifting. These are commonly used in low-level programming, optimizations, or wh
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1162,7 +1162,7 @@ shifting. These are commonly used in low-level programming, optimizations, or wh
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1224,7 +1224,7 @@ performing arithmetic or logical operations while updating the variable (e.g., <
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1286,7 +1286,7 @@ performing arithmetic or logical operations while updating the variable (e.g., <
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1350,7 +1350,7 @@ performing arithmetic or logical operations while updating the variable (e.g., <
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1414,7 +1414,7 @@ performing arithmetic or logical operations while updating the variable (e.g., <
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1478,7 +1478,7 @@ performing arithmetic or logical operations while updating the variable (e.g., <
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1542,7 +1542,7 @@ performing arithmetic or logical operations while updating the variable (e.g., <
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1606,7 +1606,7 @@ performing arithmetic or logical operations while updating the variable (e.g., <
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1671,7 +1671,7 @@ performing arithmetic or logical operations while updating the variable (e.g., <
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1742,7 +1742,7 @@ performing arithmetic or logical operations while updating the variable (e.g., <
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1814,7 +1814,7 @@ This operator is also known as <em><strong>Nullish Coalescing Assignment</strong
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1890,7 +1890,7 @@ This operator is also known as <em><strong>Nullish Coalescing Assignment</strong
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -1954,7 +1954,7 @@ This operator is also known as <em><strong>Nullish Coalescing Assignment</strong
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2018,7 +2018,7 @@ This operator is also known as <em><strong>Nullish Coalescing Assignment</strong
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2082,7 +2082,7 @@ This operator is also known as <em><strong>Nullish Coalescing Assignment</strong
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2146,7 +2146,7 @@ This operator is also known as <em><strong>Nullish Coalescing Assignment</strong
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2210,7 +2210,7 @@ This operator is also known as <em><strong>Nullish Coalescing Assignment</strong
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2284,7 +2284,7 @@ For example, the number <code  class="highlighter-rouge notranslate">10</code> i
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2358,7 +2358,7 @@ For example, the number <code  class="highlighter-rouge notranslate">10</code> i
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2433,7 +2433,7 @@ to use the <strong>strict inequality operator</strong> instead.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2507,7 +2507,7 @@ is not considered equivalent to the string “2”.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2581,7 +2581,7 @@ appropriate character code. This means that casing matters, as shown in the exam
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2651,7 +2651,7 @@ appropriate character code. This means that casing matters, as shown in the exam
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2721,7 +2721,7 @@ appropriate character code. This means that casing matters, as shown in the exam
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2791,7 +2791,7 @@ appropriate character code. This means that casing matters, as shown in the exam
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2861,7 +2861,7 @@ It returns <code  class="highlighter-rouge notranslate">true</code> if the left 
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -2940,7 +2940,7 @@ It returns <code  class="highlighter-rouge notranslate">true</code> if the left 
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3009,7 +3009,7 @@ It returns <code  class="highlighter-rouge notranslate">true</code> if the left 
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3075,7 +3075,7 @@ It returns <code  class="highlighter-rouge notranslate">true</code> if the left 
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3157,7 +3157,7 @@ It returns <code  class="highlighter-rouge notranslate">true</code> if the left 
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3242,7 +3242,7 @@ you want to execute code but explicitly discard any return value.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3307,7 +3307,7 @@ a simple <code  class="highlighter-rouge notranslate">if...else</code> statement
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3372,7 +3372,7 @@ from commas used as separators in array literals, object literals, or function p
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3447,7 +3447,7 @@ if at any point, a nullish value (<code  class="highlighter-rouge notranslate">n
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3535,7 +3535,7 @@ it relies on “nullish” values (<code  class="highlighter-rouge notranslate">
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3617,7 +3617,7 @@ clone or merge arrays and objects.</p>  </li>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3719,7 +3719,7 @@ clone or merge arrays and objects.</p>  </li>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3796,7 +3796,7 @@ clone or merge arrays and objects.</p>  </li>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3861,7 +3861,7 @@ clone or merge arrays and objects.</p>  </li>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -3943,7 +3943,7 @@ clone or merge arrays and objects.</p>  </li>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -4013,7 +4013,7 @@ expression’s result is implicitly returned.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -4088,7 +4088,7 @@ expression’s result is implicitly returned.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -4160,7 +4160,7 @@ addition/subtraction, but grouping lets you override the order of evaluation.</p
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -4224,7 +4224,7 @@ addition/subtraction, but grouping lets you override the order of evaluation.</p
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -4313,7 +4313,7 @@ The <code  class="highlighter-rouge notranslate">yield*</code> keyword delegates
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -4469,7 +4469,7 @@ stylesheet that works everywhere.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -4529,7 +4529,7 @@ stylesheet that works everywhere.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -4750,7 +4750,7 @@ the risk of one-off overrides that drift out of sync.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -4817,7 +4817,7 @@ the risk of one-off overrides that drift out of sync.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -4880,7 +4880,7 @@ the risk of one-off overrides that drift out of sync.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -5846,7 +5846,7 @@ the risk of one-off overrides that drift out of sync.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -5928,7 +5928,7 @@ the risk of one-off overrides that drift out of sync.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -6009,7 +6009,7 @@ your logical properties. This ensures that browsers without logical property sup
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -6090,7 +6090,7 @@ your logical properties. This ensures that browsers without logical property sup
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -6155,7 +6155,7 @@ your logical properties. This ensures that browsers without logical property sup
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -6232,7 +6232,7 @@ your logical properties. This ensures that browsers without logical property sup
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -6420,7 +6420,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -6494,7 +6494,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -6580,7 +6580,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -6644,7 +6644,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -6714,7 +6714,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -6797,7 +6797,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -6893,7 +6893,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -7000,7 +7000,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -7075,7 +7075,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -7207,7 +7207,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -7281,7 +7281,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -7401,7 +7401,7 @@ but also future-proof and truly international-ready.</p>]]></content>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -7644,7 +7644,7 @@ maintain—especially for complex page layouts. It acts as a visual blueprint of
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -7722,7 +7722,7 @@ using the <code  class="highlighter-rouge notranslate">grid-area</code> property
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -7823,7 +7823,7 @@ using the <code  class="highlighter-rouge notranslate">grid-area</code> property
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -7914,7 +7914,7 @@ using the <code  class="highlighter-rouge notranslate">grid-area</code> property
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -7991,7 +7991,7 @@ using the <code  class="highlighter-rouge notranslate">grid-area</code> property
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8076,7 +8076,7 @@ These properties are set directly on the grid items themselves:</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8147,7 +8147,7 @@ These properties are set directly on the grid items themselves:</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8236,7 +8236,7 @@ where an item starts and ends in the grid layout.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8302,7 +8302,7 @@ where an item starts and ends in the grid layout.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8369,7 +8369,7 @@ where an item starts and ends in the grid layout.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8450,7 +8450,7 @@ where an item starts and ends in the grid layout.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8513,7 +8513,7 @@ where an item starts and ends in the grid layout.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8583,7 +8583,7 @@ where an item starts and ends in the grid layout.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8673,7 +8673,7 @@ are created—either by the developer or automatically by the browser.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8739,7 +8739,7 @@ are created—either by the developer or automatically by the browser.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8830,7 +8830,7 @@ form what’s known as the <strong>implicit grid</strong>.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8896,7 +8896,7 @@ form what’s known as the <strong>implicit grid</strong>.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -8987,7 +8987,7 @@ form what’s known as the <strong>implicit grid</strong>.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -9050,7 +9050,7 @@ form what’s known as the <strong>implicit grid</strong>.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -9116,7 +9116,7 @@ form what’s known as the <strong>implicit grid</strong>.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -9332,7 +9332,7 @@ form what’s known as the <strong>implicit grid</strong>.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -9420,7 +9420,7 @@ form what’s known as the <strong>implicit grid</strong>.</p>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -9609,7 +9609,7 @@ like fr (fraction of available space).</p></li>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -9686,7 +9686,7 @@ like fr (fraction of available space).</p></li>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
@@ -9831,7 +9831,7 @@ like fr (fraction of available space).</p></li>
     <id>https://shivam091.github.io/post/components</id>
 
     <published>2025-06-16T19:10:40+05:30</published>
-    <updated>2025-09-01T10:49:00+05:30</updated>
+    <updated>2025-09-12T12:20:00+05:30</updated>
 
     
     <media:thumbnail
@@ -9843,7 +9843,10 @@ like fr (fraction of available space).</p></li>
     <summary type="html">
       This post is a comprehensive test of various components. It includes alerts, code blocks, buttons, and more.
     </summary>
-    <content type="html"><![CDATA[<h2  id="codeblocks" dir="auto">Codeblocks</h2>
+    <content type="html"><![CDATA[<iframe height="500" style="width: 100%;" scrolling="no" title="JS Demo" src="https://codepen.io/team/codepen/embed/preview/PNaGbb" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+</iframe>
+
+<h2  id="codeblocks" dir="auto">Codeblocks</h2>
 <div class="code-block" data-copy-code="">
   <div class="code-block-header" role="region" aria-labelledby="code-lang-label">
     <div class="code-block-button-group" aria-hidden="true">
@@ -9886,7 +9889,7 @@ like fr (fraction of available space).</p></li>
 
       </button>
       <button type="button" class="btn btn-sm btn-copy" aria-label="Copy code" data-tooltip="Copy">
-        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg version="1.0" role="img" class="icon icon-clipboard-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
   <path d="m9 14 2 2 4-4" stroke-opacity="0" />
