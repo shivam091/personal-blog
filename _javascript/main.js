@@ -55,3 +55,28 @@ TransformBoop.initialize(".icon-search", { rotate: 10, scaleX: 1.1 });
 TransformBoop.initialize(".icon-clipboard-check, .icon-hash", { scaleX: 1.1 });
 
 ArrowRight.initialize();
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const stars = document.querySelectorAll("use[href='#star']");
+
+    stars.forEach(star => {
+      const twinkle = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+      twinkle.setAttribute("attributeName", "opacity");
+      twinkle.setAttribute("values", `${Math.random()*0.4+0.6};1;${Math.random()*0.4+0.6}`);
+      twinkle.setAttribute("dur", `${(Math.random()*3+5).toFixed(1)}s`);
+      twinkle.setAttribute("begin", `${(Math.random()*2).toFixed(1)}s`);
+      twinkle.setAttribute("repeatCount", "indefinite");
+      star.appendChild(twinkle);
+
+      const drift = document.createElementNS("http://www.w3.org/2000/svg", "animateTransform");
+      drift.setAttribute("attributeName", "transform");
+      drift.setAttribute("type", "translate");
+      const xMove = (Math.random()*12 - 6).toFixed(1); // random -6 to +6
+      const yMove = (Math.random()*8 - 4).toFixed(1);  // random -4 to +4
+      drift.setAttribute("values", `0 0; ${xMove} ${yMove}; 0 0`);
+      drift.setAttribute("dur", `${(Math.random()*15+15).toFixed(1)}s`);
+      drift.setAttribute("repeatCount", "indefinite");
+      star.appendChild(drift);
+    });
+  });
