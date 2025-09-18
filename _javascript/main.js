@@ -7,6 +7,7 @@ import SkipLink from "./modules/components/skip-link";
 import Tooltip from "./modules/components/tooltip";
 import Dropdown from "./modules/components/dropdown";
 import Accordion from "./modules/components/accordion";
+import DetailsController from "./components/details-controller";
 import Clipboard from "./utils/clipboard";
 import Alert from "./modules/components/alert";
 import CodeBlockUtils from "./utils/code-block-utils";
@@ -37,6 +38,7 @@ Alert.init();
 CodeBlockUtils.initAll();
 LazyLoader.init();
 ContactForm.init();
+DetailsController.initialize();
 
 RetroCounter.initAll("[data-retro-counter]", {
   version: "v2",
