@@ -19,6 +19,7 @@ import TransformBoop from "./animations/transform-boop";
 
 import IconArrowRight from "./animations/icons/arrow-right";
 import IconHash from "./animations/icons/hash";
+import IconList from "./animations/icons/list";
 
 import { bindHeroTyped } from "./components/hero";
 
