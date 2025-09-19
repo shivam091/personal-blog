@@ -7,6 +7,8 @@ permalink: /about
 
 ## Hello there 👋
 
+{% svg stretchy-guy %}
+
 I’m a software engineer, freelancer, and lifelong learner passionate about building clean, scalable web solutions. I contribute to open-source, embrace minimalism in code and life, and stay curious about emerging tech.
 
 - 🔧 Currently building my personal portfolio site
