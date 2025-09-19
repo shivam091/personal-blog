@@ -22,6 +22,7 @@ import IconArrowRight from "./animations/icons/arrow-right";
 import IconHash from "./animations/icons/hash";
 import IconList from "./animations/icons/list";
 import IconStretchyGuy from "./animations/icons/stretchy-guy";
+import IconRSS from "./animations/icons/rss";
 
 import { bindHeroTyped } from "./components/hero";
 
