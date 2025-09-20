@@ -9,6 +9,49 @@ permalink: /about
 
 {% svg stretchy-guy %}
 
+<svg viewBox="0 0 200 200" width="200" height="200">
+  <ellipse id="bubble" cx="100" cy="100" rx="40" ry="20" fill="skyblue" />
+</svg>
+
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Start ellipse -->
+  <ellipse id="morphEllipse" cx="150" cy="100" rx="40" ry="20" fill="cornflowerblue"/>
+</svg>
+
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <polygon id="poly" points="50,150 150,50 250,150" fill="tomato" opacity="1" />
+</svg>
+
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <polygon id="polyMorph" points="50,150 150,50 250,150" fill="magenta" opacity="0.2"/>
+</svg>
+
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <polyline points="60, 110 65, 120 70, 115 75, 130 80, 125 85, 140 90, 135 95, 150 100, 145"/>
+</svg>
+
+<svg width="400" height="200">
+  <text x="50" y="50" font-size="24" fill="#ff0000" id="animatedText" letter-spacing="0">
+    Hello SVG!
+  </text>
+
+  <!-- Text with multiple tspans -->
+  <text x="100" y="150" font-size="24" fill="#333">
+    <tspan x="100" y="150" font-size="24">Hello</tspan>
+    <tspan x="160" y="150" font-size="24">SVG!</tspan>
+  </text>
+</svg>
+
+<svg width="400" height="200">
+  <!-- Group containing a rectangle and a circle -->
+  <g id="myGroup" transform="translate(0,0) scale(1)" stroke="green" stroke-width="1">
+    <rect x="50" y="50" width="80" height="40" fill="#6C5DD3" rx="8" ry="8"></rect>
+    <circle cx="160" cy="70" r="20" fill="#FF6C5D"></circle>
+  </g>
+</svg>
+
+{% svg magic-wand %}
+
 I’m a software engineer, freelancer, and lifelong learner passionate about building clean, scalable web solutions. I contribute to open-source, embrace minimalism in code and life, and stay curious about emerging tech.
 
 - 🔧 Currently building my personal portfolio site
