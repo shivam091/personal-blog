@@ -91,7 +91,6 @@ import SpringTimeline from "./utils/animations/spring-timeline";
 import TextMorphBoop from "./utils/animations/elements/text/boop";
 import TspanMorphBoop from "./utils/animations/elements/tspan/boop";
 import GroupMorphBoop from "./utils/animations/elements/group/boop";
-import IconSpeaker from "./animations/icons/speaker";
 
 document.addEventListener("DOMContentLoaded", () => {
 
