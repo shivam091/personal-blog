@@ -5,7 +5,7 @@
   <subtitle>I’m a software engineer, freelancer, and lifelong learner passionate about building clean, scalable web solutions. I contribute to open-source, embrace minimalism in code and life, and stay curious about emerging tech.</subtitle>
   <id>https://shivam091.github.io/</id>
   <icon>https://shivam091.github.io/img/favicon.png</icon>
-  <updated>2025-09-28T19:35:50+05:30</updated>
+  <updated>2025-09-28T20:12:19+05:30</updated>
   <rights>© 2025 Harshal V. LADHE</rights>
 
   <link rel="alternate" type="text/html" href="https://shivam091.github.io" />
@@ -103,7 +103,7 @@
 
 <svg width="400" height="200">
   <!-- Group containing a rectangle and a circle -->
-  <g id="myGroup" transform="translate(0,0) scale(1)" stroke="green" stroke-width="1" opacity="1">
+  <g id="myGroup" style="transform: translate(0,0) scale(1)" stroke="green" stroke-width="1" opacity="1">
     <rect x="50" y="50" width="80" height="40" fill="#6C5DD3" rx="8" ry="8"></rect>
     <circle cx="160" cy="70" r="20" fill="#FF6C5D"></circle>
   </g>
