@@ -1,0 +1,35 @@
+---
+layout: page
+title: Goodies
+permalink: /goodies
+---
+
+<section class="goodies" aria-labelledby="goodies-list-title">
+  <h2 id="goodies-list-title" class="visually-hidden">Goodies</h2>
+
+  <p>
+    Explore a collection of interactive tools, visual demos, and handy snippets built to enhance your
+    workflow and creativity. From gradient and shadow palette generators to live code snippets, SVG clocks,
+    and other experimental widgets — each goodie is crafted for developers and designers who love to learn by tinkering.
+  </p>
+
+  <ul class="goodies-list list-unstyled">
+    {% for goodie in site.data.goodies %}
+    <li class="goodie">
+      <a href="{{ '/snippets' | relative_url }}" title="{{ goodie.name }}">
+        <div class="goodie-icon">
+          {% svg {{ goodie.icon }} %}
+        </div>
+
+        <div class="goodie-details">
+          <h2 class="goodie-name">{{ goodie.name }}</h2>
+
+          <div class="goodie-description">
+            {{ goodie.description | markdownify }}
+          </div>
+        </div>
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+</section>

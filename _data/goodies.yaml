@@ -1,0 +1,3 @@
+- name: "Snippets"
+  description: "Concise code fragments to solve discrete challenges."
+  icon: "code-block"

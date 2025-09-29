@@ -65,6 +65,10 @@ compress_html:
 collections:
   series:
     output: false
+  snippets:
+    output: true
+    permalink: /snippet/:slug/
+
 
 pagination:
   enabled: true

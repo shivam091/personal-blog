@@ -1,0 +1,29 @@
+---
+layout: page
+---
+
+<article aria-labelledby="page-title" itemscope itemtype="https://schema.org/TechArticle">
+  <meta itemprop="headline" content="{{ page.title }}">
+  <meta itemprop="mainEntityOfPage" content="{{ page.url | absolute_url }}">
+  <meta itemprop="datePublished" content="{{ page.published_at }}">
+  <meta itemprop="dateModified" content="{{ page.last_modified_at }}">
+
+  <header class="snippet-header">
+    <div class="page-meta page-meta-primary" role="group" aria-label="Snippet metadata">
+      {% include pages/published-at.html item = page %}
+      {% include pages/last-modified-at.html item = page %}
+      {% include pages/read-time.html item = page %}
+    </div>
+  </header>
+
+  <div class="snippet-content" itemprop="articleBody">
+    {{ page.content }}
+  </div>
+
+  <div class="page-meta page-meta-secondary" role="group" aria-label="Post metadata">
+    {% include pages/categories.html item = page %}
+    {% include pages/tags.html item = page %}
+  </div>
+
+  {% include changelog.html %}
+</article>

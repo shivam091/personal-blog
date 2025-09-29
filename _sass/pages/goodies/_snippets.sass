@@ -1,0 +1,48 @@
+@use "abstracts/tokens" as *
+@use "abstracts/mixins/breakpoints" as breakpoint
+
+.snippets-list
+  display: grid
+  grid-auto-flow: row
+  grid-gap: $space-base
+  margin-block-start: $space-base
+
+  @include breakpoint.min(md)
+    grid-template-columns: repeat(2, 1fr)
+
+  @include breakpoint.min(lg)
+    grid-template-columns: repeat(3, 1fr)
+
+.snippet
+  background: var(--color-bg-default)
+  border: $border-width-default solid var(--color-border-default)
+  border-radius: $border-radius-default
+  margin-block-end: $space-none
+
+  a
+    display: flex
+    flex-direction: column
+    row-gap: $space-sm
+    padding: $space-base
+    text-decoration: none
+    color: var(--color-fg-default)
+    height: 100%
+
+.snippet-name
+  font-size: $font-size-lg
+  margin-block: 0
+  color: var(--color-fg-accent)
+
+.snippet-meta
+  display: flex
+  flex-direction: column
+  padding: $space-sm $space-base
+  background: var(--color-bg-muted)
+  border-radius: $border-radius-sm
+  color: var(--color-fg-accent-muted)
+
+.snippet-meta-item
+  font-size: $font-size-sm
+
+  &:not(:last-child)
+    margin-block-end: $space-sm
