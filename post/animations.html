@@ -310,9 +310,9 @@
        rel="alternate" type="application/atom+xml" data-analytics-event="subscribe_feed" data-analytics-label="Atom Feed"
        data-analytics-category="engagement">
        <svg version="1.0" role="img" class="icon icon-rss" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="5" cy="19" r="1" fill="currentColor" id="nucleus" />
-  <circle cx="4" cy="20" r="9" fill="none" stroke-dasharray="14.14 42.41" stroke-dashoffset="14.14" id="inner-ring" />
-  <circle cx="4" cy="20" r="16" fill="none" stroke-dasharray="25.13 75.40" stroke-dashoffset="25.13" id="outer-ring" />
+  <path d="M4 11 A 9 9 0 0 1 13 20" />
+  <path d="M4 4 A 16 16 0 0 1 20 20" />
+  <circle cx="5" cy="19" r="1" fill="currentColor" />
 </svg>
 
     </a>
@@ -392,31 +392,30 @@
     <div class="post-content" itemprop="articleBody">
       <svg version="1.0" role="img" class="icon icon-stretchy-guy" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 100" height="100" width="50" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
   <!-- Head -->
-  <circle cx="25" cy="35" r="15" class="head"></circle>
+  <circle cx="25" cy="35" r="15" id="head"></circle>
 
   <!-- Body -->
-  <line x1="25" y1="50" x2="25" y2="80" class="body"></line>
+  <line x1="25" y1="50" x2="25" y2="80" id="body"></line>
 
   <!-- Legs -->
-  <line x1="25" y1="80" x2="15" y2="100" class="left-leg"></line>
-  <line x1="25" y1="80" x2="35" y2="100" class="right-leg"></line>
+  <line x1="25" y1="80" x2="15" y2="100" id="left-leg"></line>
+  <line x1="25" y1="80" x2="35" y2="100" id="right-leg"></line>
 
   <!-- Arms -->
-  <line x1="25" y1="57" x2="15" y2="70" class="left-arm"></line>
-  <line x1="25" y1="57" x2="35" y2="70" class="right-arm"></line>
+  <line x1="25" y1="57" x2="15" y2="70" id="left-arm"></line>
+  <line x1="25" y1="57" x2="35" y2="70" id="right-arm"></line>
 
   <!-- Face -->
-  <g class="face" stroke-width="2">
+  <g id="face" stroke-width="2">
     <!-- Eyes -->
-    <circle cx="20" cy="30" r="0.5" class="left-eye"></circle>
-    <circle cx="30" cy="30" r="0.5" class="right-eye"></circle>
+    <circle cx="20" cy="30" r="0.5" fill="currentColor" id="left-eye"></circle>
+    <circle cx="30" cy="30" r="0.5" fill="currentColor" id="right-eye"></circle>
 
     <!-- Nose -->
-    <line x1="25" y1="34" x2="25" y2="38" class="nose"></line>
+    <line x1="25" y1="34" x2="25" y2="38" id="nose"></line>
 
     <!-- Mouth -->
-    <path d="M20 41 Q25 45 30 41" class="mouth" fill="none"></path>
-    <!-- <polyline points="20 42 25 44 30 42" class="mouth" /> -->
+    <path d="M20 41 Q 25 45 30 41" id="mouth"></path>
   </g>
 </svg>
 
@@ -942,9 +941,9 @@
              data-analytics-category="engagement"
            >
           <svg version="1.0" role="img" class="icon icon-rss" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="5" cy="19" r="1" fill="currentColor" id="nucleus" />
-  <circle cx="4" cy="20" r="9" fill="none" stroke-dasharray="14.14 42.41" stroke-dashoffset="14.14" id="inner-ring" />
-  <circle cx="4" cy="20" r="16" fill="none" stroke-dasharray="25.13 75.40" stroke-dashoffset="25.13" id="outer-ring" />
+  <path d="M4 11 A 9 9 0 0 1 13 20" />
+  <path d="M4 4 A 16 16 0 0 1 20 20" />
+  <circle cx="5" cy="19" r="1" fill="currentColor" />
 </svg>
 
         </a>
