@@ -1,0 +1,38 @@
+---
+layout: page
+title: Snippets
+permalink: /snippets
+---
+
+{% assign snippets = site.snippets | sort: "published_at" | reverse %}
+
+<section class="snippets" aria-labelledby="snippets-list-title">
+  <h2 id="snippets-list-title" class="visually-hidden">Browse snippets</h2>
+
+  <p>Concise code fragments to solve discrete challenges.</p>
+
+  <ul class="snippets-list list-unstyled">
+    {% for snippet in snippets %}
+    <li class="snippet">
+      <a href="/snippet{{ snippet.slug | relative_url }}" title="{{ snippet.title }}">
+        <h2 class="snippet-name">{{ snippet.title }}</h2>
+
+        <div class="snippet-description">
+          {{ snippet.excerpt | markdownify }}
+        </div>
+
+        <div class="snippet-meta">
+          <span class="snippet-meta-item">
+            <strong>Category: </strong>
+            {{ snippet.category }}
+          </span>
+          <span class="snippet-meta-item">
+            <strong>Last modified: </strong>
+            {{ snippet.last_modified_at | date: "%B %Y" }}
+          </span>
+        </div>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
