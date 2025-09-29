@@ -12,21 +12,17 @@
 <meta property="og:title" content="Deep Freeze Objects in JavaScript" />
 <meta name="author" content="Harshal V. LADHE" />
 <meta property="og:locale" content="en" />
-<meta name="description" content="Learn how to recursively freeze JavaScript objects to prevent modifications, and explore strict mode usage and practical examples." />
-<meta property="og:description" content="Learn how to recursively freeze JavaScript objects to prevent modifications, and explore strict mode usage and practical examples." />
+<meta name="description" content="Lock objects and their children immutably — prevent accidental mutations and enforce deep immutability in strict mode." />
+<meta property="og:description" content="Lock objects and their children immutably — prevent accidental mutations and enforce deep immutability in strict mode." />
 <link rel="canonical" href="https://shivam091.github.io/snippet/deep-freeze-objects/" />
 <meta property="og:url" content="https://shivam091.github.io/snippet/deep-freeze-objects/" />
 <meta property="og:site_name" content="Harshal V. LADHE" />
-<meta property="og:image" content="https://shivam091.github.io/assets/img/snippets/deep-freeze.png" />
-<meta property="og:image:alt" content="Illustration of JavaScript object being recursively frozen with a lock icon" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2025-09-28T00:00:00+05:30" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="https://shivam091.github.io/assets/img/snippets/deep-freeze.png" />
-<meta name="twitter:image:alt" content="Illustration of JavaScript object being recursively frozen with a lock icon" />
+<meta property="article:published_time" content="2025-09-29T00:00:00+05:30" />
+<meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Deep Freeze Objects in JavaScript" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Harshal V. LADHE","url":"https://shivam091.github.io"},"dateModified":"2025-09-28T00:00:00+05:30","datePublished":"2025-09-28T00:00:00+05:30","description":"Learn how to recursively freeze JavaScript objects to prevent modifications, and explore strict mode usage and practical examples.","headline":"Deep Freeze Objects in JavaScript","image":{"alt":"Illustration of JavaScript object being recursively frozen with a lock icon","url":"https://shivam091.github.io/assets/img/snippets/deep-freeze.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://shivam091.github.io/snippet/deep-freeze-objects/"},"url":"https://shivam091.github.io/snippet/deep-freeze-objects/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Harshal V. LADHE","url":"https://shivam091.github.io"},"dateModified":"2025-09-29T19:44:54+05:30","datePublished":"2025-09-29T00:00:00+05:30","description":"Lock objects and their children immutably — prevent accidental mutations and enforce deep immutability in strict mode.","headline":"Deep Freeze Objects in JavaScript","mainEntityOfPage":{"@type":"WebPage","@id":"https://shivam091.github.io/snippet/deep-freeze-objects/"},"url":"https://shivam091.github.io/snippet/deep-freeze-objects/"}</script>
 <!-- End Jekyll SEO tag -->
 <!-- Favicon -->
 <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/icons/apple-icon-57x57.png">
@@ -343,12 +339,58 @@
 
 
 <section class="page-content" aria-label="Deep Freeze Objects in JavaScript">
-  <article class="series" aria-labelledby="series-list-title">
-  <h2 id="series-list-title" class="visually-hidden">List of blog posts in Deep Freeze Objects in JavaScript</h2>
+  <article class="snippet" aria-labelledby="page-title" itemscope itemtype="https://schema.org/TechArticle">
+  <meta itemprop="headline" content="Deep Freeze Objects in JavaScript">
+  <meta itemprop="mainEntityOfPage" content="https://shivam091.github.io/snippet/deep-freeze-objects/">
+  <meta itemprop="datePublished" content="2025-09-29T19:44:54+05:30">
+  <meta itemprop="dateModified" content="2025-09-29T19:44:54+05:30">
 
-  <h2  id="introduction" dir="auto">Introduction</h2>
-<p  dir="auto">Sometimes you want an object in JavaScript to be <strong>completely immutable</strong>, including all nested objects. <code  class="highlighter-rouge notranslate">Object.freeze()</code> only freezes the top-level properties, leaving nested objects mutable.</p>
-<p  dir="auto">This snippet adds a <code  class="highlighter-rouge notranslate">deepFreeze()</code> method to <strong>all objects</strong> via <code  class="highlighter-rouge notranslate">Object.prototype</code>, recursively freezing every nested object.</p>
+  <header class="snippet-header">
+    <div class="page-meta page-meta-primary" role="group" aria-label="Snippet metadata">
+      <div class="page-meta-item page-published-date">
+  <svg version="1.0" role="img" class="icon icon-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
+  <path fill-rule="evenodd" d="M7.38 2.041a2.101 2.101 0 0 0-1.336.83c-.271.366-.372.643-.461 1.256l-.021.145-.33.027c-1.048.087-1.9.548-2.448 1.32-.495.698-.575 1.124-.704 3.729-.141 2.873-.054 8.133.163 9.763.166 1.251 1.111 2.311 2.322 2.605 1.193.29 8.654.397 12.81.184 1.862-.096 2.12-.136 2.704-.423.797-.39 1.438-1.182 1.636-2.019.258-1.086.386-6.851.226-10.11-.127-2.574-.217-3.047-.7-3.723-.556-.781-1.403-1.239-2.453-1.326l-.329-.027-.021-.145c-.09-.613-.19-.89-.461-1.256-.349-.472-.803-.74-1.413-.836-.41-.064-1.183-.023-1.514.081-.734.231-1.323.915-1.453 1.689l-.05.297h-3.073l-.05-.297c-.13-.774-.717-1.456-1.454-1.69-.301-.095-1.231-.138-1.59-.074Zm1.048 2.057c.054.082.06.234.05 1.04-.007.657-.025.956-.058.99-.028.027-.18.047-.372.05-.482.002-.46.051-.475-1.059-.016-1.156-.031-1.117.453-1.117.313 0 .343.007.402.096Zm7.969.001c.054.083.062.23.05 1.02-.015 1.11.008 1.061-.475 1.058-.192-.002-.343-.022-.371-.05-.033-.033-.051-.332-.059-.99-.015-1.178-.032-1.135.452-1.135.315 0 .344.007.403.097Zm3.558 5.41c.097 2.442.084 6.05-.077 8.387-.034.474-.072.93-.086 1.013-.06.365-.437.77-.809.867-.16.043-.994.102-2.328.166-1.42.067-6.136.092-7.868.04-2.737-.08-3.675-.146-3.936-.28-.412-.21-.585-.485-.647-1.03-.204-1.8-.258-6.102-.132-9.172 1.92 0 13.928.009 15.883.009Z" clip-rule="evenodd" />
+</svg>
+
+  <span class="visually-hidden">Published at:</span>
+  <time datetime='2025-09-29T19:44:54+05:30' aria-label='Published on September 29, 2025 at 07:44 PM' role='time' data-tooltip='Mon, September 29, 2025 07:44 PM' data-tooltip-position='bottom' tabindex='0'>
+  September 29, 2025
+</time>
+
+</div>
+
+      
+  <div class="page-meta-item page-last-modified-date">
+    <svg version="1.0" role="img" class="icon icon-history" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
+  <path fill-rule="evenodd" d="M6.25 9.542C7.258 6.893 9.85 5 12.9 5c3.933 0 7.1 3.146 7.1 7s-3.167 7-7.1 7a7.115 7.115 0 0 1-6.153-3.505 1 1 0 1 0-1.726 1.01A9.115 9.115 0 0 0 12.9 21c5.014 0 9.1-4.018 9.1-9s-4.086-9-9.1-9C8.628 3 5.03 5.917 4.058 9.862l-.355-.351a1 1 0 0 0-1.406 1.423l1.8 1.777a1 1 0 0 0 1.332.067L7.629 11A1 1 0 1 0 6.37 9.444l-.12.098zM14 8a1 1 0 1 0-2 0v4a1 1 0 0 0 1 1h3a1 1 0 1 0 0-2h-2V8z" clip-rule="evenodd" />
+</svg>
+
+    <span class="visually-hidden">Last updated:</span>
+    <time datetime='2025-09-29T19:44:54+05:30' aria-label='Last updated on September 29, 2025 at 07:44 PM' role='time' data-tooltip='Mon, September 29, 2025 07:44 PM' data-tooltip-position='bottom' tabindex='0'>
+  September 29, 2025
+</time>
+
+  </div>
+
+
+      <div class="page-meta-item page-read-time">
+  <svg version="1.0" role="img" class="icon icon-clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
+  <path fill-rule="evenodd" d="M12 6a1 1 0 0 1 1 1v5a1 1 0 0 1-.293.707l-3.5 3.5a1 1 0 0 1-1.414-1.414L11 11.586V7a1 1 0 0 1 1-1z" clip-rule="evenodd" />
+  <path fill-rule="evenodd" d="M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12z" clip-rule="evenodd" />
+</svg>
+
+  <span class="visually-hidden">Estimated reading time:</span>
+  <span data-tooltip="462 words" data-tooltip-position="bottom" tabindex="0">3 min read</span>
+</div>
+
+    </div>
+  </header>
+
+  <div class="snippet-content" itemprop="articleBody">
+    <h2  id="introduction" dir="auto">Introduction</h2>
+<p  dir="auto">Sometimes you want a JavaScript object to be <strong>completely immutable</strong>, including all nested objects. The built-in <code  class="highlighter-rouge notranslate">Object.freeze()</code> only locks top-level properties, leaving nested objects mutable.</p>
+<p  dir="auto">This snippet provides a production-safe <code  class="highlighter-rouge notranslate">deepFreeze(obj)</code> function that recursively freezes an object and all its nested objects or arrays — ensuring true immutability and predictable behavior.</p>
+<h2  id="deep-freeze-utility" dir="auto">Deep Freeze Utility</h2>
 <div class="code-block" data-copy-code="">
   <div class="code-block-header" role="region" aria-labelledby="code-lang-label">
     <div class="code-block-button-group" aria-hidden="true">
@@ -410,46 +452,40 @@
 8
 9
 10
-11
-12
-13
-14
-15
-</pre></td><td class="code"><pre><span class="nb">Object</span><span class="p">.</span><span class="nf">defineProperty</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="dl">"</span><span class="s2">deepFreeze</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
-  <span class="na">value</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if </span><span class="p">(</span><span class="k">this</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="k">this</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">object</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nb">Object</span><span class="p">.</span><span class="nf">getOwnPropertyNames</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">prop</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">[</span><span class="nx">prop</span><span class="p">];</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">value</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">object</span><span class="dl">"</span><span class="p">)</span> <span class="nx">value</span><span class="p">.</span><span class="nf">deepFreeze</span><span class="p">();</span>
-      <span class="p">});</span>
-      <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nf">freeze</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-  <span class="p">},</span>
-  <span class="na">writable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="na">configurable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="na">enumerable</span><span class="p">:</span> <span class="kc">false</span>
-<span class="p">});</span>
+</pre></td><td class="code"><pre><span class="kd">function</span> <span class="nf">deepFreeze</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">obj</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">object</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nf">getOwnPropertyNames</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">prop</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">prop</span><span class="p">];</span>
+      <span class="k">if </span><span class="p">(</span><span class="nx">value</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">object</span><span class="dl">"</span><span class="p">)</span> <span class="nf">deepFreeze</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nf">freeze</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 </div>
 
+<h2  id="highlights" dir="auto">Highlights:</h2>
+
+          <ul  dir="auto">
+              <li><p  dir="auto">Works on objects and arrays.</p></li>
+  <li><p  dir="auto">Standalone function, <strong>no prototype pollution</strong>.</p></li>
+  <li><p  dir="auto">Safe to use in production applications.</p></li>
+
+          </ul>
+        
 <h2  id="how-it-works" dir="auto">How It Works</h2>
 
           <ol  dir="auto">
-              <li><p  dir="auto">Checks if the current object exists and is of type <code  class="highlighter-rouge notranslate">"object"</code>.</p></li>
+              <li><p  dir="auto">Checks if the value is an object or array.</p></li>
   <li><p  dir="auto">Iterates over all own properties using <code  class="highlighter-rouge notranslate">Object.getOwnPropertyNames()</code>.</p></li>
-  <li><p  dir="auto">If a property is an object, recursively calls <code  class="highlighter-rouge notranslate">deepFreeze()</code> on it.</p></li>
-  <li><p  dir="auto">Freezes the current object using <code  class="highlighter-rouge notranslate">Object.freeze()</code>.</p></li>
+  <li><p  dir="auto">Recursively freezes any nested objects or arrays.</p></li>
+  <li><p  dir="auto">Applies <code  class="highlighter-rouge notranslate">Object.freeze()</code> to the current object.</p></li>
   <li><p  dir="auto">Returns the frozen object.</p></li>
 
           </ol>
         
-
-          <blockquote  dir="auto">
-            <p  dir="auto">Properties on the prototype itself (<code  class="highlighter-rouge notranslate">deepFreeze</code>) are <strong>non-writable</strong>, <strong>non-configurable</strong>, and <strong>non-enumerable</strong>
-to avoid accidental overwrites.</p>
-          </blockquote>
-        
+<p  dir="auto">This ensures <strong>all levels of the object tree are immutable</strong>, preventing accidental mutations.</p>
 <h2  id="example-usage" dir="auto">Example Usage</h2>
 <div class="code-block" data-copy-code="">
   <div class="code-block-header" role="region" aria-labelledby="code-lang-label">
@@ -524,18 +560,23 @@ to avoid accidental overwrites.</p>
 20
 21
 22
-</pre></td><td class="code"><pre><span class="dl">"</span><span class="s2">use strict</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// Ensures errors are thrown for illegal assignments</span>
+23
+24
+25
+26
+</pre></td><td class="code"><pre><span class="dl">"</span><span class="s2">use strict</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// Required to throw errors on illegal assignments</span>
 
 <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Alice</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">preferences</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">theme</span><span class="p">:</span> <span class="dl">"</span><span class="s2">dark</span><span class="dl">"</span><span class="p">,</span>
     <span class="na">language</span><span class="p">:</span> <span class="dl">"</span><span class="s2">en</span><span class="dl">"</span>
-  <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">roles</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">admin</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">editor</span><span class="dl">"</span><span class="p">]</span>
 <span class="p">};</span>
 
 <span class="c1">// Recursively freeze the object</span>
-<span class="nx">user</span><span class="p">.</span><span class="nf">deepFreeze</span><span class="p">();</span>
+<span class="nf">deepFreeze</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
 
 <span class="c1">// Attempt to modify top-level property</span>
 <span class="nx">user</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Bob</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// Throws TypeError in strict mode</span>
@@ -543,9 +584,12 @@ to avoid accidental overwrites.</p>
 <span class="c1">// Attempt to modify nested object</span>
 <span class="nx">user</span><span class="p">.</span><span class="nx">preferences</span><span class="p">.</span><span class="nx">theme</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">light</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// Throws TypeError in strict mode</span>
 
+<span class="c1">// Attempt to modify nested array</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">roles</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="dl">"</span><span class="s2">viewer</span><span class="dl">"</span><span class="p">);</span> <span class="c1">// Throws TypeError in strict mode</span>
+
 <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
-<span class="c1">// Output:</span>
-<span class="c1">// { name: "Alice", preferences: { theme: "dark", language: "en" } }</span>
+<span class="c1">// Output remains unchanged:</span>
+<span class="c1">// { name: "Alice", preferences: { theme: "dark", language: "en" }, roles: ["admin", "editor"] }</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 </div>
 
@@ -554,23 +598,92 @@ to avoid accidental overwrites.</p>
           <ul  dir="auto">
               <li><p  dir="auto"><strong>Immutable configuration objects:</strong> Prevent accidental changes to app settings.</p></li>
   <li><p  dir="auto"><strong>Library defaults:</strong> Freeze default options so consumers cannot mutate them.</p></li>
-  <li><p  dir="auto"><strong>Security-sensitive data:</strong> Ensure critical data objects remain unchanged.</p></li>
+  <li><p  dir="auto"><strong>Security-sensitive data:</strong> Ensure critical objects remain unchanged.</p></li>
   <li><p  dir="auto"><strong>State management in front-end frameworks:</strong> Enforce immutability to prevent unexpected re-renders.</p></li>
+  <li><p  dir="auto"><strong>Immutable Redux states:</strong> Protect state objects from accidental mutations.</p></li>
+  <li><p  dir="auto"><strong>Shared objects in multi-module applications:</strong> Safely share objects without risk of modification.</p></li>
 
           </ul>
         
 <h2  id="notes--tips" dir="auto">Notes &amp; Tips</h2>
 
           <ul  dir="auto">
-              <li><p  dir="auto"><strong>Strict Mode Required for Errors:</strong> Without <code  class="highlighter-rouge notranslate">"use strict"</code>, assignments silently fail instead of throwing.</p></li>
-  <li><p  dir="auto"><strong>Performance Consideration:</strong> Recursive freezing is O(n) in object size — avoid deep-freezing very large objects in performance-critical paths.</p></li>
-  <li><p  dir="auto"><strong>Nested Arrays:</strong> Works for objects and arrays alike.</p></li>
-  <li><p  dir="auto"><strong>Prototype Pollution Warning:</strong> Avoid adding enumerable properties to Object.prototype in production-sensitive code; here, we use <code  class="highlighter-rouge notranslate">enumerable: false</code>.</p></li>
+              <li><p  dir="auto"><strong>Strict Mode Required for Errors:</strong> Without “use strict”, assignments fail silently.</p></li>
+  <li><p  dir="auto"><strong>Performance Consideration:</strong> Recursively freezing deeply nested objects has O(n) complexity — avoid freezing very
+large objects in performance-critical paths.</p></li>
+  <li><p  dir="auto"><strong>Nested Arrays:</strong> The utility handles arrays seamlessly.</p></li>
+  <li><p  dir="auto"><strong>Production Safety:</strong> Standalone function avoids modifying Object.prototype, eliminating prototype pollution risks.</p></li>
+  <li><p  dir="auto"><strong>Alternatives:</strong> For large-scale applications, consider libraries like <a  href="https://immerjs.github.io/immer/" target="_blank" rel="noopener noreferrer nofollow" aria-label="External link to https://immerjs.github.io/immer/" class="external-link">immer</a> for immutable state management.</p></li>
+  <li><p  dir="auto"><strong>Debugging:</strong> Frozen objects throw errors on modification attempts, making bugs easier to catch early.</p></li>
 
           </ul>
         
-<h2  id="key-takeaway" dir="auto">Key Takeaway:</h2>
-<p  dir="auto"><code  class="highlighter-rouge notranslate">deepFreeze()</code> makes objects truly immutable at all levels, helping enforce immutability and predictable behavior in JavaScript applications.</p>
+<h2  id="key-takeaway" dir="auto">Key Takeaway</h2>
+<p  dir="auto">The <code  class="highlighter-rouge notranslate">deepFreeze(obj)</code> utility ensures your objects are truly immutable at all levels, providing safer, more predictable JavaScript applications and robust state management without the risks associated with modifying <code  class="highlighter-rouge notranslate">Object.prototype</code>.</p>
+  </div>
+
+  <div class="page-meta page-meta-secondary" role="group" aria-label="Post metadata">
+    
+  <div class="page-meta-item page-categories" role="list">
+    <svg version="1.0" role="img" class="icon icon-diamonds" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" focusable="false">
+  <polygon points="12,2 15.5,5.5 12,9 8.5,5.5" />
+  <polygon points="2,12 5.5,8.5 9,12 5.5,15.5" />
+  <polygon points="22,12 18.5,8.5 15,12 18.5,15.5" />
+  <polygon points="12,22 8.5,18.5 12,15 15.5,18.5" />
+</svg>
+    <span class="visually-hidden">Categories:</span>
+    
+      <span class="badge" aria-label="Category: JavaScript" rel="category" role="listitem">JavaScript</span>
+    
+    
+  </div>
+
+
+    
+  <div class="page-meta-item page-tags" role="list">
+    <svg version="1.0" role="img" class="icon icon-tag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <polygon points="11 21,3 13,13 3,21 3,21 11" />
+  <circle cx="16" cy="8" r="0.5" />
+</svg>
+    <span class="visually-hidden">Tags:</span>
+    
+      <span class="badge" aria-label="Tag: javascript" rel="tag" role="listitem">javascript</span>
+    
+    
+      <span class="badge" aria-label="Tag: Object.freeze" rel="tag" role="listitem">Object.freeze</span>
+    
+    
+      <span class="badge" aria-label="Tag: deep-freeze" rel="tag" role="listitem">deep-freeze</span>
+    
+    
+      <span class="badge" aria-label="Tag: immutability" rel="tag" role="listitem">immutability</span>
+    
+    
+      <span class="badge" aria-label="Tag: secure-coding" rel="tag" role="listitem">secure-coding</span>
+    
+    
+      <span class="badge" aria-label="Tag: strict-mode" rel="tag" role="listitem">strict-mode</span>
+    
+    
+  </div>
+
+
+  </div>
+
+  
+  <section class="page-changelog" aria-labelledby="changelog-title">
+    <h2 id="changelog-title">Changelog</h2>
+    <ul>
+      
+        <li>
+          <time datetime="2025-09-29T00:00:00+05:30">September 29, 2025</time>
+          — Initial publication
+        </li>
+      
+    </ul>
+  </section>
+
+
 </article>
 
 </section>
