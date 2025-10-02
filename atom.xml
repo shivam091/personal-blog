@@ -5,7 +5,7 @@
   <subtitle>I’m a software engineer, freelancer, and lifelong learner passionate about building clean, scalable web solutions. I contribute to open-source, embrace minimalism in code and life, and stay curious about emerging tech.</subtitle>
   <id>https://shivam091.github.io/</id>
   <icon>https://shivam091.github.io/img/favicon.png</icon>
-  <updated>2025-10-02T17:08:58+05:30</updated>
+  <updated>2025-10-02T19:16:50+05:30</updated>
   <rights>© 2025 Harshal V. LADHE</rights>
 
   <link rel="alternate" type="text/html" href="https://shivam091.github.io" />
@@ -6397,15 +6397,12 @@ your logical properties. This ensures that browsers without logical property sup
 
 <details>
   <summary>
-    <svg version="1.0" role="img" class="icon icon-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="6" y1="12" x2="18" y2="12" />
-  <line x1="12" y1="18" x2="12" y2="6" />
+    <svg version="1.0" role="img" class="icon icon-flat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="5 12 12 12 19 12" />
 </svg>
-
     <p dir="auto"><strong>Why use <code class="highlighter-rouge notranslate">@supports?</code></strong></p>
   </summary>
-  <div class="content">
-    
+  
           <ul dir="auto">
               <li><p dir="auto">Keeps fallback styles intact for older browsers without relying solely on cascade overrides.</p></li>
   <li><p dir="auto">Ensures logical properties are parsed only when supported.</p></li>
@@ -6413,7 +6410,6 @@ your logical properties. This ensures that browsers without logical property sup
 
           </ul>
         
-  </div>
 </details>
 
 <h2  id="conclusion" dir="auto">Conclusion</h2>
@@ -8728,15 +8724,12 @@ where an item starts and ends in the grid layout.</p>
 <p  dir="auto">👉 <a  href="https://codepen.io/shivam091/pen/raVEKzW" target="_blank" rel="noopener noreferrer nofollow" aria-label="External link to https://codepen.io/shivam091/pen/raVEKzW" class="external-link">Try this on CodePen</a></p>
 <details>
   <summary>
-    <svg version="1.0" role="img" class="icon icon-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="6" y1="12" x2="18" y2="12" />
-  <line x1="12" y1="18" x2="12" y2="6" />
+    <svg version="1.0" role="img" class="icon icon-flat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="5 12 12 12 19 12" />
 </svg>
-
     <p dir="auto">When to use it?</p>
   </summary>
-  <div class="content">
-    
+  
           <ul dir="auto">
               <li><p dir="auto">You <strong>don’t need to control exact start/end line numbers</strong>.</p></li>
   <li><p dir="auto">You want the browser to determine the position automatically.</p></li>
@@ -8744,7 +8737,6 @@ where an item starts and ends in the grid layout.</p>
 
           </ul>
         
-  </div>
 </details>
 
 <h2  id="grid-types" dir="auto">Grid Types</h2>
@@ -9621,15 +9613,12 @@ and you can always combine them!</p>
         
 <details>
   <summary>
-    <svg version="1.0" role="img" class="icon icon-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="6" y1="12" x2="18" y2="12" />
-  <line x1="12" y1="18" x2="12" y2="6" />
+    <svg version="1.0" role="img" class="icon icon-flat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="5 12 12 12 19 12" />
 </svg>
-
     <p dir="auto">When <em>not</em> to use CSS Grid?</p>
   </summary>
-  <div class="content">
-    
+  
           <ul dir="auto">
               <li><p dir="auto">If you just need a horizontal or vertical alignment — use Flexbox.</p></li>
   <li><p dir="auto">If the layout is linear and small-scale (e.g. tag chips, breadcrumbs), Grid might be overkill.</p></li>
@@ -9637,7 +9626,6 @@ and you can always combine them!</p>
 
           </ul>
         
-  </div>
 </details>
 
 <h2  id="basic-terminology" dir="auto">Basic Terminology</h2>
