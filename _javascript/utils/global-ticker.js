@@ -9,25 +9,43 @@ class GlobalTicker {
     this.eventManager = new EventManager(); // use EventManager for listener management
     this.running = false;
     this.last = 0;
+    this._loop = this._loop.bind(this); // bind once to avoid reallocation in RAF
   }
 
-  // Add a listener; returns unsubscribe handle
+  // Adds a listener; returns unsubscribe handle
   add(fn) {
+    if (typeof fn !== "function") {
+      throw new TypeError("Listener must be a function");
+    }
     const off = this.eventManager.on("tick", fn);
     if (!this.running) this.start();
     return off;
   }
 
-  // Start the ticker loop
+  // Starts the ticker loop
   start() {
+    if (this.running) return;
     this.running = true;
     this.last = performance.now();
-    this.loop();
+    requestAnimationFrame(this._loop);
+  }
+
+  // Pauses ticker updates
+  pause() {
+    this.running = false;
+  }
+
+  // Resumes ticker if there are active listeners
+  resume() {
+    if (!this.running && !this.eventManager.isEmpty("tick")) {
+      this.start();
+    }
   }
 
   // Main requestAnimationFrame loop
-  loop = () => {
+  _loop() {
     if (!this.running) return;
+
     const now = performance.now();
     const dt = (now - this.last) / 1000;
     this.last = now;
@@ -36,8 +54,8 @@ class GlobalTicker {
     this.eventManager.emit("tick", dt);
 
     // Continue RAF if there are listeners for 'tick'
-    if (this.eventManager.hasListeners?.("tick") ?? this.eventManager._events.get("tick")?.size > 0) {
-      requestAnimationFrame(this.loop);
+    if (!this.eventManager.isEmpty("tick")) {
+      requestAnimationFrame(this._loop);
     } else {
       this.running = false;
     }

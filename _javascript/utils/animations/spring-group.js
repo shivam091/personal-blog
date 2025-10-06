@@ -10,6 +10,7 @@ export default class SpringGroup {
     this.springs = {};
     this.running = false;
     this._unsubscribe = null;
+    this._lastProgress = 1;
 
     this.eventManager = new EventManager();
 
@@ -21,70 +22,76 @@ export default class SpringGroup {
     }
   }
 
-  // Update multiple springs with individual targets
+  // Updates multiple springs with individual targets
   setTarget(targets, { delay = 0 } = {}) {
     const keys = Object.keys(targets);
     const delays = resolveDelays(keys.length, delay);
 
-    keys.forEach((key, i) => {
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
       const spring = this.springs[key];
-      if (!spring) return;
+      if (!spring) continue;
 
       // Resolve delay for this spring:
       // - if delays[i] is a number → apply directly
       // - if delays[i] is an object → look up this property key for per-attribute delay
       // This supports number | array<number> | object | array<object>.
-      const springDelay =
-        typeof delays[i] === "object" ? delays[i][key] ?? 0 : delays[i];
+      const springDelay = typeof delays[i] === "object" ? delays[i][key] ?? 0 : delays[i];
 
       spring.setTarget(targets[key], { delay: springDelay });
-    });
+    }
 
     this.#start();
     this.eventManager.emit("start");
   }
 
-  // Update all springs to share the same target
+  // Updates all springs to share the same target
   setAll(target, { delay = 0 } = {}) {
     const keys = Object.keys(this.springs);
     const delays = resolveDelays(keys.length, delay);
 
-    keys.forEach((key, i) => {
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
       const spring = this.springs[key];
-      if (!spring) return;
+      if (!spring) continue;
 
       // Resolve delay for this spring:
       // - if delays[i] is a number → apply directly
       // - if delays[i] is an object → look up this property key for per-attribute delay
       // This supports number | array<number> | object | array<object>.
-      const springDelay =
-        typeof delays[i] === "object" ? delays[i][key] ?? 0 : delays[i];
+      const springDelay = typeof delays[i] === "object" ? delays[i][key] ?? 0 : delays[i];
 
       spring.setTarget(target, { delay: springDelay });
-    });
+    }
 
     this.#start();
     this.eventManager.emit("start");
   }
 
-  // Reset all springs to new or current values
+  // Resets all springs to new or current values
   reset(values = {}) {
-    Object.entries(this.springs).forEach(([key, spring]) =>
-      spring.reset(values[key] ?? spring.value, spring.config)
-    );
+    const entries = Object.entries(this.springs);
+    for (let i = 0; i < entries.length; i++) {
+      const [key, spring] = entries[i];
+      spring.reset(values[key] ?? spring.value, spring.config);
+    }
     this.running = false;
   }
 
-  // Stop all springs immediately
+  // Stops all springs immediately
   stop() {
-    Object.values(this.springs).forEach(s => s.stop());
+    const springs = Object.values(this.springs);
+    for (let i = 0; i < springs.length; i++) springs[i].stop();
+
     this.running = false;
     this.eventManager.emit("stop");
   }
 
-  // Dispose group and release all pooled springs
+  // Disposes group and release all pooled springs
   dispose() {
-    Object.values(this.springs).forEach(s => SpringPool.release(s));
+    const springs = Object.values(this.springs);
+    for (let i = 0; i < springs.length; i++) SpringPool.release(springs[i]);
+
     this.springs = {};
     this.running = false;
     this._unsubscribe?.();
@@ -92,7 +99,7 @@ export default class SpringGroup {
     this.eventManager.clear();
   }
 
-  // Start spring updates via global ticker
+  // Starts spring updates via global ticker
   #start() {
     if (!this.running) {
       this.running = true;
@@ -100,27 +107,26 @@ export default class SpringGroup {
     }
   }
 
-  // Step each spring forward and notify listeners
+  // Steps each spring forward and notify listeners
   #step(dt = 1 / 60) {
     let allSettled = true;
     const snapshot = {};
-    const progresses = [];
+    let sumProgress = 0;
+    let count = 0;
 
-    for (const key in this.springs) {
-      const s = this.springs[key];
+    const springs = this.springs;
+    for (const key in springs) {
+      const s = springs[key];
       snapshot[key] = s.value;
       if (!s.step(dt)) allSettled = false;
-      // gather progress from each spring
-      progresses.push(s.progress ?? 1);
+      sumProgress += s.progress ?? 1;
+      count++;
     }
 
     this.eventManager.emit("update", snapshot);
 
     // compute average progress across all springs
-    const avgProgress = progresses.length
-      ? progresses.reduce((a, b) => a + b, 0) / progresses.length
-      : 1;
-
+    const avgProgress = count ? sumProgress / count : 1;
     this._lastProgress = clamp(avgProgress, 0, 1);
     this.eventManager.emit("progress", this._lastProgress);
 
@@ -135,48 +141,47 @@ export default class SpringGroup {
     }
   }
 
-  // Get current values of all springs
+  // Gets current values of all springs
   getState() {
     const snapshot = {};
-    for (const key in this.springs) {
-      snapshot[key] = this.springs[key].value;
-    }
+    const springs = this.springs;
+    for (const key in springs) snapshot[key] = springs[key].value;
     return snapshot;
   }
 
-  // Subscribe to settle event (fires every settle)
+  // Subscribes to settle event (fires every settle)
   onSettle(fn) {
     this.eventManager.on("settle", fn);
     return this;
   }
 
-  // Subscribe to one-time settle event (first settle only)
+  // Subscribes to one-time settle event (first settle only)
   onceSettle(fn) {
     this.eventManager.once("settle", fn);
     return this;
   }
 
-  // Subscribe to progress updates (0..1)
+  // Subscribes to progress updates (0..1)
   onProgress(fn, { immediate = false } = {}) {
     if (immediate) fn(this._lastProgress ?? 1);
     this.eventManager.on("progress", fn);
     return this;
   }
 
-  // Subscribe to start event
+  // Subscribes to start event
   onStart(fn) {
     this.eventManager.on("start", fn);
     return this;
   }
 
-  // Subscribe to update event
+  // Subscribes to update event
   onUpdate(fn, { immediate = false } = {}) {
     if (immediate) fn(this.getState());
     this.eventManager.on("update", fn);
     return this;
   }
 
-  // Subscribe to stop event
+  // Subscribes to stop event
   onStop(fn) {
     this.eventManager.on("stop", fn);
     return this;

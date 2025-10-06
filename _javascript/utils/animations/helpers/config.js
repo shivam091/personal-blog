@@ -1,6 +1,6 @@
-// Normalize springConfigs into an array matching groups length
+// Normalizes springConfigs into an array matching groups length
 export function normalizeSpringConfigs(groups, springConfigs) {
-  if (!springConfigs || !groups) return null;
+  if (!springConfigs || !groups) return;
   const n = groups.length;
 
   // copy & pad with nulls if shorter
@@ -14,13 +14,12 @@ export function normalizeSpringConfigs(groups, springConfigs) {
   return Array(n).fill(springConfigs);
 }
 
-// Apply per-group configs to the actual Spring instances
+// Applies per-group configs to the actual Spring instances
 export function applySpringConfigs(groups, springConfigs) {
   const configs = normalizeSpringConfigs(groups, springConfigs);
   if (!configs) return;
 
   configs.forEach((config, i) => {
-    if (!config) return;
     const group = groups[i];
     if (!group) return;
 

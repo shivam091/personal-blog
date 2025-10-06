@@ -28,7 +28,7 @@ export default class SpringBoop {
     animator.onUpdate?.(vals => this.eventManager.emit("update", vals));
   }
 
-  // Dynamically update the spring configs for the animator
+  // Dynamically updates the spring configs for the animator
   setSpringConfigs(springConfigs) {
     this._springConfigs = springConfigs;
     const groups = this.#animator?.groups || [this.#animator];
@@ -36,7 +36,7 @@ export default class SpringBoop {
     return this;
   }
 
-  // Retrieve current spring configs for animator/group
+  // Retrieves current spring configs for animator/group
   getSpringConfigs() {
     const groups = this.#animator?.groups || [this.#animator];
     return groups.map(group =>
@@ -46,7 +46,7 @@ export default class SpringBoop {
     );
   }
 
-  // Apply per-spring boop and rest transitions with delays
+  // Applies per-spring boop and rest transitions with delays
   #applySpringDelays(group, boopTarget, restTarget, springDelayObj, duration) {
     const keys = Object.keys(group.springs);
 
@@ -61,7 +61,18 @@ export default class SpringBoop {
     });
   }
 
-  // Snap animator instantly to rest
+  // Queues a spring target transition sequence with optional delay
+  #queueTarget(group, boopTarget, restTarget, groupDelay, duration) {
+    setTimeout(() => {
+      group.setTarget(boopTarget);
+
+      setTimeout(() => {
+        group.setTarget(restTarget);
+      }, duration);
+    }, groupDelay);
+  }
+
+  // Snaps animator instantly to rest
   #snapToRest() {
     if (!this.restVals) return;
 
@@ -76,7 +87,7 @@ export default class SpringBoop {
     this.eventManager.emit("stop");
   }
 
-  // Merge boop values with rest values for Morph or Group animators
+  // Merges boop values with rest values for Morph or Group animators
   static #resolveBoopVals(animator, restVals, boopValues) {
     if (Array.isArray(restVals)) {
       // Morph-style (array of states)
@@ -119,13 +130,7 @@ export default class SpringBoop {
 
         const groupDelay = delays[i] || 0;
 
-        setTimeout(() => {
-          group.setTarget(adaptedTarget);
-
-          setTimeout(() => {
-            group.setTarget(restTarget);
-          }, duration);
-        }, groupDelay);
+        this.#queueTarget(group, adaptedTarget, restTarget, groupDelay, duration);
       });
 
       const maxGroupDelay = Math.max(...delays);
@@ -182,45 +187,48 @@ export default class SpringBoop {
     this.eventManager.emit("progress", maxProgress);
   };
 
-  // Reset to rest values (for both single and multi-group)
+  // Resets to rest values (for both single and multi-group)
   reset() {
     if (!this.restVals) return;
-
-    const groups = this.#animator?.groups || null;
-
-    if (Array.isArray(groups)) {
-      groups.forEach((group, i) => {
-        group.setTarget(this.restVals[i]);
-      });
-    } else {
-      this.#animator.setTarget(this.restVals);
-    }
-
     this.isBooping = false;
+    clearTimeout(this.#timer);
 
     if (this.#offTicker) {
       this.#offTicker();
       this.#offTicker = null;
     }
 
+    const groups = this.#animator?.groups || [this.#animator];
+    groups.forEach((group, i) => group.setTarget(this.restVals[i] ?? this.restVals));
+
     this.eventManager.emit("progress", 1);
     this.eventManager.emit("stop");
   }
 
-  // Stop ongoing boop
+  // Stops ongoing boop
   stop() {
     clearTimeout(this.#timer);
     this.reset();
   }
 
-  // Cleanup
+  // Cleans up
   dispose() {
     this.stop();
+
+    // properly cancel all async callbacks and tickers before clearing events
+    if (this.#offTicker) {
+      this.#offTicker();
+      this.#offTicker = null;
+    }
+
+    clearTimeout(this.#timer);
+    this.#timer = null;
+
     this.eventManager.clear();
     this.eventManager.emit("dispose");
   }
 
-  // Dynamically update rest + boop targets
+  // Dynamically updates rest + boop targets
   setBoopValues(restVals, boopValues) {
     this.restVals = restVals;
     this.boopVals = SpringBoop.#resolveBoopVals(this.#animator, restVals, boopValues);
@@ -232,26 +240,26 @@ export default class SpringBoop {
     this.boopVals = SpringBoop.#resolveBoopVals(this.#animator, this.restVals, this.boopVals);
   }
 
-  // Subscribe to start event
+  // Subscribes to start event
   onStart(fn) {
     this.eventManager.on("start", fn);
     return this;
   }
 
-  // Subscribe to stop event
+  // Subscribes to stop event
   onStop(fn) {
     this.eventManager.on("stop", fn);
     return this;
   }
 
-  // Subscribe to update event
+  // Subscribes to update event
   onUpdate(fn, { immediate = false } = {}) {
     if (immediate) fn(this.isBooping ? this.boopVals : this.restVals);
     this.eventManager.on("update", fn);
     return this;
   }
 
-  // Subscribe to progress updates (0..1)
+  // Subscribes to progress updates (0..1)
   onProgress(fn, { immediate = false } = {}) {
     if (immediate) fn(this.isBooping ? 0 : 1);
     this.eventManager.on("progress", fn);

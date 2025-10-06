@@ -4,8 +4,12 @@ export default class EventManager {
     this._events = new Map(); // Map<eventName, Set<listener>>
   }
 
-  // Subscribe to an event; returns unsubscribe function
+  // Subscribes to an event; returns unsubscribe function
   on(event, fn) {
+    if (typeof fn !== "function") {
+      throw new TypeError(`Listener for event "${event}" must be a function`);
+    }
+
     if (!this._events.has(event)) {
       this._events.set(event, new Set());
     }
@@ -13,8 +17,12 @@ export default class EventManager {
     return () => this.off(event, fn); // unsubscribe handle
   }
 
-  // Subscribe to an event once; auto-removes after first call
+  // Subscribes once; auto-removes after first call
   once(event, fn) {
+    if (typeof fn !== "function") {
+      throw new TypeError(`Listener for event "${event}" must be a function`);
+    }
+
     const off = this.on(event, (...args) => {
       fn(...args);
       off();
@@ -22,17 +30,17 @@ export default class EventManager {
     return off;
   }
 
-  // Unsubscribe from an event
+  // Unsubscribes from an event
   off(event, fn) {
     this._events.get(event)?.delete(fn);
   }
 
-  // Trigger all listeners for an event
+  // Triggers all listeners for an event
   emit(event, ...args) {
     this._events.get(event)?.forEach(fn => fn(...args));
   }
 
-  // Clear all listeners (or only for specific event)
+  // Clears all listeners (or only for specific event)
   clear(event) {
     if (event) {
       this._events.get(event)?.clear();
@@ -41,8 +49,13 @@ export default class EventManager {
     }
   }
 
-  /** Check if there are listeners for an event */
+  // Checks if there are listeners for an event
   hasListeners(event) {
     return this._events.get(event)?.size > 0;
+  }
+
+  // Checks if there are zero listeners (no listeners)
+  isEmpty(event) {
+    return !this._events.get(event)?.size;
   }
 }

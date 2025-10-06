@@ -1,5 +1,5 @@
 /**
- * Resolve delays for a group of elements, supporting multiple input formats.
+ * Resolves delays for a group of elements, supporting multiple input formats.
  * Returns an array of length `count` where each item represents the delay for
  * that element. Supports numbers, arrays, objects, and mixed cases.
  *

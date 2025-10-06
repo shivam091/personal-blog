@@ -4,32 +4,37 @@ import { BaseAdapter } from "./base";
 class PolyPointsAdapterImpl extends BaseAdapter {
   constructor() {
     super(["transform", "opacity", "fill-opacity", "stroke-opacity"]);
+    this._cachedKeys = new WeakMap(); // cache point key order per element
   }
 
-  // Extract attributes from <polygon> and <polyline> elements
+  // Extracts attributes from <polygon> and <polyline> elements
   extractAttributes(el) {
     const props = super.extractAttributes(el);
+
     const raw = el.getAttribute("points") || "";
     const nums = raw
       .trim()
       .split(/[\s,]+/)
       .map(Number)
       .filter(n => !isNaN(n));
+
     nums.forEach((n, i) => (props[`p${i}`] = n));
+
+    // Cache key order for this element
+    if (!this._cachedKeys.has(el)) {
+      const keys = Object.keys(props).filter(k => k.startsWith("p"));
+      this._cachedKeys.set(el, keys);
+    }
+
     return props;
   }
 
-  // Apply state values back to <polygon> and <polyline> elements
+  // Applies state values back to <polygon> and <polyline> elements
   setAttributes(el, group) {
-    // Clone group state to avoid mutating original
     const state = group.getState();
+    const pointKeys = this._cachedKeys.get(el);
 
-    // Handle points first
-    const pointKeys = Object.keys(state)
-      .filter(k => k.startsWith("p"))
-      .sort((a, b) => +a.slice(1) - +b.slice(1));
-
-    if (pointKeys.length) {
+    if (pointKeys && pointKeys.length) {
       const points = [];
       for (let i = 0; i < pointKeys.length; i += 2) {
         const x = state[pointKeys[i]] ?? 0;
@@ -39,11 +44,11 @@ class PolyPointsAdapterImpl extends BaseAdapter {
       el.setAttribute("points", points.join(" "));
     }
 
-    // Call BaseAdapter for whitelisted attributes & transforms
+    // Calls BaseAdapter for whitelisted attributes & transforms
     super.setAttributes(el, group);
   }
 
-  // Convert target { points: [...] } into flat { p0, p1, ... } object
+  // Converts target { points: [...] } into flat { p0, p1, ... } object
   objectToPoints(target) {
     if (target.points) {
       const obj = {};
@@ -51,19 +56,14 @@ class PolyPointsAdapterImpl extends BaseAdapter {
       ["opacity", "fillOpacity", "strokeOpacity"].forEach(attr => {
         if (target[attr] !== undefined) obj[attr] = +target[attr];
       });
-      // if (target.opacity !== undefined) obj.opacity = +target.opacity;
-      // if (target.fillOpacity !== undefined) obj.fillOpacity = +target.fillOpacity;
-      // if (target.strokeOpacity !== undefined) obj.strokeOpacity = +target.strokeOpacity;
       return obj;
     }
     return target;
   }
 
-  // Optional: convert flat p0, p1... object back to array of [x, y] pairs
+  // Optional: converts flat p0, p1... object back to array of [x, y] pairs
   pointsToObject(obj) {
-    const keys = Object.keys(obj)
-      .filter(k => k.startsWith("p"))
-      .sort((a, b) => +a.slice(1) - +b.slice(1));
+    const keys = Object.keys(obj).filter(k => k.startsWith("p"));
     const points = [];
     for (let i = 0; i < keys.length; i += 2) {
       const x = obj[keys[i]] ?? 0;

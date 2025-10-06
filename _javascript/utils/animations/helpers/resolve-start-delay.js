@@ -1,5 +1,5 @@
 /**
- * Resolve delay for one element index and optional property key.
+ * Resolves delay for one element index and optional property key.
  * Supports number, array of numbers, object, and array of objects.
  */
 function resolveStartDelay(startDelay, i, key) {

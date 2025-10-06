@@ -1,5 +1,11 @@
+// Regex to match commands
+const CMD_REGEX = /[a-zA-Z][^a-zA-Z]*/g;
+
+// Regex to match numbers
+const NUM_REGEX = /-?\d*\.?\d+(?:e[-+]?\d+)?/gi;
+
 /**
- * Convert an SVG path string into an array of path segments.
+ * Converts an SVG path string into an array of path segments.
  * Each segment is represented as an object with:
  *   - type: "M", "L", "Q", "C", "A", "Z", or "RAW"
  *   - points: an array of coordinate arrays (for "A" includes [rx, ry, xRot, large, sweep, x, y])
@@ -14,16 +20,15 @@
  * @returns {Array<{type: string, points: Array<Array<number>>}|{type: "RAW", raw: string}>}
  */
 export function normalizePath(d) {
-  const NUM = /-?\d*\.?\d+(?:e[-+]?\d+)?/gi; // Regex to match numbers
   const segs = []; // Output array of path segments
 
   let prevQ = null, prevC2 = null;
 
   // Split path string into chunks: command + numeric values
-  d.replace(/[a-zA-Z][^a-zA-Z]*/g, chunk => {
+  d.replace(CMD_REGEX, chunk => {
     const rawCmd = chunk[0];
     const cmd = rawCmd.toUpperCase(); // Command letter
-    const nums = (chunk.slice(1).match(NUM) || []).map(Number); // Parse numbers
+    const nums = (chunk.slice(1).match(NUM_REGEX) || []).map(Number); // Parse numbers
     let k = 0;
     const next = n => nums.slice(k, k + n); // Get next n numbers
     const push = (...pts) => segs.push({ type: cmd, points: pts }); // Push segment
@@ -123,7 +128,7 @@ export function normalizePath(d) {
 }
 
 /**
- * Convert an array of path segment objects back into an SVG path string.
+ * Converts an array of path segment objects back into an SVG path string.
  * This reverses normalizePath, producing a string suitable for the 'd' attribute.
  * Supports: M, L, H, V, Q, T, C, S, A, Z
  *

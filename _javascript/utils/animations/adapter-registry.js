@@ -27,7 +27,7 @@ export default class AdapterRegistry {
     };
   }
 
-  // Return adapter for an element based on tagName
+  // Returns adapter for an element based on tagName
   getAdapter(el) {
     return this.map[el.tagName.toLowerCase()];
   }

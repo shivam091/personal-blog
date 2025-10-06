@@ -13,7 +13,7 @@ export class BaseAdapter {
 
   constructor(attributes = []) {
     // Automatically handle transforms if "transform" is in the list
-    this.hasTransform = attributes.includes("transform");;
+    this.hasTransform = attributes.includes("transform");
 
     // Map JS key → SVG attribute
     this.map = {};
@@ -23,14 +23,15 @@ export class BaseAdapter {
     });
   }
 
-  // Extract attributes from elements
+  // Extracts attributes from element
   extractAttributes(el) {
     const attrs = {};
 
-    for (const [jsKey, svgAttr] of Object.entries(this.map)) {
+    for (const jsKey in this.map) {
+      const svgAttr = this.map[jsKey];
       const val = el.getAttribute(svgAttr);
-      if (val !== null) {
-        const num = Number(val);
+      if (val != null) {
+        const num = +val;
         attrs[jsKey] = isNaN(num) ? val : num;
       }
     }
@@ -42,15 +43,16 @@ export class BaseAdapter {
     return attrs;
   }
 
-  // Apply state values back to elements
+  // Applies state values back to element
   setAttributes(el, group) {
     const state = group.getState();
 
     // Only set attributes that exist in this.map
-    for (const [jsKey, svgAttr] of Object.entries(this.map)) {
+    for (const jsKey in this.map) {
+      const svgAttr = this.map[jsKey];
       const val = state[jsKey];
       if (val == null) continue;
-      el.setAttribute(svgAttr, typeof val === "number" ? val.toFixed(2) : val);
+      el.setAttribute(svgAttr, typeof val === "number" ? +val.toFixed(2) : val);
     }
 
     // Compose transform string if adapter has transforms

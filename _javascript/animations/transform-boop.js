@@ -26,37 +26,39 @@ export default class TransformBoop {
     this.delay = delay;
     this.transformOrigin = transformOrigin;
 
-    document.querySelectorAll(selector).forEach(el => this._setup(el));
+    const elements = typeof selector === "string"
+      ? document.querySelectorAll(selector)
+      : [selector];
+
+    elements.forEach(element => this.#setupElement(element));
   }
 
-  _setup(el) {
-    // Each element needs its own animation state
-    el.style.transform = toTransformString({});
-    el.style.transformOrigin = this.transformOrigin;
-
-    const boopValKeys = Object.keys(this.boopValues);
-
-    // Rest state for THIS element
-    const rest = Object.fromEntries(
-      boopValKeys.map(k =>
+  // Computes neutral (rest) transform state for all boop properties
+  #computeRestState() {
+    return Object.fromEntries(
+      Object.keys(this.boopValues).map(k =>
         k.toLowerCase().includes("scale") ? [k, 1] : [k, 0]
       )
     );
+  }
 
-    // Animator for THIS element
-    const animator = new SpringGroup(rest, this.springConfig);
+  // Sets up animation behavior and event listeners for a single element
+  #setupElement(element) {
+    element.style.transform = toTransformString({});
+    element.style.transformOrigin = this.transformOrigin;
 
-    // Wrap with SpringBoop
-    const springBoop = new SpringBoop(animator, this.boopValues);
+    const boopValKeys = Object.keys(this.boopValues);
+    const restVals = this.#computeRestState();
+
+    const springGroup = new SpringGroup(restVals, this.springConfig);
+    const springBoop = new SpringBoop(springGroup, this.boopValues);
 
     // Bind updates only to THIS element
     springBoop.onUpdate(vals => {
-      el.style.transform = toTransformString(vals);
-      el.style.transformOrigin = this.transformOrigin;
+      element.style.transform = toTransformString(vals);
     });
 
-    const target = this.triggerOnParent && el.parentElement ? el.parentElement : el;
-
+    const target = this.triggerOnParent && element.parentElement ? element.parentElement : element;
     const delays = resolveDelays(boopValKeys.length, this.delay, boopValKeys)[0];
 
     const trigger = () => springBoop.trigger({ duration: 150, delay: delays });
@@ -67,7 +69,7 @@ export default class TransformBoop {
     }
   }
 
-  static initialize(selector, boopValues = {}, springConfig = {}) {
-    new TransformBoop(selector, boopValues, springConfig);
+  static initialize(selector, boopValues = {}, springConfigs = {}) {
+    new TransformBoop(selector, boopValues, springConfigs);
   }
 }
