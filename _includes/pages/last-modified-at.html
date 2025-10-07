@@ -1,0 +1,10 @@
+{%- assign item = include.item -%}
+{%- assign last_modified_at = item.last_modified_at -%}
+
+{% if last_modified_at %}
+  <div class="page-meta-item page-last-modified-date">
+    {% svg history %}
+    <span class="visually-hidden">Last updated:</span>
+    {% timestamp {{last_modified_at}}, tooltip:true, label:"Last updated on {{ last_modified_at | date: "%B %d, %Y" }} at {{ last_modified_at | date: '%I:%M %p' }}"%}
+  </div>
+{% endif %}

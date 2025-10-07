@@ -1,8 +1,0 @@
-{%- assign post = include.post -%}
-{%- assign published_at = post.published_at | default: post.date -%}
-
-<div class="post-meta-item post-published-date">
-  {% svg calendar %}
-  <span class="visually-hidden">Published at:</span>
-  {% timestamp {{published_at}}, tooltip:true, label:"Published on {{ published_at | date: "%B %d, %Y" }} at {{ published_at | date: '%I:%M %p' }}" %}
-</div>

@@ -1,0 +1,40 @@
+@use "abstracts/tokens" as *
+@use "abstracts/mixins/breakpoints" as breakpoint
+
+.goodies-list
+  display: grid
+  grid-auto-flow: row
+  grid-gap: $space-base
+  margin-block-start: $space-base
+
+  @include breakpoint.min(md)
+    grid-template-columns: repeat(2, 1fr)
+
+  @include breakpoint.min(lg)
+    grid-template-columns: repeat(3, 1fr)
+
+.goodie
+  background: var(--color-bg-muted)
+  border: $border-width-default solid var(--color-border-muted)
+  border-radius: $border-radius-default
+  margin-block-end: $space-none
+
+  a
+    display: flex
+    align-items: center
+    column-gap: $space-base
+    padding-block: $space-sm
+    padding-inline: $space-base
+    text-decoration: none
+    color: var(--color-fg-default)
+    height: 100%
+
+.goodie-icon
+  .icon
+    width: $size-huge
+    height: $size-huge
+
+.goodie-name
+  font-size: $font-size-lg
+  margin-block: $space-sm
+  color: var(--color-fg-accent)

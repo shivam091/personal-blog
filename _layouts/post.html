@@ -15,7 +15,7 @@ layout: page
       </div>
     {% endif %}
 
-    <div class="post-meta post-meta-primary" role="group" aria-label="Post metadata">
+    <div class="page-meta page-meta-primary" role="group" aria-label="Post metadata">
       {% include posts/meta.html post = page %}
     </div>
   </header>
@@ -30,9 +30,9 @@ layout: page
 
   {%- include series/post-nav.html -%}
 
-  <div class="post-meta post-meta-secondary" role="group" aria-label="Post metadata">
-    {% include posts/categories.html post = post link = true %}
-    {% include posts/tags.html post = post %}
+  <div class="page-meta page-meta-secondary" role="group" aria-label="Post metadata">
+    {% include pages/categories.html item = page link = true %}
+    {% include pages/tags.html item = page %}
   </div>
 
   {% include changelog.html %}
@@ -49,7 +49,7 @@ layout: page
 
       <section aria-labelledby="share-title">
         <h3 id="share-title" class="visually-hidden">Share this post</h3>
-        {% include posts/share.html post = post %}
+        {% include pages/share.html post = post %}
       </section>
     </div>
   </footer>

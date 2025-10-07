@@ -39,7 +39,8 @@
   border-radius: $border-radius-lg
 
 .contact-form
-  display: grid
+  display: flex;
+  flex-direction: column;
   gap: $space-base
   background: var(--color-bg-default)
   padding: $space-md
@@ -60,3 +61,4 @@
     font-size: $font-size-lg
     font-family: $font-stack-monospace
     letter-spacing: 1px
+    margin-block: $space-none $space-base

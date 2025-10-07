@@ -1,0 +1,15 @@
+{%- assign tags = include.item.tags -%}
+
+{% if tags.size > 0 %}
+  <div class="page-meta-item page-tags" role="list">
+    {% svg tag %}
+    <span class="visually-hidden">Tags:</span>
+    {% for tag in tags %}
+    {%- if include.link == true -%}
+      <a href="/tag{{ tag | slugify | relative_url }}" class="badge" aria-label="Tag: {{ tag }}" rel="tag" role="listitem">{{ tag }}</a>
+    {% else %}
+      <span class="badge" aria-label="Tag: {{ tag }}" rel="tag" role="listitem">{{ tag }}</span>
+    {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}

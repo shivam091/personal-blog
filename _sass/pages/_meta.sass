@@ -1,0 +1,42 @@
+@use "abstracts/tokens" as *
+@use "abstracts/mixins/breakpoints" as breakpoint
+
+.page-meta
+  font-size: $font-size-sm
+  color: var(--color-fg-muted)
+
+.page-meta-item
+  display: inline-flex
+  align-items: center
+  gap: $space-xs
+  flex-wrap: wrap
+
+.page-meta-primary
+  display: inline-grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  justify-content: start
+  align-items: center
+  gap: $fluid-space-sm $fluid-space-md
+
+  @include breakpoint.max(lg)
+    display: grid
+    grid-auto-flow: initial
+    grid-template-columns: repeat(2, 1fr)
+
+    > .page-meta-item:nth-child(even)
+      justify-self: end
+
+  @include breakpoint.max(sm)
+    grid-template-columns: 1fr
+
+    > .page-meta-item
+      justify-self: start
+
+.page-meta-secondary
+  display: flex
+  align-items: start
+  flex-direction: column
+  flex-wrap: wrap
+  row-gap: $space-sm
+  margin-block: $fluid-space-lg
