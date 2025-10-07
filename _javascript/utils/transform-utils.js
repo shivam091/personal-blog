@@ -1,5 +1,7 @@
+import { deepFreeze } from "./deep-freeze";
+
 /** Immutable default transform values */
-export const DEFAULT_TRANSFORMS = {
+export const DEFAULT_TRANSFORMS = deepFreeze({
   translateX: 0,
   translateY: 0,
   scaleX: 1,
@@ -7,7 +9,7 @@ export const DEFAULT_TRANSFORMS = {
   skewX: 0,
   skewY: 0,
   rotate: 0
-};
+});
 
 /** Convert CSS transform string into normalized object */
 export function parseTransform(transformStr = "") {

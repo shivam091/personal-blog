@@ -1,4 +1,4 @@
-import * as SvgSprite from "./svg-sprite";
+import ClipboardCheck from "./../animations/icons/clipboard-check";
 import Tooltip from "./../modules/components/tooltip";
 
 export default class Clipboard {
@@ -11,6 +11,9 @@ export default class Clipboard {
 
     this.button = this.findButton();
     this.textSource = this.findTextSource();
+
+    this.checkSvg = this.button?.querySelector(".icon-clipboard-check");
+    this.checkAnimator = this.checkSvg ? new ClipboardCheck(this.checkSvg) : null;
 
     this.attachEvents();
   }
@@ -66,24 +69,16 @@ export default class Clipboard {
   showFeedback() {
     const triggerer = this.button;
     const iconEl = triggerer.querySelector("use");
-    const originalIcon = iconEl?.getAttribute("href").split("#")[1];
     const originalLabel = triggerer.getAttribute("data-tooltip") || "";
 
-    if (iconEl) {
-      SvgSprite.setUseHref(iconEl, "#icon-check");
-      iconEl.parentElement.setAttribute("id", "icon-check");
-    }
-
+    this.checkAnimator?.showCheck();
     triggerer.setAttribute("aria-label", "Copied!");
     triggerer.setAttribute("data-tooltip", "Copied!");
 
     Tooltip.update(triggerer);
 
     setTimeout(() => {
-      if (iconEl) {
-        SvgSprite.setUseHref(iconEl, `#${originalIcon}`);
-        iconEl.parentElement.setAttribute("id", "icon-copy");
-      }
+      this.checkAnimator?.resetCheck()
       triggerer.setAttribute("aria-label", originalLabel);
       triggerer.setAttribute("data-tooltip", originalLabel);
 
