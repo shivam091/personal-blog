@@ -2,6 +2,7 @@ import { createPopper } from "@popperjs/core";
 
 const instances = new WeakMap();
 
+// Default modifiers for all poppers
 const defaultModifiers = [
   { name: "offset", options: { offset: [0, 8] } },
   { name: "preventOverflow", options: { boundary: "viewport" } },
@@ -9,37 +10,43 @@ const defaultModifiers = [
   { name: "eventListeners", options: { scroll: true, resize: true } },
 ];
 
+// Creates a Popper instance for an element
 export function createInstance(target, popperElement, options = {}) {
-  const arrow = popperElement.querySelector("[data-popper-arrow]");
+  const arrowEl = popperElement.querySelector("[data-popper-arrow]");
 
-  if (arrow) {
-    defaultModifiers.push({ name: "arrow", options: { element: arrow, padding: 5 } });
+  // Create a fresh modifier array per instance to avoid mutating defaults
+  const modifiers = [...defaultModifiers];
+
+  if (arrowEl) {
+    modifiers.push({ name: "arrow", options: { element: arrowEl, padding: 5 } });
   }
 
-  const defaultOptions = {
+  // Merge user modifiers (user modifiers take precedence)
+  const mergedModifiers = options.modifiers
+    ? [...modifiers.filter(m => !options.modifiers.some(um => um.name === m.name)), ...options.modifiers]
+    : modifiers;
+
+  const instance = createPopper(target, popperElement, {
     placement: options.placement || "top",
-    modifiers: options.modifiers || defaultModifiers,
-    boundary: options.boundary || "viewport",
     strategy: options.strategy || "absolute",
-  };
-  const instance = createPopper(target, popperElement, defaultOptions);
+    modifiers: mergedModifiers,
+  });
 
   instances.set(popperElement, instance);
-
   return instance;
 }
 
+// Destroys a Popper instance for an element
 export function destroyInstance(popperElement) {
   const instance = instances.get(popperElement);
-
   if (instance) {
     instance.destroy();
     instances.delete(popperElement);
   }
 }
 
+// Updates a Popper instance
 export function updateInstance(popperElement) {
   const instance = instances.get(popperElement);
-
   if (instance) instance.update();
 }

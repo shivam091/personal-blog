@@ -2,10 +2,14 @@
 layout: page
 ---
 
-<article class="series" aria-labelledby="series-list-title">
+<article class="series" aria-labelledby="series-list-title" itemscope itemtype="https://schema.org/TechArticle">
   <h2 id="series-list-title" class="visually-hidden">List of blog posts in {{ page.title }}</h2>
+  <meta itemprop="headline" content="{{ page.title }}">
+  <meta itemprop="mainEntityOfPage" content="{{ page.url | absolute_url }}">
+  <meta itemprop="datePublished" content="{{ page.published_at }}">
+  <meta itemprop="dateModified" content="{{ page.last_modified_at }}">
 
-  <div class="series-description">
+  <div class="series-content" itemprop="articleBody">
     {{ content }}
   </div>
 

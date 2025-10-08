@@ -12,10 +12,13 @@
           </a>
         </h2>
         {% include posts/series.html %}
+        {% if post.excerpt %}
+          <div class="post-excerpt">{{ post.excerpt }}</div>
+        {% endif %}
       </header>
       <div class="card-body">
-        {% if post.excerpt %}
-          <div class="post-excerpt" title="{{ post.excerpt | escape }}">{{ post.excerpt | markdownify }}</div>
+        {% if post.description %}
+          <div class="post-description" title="{{ post.description | escape }}">{{ post.description }}</div>
         {% endif %}
       </div>
       <footer class="card-footer">

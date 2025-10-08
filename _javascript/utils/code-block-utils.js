@@ -1,4 +1,5 @@
 export default class CodeBlockUtils {
+  // Toggle line numbers on a single code block wrapper
   static toggleLines(wrapper) {
     const btn = wrapper.querySelector(".btn-toggle-lines");
     const gutter = wrapper.querySelector(".gutter");
@@ -17,6 +18,7 @@ export default class CodeBlockUtils {
     }
   }
 
+  // Initialize all code blocks on the page
   static initAll() {
     document.querySelectorAll(".code-block").forEach(wrapper => {
       this.toggleLines(wrapper);

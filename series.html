@@ -18,11 +18,14 @@ permalink: /series
             {{ series.title }}
           </a>
         </h2>
+        {% if series.excerpt %}
+          <div class="series-excerpt">{{ series.excerpt }}</div>
+        {% endif %}
       </header>
 
       <div class="card-body">
-        {% if series.excerpt %}
-          <div class="series-excerpt" title="{{ series.excerpt | escape  }}">{{ series.excerpt | markdownify }}</div>
+        {% if series.description %}
+          <div class="series-description" title="{{ series.description | escape  }}">{{ series.description }}</div>
         {% endif %}
       </div>
 

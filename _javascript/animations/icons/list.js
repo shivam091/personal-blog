@@ -1,7 +1,7 @@
 import CircleMorphBoop from "./../../utils/animations/elements/circle/boop";
 import RectMorphBoop from "./../../utils/animations/elements/rect/boop";
 import useTouch from "../../hooks/use-touch";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 
 const RECT_BOOP_VALS = deepFreeze([{ width: 14 }, { width: 14 }, { width: 14 }]);
 const CIRCLE_BOOP_VALS = deepFreeze([{ r: 1.8 }, { r: 1.8 }, { r: 2 }]);

@@ -55,28 +55,25 @@
 .post-title
   margin: $space-none
 
-.post-shortinfo
-  font-size: $font-size-md
-  font-weight: $font-weight-medium
-  line-height: $line-height-relaxed
-  color: var(--color-fg-accent-muted)
-  margin-block-end: $space-sm
-
 .post-excerpt
-  margin: $space-none
   color: var(--color-fg-muted)
+  font-weight: $font-weight-medium
+  font-size: calc(17 / 16 * $font-size-base)
+  margin-block: $space-md
+
+.post-description
+  margin: $space-none
 
   @extend %text-clip
 
 .post-footer
-  margin-top: $fluid-space-lg
-
   .post-footer-content
     display: flex
     justify-content: space-between
     align-items: center
     flex-wrap: wrap
     gap: $space-base
+    margin-block-start: $fluid-space-lg
     font-size: $font-size-sm
     color: var(--color-fg-muted)
 

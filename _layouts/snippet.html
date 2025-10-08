@@ -9,6 +9,12 @@ layout: page
   <meta itemprop="dateModified" content="{{ page.last_modified_at }}">
 
   <header class="snippet-header">
+    {% if page.excerpt %}
+      <div class="page-excerpt">
+        {{ page.excerpt }}
+      </div>
+    {% endif %}
+
     <div class="page-meta page-meta-primary" role="group" aria-label="Snippet metadata">
       {% include pages/published-at.html item = page %}
       {% include pages/last-modified-at.html item = page %}
@@ -18,6 +24,12 @@ layout: page
 
   <div class="snippet-content" itemprop="articleBody">
     {{ page.content }}
+  </div>
+
+  <div class="page-signoff">
+    <div class="signoff-wave">
+      {% svg wave-divider %}
+    </div>
   </div>
 
   <div class="page-meta page-meta-secondary" role="group" aria-label="Post metadata">

@@ -1,6 +1,6 @@
 import LineMorphBoop from "./../../utils/animations/elements/line/boop";
 import useTouch from "../../hooks/use-touch";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 import { SPRINGS } from "../../constants/springs";
 
 const LINE_BOOP_VALS = deepFreeze([

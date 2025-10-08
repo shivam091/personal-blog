@@ -12,13 +12,13 @@ export default class ContactForm {
 
     if (this.form) {
       this.endpoint = this.form.getAttribute("action");
-      this.setRandomPlaceholders();
-      this.restoreFields();
-      this.bindEvents();
+      this.#setRandomPlaceholders();
+      this.#restoreFields();
+      this.#bindEvents();
     }
   }
 
-  setRandomPlaceholders() {
+  #setRandomPlaceholders() {
     const nameField = this.form.querySelector("input[name='name']");
     const emailField = this.form.querySelector("input[name='email']");
 
@@ -37,10 +37,10 @@ export default class ContactForm {
     }
   }
 
-  bindEvents() {
+  #bindEvents() {
     this.form.querySelectorAll("input, textarea").forEach(field => {
       field.addEventListener("input", () => {
-        const data = this.getStoredData();
+        const data = this.#getStoredData();
         data[field.name] = field.value;
         localStorage.setItem(CONTACT_MESSAGE_KEY, JSON.stringify(data));
       });
@@ -79,8 +79,8 @@ export default class ContactForm {
     });
   }
 
-  restoreFields() {
-    const saved = this.getStoredData();
+  #restoreFields() {
+    const saved = this.#getStoredData();
     this.form.querySelectorAll("input, textarea").forEach(field => {
       if (saved[field.name]) {
         field.value = saved[field.name];
@@ -88,7 +88,7 @@ export default class ContactForm {
     });
   }
 
-  getStoredData() {
+  #getStoredData() {
     try {
       return JSON.parse(localStorage.getItem(CONTACT_MESSAGE_KEY)) || {};
     } catch {

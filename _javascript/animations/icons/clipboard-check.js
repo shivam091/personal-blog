@@ -1,7 +1,7 @@
 import SpringGroup from "./../../utils/animations/spring-group";
 import SpringBoop from "./../../utils/animations/spring-boop";
 import { SPRINGS } from "./../../constants/springs";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 
 const CHECK_FRAMES = deepFreeze({
   hidden: { strokeOpacity: 0 },

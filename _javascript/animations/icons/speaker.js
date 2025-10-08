@@ -1,5 +1,5 @@
 import PathMorphBoop from "../../utils/animations/elements/path/boop";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 import { SPRINGS } from "../../constants/springs";
 import useTouch from "../../hooks/use-touch";
 

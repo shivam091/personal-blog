@@ -1,6 +1,6 @@
-import { deepFreeze } from "./deep-freeze";
+import deepFreeze from "./deep-freeze";
 
-/** Immutable default transform values */
+// Immutable default transform values
 export const DEFAULT_TRANSFORMS = deepFreeze({
   translateX: 0,
   translateY: 0,
@@ -11,66 +11,66 @@ export const DEFAULT_TRANSFORMS = deepFreeze({
   rotate: 0
 });
 
-/** Convert CSS transform string into normalized object */
+// Combined regex to match all CSS transforms in one pass
+// Captures translate, scale, skew, skewX, skewY, rotate
+const TRANSFORM_REGEX = /\b(?<type>translate|scale|skew|skewX|skewY|rotate)\(\s*(?<v1>[-+]?\d*\.?\d+)(?:px|deg)?(?:\s*,\s*(?<v2>[-+]?\d*\.?\d+)(?:px|deg)?)?\s*\)/gi;
+
+// Parses a CSS transform string into a normalized object
 export function parseTransform(transformStr = "") {
-  const transformObj = {};
+  const transformObj = { ...DEFAULT_TRANSFORMS };
 
-  const translate = transformStr.match(/translate\(\s*([-+]?\d*\.?\d+)(?:px)?\s*,\s*([-+]?\d*\.?\d+)(?:px)?\s*\)/i);
-  if (translate) {
-    transformObj.translateX = +translate[1];
-    transformObj.translateY = +translate[2];
+  let match;
+  while ((match = TRANSFORM_REGEX.exec(transformStr)) !== null) {
+    const { type, v1, v2 } = match.groups;
+    const num1 = +v1;
+    const num2 = v2 !== undefined ? +v2 : undefined;
+
+    switch (type) {
+      case "translate":
+        transformObj.translateX = num1;
+        transformObj.translateY = num2 ?? 0;
+        break;
+      case "scale":
+        transformObj.scaleX = num1;
+        transformObj.scaleY = num2 ?? num1;
+        break;
+      case "skew":
+        transformObj.skewX = num1;
+        transformObj.skewY = num2 ?? 0;
+        break;
+      case "skewX":
+        transformObj.skewX = num1;
+        break;
+      case "skewY":
+        transformObj.skewY = num1;
+        break;
+      case "rotate":
+        transformObj.rotate = num1;
+        break;
+    }
   }
-
-  const scale = transformStr.match(/scale\(\s*([-+]?\d*\.?\d+)(?:\s*,\s*([-+]?\d*\.?\d+))?\s*\)/i);
-  if (scale) {
-    transformObj.scaleX = +scale[1];
-    transformObj.scaleY = scale[2] ? +scale[2] : +scale[1];
-  }
-
-  const skew = transformStr.match(/skew\(\s*([-+]?\d*\.?\d+)(?:deg)?\s*,\s*([-+]?\d*\.?\d+)(?:deg)?\s*\)/i);
-  if (skew) {
-    transformObj.skewX = +skew[1];
-    transformObj.skewY = +skew[2];
-  }
-
-  const skewX = transformStr.match(/skewX\(\s*([-+]?\d*\.?\d+)(?:deg)?\s*\)/i);
-  if (skewX) transformObj.skewX = +skewX[1];
-
-  const skewY = transformStr.match(/skewY\(\s*([-+]?\d*\.?\d+)(?:deg)?\s*\)/i);
-  if (skewY) transformObj.skewY = +skewY[1];
-
-  const rotate = transformStr.match(/rotate\(\s*([-+]?\d*\.?\d+)(?:deg)?\s*\)/i);
-  if (rotate) transformObj.rotate = +rotate[1];
 
   return transformObj;
 }
 
-/** Convert transform object back to CSS transform string */
+// Converts a transform object back to a CSS transform string
 export function toTransformString(transformObj = {}) {
   const transformStr = [];
 
-  if ("translateX" in transformObj || "translateY" in transformObj) {
-    const translateX = +(transformObj.translateX ?? 0);
-    const translateY = +(transformObj.translateY ?? 0);
-    transformStr.push(`translate(${translateX.toFixed(2)}px, ${translateY.toFixed(2)}px)`);
-  }
+  const tX = +(transformObj.translateX ?? 0);
+  const tY = +(transformObj.translateY ?? 0);
+  if (tX !== 0 || tY !== 0) transformStr.push(`translate(${tX.toFixed(2)}px, ${tY.toFixed(2)}px)`);
 
-  if ("scaleX" in transformObj || "scaleY" in transformObj) {
-    const scaleX = +(transformObj.scaleX ?? 1);
-    const scaleY = +(transformObj.scaleY ?? scaleX);
-    transformStr.push(`scale(${scaleX.toFixed(2)}, ${scaleY.toFixed(2)})`);
-  }
+  const sX = +(transformObj.scaleX ?? 1);
+  const sY = +(transformObj.scaleY ?? sX);
+  if (sX !== 1 || sY !== 1) transformStr.push(`scale(${sX.toFixed(2)}, ${sY.toFixed(2)})`);
 
-  if ("skewX" in transformObj || "skewY" in transformObj) {
-    const skewX = +(transformObj.skewX ?? 0);
-    const skewY = +(transformObj.skewY ?? 0);
-    transformStr.push(`skew(${skewX.toFixed(2)}deg, ${skewY.toFixed(2)}deg)`);
-  }
+  const skX = +(transformObj.skewX ?? 0);
+  const skY = +(transformObj.skewY ?? 0);
+  if (skX !== 0 || skY !== 0) transformStr.push(`skew(${skX.toFixed(2)}deg, ${skY.toFixed(2)}deg)`);
 
-  if ("rotate" in transformObj) {
-    const rotate = +(transformObj.rotate ?? 0);
-    transformStr.push(`rotate(${rotate.toFixed(2)}deg)`);
-  }
+  const rot = +(transformObj.rotate ?? 0);
+  if (rot !== 0) transformStr.push(`rotate(${rot.toFixed(2)}deg)`);
 
   return transformStr.join(" ");
 }

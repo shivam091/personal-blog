@@ -1,5 +1,5 @@
 import { SPRINGS } from "../../constants/springs";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 import PolyLineMorph from "./../../utils/animations/elements/polyline/morph";
 
 const CHEVRON_UP_POINTS = deepFreeze([{ points: [6, 14, 12, 8, 18, 14] }]);

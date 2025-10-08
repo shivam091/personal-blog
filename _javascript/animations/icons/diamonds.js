@@ -1,6 +1,6 @@
 import SpringGroup from "../../utils/animations/spring-group";
 import SpringBoop from "../../utils/animations/spring-boop";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 
 const INITIAL_VALS = deepFreeze({ top: 0, left: 0, right: 0, bottom: 0 });
 const BOOP_VALS = deepFreeze({ top: 3, left: 3, right: -3, bottom: -3 });
@@ -19,7 +19,7 @@ export default class IconDiamonds {
   }
 
   boop(duration = 150) {
-    this.#diamondBoop.trigger({ duration: duration });
+    this.#diamondBoop.trigger({ duration });
   }
 
   #render(state) {

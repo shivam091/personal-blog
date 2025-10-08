@@ -1,17 +1,19 @@
-import setStyles from "./../../utils/styles";
-import IconDiamonds from "./../../animations/icons/diamonds";
-import IconChevronDown from "./../../animations/icons/chevron-down";
+import setStyles from "./../utils/styles";
+import IconDiamonds from "./../animations/icons/diamonds";
+import IconChevronDown from "./../animations/icons/chevron-down";
 
 export default class Accordion {
+  static accordionSelector = "[data-accordion]";
+  static accordionItemSelector = ".accordion-item";
   static #diamondsInstances = new WeakMap();
   static #chevronDownInstances = new WeakMap();
 
   static get accordions() {
-    return document.querySelectorAll("[data-accordion]");
+    return document.querySelectorAll(this.accordionSelector);
   }
 
   static getItems(container) {
-    return container.querySelectorAll(".accordion-item");
+    return container.querySelectorAll(this.accordionItemSelector);
   }
 
   static #isTransitioning(item) {
@@ -22,24 +24,25 @@ export default class Accordion {
     item._isTransitioning = value;
   }
 
-  static #animateHeight(element, targetHeight, callback, startHeight = element.scrollHeight) {
-    setStyles(element, {
-      overflow: "hidden",
-      height: `${startHeight}px`,
-    });
+  static #animateHeight(element, targetHeight, callback) {
+    const startHeight = element.offsetHeight; // current height in px
 
-    void element.offsetHeight; // force reflow
+    // Ensure element is visible
+    setStyles(element, { overflow: "hidden", display: "block" });
 
-    requestAnimationFrame(() => {
-      element.style.height = `${targetHeight}px`;
+    const animation = element.animate(
+      [
+        { height: `${startHeight}px` },
+        { height: `${targetHeight}px` }
+      ],
+      { duration: 300, easing: "ease", fill: "forwards" }
+    );
 
-      const onTransitionEnd = () => {
-        element.removeEventListener("transitionend", onTransitionEnd);
-        if (callback) callback();
-      };
-
-      element.addEventListener("transitionend", onTransitionEnd, { once: true });
-    });
+    animation.onfinish = () => {
+      element.style.height = targetHeight === 0 ? "0" : "auto";
+      element.style.overflow = targetHeight === 0 ? "hidden" : "visible";
+      if (callback) callback();
+    };
   }
 
   static #animateDiamond(svg) {
@@ -52,15 +55,14 @@ export default class Accordion {
     instance.boop();
   }
 
-  static #animateChevron(svg, up = true) {
+  static #animateChevron(svg, {up = true} = {}) {
     if (!svg) return;
     let instance = this.#chevronDownInstances.get(svg);
     if (!instance) {
       instance = new IconChevronDown(svg);
       this.#chevronDownInstances.set(svg, instance);
     }
-    if (up) instance.up();
-    else instance.reset();
+    up ? instance.up() : instance.reset();
   }
 
   static expand(item) {
@@ -77,7 +79,7 @@ export default class Accordion {
     });
 
     this.#animateDiamond(diamondSvg);
-    this.#animateChevron(chevronSvg, true);
+    this.#animateChevron(chevronSvg, { up: true });
   }
 
   static collapse(item) {
@@ -92,7 +94,7 @@ export default class Accordion {
       this.#setTransitioning(item, false);
     }, body.scrollHeight);
 
-    this.#animateChevron(chevronSvg, false);
+    this.#animateChevron(chevronSvg, { up: false });
   }
 
   static collapseAllExcept(container, currentItem) {
@@ -122,8 +124,8 @@ export default class Accordion {
     const toggleButton = item.querySelector(".accordion-toggle");
     const body = item.querySelector(".accordion-body");
     const header = item.querySelector(".accordion-header");
-    const diamondSvg = header?.querySelector("svg.icon-diamonds");
-    const chevronSvg = header?.querySelector("svg.icon-chevron-down");
+    const diamondSvg = header?.querySelector(".icon-diamonds");
+    const chevronSvg = header?.querySelector(".icon-chevron-down");
 
     if (!toggleButton || !body || !header) return;
 

@@ -3,54 +3,56 @@ import { Counter } from "counterapi";
 export default class RetroCounter {
   constructor(container, options = {}) {
     this.container = container;
-    this.key = this.slugifyPath(window.location.pathname);
+    this.key = this.#slugifyPath(window.location.pathname);
     this.client = new Counter({
       version: options.version || "v1",
       namespace: options.namespace,
       debug: options.debug || false,
       timeout: options.timeout || 10000,
     });
-    this.init();
+    this.#init();
   }
 
-  slugifyPath(path) {
+  #slugifyPath(path) {
     const clean = path.replace(/^\/|\/$/g, "") || "home";
     return clean.replace(/[^a-z0-9]/gi, "-").toLowerCase();
   }
 
-  renderSegments(count) {
+  #renderSegments(count) {
     const padded = count.toString().padStart(6, "0");
     this.container.innerHTML = ""; // Clear old
 
-    [...padded].forEach((digit, index) => {
+    for (const digit of padded) {
       const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
       svg.classList.add("segment");
-      use.setAttributeNS("http://www.w3.org/1999/xlink", "href", `#segment-${digit}`);
+
+      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+      use.setAttribute("href", `#segment-${digit}`);
+
       svg.appendChild(use);
       this.container.appendChild(svg);
-    });
+    }
   }
 
-  updateAriaLabel(count) {
+  #updateAriaLabel(count) {
     let originalLabel = this.container.getAttribute("aria-label");
-    let newLabel = originalLabel.replace("TOTAL_COUNT", count)
+    const newLabel = originalLabel?.replace("TOTAL_COUNT", count)
     this.container.setAttribute("aria-label", newLabel);
   }
 
-  async init() {
+  async #init() {
     try {
       const result = await this.client.up(this.key);
       const hitCount = result.data.up_count ?? 0
-      this.updateAriaLabel(hitCount);
-      this.renderSegments(hitCount);
+      this.#updateAriaLabel(hitCount);
+      this.#renderSegments(hitCount);
     } catch (err) {
       this.container.innerHTML = "ERROR";
       console.error("Counter error:", err);
     }
   }
 
-  static initAll(selector, options) {
+  static initializeAll(selector, options) {
     document.querySelectorAll(selector).forEach(el => new RetroCounter(el, options));
   }
 }

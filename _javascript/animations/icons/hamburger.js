@@ -1,6 +1,6 @@
 import LineMorph from "./../../utils/animations/elements/line/morph";
 import { SPRINGS } from "./../../constants/springs";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 import useTouch from "../../hooks/use-touch";
 
 const BASE_FRAMES = deepFreeze({

@@ -1,16 +1,17 @@
-import * as PopperUtils from "./../../utils/popper";
-import * as DomUtils from "./../../utils/dom";
-import useTouch from "../../hooks/use-touch";
+import * as PopperUtils from "../utils/popper";
+import * as DomUtils from "../utils/dom";
+import useTouch from "../hooks/use-touch";
 
 export default class Tooltip {
+  static tooltipSelector = "[data-tooltip]";
   static tooltipMap = new WeakMap();
   static isTouch = useTouch();
 
   static get tooltipElements() {
-    return document.querySelectorAll("[data-tooltip]");
+    return document.querySelectorAll(this.tooltipSelector);
   }
 
-  static createTooltipContainer(text) {
+  static #createTooltipContainer(text) {
     const id = DomUtils.generateId("tooltip");
 
     const content = DomUtils.createElement("div", {
@@ -23,21 +24,15 @@ export default class Tooltip {
       attrs: { "data-popper-arrow": "" }
     });
 
-    const container = DomUtils.createElement("div", {
+    return DomUtils.createElement("div", {
       id,
       className: "tooltip",
-      attrs: {
-        role: "presentation",
-        "aria-live": "polite",
-        "aria-hidden": "true"
-      },
+      attrs: { role: "presentation", "aria-live": "polite", "aria-hidden": "true" },
       children: [content, arrow]
     });
-
-    return container;
   }
 
-  static getTooltipDelay(target) {
+  static #getTooltipDelay(target) {
     return parseInt(target.getAttribute("data-tooltip-delay") || "3000", 10);
   }
 
@@ -48,8 +43,8 @@ export default class Tooltip {
     const tooltipText = target.getAttribute("data-tooltip");
     if (!tooltipText) return;
 
-    const delay = this.getTooltipDelay(target);
-    const tooltip = this.createTooltipContainer(tooltipText);
+    const delay = this.#getTooltipDelay(target);
+    const tooltip = this.#createTooltipContainer(tooltipText);
 
     document.body.appendChild(tooltip);
 
@@ -112,23 +107,23 @@ export default class Tooltip {
     }
   }
 
-  static handleEscape(event) {
+  static #handleEscape(event) {
     if (event.key === "Escape") {
       this.hide({ currentTarget: document.activeElement });
     }
   }
 
-  static getHoverHandlers() {
+  static #getHoverHandlers() {
     let hoverTimer;
 
     return {
-      safeShow: (event) => {
+      show: (event) => {
         clearTimeout(hoverTimer);
         const target = event.currentTarget;
 
         hoverTimer = setTimeout(() => Tooltip.show({ currentTarget: target }), 200);
       },
-      safeHide: (event) => {
+      hide: (event) => {
         clearTimeout(hoverTimer);
         const target = event.currentTarget;
 
@@ -139,10 +134,10 @@ export default class Tooltip {
 
   static initialize() {
     this.tooltipElements.forEach((el) => {
-      const { safeShow, safeHide } = this.getHoverHandlers();
+      const { show, hide } = this.#getHoverHandlers();
 
-      el.addEventListener("mouseenter", safeShow);
-      el.addEventListener("mouseleave", safeHide);
+      el.addEventListener("mouseenter", show);
+      el.addEventListener("mouseleave", hide);
 
       el.addEventListener("focus", (event) => this.show(event));
       el.addEventListener("blur", (event) => this.hide(event));
@@ -152,10 +147,7 @@ export default class Tooltip {
         el.addEventListener("touchend", (event) => this.hide(event), { passive: true });
       }
 
-      // el.addEventListener("pointerdown", (event) => this.show(event));
-      // el.addEventListener("pointerup", (event) => this.hide(event));
-
-      el.addEventListener("keydown", (event) => this.handleEscape(event));
+      el.addEventListener("keydown", (event) => this.#handleEscape(event));
     });
   }
 }
