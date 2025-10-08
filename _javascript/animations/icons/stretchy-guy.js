@@ -3,7 +3,7 @@ import SpringTimeline from "../../utils/animations/spring-timeline";
 import CircleMorph from "./../../utils/animations/elements/circle/morph";
 import LineMorph from "./../../utils/animations/elements/line/morph";
 import PathMorph from "./../../utils/animations/elements/path/morph";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 
 const REST_MODE = deepFreeze({
   circles: [

@@ -2,10 +2,10 @@
 layout: post
 title: "Mastering CSS Grid: Grid Areas, Item Alignment, and Spanning"
 date: 2025-07-09 15:20
-shortinfo: "Structure with clarity, align with precision."
+excerpt: "Structure with clarity, align with precision."
 tags: [css, css-grid, grid, beginner, layout, grid-template-areas, grid-alignment, frontend]
 category: CSS
-excerpt: "Take your CSS Grid skills to the next level by mastering semantic layouts with grid areas, item alignment, and element spanning techniques."
+description: "Take your CSS Grid skills to the next level by mastering semantic layouts with grid areas, item alignment, and element spanning techniques."
 series: css-grid-fundamentals
 slug: mastering-css-grid
 image:
@@ -34,10 +34,10 @@ Now, it's time to go beyond the basics.
 
 We’ll cover:
 
-- `grid-template-areas` for clean, visual layout structure  
-- Alignment techniques using `place-items` and `place-self`  
-- Spanning elements across rows and columns  
-- The hidden mechanics of **explicit** and **implicit** grids  
+- `grid-template-areas` for clean, visual layout structure
+- Alignment techniques using `place-items` and `place-self`
+- Spanning elements across rows and columns
+- The hidden mechanics of **explicit** and **implicit** grids
 
 These are the techniques that elevate your layouts from _functional_ to _flexible and scalable_ — especially in real-world, component-based frontend projects.
 
@@ -381,11 +381,11 @@ In this case, you've explicitly created a **2×2 grid**, which gives you **4 cel
 This shows how the explicit grid looks like:
 
 ```
-+---------+--------+    
-| Item 1  | Item 2 |    
-+---------+--------+    
-| Item 3  | Item 4 |    
-+---------+--------+   
++---------+--------+
+| Item 1  | Item 2 |
++---------+--------+
+| Item 3  | Item 4 |
++---------+--------+
 ```
 
 👉 [Try this on CodePen](https://codepen.io/shivam091/pen/jEPjpzL)

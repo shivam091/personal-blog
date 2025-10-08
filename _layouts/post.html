@@ -9,9 +9,9 @@ layout: page
   <meta itemprop="mainEntityOfPage" content="{{ page.url | absolute_url }}">
 
   <header class="post-header">
-    {% if page.shortinfo %}
-      <div class="post-shortinfo">
-        {{ page.shortinfo | titleify }}
+    {% if page.excerpt %}
+      <div class="page-excerpt">
+        {{ page.excerpt }}
       </div>
     {% endif %}
 
@@ -28,17 +28,23 @@ layout: page
     {% toc %}
   </div>
 
-  {%- include series/post-nav.html -%}
+  <div class="page-signoff">
+    <p>I hope you found this post informative and helpful. It took a lot of work to create, and I’m thrilled to finally share it with the world. Thank you for reading. 💖</p>
 
-  <div class="page-meta page-meta-secondary" role="group" aria-label="Post metadata">
-    {% include pages/categories.html item = page link = true %}
-    {% include pages/tags.html item = page %}
+    <div class="signoff-wave">
+      {% svg wave-divider %}
+    </div>
   </div>
 
-  {% include changelog.html %}
+  {%- include series/post-nav.html -%}
 
   <footer class="post-footer">
-    <p>I hope you’ve found this post informative and helpful. Thank you for reading!</p>
+    <div class="page-meta page-meta-secondary" role="group" aria-label="Post metadata">
+      {% include pages/categories.html item = page link = true %}
+      {% include pages/tags.html item = page link = true %}
+    </div>
+
+    {% include changelog.html %}
 
     <div class="post-footer-content">
       <div class="copyright">

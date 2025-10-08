@@ -18,17 +18,23 @@ module Jekyll
       title = frontmatter["title"] || series_id
 
       self.data.merge!(
-        "layout"        => "series",
-        "title"         => title,
-        "series_id"     => series_id,
-        "series_meta"   => frontmatter,
-        "excerpt"       => frontmatter["excerpt"],
-        "changelog"     => frontmatter["changelog"],
-        "posts"         => posts,
-        "series_index"  => index + 1,
-        "series_total"  => total,
-        "permalink"     => "/series/#{series_id}"
+        "layout"       => "series",
+        "title"        => title,
+        "series_id"    => series_id,
+        "series_meta"  => frontmatter,
+        "excerpt"      => frontmatter["excerpt"],
+        "description"  => frontmatter["description"],
+        "changelog"    => frontmatter["changelog"],
+        "posts"        => posts,
+        "series_index" => index + 1,
+        "series_total" => total,
+        "permalink"    => "/series/#{series_id}"
       )
+
+      file_path = File.join(base, "_series", "#{series_id}.md")
+      if File.exist?(file_path)
+        self.data["last_modified_at"] = File.mtime(file_path).utc.iso8601
+      end
     end
   end
 
@@ -86,12 +92,12 @@ module Jekyll
         # Annotate each post with series info
         posts.each_with_index do |post, i|
           post.data["series"] = {
-            "id"          => series_id,
-            "meta"        => frontmatter,
-            "index"       => i + 1,
-            "total"       => posts.size,
-            "page_url"    => "/series/#{series_id}",
-            "title"       => frontmatter["title"],
+            "id"       => series_id,
+            "meta"     => frontmatter,
+            "index"    => i + 1,
+            "total"    => posts.size,
+            "page_url" => "/series/#{series_id}",
+            "title"    => frontmatter["title"],
           }
 
           # Post-to-post navigation

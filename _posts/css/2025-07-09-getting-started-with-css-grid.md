@@ -2,10 +2,10 @@
 layout: post
 title: "Getting Started with CSS Grid: A Beginner's Guide to 2D Layouts"
 date: 2025-07-09 15:20
-shortinfo: "Lay the foundation, shape the grid."
+excerpt: "Lay the foundation, shape the grid."
 tags: [css, grid, css-grid, beginner, layout, web design, frontend, 2d-layouts]
 category: CSS
-excerpt: "A beginner-friendly introduction to CSS Grid that covers core concepts and guides you through building your first 2D layouts with real-world examples."
+description: "A beginner-friendly introduction to CSS Grid that covers core concepts and guides you through building your first 2D layouts with real-world examples."
 series: css-grid-fundamentals
 slug: getting-started-with-css-grid
 image:
@@ -110,7 +110,7 @@ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
 Try doing that with Flexbox alone 😅
 
-> Not sure what does `fr`, `auto-fit`, `minmax()`, or `auto-fill` mean?  
+> Not sure what does `fr`, `auto-fit`, `minmax()`, or `auto-fill` mean?
 > Don’t worry — we’ll cover all of these in depth in **[Part 3 → Responsive CSS Grid Layouts: fr Units, minmax(), auto-fill, and auto-fit Explained](/post/responsive-css-grid-layouts)**.
 
 ### Component-Friendly
@@ -252,7 +252,7 @@ Absolutely! Grid works beautifully with:
 
 ### Does CSS Grid work in all browsers?
 
-✅ **Yes**, all modern browsers fully support CSS Grid.  
+✅ **Yes**, all modern browsers fully support CSS Grid.
 ⚠️ **IE11** supports an older version, but it’s largely deprecated and not recommended for new projects.
 
 ## Conclusion

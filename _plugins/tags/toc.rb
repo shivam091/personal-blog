@@ -27,7 +27,7 @@ module Jekyll
 
       <<~HTML
         <div class="toc-wrapper">
-          <h2 id="toc-heading">
+          <h2 class="toc-heading">
             Table of contents
           </h2>
           <nav class="toc" aria-labelledby="toc-heading" role="doc-toc">

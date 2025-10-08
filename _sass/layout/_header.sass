@@ -49,37 +49,16 @@
     color: var(--color-fg-default)
     text-decoration: none
 
-  .site-name
-    font-size: $font-size-md
-    font-weight: $font-weight-medium
-    letter-spacing: 0.02em
-    display: inline-flex
-    gap: 0.1875rem
+  .first-name
+    animation: scooch-left $motion-duration-default $motion-easing-overshoot $motion-delay-long both
 
-    .first-name
-      display: inline-block
-      animation: scooch-left $motion-duration-default $motion-easing-overshoot $motion-delay-long both
-      color: var(--color-fg-accent)
+  .last-name
+    animation: scooch-right $motion-duration-default $motion-easing-overshoot $motion-delay-extra-long both
 
-    .last-name
-      display: inline-block
-      animation: scooch-right $motion-duration-default $motion-easing-overshoot $motion-delay-extra-long both
-      color: var(--color-fg-accent)
-
-    .middle-name-initial
-      position: relative
-      display: inline-block
-      width: 12px
-
-    .v-char
-      position: absolute
-      left: 2px
-      top: 0
-
-    .v-path
-      stroke-dasharray: 100
-      stroke-dashoffset: 100
-      animation: self-draw $motion-duration-ultra-slow $motion-easing-overshoot calc($motion-delay-extra-long + $motion-duration-default) forwards
+  .middle-name-initial
+    stroke-dasharray: 100
+    stroke-dashoffset: 100
+    animation: self-draw $motion-duration-ultra-slow $motion-easing-overshoot calc($motion-delay-extra-long + $motion-duration-default) both
 
 .nav-items
   display: flex

@@ -1,7 +1,7 @@
 import useTouch from "../../hooks/use-touch";
 import LineMorphBoop from "../../utils/animations/elements/line/boop";
 import PolyLineMorphBoop from "../../utils/animations/elements/polyline/boop";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 import { SPRINGS } from "./../../constants/springs";
 
 const ARROW_RIGHT_LINE_POINTS = deepFreeze([

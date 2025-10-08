@@ -1,4 +1,4 @@
-export function deepFreeze(obj) {
+export default function deepFreeze(obj) {
   if (obj && typeof obj === "object") {
     Object.getOwnPropertyNames(obj).forEach((prop) => {
       const value = obj[prop];

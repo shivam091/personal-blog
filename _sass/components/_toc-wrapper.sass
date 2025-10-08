@@ -1,3 +1,4 @@
+@use "abstracts/modules/list-unstyled" as *
 @use "abstracts/mixins/breakpoints" as breakpoint
 @use "abstracts/tokens" as *
 
@@ -13,11 +14,19 @@
   scrollbar-width: thin
 
   @include breakpoint.max(lg)
-    position: relative
-    top: 0
-    max-height: none
-    overflow-y: visible
-    padding-inline: $space-none
+    // position: relative
+    // top: 0
+    // max-height: none
+    // overflow-y: visible
+    // padding-inline: $space-none
+    display: none
+
+  .toc-heading
+    font-size: $font-size-base
+    margin-block-end: $space-base
+    font-weight: $font-weight-medium
+    text-transform: uppercase
+    letter-spacing: 2px
 
   .toc-link
     color: var(--color-fg-muted)
@@ -26,3 +35,15 @@
     &.active
       color: var(--color-fg-link)
       font-weight: $font-weight-semi-bold
+
+.toc-level-2,
+.toc-level-3,
+.toc-level-4
+  list-style: none
+
+.toc-level-2
+  padding: $space-none
+
+.toc-level-3,
+.toc-level-4
+  padding-inline-start: $space-base

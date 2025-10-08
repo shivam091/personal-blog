@@ -1,6 +1,6 @@
 import { SPRINGS } from "../../constants/springs";
 import useTouch from "../../hooks/use-touch";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 import LineMorph from "./../../utils/animations/elements/line/morph";
 
 const PLUS_VALS = deepFreeze([
@@ -51,7 +51,7 @@ export default class IconHash {
     }
   }
 
-  static initialize(options = {}) {
+  static initialize() {
     document.querySelectorAll(".icon-hash").forEach(icon => new IconHash(icon));
   }
 }

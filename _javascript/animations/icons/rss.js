@@ -1,7 +1,7 @@
 import useTouch from "../../hooks/use-touch";
 import CircleMorphBoop from "../../utils/animations/elements/circle/boop";
 import PathMorphBoop from "../../utils/animations/elements/path/boop";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 
 const RSS_BOOP_FRAMES = deepFreeze([
   { cx: 5, cy: 19, r: 2 },

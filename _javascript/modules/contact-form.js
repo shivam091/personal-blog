@@ -9,13 +9,13 @@ export default class ContactForm {
 
     if (this.form) {
       this.endpoint = this.form.getAttribute("action");
-      this.setRandomPlaceholders();
+      this.#setRandomPlaceholders();
       this.#restoreFields();
-      this.bindEvents();
+      this.#bindEvents();
     }
   }
 
-  setRandomPlaceholders() {
+  #setRandomPlaceholders() {
     const nameField = this.form.querySelector("input[name='name']");
     const emailField = this.form.querySelector("input[name='email']");
 
@@ -34,7 +34,7 @@ export default class ContactForm {
     }
   }
 
-  bindEvents() {
+  #bindEvents() {
     this.form.querySelectorAll("input, textarea").forEach(field => {
       field.addEventListener("input", () => {
         const data = this.#getStoredData();

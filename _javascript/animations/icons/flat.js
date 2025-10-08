@@ -1,5 +1,5 @@
 import { SPRINGS } from "../../constants/springs";
-import { deepFreeze } from "../../utils/deep-freeze";
+import deepFreeze from "../../utils/deep-freeze";
 import PolyLineMorph from "../../utils/animations/elements/polyline/morph";
 
 const SHAPES = deepFreeze({

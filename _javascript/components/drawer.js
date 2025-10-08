@@ -18,27 +18,7 @@ export default class Drawer {
       )
     );
 
-    this.drawer.addEventListener("click", (e) => {
-      const target = e.target.closest("a[href]");
-      if (target) {
-        this.closeDrawer(false); // don’t restore focus because page will navigate
-      }
-    });
-
-    // Toggle click
-    this.toggleButton.addEventListener("click", () => this.toggleDrawer());
-
-    // Keyboard handling
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && this.isOpen) this.closeDrawer();
-      if (e.key === "Tab" && this.isOpen) this.trapFocus(e);
-    });
-
-    // Outside click handling
-    document.addEventListener("click", this.handleOutsideClick);
-
-    // Auto-close drawer on resize ≥768px
-    window.addEventListener("resize", this.handleResize);
+    this.#bindEvents();
   }
 
   static openDrawer() {
@@ -65,19 +45,15 @@ export default class Drawer {
     this.isOpen ? this.closeDrawer() : this.openDrawer();
   }
 
-  static handleOutsideClick = (e) => {
+  static #handleOutsideClick = (e) => {
     if (!this.isOpen) return;
 
-    // If click is inside drawer OR toggle button → ignore
-    if (this.drawer.contains(e.target) || this.toggleButton.contains(e.target)) {
-      return;
-    }
+    if (this.drawer.contains(e.target) || this.toggleButton.contains(e.target)) return;
 
-    // Otherwise → close drawer
     this.closeDrawer();
   };
 
-  static trapFocus(e) {
+  static #trapFocus(e) {
     const first = this.focusableElements[0];
     const last = this.focusableElements[this.focusableElements.length - 1];
 
@@ -90,7 +66,30 @@ export default class Drawer {
     }
   }
 
-  static handleResize = () => {
+  static #handleResize = () => {
     if (window.innerWidth >= 768 && this.isOpen) this.closeDrawer(false);
   };
+
+  static #bindEvents() {
+    // Drawer link clicks (close when navigating)
+    this.drawer.addEventListener("click", (e) => {
+      const target = e.target.closest("a[href]");
+      if (target) this.closeDrawer(false);
+    });
+
+    // Toggle button
+    this.toggleButton.addEventListener("click", () => this.toggleDrawer());
+
+    // Keyboard controls
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && this.isOpen) this.closeDrawer();
+      if (e.key === "Tab" && this.isOpen) this.#trapFocus(e);
+    });
+
+    // Outside click
+    document.addEventListener("click", this.#handleOutsideClick);
+
+    // Auto-close on resize
+    window.addEventListener("resize", this.#handleResize);
+  }
 }

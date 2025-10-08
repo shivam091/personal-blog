@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Text and Typography"
-date: 2025-05-31 01:00
 tags: [typography, design, styleguide]
 category: General
 excerpt: This post is a comprehensive test of various HTML elements. It includes headings, paragraphs, lists, tables, forms, code, and more.
@@ -30,13 +29,13 @@ New line here.
 
 ## Blockquote
 
-> “Design is not just what it looks like and feels like. Design is how it works.”  
+> “Design is not just what it looks like and feels like. Design is how it works.”
 > — *Steve Jobs*
 
 ## Links
 
-[External Link](https://example.com)  
-[Internal Link](/about/)  
+[External Link](https://example.com)
+[Internal Link](/about/)
 Mailto: [Send Email](mailto:test@example.com)
 
 ## Lists
@@ -156,14 +155,14 @@ This sentence has an another footnote.[^2]
 
 ## Misc elements
 
-**Abbreviation:**  
+**Abbreviation:**
 The abbreviation for HyperText Markup Language is <abbr title="HyperText Markup Language">HTML</abbr>.
 
-**Keyboard Input:**  
+**Keyboard Input:**
 To save, press <kbd>Ctrl</kbd> + <kbd>S</kbd>.
 
-**Subscript/Superscript:**  
+**Subscript/Superscript:**
 H<sub>2</sub>O and E = mc<sup>2</sup>
 
-**Time Tag:**  
+**Time Tag:**
 <time datetime="2025-05-31">May 31, 2025</time>
