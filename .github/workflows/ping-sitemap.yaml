@@ -13,29 +13,30 @@ jobs:
       SITEMAP_URL: ${{ secrets.SITEMAP_URL }}
 
     steps:
-      - name: Verify sitemap is publicly accessible
+      - name: Verify sitemap accessibility
         run: |
-          echo "🔍 Verifying sitemap fetch:"
+          echo "🔍 Checking sitemap URL..."
           curl -I "$SITEMAP_URL" || (echo "❌ Sitemap fetch failed" && exit 1)
 
-      - name: Ping Search Engines
+      - name: Ping major search engines
         run: |
           set -e
           echo "📡 Pinging sitemap: $SITEMAP_URL"
           echo
 
           declare -A ENGINES=(
+            ["Google"]="https://www.google.com/ping?sitemap=$SITEMAP_URL"
+            ["Bing"]="https://www.bing.com/ping?sitemap=$SITEMAP_URL"
             ["Yandex"]="https://yandex.com/ping?sitemap=$SITEMAP_URL"
           )
 
           for engine in "${!ENGINES[@]}"; do
             url="${ENGINES[$engine]}"
             echo "🔗 Pinging $engine ..."
-
-            if curl -s --head --fail "$url"; then
+            if curl -s --head --fail "$url" > /dev/null; then
               curl -s "$url" && echo "✅ $engine pinged successfully!"
             else
-              echo "⚠️ $engine did not return a success status (might not support sitemap ping)."
+              echo "⚠️ $engine may not support sitemap ping."
             fi
             echo
           done

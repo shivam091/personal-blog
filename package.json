@@ -1,17 +1,17 @@
 {
-  "name": "shivam091.github.io",
+  "name": "personal-blog",
   "version": "1.0.0",
   "description": "Harshal LADHE's personal blog",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shivam091/shivam091.github.io.git"
+    "url": "https://github.com/shivam091/personal-blog.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shivam091/shivam091.github.io/issues"
+    "url": "https://github.com/shivam091/personal-blog/issues"
   },
-  "homepage": "https://shivam091.github.io",
+  "homepage": "https://harshalladhe.netlify.app/sitemap.xml",
   "scripts": {
     "build": "node esbuild.config.js",
     "watch": "node esbuild.config.js --watch",
@@ -20,11 +20,11 @@
     "start": "npm run build && concurrently \"npm run watch\" \"npm run jekyll\""
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "esbuild": "^0.25.5",
-    "esbuild-sass-plugin": "^3.3.1"
+    "concurrently": "^8.2.2"
   },
   "dependencies": {
+    "esbuild": "^0.25.5",
+    "esbuild-sass-plugin": "^3.3.1",
     "@popperjs/core": "^2.11.8",
     "counterapi": "^2.1.2",
     "recaptcha-v3": "^1.11.3",

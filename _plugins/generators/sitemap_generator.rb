@@ -27,7 +27,9 @@ module Jekyll
 
     def build_sitemap(site)
       baseurl = site.config["url"].to_s.chomp("/")
-      all_docs = (site.pages + site.posts.docs).uniq.compact
+      all_docs = (site.pages + site.posts.docs).uniq.compact.reject do |doc|
+        doc.url.nil? || doc.url.end_with?("sitemap.xml") || doc.url =~ /\.(xml|rss)$/
+      end
 
       xml = +<<~XML
         <?xml version="1.0" encoding="UTF-8"?>
@@ -35,9 +37,9 @@ module Jekyll
       XML
 
       all_docs.sort_by { |doc| doc.url }.each do |doc|
-        next if doc.data["sitemap"] == false || doc.url.nil?
-        url = "#{baseurl}#{doc.url}".gsub(/\/+/, "/").sub(":/", "://")
+        next if doc.data["sitemap"] == false
 
+        url = "#{baseurl}#{doc.url}".gsub(/\/+/, "/").sub(":/", "://")
         lastmod_raw = doc.data["last_modified_at"] || doc.data["date"] || site.time
         lastmod = Time.parse(lastmod_raw.to_s).rfc2822
 
@@ -55,7 +57,6 @@ module Jekyll
       end
 
       xml << "</urlset>\n"
-
       xml.gsub!(/\n\s*/, "") if site.config.dig("sitemap", "minify")
       xml
     end
