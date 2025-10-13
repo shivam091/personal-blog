@@ -27,7 +27,15 @@ module Jekyll
 
     def build_sitemap(site)
       baseurl = site.config["url"].to_s.chomp("/")
-      all_docs = (site.pages + site.posts.docs).uniq.compact
+
+      # Start with posts and pages
+      all_docs = site.pages + site.posts.docs
+
+      # Add all other collections except "posts"
+      site.collections.each do |name, collection|
+        next if name == "posts" || name == "series" # already added
+        all_docs.concat(collection.docs)
+      end
 
       xml = +<<~XML
         <?xml version="1.0" encoding="UTF-8"?>
@@ -38,33 +46,18 @@ module Jekyll
         next if doc.data["sitemap"] == false || doc.url.nil?
         url = "#{baseurl}#{doc.url}".gsub(/\/+/, "/").sub(":/", "://")
 
-        lastmod_raw = doc.data["last_modified_at"] || doc.data["date"] || site.time
-        lastmod = Time.parse(lastmod_raw.to_s).rfc2822
+        lastmod_raw = doc.data["last_modified_at"]
 
-        priority = doc.data["priority"] || calc_priority(doc)
-        changefreq = doc.data["changefreq"] || "monthly"
-
-        xml << <<~URL
-          <url>
-            <loc>#{url}</loc>
-            <lastmod>#{lastmod}</lastmod>
-            <priority>#{priority}</priority>
-            <changefreq>#{changefreq}</changefreq>
-          </url>
-        URL
+        xml << "  <url>\n"
+        xml << "    <loc>#{url}</loc>\n"
+        xml << "    <lastmod>#{Time.parse(lastmod_raw.to_s).rfc2822}</lastmod>\n" if lastmod_raw
+        xml << "  </url>\n"
       end
 
       xml << "</urlset>\n"
 
       xml.gsub!(/\n\s*/, "") if site.config.dig("sitemap", "minify")
       xml
-    end
-
-    def calc_priority(doc)
-      return "1.0" if doc.url == "/"
-      return "0.8" if doc.respond_to?(:collection) && doc.collection.label == "posts"
-      return "0.4" if doc.url.include?("privacy") || doc.url.include?("terms")
-      "0.6"
     end
   end
 end
