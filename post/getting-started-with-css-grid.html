@@ -222,30 +222,15 @@
       <header class="site-header">
   <a href="/" class="site-logo">
     <img src="/assets/img/hl-smiling-face.png" alt="Harshal V. LADHE" class="avatar" loading="lazy">
-    <span class="logo">
-      <svg version="1.0" role="img" class="icon icon-logo" xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 144 28" width="144" height="28" fill="currentColor"
-  aria-hidden="true" focusable="false">
-  <text x="0" y="21" font-size="1.125rem" font-weight="500" fill="var(--color-fg-accent)" class="first-name">
-    Harshal
-  </text>
-  <path d="M71.00 3.00
-           C72.24 4.88 73.87 6.81 74.18 9.40
-           C74.22 9.78 74.11 11.27 74.11 10.96
-           C74.11 10.51 74.42 9.97 74.56 9.59
-           C74.99 8.44 75.31 7.31 75.93 6.30
-           C76.43 5.46 77.08 4.04 78.00 4.04"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        fill="none"
-        class="middle-name-initial" />
-  <text x="84" y="21" font-size="1.125rem" font-weight="500" fill="var(--color-fg-accent)" class="last-name">
-    LADHE
-  </text>
+    <span class="site-name">
+      <span class="first-name">Harshal</span>
+      <span class="middle-name-initial">
+        <svg version="1.0" role="img"  class="v-char" viewBox="0 0 9 10" xmlns="http://www.w3.org/2000/svg" height="0.625rem" width="0.5625rem" fill="currentColor" aria-hidden="true" focusable="false">
+  <path d="M1 1 C2.23995 2.87536 3.87268 4.81073 4.17593 7.40074 C4.22017 7.77863 4.11111 9.268437 4.11111 8.95767 C4.11111 8.50868 4.41831 7.96848 4.55761 7.59295 C4.98522 6.44023 5.31447 5.30676 5.92593 4.29648 C6.43274 3.45908 7.08081 2.03796 8 2.03796" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" class="v-path" />
 </svg>
 
+      </span>
+      <span class="last-name">LADHE</span>
     </span>
   </a>
 
@@ -1069,7 +1054,7 @@ like fr (fraction of available space).</p></li>
     </div>
 
     <div class="toc-wrapper">
-  <h2 class="toc-heading">
+  <h2 id="toc-heading">
     Table of contents
   </h2>
   <nav class="toc" aria-labelledby="toc-heading" role="doc-toc">
@@ -1122,16 +1107,6 @@ like fr (fraction of available space).</p></li>
 </div>
 
   </div>
-
-  <div class="post-signoff">
-    <p>I hope you found this post informative and helpful. It took a lot of work to create, and I’m thrilled to finally share it with the world. Thank you for reading. 💖</p>
-
-    <div class="signoff-wave">
-      <svg version="1.0" role="img" class="icon icon-wave-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50" height="50" width="100" fill="none" stroke="hsl(333deg 100% 55%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-  <path d="M 0,25 Q 5,30 10,25 Q 15,20 20,25 Q 25,30 30,25 Q 35,20 40,25 Q 45,30 50,25 Q 55,20 60,25 Q 65,30 70,25 Q 75,20 80,25 Q 85,30 90,25" />
-d</svg>
-    </div>
-  </div>
   <nav class="series-nav" aria-label="Navigation for posts in series">
     <header class="series-nav-header">
       <span class="series-nav-icon" aria-hidden="true">📚</span>
@@ -1157,9 +1132,8 @@ d</svg>
     </ul>
   </nav>
 
-<footer class="post-footer">
-    <div class="page-meta page-meta-secondary" role="group" aria-label="Post metadata">
-      
+<div class="page-meta page-meta-secondary" role="group" aria-label="Post metadata">
+    
   <div class="page-meta-item page-categories" role="list">
     <svg version="1.0" role="img" class="icon icon-diamonds" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" focusable="false">
   <polygon points="12,2 15.5,5.5 12,9 8.5,5.5" />
@@ -1174,51 +1148,59 @@ d</svg>
   </div>
 
 
-      
+    
   <div class="page-meta-item page-tags" role="list">
     <svg version="1.0" role="img" class="icon icon-tag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
   <polygon points="11 21,3 13,13 3,21 3,21 11" />
   <circle cx="16" cy="8" r="0.5" />
 </svg>
     <span class="visually-hidden">Tags:</span>
-    <a href="/tag/css" class="badge" aria-label="Tag: css" rel="tag" role="listitem">css</a>
     
-    <a href="/tag/grid" class="badge" aria-label="Tag: grid" rel="tag" role="listitem">grid</a>
+      <span class="badge" aria-label="Tag: css" rel="tag" role="listitem">css</span>
     
-    <a href="/tag/css-grid" class="badge" aria-label="Tag: css-grid" rel="tag" role="listitem">css-grid</a>
     
-    <a href="/tag/beginner" class="badge" aria-label="Tag: beginner" rel="tag" role="listitem">beginner</a>
+      <span class="badge" aria-label="Tag: grid" rel="tag" role="listitem">grid</span>
     
-    <a href="/tag/layout" class="badge" aria-label="Tag: layout" rel="tag" role="listitem">layout</a>
     
-    <a href="/tag/web-design" class="badge" aria-label="Tag: web design" rel="tag" role="listitem">web design</a>
+      <span class="badge" aria-label="Tag: css-grid" rel="tag" role="listitem">css-grid</span>
     
-    <a href="/tag/frontend" class="badge" aria-label="Tag: frontend" rel="tag" role="listitem">frontend</a>
     
-    <a href="/tag/2d-layouts" class="badge" aria-label="Tag: 2d-layouts" rel="tag" role="listitem">2d-layouts</a>
+      <span class="badge" aria-label="Tag: beginner" rel="tag" role="listitem">beginner</span>
+    
+    
+      <span class="badge" aria-label="Tag: layout" rel="tag" role="listitem">layout</span>
+    
+    
+      <span class="badge" aria-label="Tag: web design" rel="tag" role="listitem">web design</span>
+    
+    
+      <span class="badge" aria-label="Tag: frontend" rel="tag" role="listitem">frontend</span>
+    
+    
+      <span class="badge" aria-label="Tag: 2d-layouts" rel="tag" role="listitem">2d-layouts</span>
     
     
   </div>
 
 
-    </div>
+  </div>
 
-    
+  
   <section class="page-changelog" aria-labelledby="changelog-title">
-    <h2 class="changelog-title">Changelog</h2>
-    <ul class="changelog-entries">
+    <h2 id="changelog-title">Changelog</h2>
+    <ul>
       
-        <li class="changelog-entry">
+        <li>
           <time datetime="2025-08-24T00:00:00+05:30">August 24, 2025</time>
           — Added shortinfo
         </li>
       
-        <li class="changelog-entry">
+        <li>
           <time datetime="2025-08-08T00:00:00+05:30">August 08, 2025</time>
           — Updated tags and categories
         </li>
       
-        <li class="changelog-entry">
+        <li>
           <time datetime="2025-07-09T00:00:00+05:30">July 09, 2025</time>
           — Initial publication
         </li>
@@ -1227,6 +1209,9 @@ d</svg>
   </section>
 
 
+
+  <footer class="post-footer">
+    <p>I hope you’ve found this post informative and helpful. Thank you for reading!</p>
 
     <div class="post-footer-content">
       <div class="copyright">

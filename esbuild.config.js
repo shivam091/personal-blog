@@ -2,7 +2,6 @@ import esbuild from "esbuild";
 import { sassPlugin } from "esbuild-sass-plugin";
 
 const isWatch = process.argv.includes("--watch");
-const isProd = process.env.NODE_ENV === "production";
 
 const buildOptions = {
   entryPoints: {
@@ -10,9 +9,10 @@ const buildOptions = {
     style: "_sass/main.sass"
   },
   bundle: true,
-  sourcemap: !isProd,
-  minify: isProd,
+  minify: true,
+  sourcemap: true,
   outdir: "dist",
+  plugins: [sassPlugin()],
   loader: { ".sass": "file", ".png": "file", ".svg": "file" },
   plugins: [
     sassPlugin({
