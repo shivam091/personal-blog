@@ -45,6 +45,13 @@ By using this site, you acknowledge and agree that these third-party services ma
   Collects basic request data (such as IP address, browser type, or referrer) to provide anonymous statistics.
   This data is not used to personally identify you. See [CounterAPI’s Privacy Policy](https://counterapi.dev/privacy-policy/).
 
+- **Netlify Forms**:
+  The contact form is powered by Netlify Forms.
+  When you submit a message, your form data (such as name, email, and message) is transmitted and stored by Netlify to enable delivery to me.
+  Netlify may collect technical details (e.g., IP address, browser, timestamp) as part of normal processing.
+  Its use is subject to [Netlify’s Privacy Policy](https://www.netlify.com/privacy/).
+  I do not guarantee message delivery or response times.
+
 ## Changes
 
 These terms may be updated at any time. The “Last updated” date reflects the latest version. If you do not agree with these terms, please do not use the site.

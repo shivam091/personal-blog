@@ -82,7 +82,7 @@ export default class ContactForm {
     const recaptcha = await load(key);
     const token = await recaptcha.execute("submit");
 
-    const res = await fetch("/.netlify/functions/submit-contact", {
+    const res = await fetch("/.netlify/functions/verify-recaptcha", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token }),
@@ -93,7 +93,7 @@ export default class ContactForm {
   }
 
   #restoreFields() {
-    const saved = this.getStoredData();
+    const saved = this.#getStoredData();
     this.form.querySelectorAll("input, textarea").forEach(field => {
       if (saved[field.name]) {
         field.value = saved[field.name];
