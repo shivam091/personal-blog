@@ -19,6 +19,11 @@ Harassment of any kind — including hate speech, sexual harassment, or inapprop
 - The only interaction channel is the [contact page](/contact).
 - Any communication must be constructive, relevant, and free from harassment, hate speech, or spam.
 
+## Enforcement
+
+I reserve the right to ignore, block, or report any communication that violates this Code of Conduct or applicable laws.
+Repeated or serious violations may be reported to service providers or relevant authorities if necessary.
+
 ## Reporting
 
 If you notice or experience a violation of this Code of Conduct in relation to this blog, please report it via the [contact page](/contact).

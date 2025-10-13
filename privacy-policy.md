@@ -28,8 +28,12 @@ This Privacy Policy describes what information is collected when you use this we
 - **Form Drafts**: To improve your experience, unsubmitted contact form data (such as your name, email, or message in progress) may be saved in your browser’s
   local storage. This data is stored **only on your device**, is not transmitted to me, and is cleared when you remove it from your browser.
 
-- **Contact Form**: If you submit the contact form, your name, email, and message are used solely to respond to your
-  inquiry. This data is not sold or shared with third parties.
+- **Contact Form (Netlify Forms)**:
+  When you submit a message through the contact form, the information you provide (such as your name, email address, and message) is securely transmitted and stored by **Netlify Forms**, a service operated by Netlify, Inc.
+  This data is used only to respond to your inquiry and is accessible to me through Netlify’s dashboard.
+  Netlify may log metadata such as your IP address, browser, and timestamp for spam prevention and service reliability.
+  Data submitted through the form is processed according to [Netlify’s Privacy Policy](https://www.netlify.com/privacy/).
+  I do not share, sell, or reuse this data beyond replying to your message.
 
 ## How Information Is Used
 
@@ -55,6 +59,9 @@ Reasonable measures are taken to protect your information, though no method is 1
   [Terms of Service](https://policies.google.com/terms).
 - **CounterAPI v2**: Used to display post view counts. Collects minimal, anonymous request data to provide statistics.
 - **Embedded content**: Some posts may include third-party embeds (e.g., GitHub, YouTube) which collect their own data under their privacy policies.
+- **Netlify Forms**: Used to handle form submissions securely.
+  Netlify temporarily processes and stores submitted data (including metadata such as IP address and submission time) to deliver it to me.
+  Data handling is governed by [Netlify’s Privacy Policy](https://www.netlify.com/privacy/).
 
 I do not sell or trade personal information, but third-party platforms may collect usage data when their content is embedded.
 
@@ -64,7 +71,7 @@ You may disable cookies or JavaScript in your browser, though some features may 
 
 ## Changes
 
-This policy may be updated periodically. The “Last updated” date reflects the latest version.  
+This policy may be updated periodically. The “Last updated” date reflects the latest version.
 
 ## Contact
 

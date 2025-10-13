@@ -13,7 +13,7 @@ jobs:
       SITEMAP_URL: ${{ secrets.SITEMAP_URL }}
 
     steps:
-      - name: Verify sitemap is publicly accessible
+      - name: Verify sitemap accessibility
         run: |
           echo "🔍 Verifying sitemap fetch:"
           curl -I "$SITEMAP_URL" || (echo "❌ Sitemap fetch failed" && exit 1)
@@ -35,7 +35,7 @@ jobs:
             if curl -s --head --fail "$url"; then
               curl -s "$url" && echo "✅ $engine pinged successfully!"
             else
-              echo "⚠️ $engine did not return a success status (might not support sitemap ping)."
+              echo "⚠️ $engine may not support sitemap ping."
             fi
             echo
           done

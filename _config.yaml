@@ -2,7 +2,7 @@ title: Harshal V. LADHE
 
 description: "I’m a software engineer, freelancer, and lifelong learner passionate about building clean, scalable web solutions. I contribute to open-source, embrace minimalism in code and life, and stay curious about emerging tech."
 
-url: "https://shivam091.github.io"
+url: "https://harshal-ladhe.netlify.app"
 
 tagline: "A showcase of my technical blog posts, coding insights, and open source projects."
 
@@ -27,10 +27,7 @@ kramdown:
     line_numbers: false
 
 google_analytics:
-  id: "G-W5GHEJ51PD"
-
-formspree:
-  id: "xpwjdwgq"
+  id: "G-DLRSXKQNFW"
 
 include:
   - assets
@@ -68,7 +65,6 @@ collections:
   snippets:
     output: true
     permalink: /snippet/:slug/
-
 
 pagination:
   enabled: true

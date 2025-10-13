@@ -1,19 +1,16 @@
 import { load } from "recaptcha-v3";
 import { generateFullName, generateEmailDomain } from "./../helpers/sample-data";
-import {
-  RECAPTCHA_PUBLIC_KEY,
-  CONTACT_MESSAGE_KEY
-} from "./../constants/constants"
+import { CONTACT_MESSAGE_KEY, RECAPTCHA_PUBLIC_KEY } from "./../constants/constants"
 
 export default class ContactForm {
   constructor(formSelector) {
     this.form = document.querySelector(formSelector);
-    this.siteKey = RECAPTCHA_PUBLIC_KEY;
+    this.siteKey = RECAPTCHA_PUBLIC_KEY
 
     if (this.form) {
       this.endpoint = this.form.getAttribute("action");
       this.setRandomPlaceholders();
-      this.restoreFields();
+      this.#restoreFields();
       this.bindEvents();
     }
   }
@@ -40,7 +37,7 @@ export default class ContactForm {
   bindEvents() {
     this.form.querySelectorAll("input, textarea").forEach(field => {
       field.addEventListener("input", () => {
-        const data = this.getStoredData();
+        const data = this.#getStoredData();
         data[field.name] = field.value;
         localStorage.setItem(CONTACT_MESSAGE_KEY, JSON.stringify(data));
       });
@@ -48,24 +45,24 @@ export default class ContactForm {
 
     this.form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const submitBtn = this.form.querySelector("[type='submit']");
+      submitBtn.disabled = true;
 
       try {
-        const recaptcha = await load(this.siteKey);
-        const token = await recaptcha.execute("submit");
+        if (!(await this.verifyRecaptcha())) {
+          alert("reCAPTCHA failed. Please try again.");
+          return;
+        }
 
-        const formData = {};
-        this.form.querySelectorAll("input, textarea").forEach(field => {
-          formData[field.name] = field.value;
-        });
-        formData["g-recaptcha-response"] = token;
-
-        const response = await fetch(this.endpoint, {
+        // if verified, submit form to Netlify
+        const formData = new FormData(this.form);
+        const formResponse = await fetch("/", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString()
         });
 
-        if (response.ok) {
+        if (formResponse.ok) {
           this.form.reset();
           localStorage.removeItem(CONTACT_MESSAGE_KEY);
           alert("Message sent successfully!");
@@ -79,8 +76,25 @@ export default class ContactForm {
     });
   }
 
-  restoreFields() {
-    const saved = this.getStoredData();
+  async verifyRecaptcha() {
+    const key = this.siteKey;
+    if (!key) return true; // skip in dev
+
+    const recaptcha = await load(key);
+    const token = await recaptcha.execute("submit");
+
+    const res = await fetch("/.netlify/functions/verify-recaptcha", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+
+    const data = await res.json();
+    return res.ok && data.success;
+  }
+
+  #restoreFields() {
+    const saved = this.#getStoredData();
     this.form.querySelectorAll("input, textarea").forEach(field => {
       if (saved[field.name]) {
         field.value = saved[field.name];
@@ -88,7 +102,7 @@ export default class ContactForm {
     });
   }
 
-  getStoredData() {
+  #getStoredData() {
     try {
       return JSON.parse(localStorage.getItem(CONTACT_MESSAGE_KEY)) || {};
     } catch {
