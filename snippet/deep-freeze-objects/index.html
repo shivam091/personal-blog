@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Deep Freeze Objects in JavaScript" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Harshal V. LADHE","url":"https://shivam091.github.io"},"dateModified":"2025-09-29T19:44:54+05:30","datePublished":"2025-09-29T00:00:00+05:30","description":"Lock objects and their children immutably — prevent accidental mutations and enforce deep immutability in strict mode.","headline":"Deep Freeze Objects in JavaScript","mainEntityOfPage":{"@type":"WebPage","@id":"https://shivam091.github.io/snippet/deep-freeze-objects/"},"url":"https://shivam091.github.io/snippet/deep-freeze-objects/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Harshal V. LADHE","url":"https://shivam091.github.io"},"dateModified":"2025-10-08T11:40:21+05:30","datePublished":"2025-09-29T00:00:00+05:30","description":"Lock objects and their children immutably — prevent accidental mutations and enforce deep immutability in strict mode.","headline":"Deep Freeze Objects in JavaScript","mainEntityOfPage":{"@type":"WebPage","@id":"https://shivam091.github.io/snippet/deep-freeze-objects/"},"url":"https://shivam091.github.io/snippet/deep-freeze-objects/"}</script>
 <!-- End Jekyll SEO tag -->
 <!-- Favicon -->
 <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/icons/apple-icon-57x57.png">
@@ -408,9 +408,15 @@
   <meta itemprop="headline" content="Deep Freeze Objects in JavaScript">
   <meta itemprop="mainEntityOfPage" content="https://shivam091.github.io/snippet/deep-freeze-objects/">
   <meta itemprop="datePublished" content="2025-09-29T19:44:54+05:30">
-  <meta itemprop="dateModified" content="2025-09-29T19:44:54+05:30">
+  <meta itemprop="dateModified" content="2025-10-08T11:40:21+05:30">
 
   <header class="snippet-header">
+    
+      <div class="page-excerpt">
+        Recursively lock every object level for true immutability
+      </div>
+    
+
     <div class="page-meta page-meta-primary" role="group" aria-label="Snippet metadata">
       <div class="page-meta-item page-published-date">
   <svg version="1.0" role="img" class="icon icon-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
@@ -431,8 +437,8 @@
 </svg>
 
     <span class="visually-hidden">Last updated:</span>
-    <time datetime='2025-09-29T19:44:54+05:30' aria-label='Last updated on September 29, 2025 at 07:44 PM' role='time' data-tooltip='Mon, September 29, 2025 07:44 PM' data-tooltip-position='bottom' tabindex='0'>
-  September 29, 2025
+    <time datetime='2025-10-08T11:40:21+05:30' aria-label='Last updated on October 08, 2025 at 11:40 AM' role='time' data-tooltip='Wed, October 08, 2025 11:40 AM' data-tooltip-position='bottom' tabindex='0'>
+  October 08, 2025
 </time>
 
   </div>
@@ -685,6 +691,14 @@ large objects in performance-critical paths.</p></li>
         
 <h2  id="key-takeaway" dir="auto">Key Takeaway</h2>
 <p  dir="auto">The <code  class="highlighter-rouge notranslate">deepFreeze(obj)</code> utility ensures your objects are truly immutable at all levels, providing safer, more predictable JavaScript applications and robust state management without the risks associated with modifying <code  class="highlighter-rouge notranslate">Object.prototype</code>.</p>
+  </div>
+
+  <div class="page-signoff">
+    <div class="signoff-wave">
+      <svg version="1.0" role="img" class="icon icon-wave-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50" height="50" width="100" fill="none" stroke="hsl(333deg 100% 55%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <path d="M 0,25 Q 5,30 10,25 Q 15,20 20,25 Q 25,30 30,25 Q 35,20 40,25 Q 45,30 50,25 Q 55,20 60,25 Q 65,30 70,25 Q 75,20 80,25 Q 85,30 90,25" />
+d</svg>
+    </div>
   </div>
 
   <div class="page-meta page-meta-secondary" role="group" aria-label="Post metadata">
