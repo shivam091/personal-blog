@@ -130,4 +130,24 @@ microinteractions:
 ui-design:
   title: Articles on User Interface (UI) Design Principles
   description: Content covering the visual and interactive elements of interface design, where animation plays a key role in communicating state and flow.
-
+keyframes:
+  title: Mastering CSS @keyframes for Complex Animations
+  description: Comprehensive guides on using the CSS `@keyframes` rule to create complex, multi-stage, and iterative animations with precise control over style changes.
+gpu-performance:
+  title: GPU Performance Optimization for Web Motion
+  description: Techniques and best practices for leveraging the Graphics Processing Unit (GPU) to achieve faster, smoother, and non-janky animations in the browser.
+multi-step:
+  title: Creating Multi-Step and Sequential Animations
+  description: Tutorials on building complex animation sequences that execute in distinct, ordered steps, often using `@keyframes` and precise timing functions.
+web-motion:
+  title: Principles and Techniques of Web Motion Design
+  description: Articles dedicated to the art and science of adding movement to web interfaces, covering animation theory, user experience, and visual communication.
+scroll-animation:
+  title: Implementing Scroll-Triggered Web Animations
+  description: Guides on creating dynamic animations that are directly controlled by the user's scroll position, perfect for unique storytelling and interactive experiences.
+view-timeline:
+  title: Utilizing the CSS `view-timeline` for Scroll-Driven Effects
+  description: Deep dive into the experimental CSS `view-timeline` property for defining precise timelines based on an element's visibility within a scroll container.
+advanced-css:
+  title: Advanced CSS Techniques and Specifications
+  description: Explore complex and modern CSS features, including Houdini, advanced selectors, logical properties, and experimental modules for high-level styling.
