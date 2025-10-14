@@ -1,7 +1,13 @@
 ---
 layout: page
 title: Snippets
+description: "Concise code fragments to solve discrete challenges."
 permalink: /snippets
+image:
+  path: /assets/img/goodies/snippets/cover.png
+  width: 1500
+  height: 1024
+  alt: "Gradient “Snippets” logo with colorful </> code symbol above on a dark background."
 ---
 
 {% assign snippets = site.snippets | sort: "published_at" | reverse %}
@@ -9,7 +15,7 @@ permalink: /snippets
 <section class="snippets" aria-labelledby="snippets-list-title">
   <h2 id="snippets-list-title" class="visually-hidden">Browse snippets</h2>
 
-  <p>Concise code fragments to solve discrete challenges.</p>
+  <p>{{ page.description }}</p>
 
   <ul class="snippets-list list-unstyled">
     {% for snippet in snippets %}

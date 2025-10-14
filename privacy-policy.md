@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Privacy Policy
+description: "Review the privacy policy explaining how user data is handled, stored, and protected with transparency and care."
 permalink: /privacy-policy
 ---
 

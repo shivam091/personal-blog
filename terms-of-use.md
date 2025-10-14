@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Terms of Use
+description: "Read the terms of use outlining how this website and its content can be accessed, shared, and referenced responsibly."
 permalink: /terms-of-use
 ---
 
