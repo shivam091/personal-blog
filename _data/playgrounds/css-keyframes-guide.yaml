@@ -1,0 +1,406 @@
+id: demo
+name: Demo
+url: "https://codepen.io/shivam091/pen/myPyOBy"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <div class="playground-container">
+        <h3>Animation Controls</h3>
+
+        <div class="demo-area">
+          <div id="animated-box" class="box-animate"></div>
+        </div>
+
+        <div class="controls-grid property-grid">
+          <label for="duration-input">Duration (s):</label>
+          <input type="number" id="duration-input" min="0.1" max="5" step="0.1" value="1.5">
+
+          <label for="iteration-input">Iteration Count:</label>
+          <select id="iteration-input">
+            <option value="1">1 (Once)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="infinite" selected>infinite</option>
+          </select>
+
+          <label for="delay-input">Delay (s):</label>
+          <input type="number" id="delay-input" min="-2" max="3" step="0.1" value="0">
+
+          <label for="direction-select">Direction:</label>
+          <select id="direction-select">
+            <option value="normal" selected>normal</option>
+            <option value="reverse">reverse</option>
+            <option value="alternate">alternate</option>
+            <option value="alternate-reverse">alternate-reverse</option>
+          </select>
+
+          <label for="fill-mode-select">Fill Mode:</label>
+          <select id="fill-mode-select">
+            <option value="none" selected>none</option>
+            <option value="forwards">forwards</option>
+            <option value="backwards">backwards</option>
+            <option value="both">both</option>
+          </select>
+
+          <label for="play-state-select">Play State:</label>
+          <select id="play-state-select">
+            <option value="running" selected>running</option>
+            <option value="paused">paused</option>
+          </select>
+        </div>
+
+        <div class="controls-grid timing-function-grid">
+          <label>Timing Function:</label>
+          <div class="radio-group">
+            <input type="radio" id="timing-preset" name="timing-type" value="preset" checked>
+            <label for="timing-preset">Preset</label>
+            <input type="radio" id="timing-bezier" name="timing-type" value="bezier">
+            <label for="timing-bezier">Cubic-Bezier</label>
+            <input type="radio" id="timing-steps" name="timing-type" value="steps">
+            <label for="timing-steps">Steps</label>
+          </div>
+        </div>
+
+        <div id="timing-options-container">
+          <div id="preset-options" class="timing-group active-group">
+            <label for="timing-select-preset">Select Preset:</label>
+            <select id="timing-select-preset">
+              <option value="ease" selected>ease</option>
+              <option value="linear">linear</option>
+              <option value="ease-in">ease-in</option>
+              <option value="ease-out">ease-out</option>
+              <option value="ease-in-out">ease-in-out</option>
+            </select>
+          </div>
+
+          <div id="bezier-options" class="timing-group">
+            <label for="bezier-x1">x1:</label><input type="number" id="bezier-x1" min="-2" max="2" step="0.1" value="0.17">
+            <label for="bezier-y1">y1:</label><input type="number" id="bezier-y1" min="-2" max="2" step="0.1" value="0.67">
+            <label for="bezier-x2">x2:</label><input type="number" id="bezier-x2" min="-2" max="2" step="0.1" value="0.83">
+            <label for="bezier-y2">y2:</label><input type="number" id="bezier-y2" min="-2" max="2" step="0.1" value="0.67">
+            <span class="tip">Default is cubic-bezier(0.17, 0.67, 0.83, 0.67) for 'ease'.</span>
+          </div>
+
+          <div id="steps-options" class="timing-group">
+            <label for="steps-count">Steps (n):</label>
+            <input type="number" id="steps-count" min="1" max="10" step="1" value="5">
+            <label for="steps-direction">Direction:</label>
+            <select id="steps-direction">
+              <option value="end" selected>end (default)</option>
+              <option value="start">start</option>
+            </select>
+          </div>
+        </div>
+        <button id="restart-btn">Restart Animation (Resets Delay)</button>
+      </div>
+  - name: style.css
+    type: css
+    code: |
+      /* Container and Layout */
+      .playground-container {
+        max-width: 650px;
+        margin: 30px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+      }
+
+      /* Controls Grids */
+      .property-grid {
+        grid-template-columns: auto 1fr auto 1fr;
+      }
+      .timing-function-grid {
+        grid-template-columns: auto 1fr;
+        padding-bottom: 0;
+      }
+      .controls-grid {
+        display: grid;
+        gap: 10px 20px;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      /* Radio Button Group Styling */
+      .radio-group {
+        display: flex;
+        gap: 15px;
+      }
+      .radio-group label {
+        font-weight: normal;
+      }
+
+      /* Timing Options Container */
+      #timing-options-container {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px dashed #eee;
+        border-radius: 4px;
+      }
+
+      /* Individual Timing Groups (for Cubic-Bezier and Steps) */
+      .timing-group {
+        display: none;
+        grid-template-columns: repeat(4, auto 1fr);
+        gap: 10px;
+        padding: 10px 0;
+        align-items: center;
+      }
+      .timing-group.active-group {
+        display: grid;
+      }
+      #steps-options {
+        grid-template-columns: auto 1fr auto 1fr;
+      }
+      #preset-options {
+        grid-template-columns: auto 1fr;
+      }
+      .timing-group .tip {
+        grid-column: 1 / -1;
+        font-size: 0.85em;
+        color: #666;
+      }
+
+      /* Inputs and Selects */
+      input[type="number"],
+      select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* The Animated Box */
+      .demo-area {
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border: 1px dashed #ccc;
+        margin: 10px 0;
+        padding: 0 10px;
+      }
+
+      #animated-box {
+        width: 50px;
+        height: 50px;
+        background-color: #007bff;
+        border-radius: 6px;
+        /* Use will-change to hint for performance */
+        will-change: transform, background-color;
+      }
+
+      /* --- CORE KEYFRAMES DEFINITION --- */
+      @keyframes stretch-and-color {
+        /* Use 'from' and 'to' keywords */
+        from {
+          transform: translateX(0) rotate(0deg);
+          background-color: #007bff; /* Blue */
+        }
+
+        30% {
+          transform: translateX(180px) rotate(45deg) scaleX(1.5);
+          background-color: #ffc107; /* Yellow */
+        }
+
+        70% {
+          transform: translateX(360px) rotate(135deg) scaleY(1.5);
+          background-color: #dc3545; /* Red */
+        }
+
+        to {
+          transform: translateX(530px) rotate(180deg);
+          background-color: #20c997; /* Green */
+        }
+      }
+
+      /* Class to apply the animation (will be modified by JS) */
+      .box-animate {
+        animation-name: stretch-and-color;
+        /* Initial animation properties set by JS */
+      }
+
+      /* Button */
+      #restart-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #6200ea;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.2s;
+      }
+
+      #restart-btn:hover {
+        background-color: #3700b3;
+      }
+
+      /* Media Query for Responsiveness */
+      @media (max-width: 650px) {
+        @keyframes stretch-and-color {
+          from {
+            transform: translateX(0) rotate(0deg);
+          }
+          30% {
+            transform: translateX(30vw) rotate(45deg) scaleX(1.5);
+          }
+          70% {
+            transform: translateX(60vw) rotate(135deg) scaleY(1.5);
+          }
+          to {
+            transform: translateX(80vw) rotate(180deg);
+          }
+        }
+        .property-grid {
+          grid-template-columns: auto 1fr;
+        }
+        .timing-group {
+          grid-template-columns: auto 1fr;
+        }
+      }
+  - name: script.js
+    type: js
+    code: |
+      document.addEventListener("DOMContentLoaded", () => {
+        const box = document.getElementById("animated-box");
+        const restartButton = document.getElementById("restart-btn");
+
+        // Core property controls
+        const durationInput = document.getElementById("duration-input");
+        const delayInput = document.getElementById("delay-input");
+        const iterationInput = document.getElementById("iteration-input");
+        const directionSelect = document.getElementById("direction-select");
+        const fillModeSelect = document.getElementById("fill-mode-select");
+        const playStateSelect = document.getElementById("play-state-select");
+
+        // Timing Type Radio Buttons
+        const timingTypeRadios = document.querySelectorAll(
+          'input[name="timing-type"]'
+        );
+        const timingOptionGroups = document.querySelectorAll(".timing-group");
+
+        // Preset Controls
+        const presetSelect = document.getElementById("timing-select-preset");
+
+        // Cubic-Bezier Controls
+        const bezierX1 = document.getElementById("bezier-x1");
+        const bezierY1 = document.getElementById("bezier-y1");
+        const bezierX2 = document.getElementById("bezier-x2");
+        const bezierY2 = document.getElementById("bezier-y2");
+
+        // Steps Controls
+        const stepsCount = document.getElementById("steps-count");
+        const stepsDirection = document.getElementById("steps-direction");
+
+        // --- Core Logic ---
+
+        // 1. Function to get the currently selected timing function string
+        function getTimingFunction() {
+          const activeType = document.querySelector(
+            'input[name="timing-type"]:checked'
+          ).value;
+
+          if (activeType === "preset") {
+            return presetSelect.value;
+          } else if (activeType === "bezier") {
+            const x1 = bezierX1.value || 0;
+            const y1 = bezierY1.value || 0;
+            const x2 = bezierX2.value || 0;
+            const y2 = bezierY2.value || 0;
+            return `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
+          } else if (activeType === "steps") {
+            const count = stepsCount.value || 1;
+            const direction = stepsDirection.value || "end";
+            return `steps(${count}, ${direction})`;
+          }
+        }
+
+        // 2. Function to update the box's CSS animation property
+        function updateAnimation() {
+          const duration = durationInput.value + "s";
+          const delay = delayInput.value + "s"; // Important: second time value is delay
+          const timing = getTimingFunction();
+          const iterationCount = iterationInput.value;
+          const direction = directionSelect.value;
+          const fillMode = fillModeSelect.value;
+          const playState = playStateSelect.value;
+          const name = "stretch-and-color";
+          const timeline = "auto"; // Default for time-based animation
+
+          // Apply animation using the shorthand property
+          // animation: <name> <duration> <timing-function> <delay> <iteration-count> <direction> <fill-mode> <play-state> <timeline>;
+          box.style.animation = `${name} ${duration} ${timing} ${delay} ${iterationCount} ${direction} ${fillMode} ${playState} ${timeline}`;
+        }
+
+        // 3. Function to switch the visible options group
+        function switchTimingOptions() {
+          const activeType = document.querySelector(
+            'input[name="timing-type"]:checked'
+          ).value;
+
+          timingOptionGroups.forEach((group) => {
+            group.classList.remove("active-group");
+          });
+
+          const activeGroup = document.getElementById(activeType + "-options");
+          if (activeGroup) {
+            activeGroup.classList.add("active-group");
+          }
+
+          // Always call updateAnimation when switching
+          updateAnimation();
+        }
+
+        // 4. Function to restart the animation (needed for non-infinite animations or changing delay)
+        function restartAnimation() {
+            // 1. Remove the animation class temporarily
+            box.classList.remove("box-animate");
+            // 2. Force reflow/re-render to reset the animation state
+            void box.offsetWidth;
+            // 3. Re-apply the class and update properties
+            box.classList.add("box-animate");
+            updateAnimation();
+        }
+
+        // --- Event Listeners ---
+
+        // Initial setup
+        updateAnimation();
+        switchTimingOptions(); // Set initial view
+
+        // Listeners for core properties
+        [
+          durationInput,
+          delayInput,
+          iterationInput,
+          directionSelect,
+          fillModeSelect,
+          playStateSelect,
+        ].forEach((input) => input.addEventListener("input", updateAnimation));
+
+        // Listeners for timing function radio buttons
+        timingTypeRadios.forEach((radio) => {
+          radio.addEventListener("change", switchTimingOptions);
+        });
+
+        // Listeners for individual timing option changes
+        [
+          presetSelect,
+          bezierX1,
+          bezierY1,
+          bezierX2,
+          bezierY2,
+          stepsCount,
+          stepsDirection,
+        ].forEach((input) => input.addEventListener("input", updateAnimation));
+
+        // Button click to trigger animation reset
+        restartButton.addEventListener("click", restartAnimation);
+      });
