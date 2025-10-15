@@ -1,0 +1,87 @@
+{%- assign playground = site.data.playgrounds[include.id] -%}
+
+<div class="playground" id="pg-{{ include.id }}" data-id="{{ include.id }}"
+     data-files='{{ playground.code | jsonify | escape }}'>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="brand">
+      <span class="dot close">{% svg circle-fill %}</span>
+      <span class="dot minimize">{% svg circle-fill %}</span>
+      <span class="dot maximize">{% svg circle-fill %}</span>
+      <span class="title">{{ playground.name | default: "Code Playground" }}</span>
+    </div>
+    <div class="actions">
+      <button class="cp-btn" data-cp-reset>{% svg skip-back %}</button>
+      <button class="cp-btn" data-cp-reset>{% svg hash %}</button>
+      <button class="cp-btn" data-cp-export>{% svg download %}</button>
+      {% if playground.url %}
+      <a href="{{ playground.url }}" class="cp-btn" target="_blank" title="Open in CodePen">{% svg external-link %}</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Main Playground -->
+  <div class="pen" data-code-playground data-autorun="true">
+    <div class="editors-col">
+
+      <!-- Editor Tabs -->
+      <div class="tabs" role="tablist" aria-label="Editor Tabs">
+        {%- assign first = true -%}
+        {%- for type in playground.code %}
+        <button class="tab" role="tab" aria-selected="{{ first | default: false }}" data-tab="{{ type[0] }}" id="tab-{{ type[0] }}">
+          {{ type[0] | upcase }}
+        </button>
+        {%- assign first = false -%}
+        {%- endfor %}
+        <div class="spacer"></div>
+      </div>
+
+      <!-- Editors -->
+      <div class="editors">
+        {%- assign first = true -%}
+        {%- for type in playground.code %}
+        <div class="editor" role="tabpanel" data-editor="{{ type[0] }}"
+             aria-hidden="{{ first | default: false | negate }}" aria-labelledby="tab-{{ type[0] }}">
+          <div class="editor-actions">
+            <button class="cp-btn" data-copy-target="#code-{{ type[0] }}" title="Copy code">{% svg clipboard-check %}</button>
+            <button class="cp-btn" data-beautify="{{ type[0] }}" title="Beautify code">{% svg magic-wand %}</button>
+          </div>
+          <textarea id="code-{{ type[0] }}" spellcheck="false">{{ type[1] | escape }}</textarea>
+        </div>
+        {%- assign first = false -%}
+        {%- endfor %}
+      </div>
+    </div>
+
+    <!-- Preview Column -->
+    <div class="preview-col">
+      <div class="preview">
+        <div class="preview-tabs" role="tablist">
+          <button class="tab" role="tab" aria-selected="true" data-preview="result">Result</button>
+          <button class="tab" role="tab" aria-selected="false" data-preview="console">Console</button>
+          <div class="spacer"></div>
+          <label class="check">
+            <input type="checkbox" data-cp-autorun checked /> Auto-run
+          </label>
+        </div>
+
+        <div class="preview-panels">
+          <div class="preview-panel" data-panel="result" aria-hidden="false">
+            <div class="preview-actions">
+              <button class="cp-btn" data-cp-run>{% svg refresh %}</button>
+            </div>
+            <iframe class="preview-iframe" title="Result"></iframe>
+          </div>
+
+          <div class="preview-panel" data-panel="console" aria-hidden="true">
+            <div class="preview-actions">
+              <button class="cp-btn" data-cp-clear-console>{% svg circle-slash %}</button>
+            </div>
+            <div class="console" id="cp-console"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

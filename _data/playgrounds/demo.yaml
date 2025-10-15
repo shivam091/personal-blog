@@ -1,0 +1,56 @@
+id: demo
+name: Demo
+url: "https://codepen.io/shivam091/pen/NPGavRO"
+code:
+  html: |
+    <div class="card">
+      <h1>Hello, I'm Harshal LADHE 👋</h1>
+      <p>
+        Edit HTML, CSS, and JS, then hit
+        <strong>Run</strong>
+        or enable
+        <em>Auto‑run</em>.
+      </p>
+      <button id="btn">Click me</button>
+    </div>
+  css: |
+    :root {
+      --brand: #0ebeff;
+      --ink: #111827;
+    }
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+    }
+    .card {
+      width: min(680px, 90%);
+      margin: 2rem auto;
+      padding: 1.25rem 1.5rem;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.5rem, 1rem + 2vw, 2rem);
+      color: #0f172a;
+    }
+    p {
+      color: #334155;
+    }
+    #btn {
+      background: var(--brand);
+      color: white;
+      border: 0;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    #btn:hover {
+      filter: brightness(0.95);
+    }
+  js: |
+    document.getElementById('btn').addEventListener('click', () => {
+      console.info("Boop! CodePen‑style playground ✅")
+    });

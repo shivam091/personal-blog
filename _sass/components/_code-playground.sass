@@ -1,0 +1,259 @@
+@use "abstracts/tokens" as *
+
+.playground
+  background: var(--color-bg-default)
+  color: var(--color-fg-default)
+  border: $border-width-default solid var(--color-border-default)
+  border-radius: $border-radius-default
+  overflow: hidden
+
+/* Toolbar */
+.toolbar
+  display: flex
+  align-items: center
+  justify-content: space-between
+  background: var(--color-bg-muted)
+  color: var(--color-fg-muted)
+  padding: $space-sm $space-md
+
+.brand
+  display: flex
+  align-items: center
+  gap: $space-sm
+
+.dot .icon-circle-fill
+  width: 0.9em
+  height: 0.9em
+
+.dot.close .icon-circle-fill
+  fill: var(--color-bg-danger-emphasis)
+.dot.minimize .icon-circle-fill
+  fill: var(--color-bg-attention-emphasis)
+.dot.maximize .icon-circle-fill
+  fill: var(--color-bg-success-emphasis)
+
+.title
+  font-weight: 600
+  letter-spacing: 0.2px
+  color: var(--color-fg-default)
+
+.actions
+  display: flex
+  align-items: center
+  gap: $space-xs
+
+/* Pen wrapper */
+.pen
+  display: grid
+  grid-template-columns: 1fr 1fr
+  background: var(--color-bg-default)
+  overflow: hidden
+
+/* Tabs */
+.tabs
+  display: flex
+  gap: $space-sm
+  align-items: center
+  flex-wrap: wrap
+  background: var(--color-bg-muted)
+  border-top: $border-width-default solid var(--color-border-default)
+  border-bottom: $border-width-default solid var(--color-border-default)
+  padding: $space-sm $space-md
+
+.spacer
+  flex: 1
+
+.inline
+  display: flex
+  align-items: center
+  gap: 8px
+
+.check
+  display: inline-flex
+  align-items: center
+  gap: 6px
+  color: var(--color-fg-muted)
+  font-size: 12px
+
+.check input
+  accent-color: var(--color-bg-accent-emphasis)
+
+/* Editors */
+.editors
+  display: flex
+  flex: 1
+  flex-direction: column
+  overflow: hidden
+
+.editor
+  position: relative
+  display: none
+  flex: 1
+  min-height: 400px
+
+.editor[aria-hidden="false"]
+  display: flex
+  flex-direction: column
+
+.editor textarea
+  flex: 1
+  width: 100%
+  resize: none
+  min-height: 0
+  padding: $space-sm $space-md
+  font: 13px/1.6 $font-stack-monospace
+  background: var(--color-bg-default)
+  border: none
+  color: var(--color-fg-default)
+  outline: none
+
+/* Preview */
+.preview
+  border-top: $border-width-default solid var(--color-border-default)
+  background: var(--color-bg-default)
+  display: flex
+  flex-direction: column
+  flex: 1
+  min-height: 0
+
+.preview-tabs
+  display: flex
+  align-items: center
+  justify-content: space-between
+  background: var(--color-bg-muted)
+  color: var(--color-fg-muted)
+  font-size: 12px
+  border-bottom: $border-width-default solid var(--color-border-default)
+  padding: $space-sm $space-md
+  gap: $space-sm
+
+.preview-panels
+  flex: 1
+  min-height: 0
+
+.preview-panel
+  position: relative
+  display: none
+
+.preview-panel[aria-hidden="false"]
+  display: flex
+  flex-direction: column
+
+.preview-panel .preview-iframe,
+.preview-panel .console
+  flex: 1
+  width: 100%
+  height: 100%
+  min-height: 400px
+  border: none
+  background: var(--color-bg-default)
+
+/* Console */
+.console
+  padding: $space-sm $space-md
+  overflow: auto
+  background: var(--color-bg-default)
+
+.preview-actions,
+.editor-actions
+  position: absolute
+  top: $space-md
+  right: $space-md
+
+.console-line
+  font: 12px / 1.4 $font-stack-monospace
+  white-space: pre-wrap
+
+.console-log
+  color: var(--color-fg-success)
+
+.console-info
+  color: var(--color-fg-accent)
+
+.console-warn
+  color: var(--color-fg-attention)
+
+.console-error
+  color: var(--color-fg-danger)
+
+.tab
+  background-color: var(--color-bg-control)
+  color: var(--color-fg-control)
+
+  &:hover,
+  &:focus
+    background-color: var(--color-bg-control-hover)
+
+  &[aria-selected="true"]
+    background: var(--color-bg-accent-muted)
+    font-weight: $font-weight-medium
+
+  /* Buttons */
+.tab,
+.cp-btn
+  border-radius: $border-radius-sm
+  padding: $space-sm
+  font-size: $font-size-sm
+  font-weight: $font-weight-base
+
+  .icon
+    height: 1rem
+    width: 1rem
+
+.tab
+  color: var(--color-fg-default)
+
+.cp-btn
+  color: var(--color-fg-muted)
+
+  &:hover,
+  &focus
+    background-color: transparent
+
+/* Editors column */
+.editors-col
+  display: flex
+  flex-direction: column
+  border-right: $border-width-default solid var(--color-border-default)
+
+/* Preview column */
+.preview-col
+  display: flex
+  flex-direction: column
+  min-height: 400px
+
+@media (max-width: 720px)
+  .pen
+    grid-template-columns: 1fr
+
+  .editors-col
+    border-right: none
+
+
+
+// [data-editor]
+//   position: relative
+//
+// [data-editor] pre,
+// [data-editor] textarea
+//   position: absolute
+//   top: 0
+//   left: 0
+//   width: 100%
+//   height: 100%
+//   margin: 0
+//   padding: 1rem
+//   font-family: monospace
+//   font-size: 14px
+//   line-height: 1.4
+//   overflow: auto
+//   box-sizing: border-box
+//
+// [data-editor] pre
+//   pointer-events: none
+//
+// [data-editor] textarea
+//   border: 1px solid #ccc
+//   background: transparent
+//   color: transparent
+//   caret-color: black
