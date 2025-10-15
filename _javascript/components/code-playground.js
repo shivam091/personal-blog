@@ -1,3 +1,8 @@
+import Prism from "prismjs";
+import "prismjs/components/prism-markup.js";
+import "prismjs/components/prism-css.js";
+import "prismjs/components/prism-javascript.js";
+
 import Editor from "./code-playground/editor";
 import Tabs from "./code-playground/tabs";
 import Preview from "./code-playground/preview";
@@ -7,10 +12,8 @@ import Share from "./code-playground/share";
 export default class CodePlayground {
   constructor(root) {
     this.root = root;
-    // toolbar lives outside the [data-code-playground] element — use the wrapper container
     this.container = root.closest('.playground') || root;
 
-    // Editors
     this.editors = {
       html: new Editor(root, "html"),
       css: new Editor(root, "css"),
@@ -21,14 +24,10 @@ export default class CodePlayground {
     this.editorTabs = new Tabs(root, "[data-tab]", ".editor", "tab", "editor");
     this.previewTabs = new Tabs(root, "[data-preview]", ".preview-panel", "preview", "panel");
 
-    // Console & preview
     this.consolePanel = new ConsolePanel(root.querySelector("#cp-console"));
     this.preview = new Preview(root, this.consolePanel);
-
-    // Share tools
     this.share = new Share(root, this.editors, this.preview, this.editorTabs);
 
-    // Controls — query from container so toolbar buttons (outside cp-pen) are found
     this.btnRun = this.container.querySelector("[data-cp-run]");
     this.chkAuto = this.container.querySelector("[data-cp-autorun]");
     this.btnReset = this.container.querySelector("[data-cp-reset]");
@@ -36,39 +35,36 @@ export default class CodePlayground {
 
     this._bindControls();
 
-    // autorun: use attribute on the cp-pen element as source of truth
     this._wantAuto = root.getAttribute("data-autorun") !== "false";
     if (this.chkAuto) this.chkAuto.checked = this._wantAuto;
     if (this._wantAuto) this.run();
   }
 
   _bindControls() {
-    if (this.btnRun) {
-      this.btnRun.addEventListener("click", () => this.run());
-    }
+    if (this.btnRun) this.btnRun.addEventListener("click", () => this.run());
+    if (this.btnClearConsole) this.btnClearConsole.addEventListener("click", () => this.consolePanel.clear());
+    if (this.btnReset) this.btnReset.addEventListener("click", () => this.reset());
 
-    if (this.btnClearConsole) {
-      this.btnClearConsole.addEventListener("click", () => this.consolePanel.clear());
-    }
-
-    // autorun (debounced). If checkbox exists use it, otherwise fall back to _wantAuto
     const debounced = this._debounce(() => {
       const doAuto = this.chkAuto ? this.chkAuto.checked : this._wantAuto;
       if (doAuto) this.run();
-    }, 400);
-    Object.values(this.editors).forEach(ed => ed.textarea.addEventListener("input", debounced));
+    }, 300);
 
-    if (this.btnReset) this.btnReset.addEventListener("click", () => this.reset());
+    Object.values(this.editors).forEach(ed => {
+      ed.textarea.addEventListener("input", () => {
+        ed.highlight();
+        debounced();
+      });
+    });
 
     // Beautify
     this.container.querySelectorAll("[data-beautify]").forEach(btn => {
       const type = btn.getAttribute("data-beautify");
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", async () => {
         const editor = this.editors[type];
         if (editor) {
-          editor.format();
-
-          // re-run preview if autorun is enabled
+          await editor.format();
+          editor.highlight();
           const doAuto = this.chkAuto ? this.chkAuto.checked : this._wantAuto;
           if (doAuto) this.run();
         }
@@ -85,8 +81,10 @@ export default class CodePlayground {
   }
 
   reset() {
-    Object.values(this.editors).forEach(ed => ed.reset());
-    // use checkbox if present otherwise fall back to the original autorun flag
+    Object.values(this.editors).forEach(ed => {
+      ed.reset();
+      ed.highlight();
+    });
     const doAuto = this.chkAuto ? this.chkAuto.checked : this._wantAuto;
     if (doAuto) this.run();
   }

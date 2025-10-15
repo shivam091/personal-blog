@@ -229,8 +229,6 @@
   .editors-col
     border-right: none
 
-
-
 // [data-editor]
 //   position: relative
 //
@@ -257,3 +255,35 @@
 //   background: transparent
 //   color: transparent
 //   caret-color: black
+
+  .editors
+    position: relative
+
+textarea
+  position: relative
+  background: transparent
+  color: transparent; /* hide text, highlight will show */
+  caret-color: black
+  width: 100%
+  min-height: 200px
+  font-family: monospace
+  font-size: 14px
+  line-height: 1.5
+  border: 1px solid #ddd
+  padding: 8px
+  resize: vertical
+  overflow: auto
+
+.editor-highlight
+  background: #1e1e1e
+  color: #f8f8f2
+  font-family: monospace
+  font-size: 14px
+  line-height: 1.5
+  border: 1px solid #ddd
+  border-radius: 4px
+  white-space: pre-wrap
+  word-wrap: break-word
+  min-height: 200px
+  box-sizing: border-box
+  pointer-events: none

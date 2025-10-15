@@ -84,3 +84,82 @@
 
   .w
     color: var(--color-code-syntax-subtle) /* Whitespace */
+
+.highlight
+  border-radius: $border-radius-default
+  overflow-x: auto
+  border: $border-muted
+  padding: 1rem
+  background-color: var(--color-code-bg)
+
+  /* Comments */
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata
+    color: var(--color-code-syntax-comment)
+    font-style: italic
+
+  /* Keywords */
+  .token.keyword,
+  .token.operator,
+  .token.boolean,
+  .token.null
+    color: var(--color-code-syntax-keyword)
+    font-weight: $font-weight-bold
+
+  /* Strings */
+  .token.string,
+  .token.char,
+  .token.attr-value
+    color: var(--color-code-syntax-string)
+
+  /* Numbers */
+  .token.number,
+  .token.integer,
+  .token.float,
+  .token.hex
+    color: var(--color-code-syntax-number)
+
+  /* Functions & Names */
+  .token.function,
+  .token.property,
+  .token.class-name,
+  .token.variable
+    color: var(--color-code-syntax-function)
+    font-weight: $font-weight-bold
+
+  /* Types / Namespace */
+  .token.type,
+  .token.namespace
+    color: var(--color-code-syntax-namespace)
+    font-weight: $font-weight-bold
+
+  /* Tags / HTML elements */
+  .token.tag,
+  .token.selector,
+  .token.important
+    color: var(--color-code-syntax-tag)
+
+  /* Errors */
+  .token.error
+    color: var(--color-code-syntax-error-text)
+    background-color: var(--color-code-syntax-error-bg)
+
+  /* Other */
+  .token.inserted
+    color: var(--color-code-syntax-inserted-text)
+    background-color: var(--color-code-syntax-inserted-bg)
+
+  .token.deleted
+    color: var(--color-code-syntax-deleted-text)
+    background-color: var(--color-code-syntax-deleted-bg)
+
+  .token.bold
+    font-weight: $font-weight-bold
+
+  .token.italic
+    font-style: italic
+
+  .token.entity
+    cursor: help

@@ -1,11 +1,25 @@
 import { formatCode } from "./prettier";
+import Prism from "prismjs";
 
 export default class Editor {
   constructor(root, type) {
     this.root = root;
     this.type = type;
     this.textarea = root.querySelector(`[data-editor="${type}"] textarea`);
+    this.highlightDiv = document.createElement("pre");
+    this.highlightDiv.className = `editor-highlight language-${type}`;
+    this.highlightDiv.setAttribute("aria-hidden", "true");
+    this.highlightDiv.style.position = "absolute";
+    this.highlightDiv.style.top = 0;
+    this.highlightDiv.style.left = 0;
+    this.highlightDiv.style.pointerEvents = "none";
+    this.highlightDiv.style.width = "100%";
+    this.highlightDiv.style.padding = "8px";
+    this.highlightDiv.style.overflow = "auto";
+    this.textarea.parentNode.insertBefore(this.highlightDiv, this.textarea);
+
     this.initial = this.textarea.value;
+    this.highlight();
   }
 
   get value() {
@@ -22,6 +36,10 @@ export default class Editor {
 
   async format() {
     this.value = await formatCode(this.value, this.type);
+  }
+
+  highlight() {
+    this.highlightDiv.innerHTML = Prism.highlight(this.value, Prism.languages[this.type], this.type);
   }
 }
 
