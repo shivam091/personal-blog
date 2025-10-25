@@ -1,0 +1,57 @@
+@use "abstracts/tokens" as *
+@use "abstracts/mixins/breakpoints" as breakpoint
+@use "abstracts/mixins/transition-properties" as *
+
+[data-split-pane]
+  --left-pane-size: min(80%, var(--left-pane, 50%))
+  --split-handle-size: var(--split-handle, 4px)
+
+  display: flex
+  flex-direction: row
+  background: var(--color-bg-default)
+  overflow: hidden
+  position: relative
+
+  &.resizing
+    cursor: col-resize
+
+    .split-handle
+      background: var(--color-border-accent-muted)
+
+  [data-pane]
+    min-height: 0
+    min-width: 0
+    overflow: hidden
+
+  [data-pane="left"]
+    flex: 0 0 var(--left-pane-size)
+
+  [data-pane="right"]
+    flex: 1 1 auto
+
+  .split-handle
+    background: var(--color-border-default)
+    width: var(--split-handle-size)
+    height: 100%
+    cursor: col-resize
+    z-index: 5
+
+    @include transition-properties(background, $duration: $motion-duration-default, $easing: $motion-easing-ease)
+
+    &:hover
+      background: var(--color-border-accent-muted)
+
+    &:focus
+      outline: $border-radius-xs solid var(--color-border-accent)
+
+@include breakpoint.container-max(lg)
+  [data-split-pane]
+    flex-direction: column
+
+    .split-handle
+      width: 100%
+      height: var(--split-handle-size)
+      cursor: row-resize
+
+    &.resizing
+      cursor: row-resize
