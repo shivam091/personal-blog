@@ -1,0 +1,36 @@
+@use "abstracts/tokens" as *
+
+.tabs
+  display: flex
+  gap: $space-sm
+  align-items: center
+  flex-wrap: nowrap
+  background: var(--color-bg-muted)
+  border-top: $border-width-default solid var(--color-border-default)
+  border-bottom: $border-width-default solid var(--color-border-default)
+  padding-inline: $space-xs
+  scrollbar-width: thin
+  overflow: auto
+
+.tab
+  color: var(--color-fg-muted)
+  padding-inline: $space-sm
+  padding-block: calc($space-sm + $border-width-medium) $space-sm
+  font-size: $font-size-sm
+  font-weight: $font-weight-base
+  cursor: pointer
+  border-bottom: $border-width-medium solid var(--color-border-transparent)
+
+  &:hover,
+  &:focus
+    color: var(--color-fg-default)
+
+  &.active
+    color: var(--color-fg-default)
+    border-bottom-color: var(--color-border-accent-emphasis)
+
+.panel
+  display: none
+
+  &.active
+    display: block

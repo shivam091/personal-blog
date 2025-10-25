@@ -1,0 +1,65 @@
+[data-split-pane]
+  --left-pane-size: min(80%, var(--left-pane, 50%))
+  --split-handle-size: var(--split-handle, 4px)
+
+  display: flex
+  background: var(--color-bg-default)
+  overflow: hidden
+  position: relative
+
+  &[data-orientation="horizontal"]
+    flex-direction: row
+
+  &[data-orientation="vertical"]
+    flex-direction: column
+
+  &::before
+    content: ""
+    position: absolute
+    inset: 0
+    background: transparent
+    pointer-events: all // blocks iframe during resize
+    display: none
+    z-index: 10
+
+  &.resizing
+    &::before
+      display: block
+
+    &[data-orientation="horizontal"]
+      cursor: col-resize
+
+    &[data-orientation="vertical"]
+      cursor: row-resize
+
+    .split-handle
+      background: var(--color-border-accent-muted)
+
+  [data-pane]
+    min-height: 0
+    min-width: 0
+    overflow: hidden
+
+  [data-pane="left"]
+    flex: 0 0 var(--left-pane-size)
+
+  [data-pane="right"]
+    flex: 1 1 auto
+
+  .split-handle
+    background: var(--color-border-default)
+    width: var(--split-handle-size)
+    cursor: col-resize
+    transition: background 0.2s
+    z-index: 5
+
+    &:hover
+      background: var(--color-border-accent-muted)
+
+    &:focus
+      outline: 2px solid var(--color-border-accent)
+
+  &[data-orientation="vertical"] .split-handle
+    height: var(--split-handle-size)
+    width: 100%
+    cursor: row-resize
