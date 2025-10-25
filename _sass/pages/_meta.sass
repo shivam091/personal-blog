@@ -17,7 +17,7 @@
   grid-auto-columns: max-content
   justify-content: start
   align-items: center
-  gap: $fluid-space-sm $fluid-space-md
+  grid-gap: $fluid-space-sm $fluid-space-md
 
   @include breakpoint.max(lg)
     display: grid
@@ -31,6 +31,9 @@
     grid-template-columns: 1fr
 
     > .page-meta-item
+      justify-self: start
+
+    > .page-meta-item:nth-child(even)
       justify-self: start
 
 .page-meta-secondary

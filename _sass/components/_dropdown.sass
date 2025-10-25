@@ -29,9 +29,7 @@
   @include caret
 
 .dropdown-item
-  display: grid
-  grid-template-columns: auto 1fr
-  grid-template-rows: max-content
+  display: flex
   align-items: center
   gap: $space-sm
   color: var(--color-fg-control)
@@ -56,6 +54,7 @@
 
 .dropdown-item-selected
   position: relative
+  padding-right: calc($space-sm + $size-base + $space-xs) // ensures room for icon
 
   &::after
     content: ""

@@ -3,15 +3,9 @@
 
 .goodies-list
   display: grid
-  grid-auto-flow: row
   grid-gap: $space-base
   margin-block-start: $space-base
-
-  @include breakpoint.min(md)
-    grid-template-columns: repeat(2, 1fr)
-
-  @include breakpoint.min(lg)
-    grid-template-columns: repeat(3, 1fr)
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr))
 
 .goodie
   background: var(--color-bg-muted)

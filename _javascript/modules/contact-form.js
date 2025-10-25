@@ -64,6 +64,7 @@ export default class ContactForm {
 
         if (formResponse.ok) {
           this.form.reset();
+          submitBtn.disabled = false;
           localStorage.removeItem(CONTACT_MESSAGE_KEY);
           alert("Message sent successfully!");
         } else {
@@ -110,7 +111,7 @@ export default class ContactForm {
     }
   }
 
-  static init() {
+  static initialize() {
     new ContactForm("#contact-form");
   }
 }

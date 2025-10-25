@@ -40,8 +40,8 @@ Dropdown.initialize();
 Accordion.initialize();
 Details.initialize();
 Collapse.initializeAll();
-Alert.init();
-LazyLoader.init();
+Alert.initialize();
+LazyLoader.initialize();
 RetroCounter.initializeAll("[data-retro-counter]", {
   version: "v2",
   namespace: "harshal-ladhe-netlify-app",
@@ -55,15 +55,15 @@ Hero.bindHeroTyped();
 
 ThemeSwitcher.initialize();
 AnalyticsTracker.initialize();
-Clipboard.initAll();
-ContactForm.init();
+Clipboard.initializeAll();
+ContactForm.initialize();
 
-CodeBlockUtils.initAll();
+CodeBlockUtils.initializeAll();
 
 TransformBoop.initialize(".alert-dismiss .icon-times", { rotate: 15, scaleX: 1.2 });
 TransformBoop.initialize(".icon-arrow-up", { translateY: -3 });
 TransformBoop.initialize(".icon-search", { rotate: 10, scaleX: 1.1 });
-TransformBoop.initialize(".icon-clipboard-check, .icon-hash", { scaleX: 1.1 });
+TransformBoop.initialize(".icon-clipboard-check", { scaleX: 1.1 });
 TransformBoop.initialize(".icon-adjust", { rotate: -45, scaleX: 1.1 });
 TransformBoop.initialize(".icon-candy", { rotate: -20 }, { tension: 350, friction: 10 });
 

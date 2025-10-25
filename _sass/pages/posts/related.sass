@@ -1,11 +1,12 @@
 @use "abstracts/tokens" as *
+@use "abstracts/mixins/breakpoints" as breakpoint
 
 .related-posts
   display: grid
   grid-template-columns: repeat(3, 1fr)
   gap: $fluid-space-md
 
-  @media (max-width: 768px)
+  @include breakpoint.max(md)
     grid-template-columns: 1fr
 
   .related-post

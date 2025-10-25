@@ -1,7 +1,7 @@
 import LazyLoad from "vanilla-lazyload";
 
 export default class LazyLoader {
-  static init() {
+  static initialize() {
     new LazyLoad({
       elements_selector: "[data-src]",
       class_loading: "lazy-loading",
