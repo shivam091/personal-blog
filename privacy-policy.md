@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Privacy Policy
+description: "Review the privacy policy explaining how user data is handled, stored, and protected with transparency and care."
 permalink: /privacy-policy
 ---
 
@@ -35,6 +36,11 @@ This Privacy Policy describes what information is collected when you use this we
   Data submitted through the form is processed according to [Netlify’s Privacy Policy](https://www.netlify.com/privacy/).
   I do not share, sell, or reuse this data beyond replying to your message.
 
+- **Embedded / Linked Content – CodePen**: Interactive examples on this site can be used in the inbuilt playground.
+  Some examples offer a "View on CodePen" option. Clicking this takes you to CodePen, where their platform may collect usage data
+  (such as IP address, browser information, or interaction with the example) under their [Privacy Policy](https://codepen.io/legal/privacy-policy) and [Terms of Service](https://codepen.io/legal/terms-of-use).
+  No personal information is shared with CodePen unless you choose to interact with their platform.
+
 ## How Information Is Used
 
 - To operate and improve the site.
@@ -52,18 +58,24 @@ Reasonable measures are taken to protect your information, though no method is 1
 ## Third-Party Services
 
 - **Google Analytics**: Used to measure traffic. You can opt out via [this tool](https://tools.google.com/dlpage/gaoptout).
+
 - **Google reCAPTCHA v3**: Used to protect the contact form against spam and abuse.
   reCAPTCHA analyzes interactions with the page (such as mouse movements, clicks, or device information)
   to determine if a visitor is human. Use of reCAPTCHA is governed by
   [Google’s Privacy Policy](https://policies.google.com/privacy) and
   [Terms of Service](https://policies.google.com/terms).
+
 - **CounterAPI v2**: Used to display post view counts. Collects minimal, anonymous request data to provide statistics.
-- **Embedded content**: Some posts may include third-party embeds (e.g., GitHub, YouTube) which collect their own data under their privacy policies.
+
+- **Embedded content**: Some posts may include third-party embeds (e.g., GitHub, YouTube) which collect their own data under their privacy  policies.
+
 - **Netlify Forms**: Used to handle form submissions securely.
   Netlify temporarily processes and stores submitted data (including metadata such as IP address and submission time) to deliver it to me.
   Data handling is governed by [Netlify’s Privacy Policy](https://www.netlify.com/privacy/).
 
-I do not sell or trade personal information, but third-party platforms may collect usage data when their content is embedded.
+- **CodePen**: Clicking "View on CodePen" links takes you to their site, where CodePen may collect usage data as described in their [Privacy Policy](https://codepen.io/legal/privacy-policy).
+
+I do not sell or trade personal information, but third-party platforms may collect usage data when their content is embedded or linked.
 
 ## Your Choices
 

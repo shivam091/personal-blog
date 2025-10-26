@@ -44,7 +44,7 @@ Alert.init();
 LazyLoader.init();
 RetroCounter.initializeAll("[data-retro-counter]", {
   version: "v2",
-  namespace: "shivam091-github-io",
+  namespace: "harshal-ladhe-netlify-app",
   debug: false,
 });
 Scrollspy.initialize(".toc-wrapper", {

@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Code of Conduct
+description: "This community upholds respect, inclusion, and professionalism. Read the code of conduct to understand participation guidelines."
 permalink: /code-of-conduct
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Terms of Use
+description: "Read the terms of use outlining how this website and its content can be accessed, shared, and referenced responsibly."
 permalink: /terms-of-use
 ---
 
@@ -51,6 +52,11 @@ By using this site, you acknowledge and agree that these third-party services ma
   Netlify may collect technical details (e.g., IP address, browser, timestamp) as part of normal processing.
   Its use is subject to [Netlify’s Privacy Policy](https://www.netlify.com/privacy/).
   I do not guarantee message delivery or response times.
+
+- **CodePen Interactive Examples**: Some examples on this site can be viewed directly in my inbuilt playground or via a "View on CodePen" button.
+  The examples are created and maintained by me, but if you navigate to CodePen, your interaction is subject to
+  [CodePen’s Terms of Service](https://codepen.io/legal/terms-of-use) and [Privacy Policy](https://codepen.io/legal/privacy-policy).
+  I am not responsible for CodePen’s content, services, or data practices.
 
 ## Changes
 

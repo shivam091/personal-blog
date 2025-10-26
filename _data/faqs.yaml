@@ -1,7 +1,8 @@
 - question: "What tools or stack do you use for this site?"
   answer: |
     This site is built with **Jekyll** for static site generation, styled with **Sass (SCSS)**, and uses **vanilla JavaScript** for interactivity.
-    I use **esbuild** to bundle and optimize the JS and CSS, and the site is hosted on **GitHub Pages**.
+    I use **esbuild** to bundle and optimize the JS and CSS, and the site is hosted on **Netlify**, which handles deployment, HTTPS, and
+    continuous integration directly from the **GitHub** repository.
 
 - question: "What topics do you usually write about?"
   answer: "I mainly cover web development, coding best practices, and personal technical projects. Occasionally, I also share tutorials and experiments."

@@ -7,6 +7,11 @@ layout: "snippet"
 tags: [javascript, Object.freeze, deep-freeze, immutability, secure-coding, strict-mode]
 category: [JavaScript]
 date: 2025-09-29
+image:
+  path: /assets/img/goodies/snippets/deep-freeze-objects/cover.png
+  width: 1536
+  height: 1024
+  alt: "Promotional digital graphic showing the phrase ‘JavaScript deepFreeze()’ with code-themed visuals and design elements aligned to the left."
 changelog:
   - date: 2025-09-29
     change: "Initial publication"

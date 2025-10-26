@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About
-description: Learn more about Harshal Ladhe — Software Engineer, Open Source Contributor, and Minimalist Coder.
+description: "Learn more about Harshal LADHE — a passionate Software Engineer, Open Source Contributor, and Minimalist Coder sharing insights, code experiments, and lessons in modern web development and design."
 permalink: /about
 ---
 
