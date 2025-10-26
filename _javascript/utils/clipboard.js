@@ -4,8 +4,8 @@ import Tooltip from "../components/tooltip";
 export default class Clipboard {
   constructor(root) {
     this.root = root;
-    this.button = this.findButton();
-    this.textSource = this.findTextSource();
+    this.button = this.getButton();
+    this.textSource = this.getTextSource();
     this.checkSvg = this.button?.querySelector(".icon-clipboard-check");
     this.checkAnimator = this.checkSvg ? new ClipboardCheck(this.checkSvg) : null;
 
@@ -28,13 +28,13 @@ export default class Clipboard {
     return this.root.hasAttribute("data-copy-html");
   }
 
-  findButton() {
+  getButton() {
     if (this.isCode) return this.root.querySelector(".btn-copy");
     if (this.isLink || this.targetSelector) return this.root;
     return null;
   }
 
-  findTextSource() {
+  getTextSource() {
     if (this.targetSelector)
       return document.querySelector(this.targetSelector) || null;
     if (this.isCode)
@@ -60,12 +60,15 @@ export default class Clipboard {
   async copyText() {
     let text = "";
 
-    if (typeof this.textSource === "string")
+    if (typeof this.textSource === "string") {
       text = this.textSource.trim();
-    else if (this.textSource instanceof HTMLInputElement || this.textSource instanceof HTMLTextAreaElement)
+    } else if (this.textSource instanceof HTMLInputElement || this.textSource instanceof HTMLTextAreaElement) {
       text = this.textSource.value.trim();
-    else
+    } else {
       text = this.isHTML ? this.textSource.innerHTML.trim() : this.textSource.innerText.trim();
+    }
+
+    text = text?.trim() || "";
 
     try {
       await navigator.clipboard.writeText(text);
@@ -94,7 +97,7 @@ export default class Clipboard {
     }, duration);
   }
 
-  static initAll() {
+  static initializeAll() {
     const selectors = "[data-copy-code], [data-copy-link], [data-copy-target]";
     document.querySelectorAll(selectors).forEach(el => new Clipboard(el));
   }

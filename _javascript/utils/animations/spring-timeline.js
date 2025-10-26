@@ -1,5 +1,6 @@
 import GlobalTicker from "./../global-ticker";
 import EventManager from "./../event-manager";
+import { clamp } from "../interpolators";
 
 // Timeline scheduler for sequencing spring-based animations
 export default class SpringTimeline {
@@ -53,7 +54,7 @@ export default class SpringTimeline {
   // Setter for progress
   set progress(p) {
     const lastStart = this.getTotalDuration();
-    this.time = lastStart * Math.min(1, Math.max(0, p));
+    this.time = lastStart * clamp(p, 0, 1);
     for (const item of this.queue) {
       item.done = this.time >= item.start;
       item.elapsed = Math.max(0, this.time - item.start);
@@ -200,7 +201,7 @@ export default class SpringTimeline {
     this.time += this._forward ? dt : -dt;
 
     // Clamp time between 0 and totalDuration
-    this.time = Math.min(Math.max(this.time, 0), totalDuration);
+    this.time = clamp(this.time, 0, totalDuration);
 
     // Compute normalized progress
     const progress = totalDuration > 0 ? this.time / totalDuration : 1;

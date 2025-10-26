@@ -19,7 +19,7 @@ export default class CodeBlockUtils {
   }
 
   // Initialize all code blocks on the page
-  static initAll() {
+  static initializeAll() {
     document.querySelectorAll(".code-block").forEach(wrapper => {
       this.toggleLines(wrapper);
     });

@@ -2,6 +2,7 @@ import GlobalTicker from "./../global-ticker";
 import EventManager from "./../event-manager";
 import { resolveDelays } from "./helpers/resolve-delay";
 import { applySpringConfigs } from "./helpers/config";
+import { clamp } from "../interpolators";
 
 // Spring-based Boop Controller
 export default class SpringBoop {
@@ -176,12 +177,12 @@ export default class SpringBoop {
       groups.forEach((_, i) => {
         const start = this.startTime + (delays[i] || 0);
         const elapsed = now - start;
-        const localProgress = Math.min(1, Math.max(0, elapsed / this.boopDuration));
+        const localProgress = clamp(elapsed / this.boopDuration, 0, 1);
         maxProgress = Math.max(maxProgress, localProgress);
       });
     } else {
       const elapsed = now - this.startTime;
-      maxProgress = Math.min(1, elapsed / this.boopDuration);
+      maxProgress = clamp(elapsed / this.boopDuration, 0, 1);
     }
 
     this.eventManager.emit("progress", maxProgress);

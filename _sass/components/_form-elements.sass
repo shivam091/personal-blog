@@ -1,14 +1,5 @@
 @use "abstracts/tokens" as *
-@use "abstracts/mixins/breakpoints" as breakpoint
 @use "abstracts/mixins/transition-properties" as *
-
-.form-row
-  display: grid
-  grid-template-columns: 1fr 1fr
-  gap: $space-base
-
-  @include breakpoint.max(md)
-    grid-template-columns: 1fr
 
 .form-group
   display: flex
@@ -38,5 +29,45 @@ textarea
   resize: vertical
   min-height: 150px
 
-.full-width
-  grid-column: 1 / -1
+.form-check
+  display: inline-flex
+  align-items: center
+  gap: $space-sm
+  font-size: $font-size-sm
+  color: var(--color-fg-muted)
+  cursor: pointer
+  user-select: none
+
+  &-input
+    appearance: none
+    width: $size-base
+    height: $size-base
+    border: $border-width-default solid var(--color-border-default)
+    border-radius: $border-radius-sm
+    background-color: var(--color-bg-default)
+    position: relative
+    cursor: pointer
+
+    &:checked
+      background-color: var(--color-bg-accent-emphasis)
+      border-color: var(--color-bg-accent-emphasis)
+
+    &:checked::after
+      content: ""
+      position: absolute
+      top: 50%
+      left: 50%
+      width: 0.35rem
+      height: 0.7rem
+      border: solid var(--color-fg-white)
+      border-width: 0 2px 2px 0
+      transform: translate(-50%, -60%) rotate(45deg)
+
+    &:disabled
+      opacity: 0.6
+      cursor: not-allowed
+
+  &-label
+    font-weight: $font-weight-semi-bold
+    vertical-align: middle
+    color: var(--color-fg-default)

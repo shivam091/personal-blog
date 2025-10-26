@@ -7,13 +7,13 @@
 
 .post-layout
   display: grid
-  grid-template-columns: 80ch 1fr
+  grid-template-columns: minmax(0, 80ch) 1fr
   grid-template-areas: "post-content toc"
   column-gap: $space-xl
   margin-top: $space-base
 
   @include breakpoint.max(xl)
-    grid-template-columns: 70ch 1fr
+    grid-template-columns: minmax(0, 70ch) 1fr
     column-gap: $space-md
 
   @include breakpoint.max(lg)

@@ -10,7 +10,7 @@ export default class RetroCounter {
       debug: options.debug || false,
       timeout: options.timeout || 10000,
     });
-    this.#init();
+    this.#initialize();
   }
 
   #slugifyPath(path) {
@@ -40,7 +40,7 @@ export default class RetroCounter {
     this.container.setAttribute("aria-label", newLabel);
   }
 
-  async #init() {
+  async #initialize() {
     try {
       const result = await this.client.up(this.key);
       const hitCount = result.data.up_count ?? 0

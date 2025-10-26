@@ -5,7 +5,7 @@
   {%- if page.layout == "home" -%}
     {{ site.title }}
   {%- else -%}
-    {{ page.title | markdownify | strip_html }} | {{ site.title }}
+    {{ page.title | markdownify | strip_html }} • {{ site.title }}
   {%- endif -%}
 </title>
 

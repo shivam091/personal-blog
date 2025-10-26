@@ -106,7 +106,7 @@ export default class Spring {
     const acceleration = force / mass;
 
     // Convert friction to per-frame damping factor
-    const damping = 1 - Math.min(Math.max(friction * dt, 0), 1);
+    const damping = 1 - clamp(friction * dt, 0, 1);;
 
     let nextValue;
 

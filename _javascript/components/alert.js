@@ -13,7 +13,7 @@ export default class Alert {
     });
   }
 
-  static init() {
+  static initialize() {
     this.#bindEvents();
   }
 }
