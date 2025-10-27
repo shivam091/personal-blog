@@ -5,10 +5,10 @@ import deepFreeze from "../../utils/deep-freeze";
 import { SPRINGS } from "./../../constants/springs";
 
 const ARROW_RIGHT_LINE_POINTS = deepFreeze([
-  { x1: 5, y1: 12, x2: 23, y2: 12 },
+  { x1: 5, y1: 12, x2: 23, y2: 12 }
 ]);
 const ARROW_RIGHT_POLYLINE_POINTS = deepFreeze([
-  { points: [17, 6, 24, 12, 17, 18] },
+  { points: [17, 5, 24, 12, 17, 19] }
 ]);
 
 export default class IconArrowRight {

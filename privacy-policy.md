@@ -38,7 +38,7 @@ This Privacy Policy describes what information is collected when you use this we
 
 - **Embedded / Linked Content – CodePen**: Interactive examples on this site can be used in the inbuilt playground.
   Some examples offer a "View on CodePen" option. Clicking this takes you to CodePen, where their platform may collect usage data
-  (such as IP address, browser information, or interaction with the example) under their [Privacy Policy](https://codepen.io/legal/privacy-policy) and [Terms of Service](https://codepen.io/legal/terms-of-use).
+  (such as IP address, browser information, or interaction with the example) under their [Privacy Policy](https://blog.codepen.io/legal/privacy-policy) and [Terms of Service](https://blog.codepen.io/legal/terms-of-service).
   No personal information is shared with CodePen unless you choose to interact with their platform.
 
 ## How Information Is Used
@@ -73,7 +73,7 @@ Reasonable measures are taken to protect your information, though no method is 1
   Netlify temporarily processes and stores submitted data (including metadata such as IP address and submission time) to deliver it to me.
   Data handling is governed by [Netlify’s Privacy Policy](https://www.netlify.com/privacy/).
 
-- **CodePen**: Clicking "View on CodePen" links takes you to their site, where CodePen may collect usage data as described in their [Privacy Policy](https://codepen.io/legal/privacy-policy).
+- **CodePen**: Clicking "View on CodePen" links takes you to their site, where CodePen may collect usage data as described in their [Privacy Policy](https://blog.codepen.io/legal/privacy-policy).
 
 I do not sell or trade personal information, but third-party platforms may collect usage data when their content is embedded or linked.
 

@@ -32,7 +32,6 @@ export default class ThemeSwitcher {
   static #apply(theme) {
     const actualTheme = this.#getEffectiveTheme(theme);
     document.documentElement.setAttribute("data-theme", actualTheme);
-    window.dispatchEvent(new Event("themechange"));
     localStorage.setItem(THEME_KEY, theme);
     this.#updateDropdown(theme);
   }
