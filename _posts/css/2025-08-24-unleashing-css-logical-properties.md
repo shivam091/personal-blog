@@ -410,6 +410,8 @@ Now that we’ve seen the different categories of logical properties, let’s tr
 
 👉 [View Full Interactive Demo on CodePen](https://codepen.io/shivam091/pen/NPGavRO)
 
+{% playground id:"unleashing-css-logical-properties" %}
+
 ## Best Practices
 
 - **Start with fallbacks** — Use physical as fallbacks, then layer logical — don’t mix both unintentionally
