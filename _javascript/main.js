@@ -30,6 +30,11 @@ import IconStretchyGuy from "./animations/icons/stretchy-guy";
 import IconRSS from "./animations/icons/rss";
 import IconSpeaker from "./animations/icons/speaker";
 import IconBook from "./animations/icons/book";
+import IconExternalLink from "./animations/icons/external-link";
+import IconSkipBack from "./animations/icons/skip-back";
+import IconRefresh from "./animations/icons/refresh";
+import IconCircleSlash from "./animations/icons/circle-slash";
+import IconDownload from "./animations/icons/download";
 
 HeaderGlassEffect.initialize();
 HeaderDrawer.initialize();
@@ -75,5 +80,10 @@ IconStretchyGuy.initialize();
 IconRSS.initialize();
 IconSpeaker.initialize();
 IconBook.initialize();
+IconExternalLink.initialize();
+IconSkipBack.initialize();
+IconRefresh.initialize();
+IconCircleSlash.initialize();
+IconDownload.initialize();
 
 Playground.initializeAll();
