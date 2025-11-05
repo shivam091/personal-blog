@@ -1,3 +1,4 @@
+import { LanguageEngine } from "../parser/engine";
 import Highlighter from "./highlighter";
 import { prettifyCode } from "./prettier";
 import { findNodeOffset, getCursorMetadata } from "./utils/cursor-metadata";
@@ -322,7 +323,13 @@ export class Editor {
 
     // return safe;
 
-    return this.#highlighter.highlightLine(line);
+    const engine = new LanguageEngine(this.fileType, line);
+
+    const {ast, tokens, highlighted, errors } = engine.run(line)
+    console.log("AST:", ast);
+    console.log("Tokens", tokens);
+    console.log("Errors", errors);
+    return highlighted;
   }
 
   #toHTML(str) {

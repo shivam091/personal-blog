@@ -5,7 +5,7 @@
   overflow-x: auto
   border: $border-muted
 
-.c, .cm, .c1, .cp-comment
+.c, .cm, .c1, .cp-token-comment
   color: var(--color-code-syntax-comment) /* Comment */
   font-style: italic
 
@@ -18,30 +18,30 @@
   color: var(--color-code-syntax-error-text) /* Error */
   background-color: var(--color-code-syntax-error-bg)
 
-.k, .kc, .kd, .kn, .kp, .kr, .ow, .cp-keyword
+.k, .kc, .kd, .kn, .kp, .kr, .ow, .cp-token-keyword
   color: var(--color-code-syntax-keyword) /* Keyword */
   font-weight: $font-weight-bold
 
-.kt, .cp-type
+.kt, .cp-token-type
   color: var(--color-code-syntax-namespace) /* Type / Namespace */
   font-weight: $font-weight-bold
 
-.m, .mf, .mh, .mi, .mo, .il, .cp-number
+.m, .mf, .mh, .mi, .mo, .il, .cp-token-number
   color: var(--color-code-syntax-number) /* Number */
 
-.s, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .cp-string
+.s, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .cp-token-string
   color: var(--color-code-syntax-string) /* String */
 
 .ss
   color: var(--color-code-syntax-symbol) /* Symbol */
 
-.na, .no, .nv, .vc, .vg, .vi, .cp-variable
+.na, .no, .nv, .vc, .vg, .vi, .cp-token-variable
   color: var(--color-code-syntax-name) /* Name/Variable */
 
-.nb, .bp, .cp-builtin
+.nb, .bp, .cp-token-value
   color: var(--color-code-syntax-builtin) /* Builtin */
 
-.nc, .cp-selector
+.nc, .cp-token-selector
   color: var(--color-code-syntax-namespace) /* Class */
   font-weight: $font-weight-bold
 
@@ -49,14 +49,14 @@
   color: var(--color-code-syntax-decorator) /* Decorator */
   font-weight: $font-weight-bold
 
-.ni, .nn, .cp-entity
+.ni, .nn, .cp-token-entity
   color: var(--color-code-syntax-entity) /* Entity */
 
-.ne, .nf, .nl, .cp-function, .cp-attribute
+.ne, .nf, .nl, .cp-token-function, .cp-token-attribute, .cp-token-property
   color: var(--color-code-syntax-function) /* Function */
   font-weight: $font-weight-bold
 
-.nt, .cp-tag
+.nt, .cp-token-tag
   color: var(--color-code-syntax-tag) /* Tag */
 
 .gu

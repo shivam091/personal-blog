@@ -16,7 +16,7 @@
     "build": "node esbuild.config.js",
     "watch": "node esbuild.config.js --watch",
     "clean": "bundle exec jekyll clean && rm -rf dist",
-    "jekyll": "bundle exec jekyll serve --livereload",
+    "jekyll": "bundle exec jekyll serve",
     "start": "npm run build && concurrently \"npm run watch\" \"npm run jekyll\""
   },
   "devDependencies": {
