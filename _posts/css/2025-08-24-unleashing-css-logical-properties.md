@@ -380,35 +380,7 @@ Here’s a categorized list of logical properties with their physical equivalent
 
 Now that we’ve seen the different categories of logical properties, let’s try a small live example to see them in action.
 
-{% codeblock %}
-{% highlight html linenos %}
-<!-- Logical padding & margin example -->
-<article class="card">
-  <header class="card-header">
-    <div class="avatar"></div>
-    <div>
-      <div class="title">Logical padding &amp; margin</div>
-      <div class="meta">Uses <code>padding-inline</code> &amp; <code>margin-block</code></div>
-    </div>
-  </header>
-
-  <div class="card-body">
-    Logical properties adapt based on writing mode & direction.
-  </div>
-</article>
-{% endhighlight %}
-{% endcodeblock %}
-
-{% codeblock %}
-{% highlight css linenos %}
-.card {
-  padding-block: 1rem;
-  padding-inline: 1rem;
-}
-{% endhighlight %}
-{% endcodeblock %}
-
-👉 [View Full Interactive Demo on CodePen](https://codepen.io/shivam091/pen/NPGavRO)
+{% playground id:"unleashing-css-logical-properties" %}
 
 ## Best Practices
 

@@ -1,0 +1,326 @@
+id: css-transitions-guide
+name: Demostrating CSS Transitions
+url: "https://codepen.io/shivam091/pen/qEbeyXP"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <div class="playground-container">
+        <h3>Transition Controls</h3>
+
+        <div class="demo-area">
+          <div id="animated-box" class="box-state-one"></div>
+        </div>
+
+        <div class="controls-grid">
+
+          <label for="duration-input">Duration (s):</label>
+          <input type="number" id="duration-input" min="0.1" max="5" step="0.1" value="0.7">
+
+          <label for="delay-input">Delay (s):</label>
+          <input type="number" id="delay-input" min="0" max="3" step="0.1" value="0">
+
+          <label>Timing Function:</label>
+          <div class="radio-group">
+            <input type="radio" id="timing-preset" name="timing-type" value="preset" checked>
+            <label for="timing-preset">Preset</label>
+            <input type="radio" id="timing-bezier" name="timing-type" value="bezier">
+            <label for="timing-bezier">Cubic-Bezier</label>
+            <input type="radio" id="timing-steps" name="timing-type" value="steps">
+            <label for="timing-steps">Steps</label>
+          </div>
+        </div>
+
+        <div id="timing-options-container">
+
+          <div id="preset-options" class="timing-group active-group">
+            <label for="timing-select-preset">Select:</label>
+            <select id="timing-select-preset">
+              <option value="ease">ease</option>
+              <option value="linear">linear</option>
+              <option value="ease-in">ease-in</option>
+              <option value="ease-out">ease-out</option>
+              <option value="ease-in-out">ease-in-out</option>
+            </select>
+          </div>
+
+          <div id="bezier-options" class="timing-group">
+            <label for="bezier-x1">P1 (x1):</label><input type="number" id="bezier-x1" min="-2" max="2" step="0.1" value="0.68">
+            <label for="bezier-y1">P1 (y1):</label><input type="number" id="bezier-y1" min="-2" max="2" step="0.1" value="-0.55">
+            <label for="bezier-x2">P2 (x2):</label><input type="number" id="bezier-x2" min="-2" max="2" step="0.1" value="0.27">
+            <label for="bezier-y2">P2 (y2):</label><input type="number" id="bezier-y2" min="-2" max="2" step="0.1" value="1.55">
+            <span class="tip">Try (0.1, 0.7, 1, 0.1) for a fast start.</span>
+          </div>
+
+          <div id="steps-options" class="timing-group">
+            <label for="steps-count">Steps Count (n):</label>
+            <input type="number" id="steps-count" min="1" max="10" step="1" value="5">
+            <label for="steps-direction">Direction:</label>
+            <select id="steps-direction">
+              <option value="end">end (default)</option>
+              <option value="start">start</option>
+            </select>
+            <span class="tip">Use 'start' to show the first step immediately.</span>
+          </div>
+
+        </div>
+
+        <button id="toggle-state-btn">Toggle Transition State</button>
+      </div>
+  - name: style.css
+    type: css
+    code: |
+      /* Container and Layout */
+      .playground-container {
+        max-width: 650px; /* Slightly wider for more controls */
+        margin: 30px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+      }
+
+      /* Base Controls Grid */
+      .controls-grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px 20px;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
+
+      /* Radio Button Group Styling */
+      .radio-group {
+        display: flex;
+        gap: 15px;
+      }
+      .radio-group label {
+        font-weight: normal;
+      }
+
+      /* Timing Options Container */
+      #timing-options-container {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px dashed #eee;
+        border-radius: 4px;
+      }
+
+      /* Individual Timing Groups (for Cubic-Bezier and Steps) */
+      .timing-group {
+        display: none; /* Hide all groups by default */
+        grid-template-columns: repeat(4, auto 1fr);
+        gap: 10px;
+        padding: 10px 0;
+        align-items: center;
+      }
+      .timing-group.active-group {
+        display: grid; /* Show the active group */
+      }
+      #steps-options {
+        grid-template-columns: auto 1fr auto 1fr; /* Custom grid for steps */
+      }
+      #preset-options {
+        grid-template-columns: auto 1fr;
+      }
+      .timing-group .tip {
+        grid-column: 1 / -1;
+        font-size: 0.85em;
+        color: #666;
+      }
+
+      /* Inputs and Selects */
+      input[type="number"],
+      select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* The Animated Box */
+      .demo-area {
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border: 1px dashed #ccc;
+        margin: 10px 0;
+        padding: 0 10px;
+      }
+
+      #animated-box {
+        width: 50px;
+        height: 50px;
+        border-radius: 6px;
+        will-change: transform;
+      }
+
+      /* State Definitions */
+      .box-state-one {
+        transform: translateX(0) scale(1);
+        background-color: #007bff;
+      }
+
+      .box-state-two {
+        transform: translateX(530px) scale(1.2); /* Increased complexity for visual effect */
+        background-color: #ff5722;
+      }
+
+      /* Button (as previously defined) */
+      #toggle-state-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #6200ea;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.2s;
+      }
+
+      #toggle-state-btn:hover {
+        background-color: #3700b3;
+      }
+
+      /* Media Query for Responsiveness */
+      @media (max-width: 650px) {
+        .box-state-two {
+          transform: translateX(80vw) scale(1.2);
+        }
+        .timing-group {
+          grid-template-columns: auto 1fr; /* Stack controls vertically on small screens */
+        }
+      }
+  - name: script.js
+    type: js
+    code: |
+      document.addEventListener("DOMContentLoaded", () => {
+        const box = document.getElementById("animated-box");
+        const toggleButton = document.getElementById("toggle-state-btn");
+
+        // Core property controls
+        const durationInput = document.getElementById("duration-input");
+        const delayInput = document.getElementById("delay-input");
+
+        // Timing Type Radio Buttons
+        const timingTypeRadios = document.querySelectorAll(
+          'input[name="timing-type"]'
+        );
+        const timingOptionGroups = document.querySelectorAll(".timing-group");
+
+        // Preset Controls
+        const presetSelect = document.getElementById("timing-select-preset");
+
+        // Cubic-Bezier Controls
+        const bezierX1 = document.getElementById("bezier-x1");
+        const bezierY1 = document.getElementById("bezier-y1");
+        const bezierX2 = document.getElementById("bezier-x2");
+        const bezierY2 = document.getElementById("bezier-y2");
+
+        // Steps Controls
+        const stepsCount = document.getElementById("steps-count");
+        const stepsDirection = document.getElementById("steps-direction");
+
+        // --- Core Logic ---
+
+        // 1. Function to get the currently selected timing function string
+        function getTimingFunction() {
+          const activeType = document.querySelector(
+            'input[name="timing-type"]:checked'
+          ).value;
+
+          if (activeType === "preset") {
+            return presetSelect.value;
+          } else if (activeType === "bezier") {
+            const x1 = bezierX1.value || 0;
+            const y1 = bezierY1.value || 0;
+            const x2 = bezierX2.value || 0;
+            const y2 = bezierY2.value || 0;
+            // cubic-bezier(x1, y1, x2, y2)
+            return `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
+          } else if (activeType === "steps") {
+            const count = stepsCount.value || 1;
+            const direction = stepsDirection.value || "end";
+            // steps(n, start/end)
+            return `steps(${count}, ${direction})`;
+          }
+        }
+
+        // 2. Function to update the box's CSS transition property
+        function updateTransition() {
+          const duration = durationInput.value + "s";
+          const delay = delayInput.value + "s";
+          const timing = getTimingFunction(); // Use the new function
+
+          // Apply transition to 'transform' and 'background-color'
+          box.style.transition = `transform ${duration} ${timing} ${delay}, background-color ${duration} ${timing} ${delay}`;
+
+          // REMOVED: Redundant and potentially confusing state reset logic.
+          // The state should only be toggled by the button.
+        }
+
+        // 3. Function to toggle the state (trigger the animation)
+        function toggleState() {
+          // This correctly toggles between the two states, applying the new styles.
+          // Because the state classes contain all the relevant styles (including background-color),
+          // the transition now properly reverses to the original (box-state-one) when toggled back.
+          box.classList.toggle("box-state-one");
+          box.classList.toggle("box-state-two");
+        }
+
+        // 4. Function to switch the visible options group
+        function switchTimingOptions() {
+          const activeType = document.querySelector(
+            'input[name="timing-type"]:checked'
+          ).value;
+
+          timingOptionGroups.forEach((group) => {
+            group.classList.remove("active-group");
+          });
+
+          const activeGroup = document.getElementById(activeType + "-options");
+          if (activeGroup) {
+            activeGroup.classList.add("active-group");
+          }
+
+          // Always call updateTransition when switching to apply the new default timing function
+          updateTransition();
+        }
+
+        // --- Event Listeners ---
+
+        // Initial setup
+        updateTransition();
+        switchTimingOptions(); // Set initial view
+
+        // Listeners for core properties (duration, delay)
+        durationInput.addEventListener("input", updateTransition);
+        delayInput.addEventListener("input", updateTransition);
+
+        // Listeners for timing function radio buttons
+        timingTypeRadios.forEach((radio) => {
+          radio.addEventListener("change", switchTimingOptions);
+        });
+
+        // Listeners for individual timing option changes
+        presetSelect.addEventListener("change", updateTransition);
+
+        // Cubic-Bezier inputs
+        bezierX1.addEventListener("input", updateTransition);
+        bezierY1.addEventListener("input", updateTransition);
+        bezierX2.addEventListener("input", updateTransition);
+        bezierY2.addEventListener("input", updateTransition);
+
+        // Steps inputs
+        stepsCount.addEventListener("input", updateTransition);
+        stepsDirection.addEventListener("change", updateTransition);
+
+        // Button click to trigger animation
+        toggleButton.addEventListener("click", toggleState);
+      });
