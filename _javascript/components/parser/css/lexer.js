@@ -53,7 +53,7 @@ export class CssLexer extends BaseLexer {
       }
 
       // --- 4. Single-character Symbols ({, }, :, ;, ,) ---
-      if (ch === '{' || ch === '}' || ch === ':' || ch === ';' || ch === ',') {
+      if (ch === '{' || ch === '}' || ch === ';' || ch === ',') {
         this.add('SYMBOL', ch, i, i + 1, 'tok-symbol');
         i++;
         continue;
@@ -112,7 +112,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // --- 7. CSS Variable (--variable-name) ---
+      // --- 7.5. CSS Variable (--variable-name) ---
       if (s.startsWith('--', i)) {
         let j = i + 2; // Start after the '--'
         // Variables can contain any ident characters
@@ -128,18 +128,67 @@ export class CssLexer extends BaseLexer {
         // If it was just '--', fall through to be handled as symbols/unknown
       }
 
-      // --- 8. Identifier (Color Keyword, Property, Value, Selector Part) ---
+      // --- 8. Pseudo-Selector (:pseudo or ::pseudo) ---
+      if (ch === ':') {
+        const isElement = s[i+1] === ':';
+        let j = isElement ? i + 2 : i + 1; // Start scanning identifier after : or ::
+        let k = j;
+
+        // Scan the identifier part (e.g., 'hover', 'first-child')
+        while (k < L && isIdentChar(s[k])) k++;
+        const identValue = s.slice(j, k);
+
+        // Check if a valid identifier was found after the colon(s)
+        if (k > j) {
+            let type = 'PSEUDO_CLASS';
+            let className = 'cp-token-pseudo-class';
+
+            if (isElement) {
+                // Check against known pseudo-elements
+                if (cssTokens.pseudoElements.has(identValue)) {
+                    type = 'PSEUDO_ELEMENT';
+                    className = 'cp-token-pseudo-element';
+                } else {
+                    type = 'PSEUDO_ELEMENT'; // Use element type even if unknown
+                }
+            } else {
+                 // Check against known pseudo-classes
+                if (cssTokens.pseudoClasses.has(identValue)) {
+                    type = 'PSEUDO_CLASS';
+                } else {
+                    type = 'PSEUDO_CLASS'; // Use class type even if unknown
+                }
+            }
+
+            // Consume the rest of the selector block for potential () argument
+            // Includes: (, ), [, ], -, +, numbers, and ident chars.
+            let end = k;
+            while (end < L && (isIdentChar(s[end]) || s[end] === '(' || s[end] === ')' || s[end] === '+' || s[end] === '-')) {
+                end++;
+            }
+
+            const value = s.slice(i, end);
+
+            this.add(type, value, i, end, className);
+            i = end;
+            continue;
+        }
+        // If only ':' or '::' was found, it falls through to be treated as an UNKNOWN symbol
+      }
+
+
+      // --- 9. Identifier (Color Keyword, Property, Value, Selector Part) ---
       if (isIdentChar(ch) || ch === '.' || ch === '*' || ch === '[') {
         let j = i;
         let className = 'tok-ident';
         let type = 'IDENT';
 
-        // 8a. Scan ONLY the identifier part (e.g., 'rgba', 'border-color')
+        // 9a. Scan ONLY the identifier part (e.g., 'rgba', 'border-color')
         while (j < L && isIdentChar(s[j])) j++;
         const identEnd = j;
         const identValue = s.slice(i, identEnd); // e.g., "rgba"
 
-        // 8b. Check for Function Name (rgba( -> tokenize 'rgba' and continue)
+        // 9b. Check for Function Name (rgba( -> tokenize 'rgba' and continue)
         if (cssTokens.cssFunctions.has(identValue) && s[identEnd] === '(') {
             // Tokenize 'rgba' and stop. The parser handles the '(' next.
              this.add('FUNCTION_NAME', identValue, i, identEnd, 'cp-token-function');
@@ -156,7 +205,7 @@ export class CssLexer extends BaseLexer {
         const value = s.slice(i, k); // Full selector/identifier block
         j = k;
 
-        // 8c. Check for known keywords against the primary identifier part (identValue)
+        // 9c. Check for known keywords against the primary identifier part (identValue)
         if (cssTokens.mediaFeatures.has(identValue)) {
           type = "MEDIA_FEATURE";
           className = "cp-token-media-feature";
@@ -180,7 +229,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // --- 9. Fallback (Unknown Character) ---
+      // --- 10. Fallback (Unknown Character) ---
       this.add('UNKNOWN', ch, i, i + 1, 'tok-unknown');
       i++;
     }

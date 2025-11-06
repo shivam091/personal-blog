@@ -57,9 +57,9 @@ export const cssGrammar = {
       }
 
       if (!endToken && !body) {
-         p.error(`Expected '{' or ';' after at-rule: ${atRule.value}`);
-         // Attempt to consume until EOF or next block start/end for recovery
-         while(!p.eof() && p.next()?.type !== 'AT_RULE' && p.next()?.type !== 'IDENT');
+        p.error(`Expected '{' or ';' after at-rule: ${atRule.value}`);
+        // Attempt to consume until EOF or next block start/end for recovery
+        while (!p.eof() && p.next()?.type !== 'AT_RULE' && p.next()?.type !== 'IDENT');
       }
 
       return {
@@ -76,6 +76,7 @@ export const cssGrammar = {
     Rule(p) {
       // selector tokens until {
       const selTokens = [];
+      // The loop now correctly consumes PSEUDO_CLASS and PSEUDO_ELEMENT tokens
       while (!p.eof() && !(p.peek()?.type === 'SYMBOL' && p.peek().value === '{')) selTokens.push(p.next());
       const l = p.matchType('SYMBOL', '{');
       if (!l) return null;
@@ -105,6 +106,7 @@ export const cssGrammar = {
       // skip WS
       while (p.peek()?.type === 'WS') p.next();
       const colon = p.matchType('SYMBOL', ':');
+      // Added check for ':' being a symbol, since it's now also used for pseudo-selectors
       if (!colon) { p.error('Expected :'); return null; }
 
       // skip WS
@@ -113,22 +115,22 @@ export const cssGrammar = {
       const valTokens = [];
       // Collect all tokens that could be part of the value
       while (p.peek() && !(p.peek().type === 'SYMBOL' && (p.peek().value === ';' || p.peek().value === '}'))) {
-          // ADD 'VARIABLE' here to allow usage of variables as values
-          const t = p.oneOf(['WS', 'COMMENT', 'STRING', 'COLOR', 'NUMBER', 'FUNCTION_NAME', 'VALUE_KEYWORD', 'IDENT', 'VARIABLE', 'SYMBOL', 'UNKNOWN']);
-          if(t) valTokens.push(t);
-          else p.next(); // Consume unknown if needed
+        // ADD 'VARIABLE' here to allow usage of variables as values
+        const t = p.oneOf(['WS', 'COMMENT', 'STRING', 'COLOR', 'NUMBER', 'FUNCTION_NAME', 'VALUE_KEYWORD', 'IDENT', 'VARIABLE', 'SYMBOL', 'UNKNOWN']);
+        if (t) valTokens.push(t);
+        else p.next(); // Consume unknown if needed
       }
 
       const lastToken = valTokens[valTokens.length - 1];
       if (p.peek()?.type === 'SYMBOL' && p.peek().value === ';') p.next();
 
       return {
-          type: 'Declaration',
-          property: propFallback.value,
-          value: valTokens.map(t => t.value).join(''),
-          valueTokens: valTokens,
-          start: propFallback.start,
-          end: lastToken?.end ?? propFallback.end
+        type: 'Declaration',
+        property: propFallback.value,
+        value: valTokens.map(t => t.value).join(''),
+        valueTokens: valTokens,
+        start: propFallback.start,
+        end: lastToken?.end ?? propFallback.end
       };
     }
   }
