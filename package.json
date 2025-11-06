@@ -27,6 +27,7 @@
     "counterapi": "^2.1.2",
     "esbuild": "^0.25.5",
     "esbuild-sass-plugin": "^3.3.1",
+    "prettier": "3.6.2",
     "recaptcha-v3": "^1.11.3",
     "typed.js": "^2.0.16",
     "vanilla-lazyload": "^19.1.3"

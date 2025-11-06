@@ -13,6 +13,7 @@ import LazyLoader from "./components/lazy-loader";
 import RetroCounter from "./components/retro-counter";
 import Scrollspy from "./components/scroll-spy";
 import * as Hero from "./components/hero";
+import Playground from "./components/playground";
 
 import ThemeSwitcher from "./modules/theme-switcher";
 import AnalyticsTracker from "./modules/analytics-tracker";
@@ -84,3 +85,5 @@ IconSkipBack.initialize();
 IconRefresh.initialize();
 IconCircleSlash.initialize();
 IconDownload.initialize();
+
+Playground.initializeAll();
