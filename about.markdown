@@ -7,6 +7,8 @@ permalink: /about
 
 ## Hello there 👋
 
+{% playground id:"unleashing-css-logical-properties" %}
+
 {% playground id:"demo" %}
 
 {% svg stretchy-guy %}
