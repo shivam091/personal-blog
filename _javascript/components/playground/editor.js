@@ -1,4 +1,5 @@
 import { prettifyCode } from "./prettier";
+import { LanguageEngine } from "./parser/language-engine.js";
 import { escapeHTML } from "./parser/utils";
 import { findNodeOffset, getCursorMetadata } from "./utils/cursor-metadata";
 
@@ -380,14 +381,21 @@ export class Editor {
    * @returns {string} The formatted HTML string for the line.
    */
   #applyFormatting(line) {
-    if (line.length === 0) return "<br>";
+    // if (line.length === 0) return "<br>";
 
-    // Escape HTML entities first to prevent injection, then replace whitespace with styled spans.
-    const safe = escapeHTML(line)
-      .replace(/ /g, "<span class='cp-token-space'> </span>")
-      .replace(/\t/g, "<span class='cp-token-tab'>\t</span>");
+    // // Escape HTML entities first to prevent injection, then replace whitespace with styled spans.
+    // const safe = escapeHTML(line)
+    //   .replace(/ /g, "<span class='cp-token-space'> </span>")
+    //   .replace(/\t/g, "<span class='cp-token-tab'>\t</span>");
 
-    return safe;
+    // return safe;
+    const engine = new LanguageEngine(this.fileType, line);
+
+    const {ast, tokens, highlighted, errors } = engine.run(line)
+    console.log("AST:", ast);
+    console.log("Tokens", tokens);
+    console.log("Errors", errors);
+    return highlighted;
   }
 
   /**
