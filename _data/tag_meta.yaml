@@ -1,0 +1,102 @@
+2d-layouts:
+  title: Exploring 2D Layouts for Web Design
+  description: Posts exploring two-dimensional layout techniques for the web, primarily using CSS Grid and Flexbox for complex and structured designs.
+css-grid:
+  title: Comprehensive Guides to CSS Grid Layout
+  description: Comprehensive guides and advanced techniques for mastering CSS Grid Layout for building robust, two-dimensional web interfaces.
+grid:
+  title: All Posts on Grid Systems and Layouts
+  description: General articles and tutorials related to creating grid-based layouts on the web, often involving CSS Grid or Flexbox.
+layout:
+  title: Modern Web Layout Techniques and Best Practices
+  description: Content focused on the structure and arrangement of web elements, including CSS Grid, Flexbox, and various responsive design techniques.
+fr-units:
+  title: Understanding 'fr' Units in CSS Grid
+  description: Explanations and usage examples of the 'fr' (fractional) unit in CSS Grid to efficiently distribute available space among grid tracks.
+minmax:
+  title: Mastering the 'minmax()' Function in CSS
+  description: Understanding the 'minmax()' function in CSS Grid for setting a flexible minimum and maximum size for grid tracks.
+auto-fill:
+  title: "'auto-fill' in CSS Grid Explained"
+  description: Deep dive into the 'auto-fill' keyword in CSS Grid, explaining how it works with 'grid-template-columns' to create dynamic and responsive grids.
+auto-fit:
+  title: "'auto-fit' in CSS Grid Explained"
+  description: Detailed explanations and examples of the 'auto-fit' keyword in CSS Grid for creating flexible and adaptive container layouts.
+grid-alignment:
+  title: Aligning Items in CSS Grid
+  description: Focus on alignment properties in CSS Grid like 'justify-items', 'align-items', and 'align-content' for precise component placement.
+grid-template-areas:
+  title: Using Grid Template Areas for Layout
+  description: Using the 'grid-template-areas' property for visually mapping out CSS Grid layouts with named areas.
+container-queries:
+  title: Exploring CSS Container Queries
+  description: Posts on using CSS Container Queries to style components based on the size of their parent container, not just the viewport.
+media-queries:
+  title: Mastering CSS Media Queries
+  description: Mastering CSS Media Queries for creating responsive designs that adjust based on screen size, orientation, and other device characteristics.
+responsive:
+  title: Responsive Web Design Strategies
+  description: Techniques and strategies for building responsive web designs that look and function well on all screen sizes and devices.
+es6:
+  title: Posts on Modern JavaScript (ES6 and Beyond)
+  description: Articles focusing on modern JavaScript features introduced in ECMAScript 2015 (ES6) and later versions, enhancing development efficiency.
+operators:
+  title: A Complete Guide to JavaScript Operators
+  description: A complete guide to JavaScript operators, including arithmetic, assignment, comparison, logical, and unary operators.
+javascript:
+  title: All Posts Tagged JavaScript
+  description: All posts tagged with JavaScript, covering language fundamentals, advanced concepts, and practical applications.
+tutorial:
+  title: Step-by-Step Programming Tutorials
+  description: Step-by-step instructional guides to help you learn and implement specific web development techniques and concepts.
+beginner:
+  title: Guides for Beginner Web Developers
+  description: Guides and tutorials specifically tailored for web development beginners, covering foundational concepts in an easy-to-understand format.
+best-practices:
+  title: Web Development Best Practices and Tips
+  description: Tips, guidelines, and recommended approaches for writing clean, efficient, and maintainable code in frontend development.
+cheatsheet:
+  title: Web Development Cheatsheets and References
+  description: Quick reference guides and cheatsheets for essential web development concepts and syntax, designed for easy recall.
+syntax:
+  title: Language Syntax and Structure Guides
+  description: Detailed explanations of the proper structure and rules (syntax) of various programming and markup languages like JavaScript and CSS.
+programming:
+  title: General Programming Concepts and Articles
+  description: General posts covering coding principles, problem-solving, and concepts applicable across various programming languages.
+logical-properties:
+  title: Understanding CSS Logical Properties
+  description: Learning CSS Logical Properties ('margin-block', 'padding-inline', etc.) for creating styles that adapt automatically to different writing modes.
+writing-modes:
+  title: Exploring CSS Writing Modes for Text Flow
+  description: Exploring the CSS 'writing-mode' property and its effect on text flow, logical properties, and internationalization.
+rtl:
+  title: Supporting Right-to-Left (RTL) Layouts
+  description: Focus on supporting Right-to-Left (RTL) languages and writing modes in web design using CSS Logical Properties.
+i18n:
+  title: Internationalization (i18n) for Web Apps
+  description: Posts on internationalization (i18n) and how to design and build web applications that support multiple languages and cultures.
+internationalization:
+  title: Internationalization for Global Audiences
+  description: Articles on adapting content for different regions and languages, including supporting multi-lingual and global audiences.
+globalization:
+  title: Preparing Websites for a Global Audience
+  description: Content related to preparing websites for a global audience, including internationalization (i18n) and localization considerations.
+accessibility:
+  title: Web Accessibility (a11y) Standards and Guides
+  description: Articles focused on web accessibility (a11y) standards, ensuring websites are usable by everyone, regardless of disability or device.
+frontend:
+  title: Everything Frontend Web Development
+  description: Posts dedicated to frontend web development, including HTML, CSS, JavaScript, and related tools and libraries.
+web-development:
+  title: All Web Development Articles and Guides
+  description: General knowledge, news, and guides related to the entire process of developing web applications and websites.
+webdev:
+  title: Web Development (WebDev) Topics
+  description: A broad tag for all things web development, spanning frontend and general development topics.
+web-design:
+  title: Principles of Web Design and UI/UX
+  description: Principles and aesthetics of designing functional, accessible, and visually appealing user interfaces for the web.
+css:
+  title: All Articles Tagged CSS
+  description: All content tagged with CSS, covering topics from layout to styling, properties, and modern specifications.

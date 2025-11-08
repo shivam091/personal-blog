@@ -3,9 +3,12 @@
 require "jekyll/utils"
 
 require_relative "./../helpers/logger_helper"
+require_relative "./../helpers/archive_meta"
 
 module Jekyll
   class TagPage < Page
+    include ArchiveMeta
+
     def initialize(site, base, dir, tag, posts)
       @site = site
       @base = base
@@ -16,10 +19,8 @@ module Jekyll
 
       self.process(@name)
       self.read_yaml(File.join(base, "_layouts"), "archive.html")
-      self.data["tag"] = tag
-      self.data["title"] = "Posts tagged with: #{tag}"
-      self.data["permalink"] = "/tag/#{tag_slug}"
-      self.data["posts"] = posts
+
+      set_archive_meta(:tag, tag_slug, tag, posts)
     end
   end
 

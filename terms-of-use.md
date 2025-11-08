@@ -55,7 +55,7 @@ By using this site, you acknowledge and agree that these third-party services ma
 
 - **CodePen Interactive Examples**: Some examples on this site can be viewed directly in my inbuilt playground or via a "View on CodePen" button.
   The examples are created and maintained by me, but if you navigate to CodePen, your interaction is subject to
-  [CodePen’s Terms of Service](https://codepen.io/legal/terms-of-use) and [Privacy Policy](https://codepen.io/legal/privacy-policy).
+  [CodePen’s Terms of Service](https://blog.codepen.io/legal/terms-of-service) and [Privacy Policy](https://blog.codepen.io/legal/privacy-policy).
   I am not responsible for CodePen’s content, services, or data practices.
 
 ## Changes

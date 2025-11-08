@@ -1,13 +1,45 @@
 @use "abstracts/functions/breakpoint" as *
 
+// Mixin for media queries (min-width)
 @mixin min($key, $use-em: false)
   @media (min-width: breakpoint($key, $use-em))
     @content
 
+// Mixin for media queries (max-width)
 @mixin max($key, $use-em: false)
   @media (max-width: breakpoint($key, $use-em))
     @content
 
+// Mixin for media queries (between min and max width)
 @mixin between($min, $max, $use-em: false)
   @media (min-width: breakpoint($min, $use-em)) and (max-width: breakpoint($max, $use-em))
     @content
+
+// Mixin for container queries (min-width)
+@mixin container-min($key, $use-em: false, $name: false)
+  @if $name
+    @container #{$name} (min-width: #{breakpoint($key, $use-em)})
+      @content
+  @else
+    @container (min-width: #{breakpoint($key, $use-em)})
+      @content
+
+// Mixin for container queries (max-width)
+@mixin container-max($key, $use-em: false, $name: false)
+  @if $name
+    @container #{$name} (max-width: #{breakpoint($key, $use-em)})
+      @content
+  @else
+    @container (max-width: #{breakpoint($key, $use-em)})
+      @content
+
+// Mixin for container queries (between min and max width)
+@mixin container-between($min, $max, $use-em: false, $name: false)
+  $query: (min-width: #{breakpoint($min, $use-em)}) and (max-width: #{breakpoint($max, $use-em)})
+
+  @if $name
+    @container #{$name} #{$query}
+      @content
+  @else
+    @container #{$query}
+      @content

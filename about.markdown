@@ -9,12 +9,24 @@ permalink: /about
 
 {% svg stretchy-guy %}
 
-I’m a software engineer, freelancer, and lifelong learner passionate about building clean, scalable web solutions. I contribute to open-source, embrace minimalism in code and life, and stay curious about emerging tech.
+I’m **Harshal Ladhe**, a software engineer, freelancer, and lifelong learner passionate about building **clean, scalable web solutions**. I contribute to open-source, embrace **minimalism in code and life**, and stay curious about emerging tech.
 
-- 🔧 Currently building my personal portfolio site
-- 📘 Learning RSpec & Capybara for advanced testing
+- 🔧 Currently working as a **Freelance Software Developer**
+- 📘 **Learning** Advanced Web Design, **React JS**, and **Python**
 - 🤝 Open to collaboration on Ruby on Rails open-source projects
 - 🧠 Looking for mentorship and support in back-end development
+
+## Career & Experience
+
+I earned my **Master's in Computer Science** from the **University of Mumbai (SIES College)** in 2013 and began my professional career as a Software Developer in 2014.
+
+Over the past 5+ years, I've gained hands-on experience in **full-stack development** and have built expertise across the entire application lifecycle, from design and coding to code reviews, optimizations, and testing.
+
+* **Freelance (Current):** Providing end-to-end web application development services.
+* **ProtonsHub Technologies Pvt. Ltd.:** Gained significant experience working on professional projects.
+* **Core Tech Stack:** Ruby on Rails, Java, RSpec, Redis, Sidekiq, HTML, CSS, Vanilla JavaScript, and jQuery.
+
+I am continuously enhancing my skillset, often through external training, to stay updated with modern development practices, focusing on web design, React JS, and Python.
 
 ## GitHub Statistics
 
@@ -46,7 +58,7 @@ I earned my **Master’s in Computer Science** from the **University of Mumbai**
 
 ## Philosophy
 
-I believe in writing **clean, maintainable code** and enjoy working in **collaborative, fast-paced environments**. **Minimalism** drives both my coding style and lifestyle.
+I believe in writing **clean, maintainable code** and enjoy working in **collaborative, fast-paced environments**. **Minimalism** drives both my coding style and lifestyle. My goal is to always deliver scalable, user-centric applications.
 
 ## Let’s Connect
 
