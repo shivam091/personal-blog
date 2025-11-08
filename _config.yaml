@@ -18,6 +18,8 @@ plugins:
 
 permalink: /post/:slug
 
+font_url: "https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Source+Code+Pro:wght@200..900&display=swap"
+
 markdown: kramdown
 kramdown:
   input: GFM

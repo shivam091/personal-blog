@@ -3,9 +3,12 @@
 require "jekyll/utils"
 
 require_relative "./../helpers/logger_helper"
+require_relative "./../helpers/archive_meta"
 
 module Jekyll
   class CategoryPage < Page
+    include ArchiveMeta
+
     def initialize(site, base, dir, category, posts)
       @site = site
       @base = base
@@ -14,12 +17,12 @@ module Jekyll
 
       category_slug = Jekyll::Utils.slugify(category, mode: "default", cased: false)
 
+      category_data = @site.data.fetch("category_meta", {})[category_slug]
+
       self.process(@name)
       self.read_yaml(File.join(base, "_layouts"), "archive.html")
-      self.data["category"] = category
-      self.data["title"] = "Posts in category: #{category}"
-      self.data["permalink"] = "/category/#{category_slug}"
-      self.data["posts"] = posts
+
+      set_archive_meta(:category, category_slug, category, posts)
     end
   end
 
