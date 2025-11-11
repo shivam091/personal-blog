@@ -12,11 +12,12 @@ module Jekyll
     def render(context)
       page = context.registers[:page]
       content = page["content"].to_s
+      toc_config = page["toc"]
 
-      return "" if content.empty? || page["toc"] == false
+      return "" if content.empty? || toc_config == false
 
-      @min_level = page["toc_min"]&.to_i || 2
-      @max_level = page["toc_max"]&.to_i || 4
+      @min_level = toc_config&.dig("min")&.to_i || 2
+      @max_level = toc_config&.dig("max")&.to_i || 4
 
       doc = Loofah.fragment(content)
       selector = (@min_level..@max_level).map { |i| "h#{i}" }.join(",")
