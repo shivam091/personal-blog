@@ -10,26 +10,26 @@ function escapeWithWhitespace(value) {
 }
 
 export function highlightFromTokens(src, tokens) {
-  let out = '';
+  let highlightedHtml = '';
   let last = 0;
 
   for (const token of tokens) {
     if (token.start > last) {
       // plain segment before token
       const raw = src.slice(last, token.start);
-      out += escapeWithWhitespace(raw);
+      highlightedHtml += escapeWithWhitespace(raw);
     }
 
     const rawVal = src.slice(token.start, token.end);
     const cls = token.spanClass || '';
-    out += `<span class="cp-token ${cls}">${escapeWithWhitespace(rawVal)}</span>`;
+    highlightedHtml += `<span class="cp-token ${cls}">${escapeWithWhitespace(rawVal)}</span>`;
     last = token.end;
   }
 
   if (last < src.length) {
     const rest = src.slice(last);
-    out += escapeWithWhitespace(rest);
+    highlightedHtml += escapeWithWhitespace(rest);
   }
 
-  return out;
+  return highlightedHtml;
 }

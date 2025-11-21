@@ -49,8 +49,50 @@ export class Editor {
     this.updateValue(initialText); // Sets initial DOM structure
     this.#initial = this.value;
 
+    /** @public {object|null} The full document AST. */
+    this.fullAST = null;
+    /** @public {Array} The calculated fold regions. */
+    this.foldRegions = [];
+
     this.#refresh();
     this.#bindEvents();
+  }
+
+  #structuralFrameId = null;
+  #scheduleStructuralUpdate() {
+    if (this.#structuralFrameId === null) {
+      this.#structuralFrameId = setTimeout(() => {
+        this.#structuralFrameId = null;
+        this.#updateStructuralMetadata();
+      }, 500); // 500ms debounce
+    }
+  }
+
+  /**
+   * Runs the LanguageEngine on the *full* document to update the AST and folding structure.
+   * This should be debounced and run only when the document structure changes.
+   * @public
+   */
+  #updateStructuralMetadata() {
+    const fullValue = this.value;
+    const engine = new LanguageEngine(this.fileType, fullValue);
+
+    // Run the engine on the full source
+    const { ast, errors, foldRegions } = engine.run(fullValue);
+
+    // Store results
+    this.fullAST = ast;
+    this.errors = errors; // Good idea to store full document errors
+    this.foldRegions = foldRegions;
+
+    // TODO: Dispatch an event for the editor UI to draw fold markers/gutter icons
+    this.editable.dispatchEvent(new CustomEvent("playground:editor:folds-updated", {
+        bubbles: true,
+        detail: { foldRegions }
+    }));
+
+    console.log("Full AST Updated:", this.fullAST);
+    console.log("Fold Regions:", this.foldRegions);
   }
 
   /**
@@ -126,6 +168,7 @@ export class Editor {
     this.editable.addEventListener("input", () => {
       this.#scheduleRefresh();
       this.#scheduleCursorUpdate();
+      this.#scheduleStructuralUpdate();
     });
     this.editable.addEventListener("paste", e => this.#handlePaste(e));
 
@@ -391,10 +434,11 @@ export class Editor {
     // return safe;
     const engine = new LanguageEngine(this.fileType, line);
 
-    const {ast, tokens, highlighted, errors } = engine.run(line)
+    const {ast, tokens, highlighted, errors, foldRegions } = engine.run(line)
     console.log("AST:", ast);
     console.log("Tokens", tokens);
     console.log("Errors", errors);
+    console.log("Folds", foldRegions)
     return highlighted;
   }
 
