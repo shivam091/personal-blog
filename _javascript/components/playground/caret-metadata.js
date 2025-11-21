@@ -2,34 +2,17 @@ import { getCursorMetadata, findNodeOffset } from "./utils/cursor-metadata";
 import { pluralize } from "../../utils/string";
 
 /**
- * @class CaretMetadata
- * @description Manages the display and persistence of the caret (cursor) and selection
+ * Manages the display and persistence of the caret (cursor) and selection
  * metadata across multiple editor tabs/panels in a playground environment.
- * It listens for user and programmatic input events, throttles updates,
- * computes line/column numbers, and restores the caret state when switching tabs.
  */
 export class CaretMetadata {
-  /** @public {HTMLElement} The root container element holding all editor panels. */
-  container;
-  /** @public {Object} An object that manages tab switching (expected to have an `onSwitch` method). */
-  editorTabs;
-  /** @public {Object<string, Object>} Stores the last known caret state for each editor/tab.
-   * Format: { editorName: { line, col, selection, pos, direction, start, end } }
-   */
-  editorStates = {};
-  /** @private {Map<string, HTMLElement>} Maps editor name (data-editor-panel) to its corresponding metadata display element. */
-  metadataMap = new Map();
-  /** @private {number|null} Active requestAnimationFrame ID for throttled updates. */
-  frameId = null;
-
-  /**
-   * @constructor
-   * @param {HTMLElement} container The DOM element containing all editor panels.
-   * @param {Object} editorTabs An object responsible for handling tab switching, expected to have an `onSwitch` property.
-   */
   constructor(container, editorTabs) {
     this.container = container;
     this.editorTabs = editorTabs;
+
+    this.editorStates = {};
+    this.metadataMap = new Map();
+    this.frameId = null;
 
     this.#bindEditors();
     this.#bindTabSwitch();
@@ -38,12 +21,10 @@ export class CaretMetadata {
   /**
    * Schedules a throttled update for the given editor using requestAnimationFrame (RAF).
    * It uses a double RAF to ensure the DOM is stable before reading cursor position.
-   * @private
-   * @param {string} editorName The unique identifier for the editor panel.
-   * @param {HTMLElement} editor The contenteditable element.
    */
   #scheduleUpdate(editorName, editor) {
     cancelAnimationFrame(this.frameId);
+
     this.frameId = requestAnimationFrame(() => {
       // Second RAF ensures the browser has had a chance to process the initial DOM change
       requestAnimationFrame(() => this.#update(editorName, editor));
@@ -53,7 +34,6 @@ export class CaretMetadata {
   /**
    * Binds necessary event listeners (input, mouse, keyboard, selection, custom events)
    * to all contenteditable editor panels to trigger a metadata update on change.
-   * @private
    */
   #bindEditors() {
     const editors = this.container.querySelectorAll(".editor-panel [contenteditable='true']");
@@ -86,18 +66,21 @@ export class CaretMetadata {
           "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown",
           "Home", "End", "PageUp", "PageDown"
         ];
+
         // Update on selection change via Shift + Arrow keys
         if (event.shiftKey && keys.includes(event.key)) update();
       });
 
       // Programmatic or other selection updates
       editor.addEventListener("select", update);
+
       // Custom event from the Editor class when value is programmatically changed
       editor.addEventListener("playground:editor:value-changed", update);
 
       // Observe global selection changes to catch rapid caret moves
       document.addEventListener("selectionchange", () => {
         const sel = window.getSelection();
+
         // Only update if the selection change occurred inside this editor
         if (sel.anchorNode && editor.contains(sel.anchorNode)) update();
       });
@@ -107,16 +90,16 @@ export class CaretMetadata {
   /**
    * Computes the current caret/selection metadata, updates the display element,
    * persists the state to `this.editorStates`, and dispatches a custom event.
-   * @private
-   * @param {string} editorName The unique identifier for the editor panel.
-   * @param {HTMLElement} editable The contenteditable element.
    */
   #update(editorName, editable) {
     const metaEl = this.metadataMap.get(editorName);
     if (!metaEl) return;
 
-    // Use external utility to calculate metadata
     const metadata = getCursorMetadata(editable);
+
+    // If the editor lost focus to another playground during load,
+    // metadata might be null. In that case, we intentionally do nothing
+    // to preserve the last known state (or the initialized default).
     if (!metadata) return;
 
     const {
@@ -130,7 +113,7 @@ export class CaretMetadata {
       full,
     } = metadata;
 
-    // --- Update metadata display ---
+    // Update metadata display
     const parts = [`<span class="caret-position">Ln ${line}, Col ${col}</span>`];
     if (selectionLength > 0) {
       parts.push(`
@@ -140,7 +123,7 @@ export class CaretMetadata {
     }
     metaEl.innerHTML = parts.join("");
 
-    // --- Persist current editor state ---
+    // Persist current editor state
     this.editorStates[editorName] = {
       line,
       col,
@@ -162,22 +145,17 @@ export class CaretMetadata {
   /**
    * Binds the tab switching mechanism (`this.editorTabs.onSwitch`) to restore the
    * previously saved caret/selection state of the newly active editor.
-   * @private
    */
   #bindTabSwitch() {
-    /**
-     * Helper function to restore the caret or selection using saved state.
-     * @param {HTMLElement} editable The contenteditable element of the new tab.
-     * @param {Object|null|undefined} state The saved state from `this.editorStates`.
-     */
+    // Helper function to restore the caret or selection using saved state.
     const setCaret = (editable, state) => {
       const selection = window.getSelection();
       const range = document.createRange();
 
-      /** Safely collapses the range to the start of the first line. */
+      // Safely collapses the range to the start of the first line.
       const safeCollapse = () => {
         const firstLine = editable.querySelector(".cp-line");
-        // Logic to safely set caret at line 1, col 1, handling empty editor cases
+
         if (!firstLine) {
           const text = document.createTextNode("");
           editable.appendChild(text);
@@ -189,12 +167,12 @@ export class CaretMetadata {
           firstLine.appendChild(br);
           range.setStart(firstLine, 0);
         }
+
         range.collapse(true);
       };
 
       if (state && Number.isFinite(state.start) && Number.isFinite(state.end)) {
         try {
-          // Use external utility to convert character offsets back to DOM nodes/offsets
           const start = findNodeOffset(editable, state.start);
           const end = findNodeOffset(editable, state.end);
           range.setStart(start.node, start.offset);
@@ -209,7 +187,7 @@ export class CaretMetadata {
       selection.removeAllRanges();
       selection.addRange(range);
 
-      // Immediately trigger metadata recalculation
+      // Force update after physically moving caret
       editable.dispatchEvent(new Event("selectionchange", { bubbles: true }));
     };
 
@@ -223,21 +201,35 @@ export class CaretMetadata {
       // Focus and restore caret instantly
       editable.focus();
       setCaret(editable, this.editorStates[editorName]);
-
-      // Ensure metadata reflects immediately after caret restore
       queueMicrotask(() => this.#update(editorName, editable));
     };
 
     // Initialize first active tab instantly on load
     const activeTab = this.editorTabs.activeTab;
+
     if (activeTab) {
       const editorName = activeTab.dataset.editor;
-      const editable = this.container.querySelector(
-        `[data-editor-panel="${editorName}"] [contenteditable="true"]`
-      );
-      if (editable) {
-        setCaret(editable, null); // Set default caret (line 1, col 1)
-        queueMicrotask(() => this.#update(editorName, editable));
+      const panel = this.container.querySelector(`[data-editor-panel="${editorName}"]`);
+      const editable = panel?.querySelector('[contenteditable="true"]');
+      const metaEl = this.metadataMap.get(editorName);
+
+      if (editable && metaEl) {
+        // 1. Manually set the visual display to Default (Ln 1, Col 1).
+        // We do NOT call setCaret() here, because that steals focus
+        // from other playgrounds on the same page.
+        metaEl.innerHTML = `<span class="caret-position">Ln 1, Col 1</span>`;
+
+        // 2. Initialize the internal state object so it's ready for the first tab switch.
+        this.editorStates[editorName] = {
+          line: 1,
+          col: 1,
+          full: false,
+          selection: 0,
+          pos: 0,
+          direction: "none",
+          start: 0,
+          end: 0,
+        };
       }
     }
   }
