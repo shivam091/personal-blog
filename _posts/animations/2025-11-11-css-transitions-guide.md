@@ -14,6 +14,10 @@ image:
   alt: Visual guide using abstract geometric shapes to demonstrate ease-in-out and linear CSS transition functions.
 changelog:
   - date: 2025-11-11
+    change: |
+      Added link to navigate to 'Keyframes Vs. Transitions' section of
+      'An Interactive Guide to CSS Keyframes' post
+  - date: 2025-11-11
     change: "Initial publication"
 toc:
   max: 3
@@ -350,6 +354,9 @@ Use sparingly — excessive `will-change` declarations force the browser to imme
 ## Conclusion
 
 CSS transitions are a lightweight, intuitive way to animate **state changes**. By using them correctly, particularly by leveraging **GPU-accelerated properties** like `transform` and `opacity`, you can ensure your UI motion is smooth, responsive, and performant. Understanding all `transition-*` properties, the nuances of timing functions, and strategically using `will-change` provides the control you need. Master them, and you’ll build a strong foundation for crafting delightful micro-interactions and tackling more advanced CSS animations.
+
+While transitions are excellent for simple, state-driven changes, complex motion that requires more than two steps, looping, or
+scroll-linking necessitates CSS Keyframe Animations. For a full feature comparison, see the **Keyframes vs. Transitions** Comparison Table in my **[An Interactive Guide to CSS Keyframes](/post/css-keyframes-guide#keyframes-vs-transitions)** post.
 
 **Key Takeaways:**
 
