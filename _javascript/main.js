@@ -13,13 +13,14 @@ import LazyLoader from "./components/lazy-loader";
 import RetroCounter from "./components/retro-counter";
 import Scrollspy from "./components/scroll-spy";
 import * as Hero from "./components/hero";
+import CodeBlock from "./components/code-block";
+import Playground from "./components/playground";
 
 import ThemeSwitcher from "./modules/theme-switcher";
 import AnalyticsTracker from "./modules/analytics-tracker";
 import ContactForm from "./modules/contact-form";
 
 import Clipboard from "./utils/clipboard";
-import CodeBlockUtils from "./utils/code-block-utils";
 
 import TransformBoop from "./animations/transform-boop";
 import IconArrowRight from "./animations/icons/arrow-right";
@@ -29,6 +30,11 @@ import IconStretchyGuy from "./animations/icons/stretchy-guy";
 import IconRSS from "./animations/icons/rss";
 import IconSpeaker from "./animations/icons/speaker";
 import IconBook from "./animations/icons/book";
+import IconExternalLink from "./animations/icons/external-link";
+import IconSkipBack from "./animations/icons/skip-back";
+import IconRefresh from "./animations/icons/refresh";
+import IconCircleSlash from "./animations/icons/circle-slash";
+import IconDownload from "./animations/icons/download";
 
 HeaderGlassEffect.initialize();
 HeaderDrawer.initialize();
@@ -51,14 +57,13 @@ Scrollspy.initialize(".toc-wrapper", {
   activeClass: "active",
   rootMargin: "80px 0px -70% 0px"
 });
+CodeBlock.initializeAll();
 Hero.bindHeroTyped();
 
 ThemeSwitcher.initialize();
 AnalyticsTracker.initialize();
 Clipboard.initializeAll();
 ContactForm.initialize();
-
-CodeBlockUtils.initializeAll();
 
 TransformBoop.initialize(".alert-dismiss .icon-times", { rotate: 15, scaleX: 1.2 });
 TransformBoop.initialize(".icon-arrow-up", { translateY: -3 });
@@ -74,3 +79,10 @@ IconStretchyGuy.initialize();
 IconRSS.initialize();
 IconSpeaker.initialize();
 IconBook.initialize();
+IconExternalLink.initialize();
+IconSkipBack.initialize();
+IconRefresh.initialize();
+IconCircleSlash.initialize();
+IconDownload.initialize();
+
+Playground.initializeAll();

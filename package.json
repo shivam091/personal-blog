@@ -13,11 +13,16 @@
   },
   "homepage": "https://harshal-ladhe.netlify.app",
   "scripts": {
+    "preinstall": "node ./scripts/check-node.cjs",
     "build": "node esbuild.config.js",
     "watch": "node esbuild.config.js --watch",
     "clean": "bundle exec jekyll clean && rm -rf dist",
     "jekyll": "bundle exec jekyll serve --livereload",
     "start": "npm run build && concurrently \"npm run watch\" \"npm run jekyll\""
+  },
+  "engines": {
+    "node": ">=20",
+    "npm": ">=9"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
@@ -27,6 +32,7 @@
     "counterapi": "^2.1.2",
     "esbuild": "^0.25.5",
     "esbuild-sass-plugin": "^3.3.1",
+    "prettier": "3.6.2",
     "recaptcha-v3": "^1.11.3",
     "typed.js": "^2.0.16",
     "vanilla-lazyload": "^19.1.3"

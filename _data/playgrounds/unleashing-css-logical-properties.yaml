@@ -1,0 +1,327 @@
+id: unleashing-css-logical-properties
+name: Demostrating CSS Logical Properties
+url: "https://codepen.io/shivam091/pen/NPGavRO"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <div class="controls" role="region" aria-label="controls">
+        <div>
+          <label for="writing">Writing mode</label>
+          <select id="writing" aria-label="Select writing mode">
+            <option value="horizontal-tb">horizontal-tb (default)</option>
+            <option value="vertical-rl">vertical-rl</option>
+            <option value="vertical-lr">vertical-lr</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="dir">Direction</label>
+          <select id="dir" aria-label="Select text direction">
+            <option value="ltr">ltr</option>
+            <option value="rtl">rtl</option>
+          </select>
+        </div>
+
+        <div class="control-reset-wrap">
+          <button id="resetBtn" class="btn" title="Reset to defaults">Reset</button>
+        </div>
+      </div>
+
+      <main class="grid" id="cards" aria-live="polite">
+        <article class="card">
+          <header class="card-header">
+            <div class="avatar avatar-card-1" aria-hidden="true"></div>
+            <div>
+              <div class="title">Logical padding &amp; margin</div>
+              <div class="meta">Uses <code>padding-inline</code> &amp; <code>margin-block</code></div>
+            </div>
+          </header>
+
+          <div class="card-body">
+            Logical properties make padding and margins adapt based on writing mode and direction.
+            Try switching to <strong>vertical-rl</strong> or setting <code>dir="rtl"</code>.
+            <div class="demo-box">This box uses <code>padding-inline</code> and will shift with mode/dir.</div>
+          </div>
+
+          <footer class="card-footer">
+            <button class="btn">Learn</button>
+            <button class="btn primary">Try it</button>
+          </footer>
+        </article>
+
+        <article class="card">
+          <header class="card-header">
+            <div class="avatar avatar-card-2" aria-hidden="true"></div>
+            <div>
+              <div class="title">Sizing with inline/block</div>
+              <div class="meta">Uses <code>inline-size</code> &amp; <code>block-size</code></div>
+            </div>
+          </header>
+
+          <div class="card-body">
+            <p>Set logical sizes so your layout flips axes sensibly without rewriting CSS.</p>
+            <div class="demo-box">This card respects <code>inline-size</code> and <code>block-size</code> for flexible layouts.</div>
+          </div>
+
+          <footer class="card-footer">
+            <button class="btn">Docs</button>
+            <button class="btn primary">Copy</button>
+          </footer>
+        </article>
+
+        <article class="card">
+          <header class="card-header">
+            <div class="avatar avatar-card-3" aria-hidden="true"></div>
+            <div>
+              <div class="title">Positioning &amp; inset</div>
+              <div class="meta">Uses <code>inset-inline</code> examples</div>
+            </div>
+          </header>
+
+          <div class="card-body">
+            Use logical insets instead of top/right/bottom/left to keep positioning consistent across modes.
+            <div class="demo-box logical-inset-demo">Example: <code>inset-inline-start: 1rem</code> follows the inline-start edge.</div>
+            <div class="orientation-note">Try switching to <em>vertical-rl</em> — inline & block axes swap.</div>
+          </div>
+
+          <footer class="card-footer">
+            <button class="btn">Examples</button>
+            <button class="btn primary">View</button>
+          </footer>
+        </article>
+      </main>
+  - name: variables.css
+    type: css
+    code: |
+      :root {
+        --bg: #f6f7fb;
+        --card-bg: #fff;
+        --muted: #6b7280;
+        --accent: #2563eb;
+        --radius: 12px;
+
+        --avatar-1-gradient: linear-gradient(135deg, #60a5fa, #06b6d4);
+        --avatar-2-gradient: linear-gradient(135deg, #f472b6, #fb7185);
+        --avatar-3-gradient: linear-gradient(135deg, #34d399, #10b981);
+      }
+  - name: styles.css
+    type: css
+    code: |
+      html,
+      body {
+        block-size: 100%;
+        margin: 0;
+      }
+      body {
+        font-family: system-ui, -apple-system;
+        background: var(--bg);
+        color: #0f172a;
+        display: flex;
+        flex-direction: column;
+        /* Logical margin/gap */
+        gap: 1.25rem;
+        /* Align items along the inline axis */
+        align-items: center;
+        /* Logical padding for all four sides */
+        padding-block: 2rem;
+        padding-inline: 2rem;
+      }
+
+      .controls {
+        display: flex;
+        /* Logical gap */
+        gap: 0.75rem;
+        align-items: center;
+        flex-wrap: wrap;
+        background: white;
+        /* Logical padding */
+        padding: 0.6rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 18px rgba(16, 24, 40, 0.06);
+      }
+
+      /* Original inline style div: <div style="margin-left:.5rem;"> */
+      .control-reset-wrap {
+        margin-inline-start: 0.5rem;
+      }
+
+      label {
+        font-size: 0.9rem;
+        color: var(--muted);
+        /* Logical margin */
+        margin-inline-end: 0.25rem;
+      }
+
+      select {
+        /* Logical padding */
+        padding-block: 0.45rem;
+        padding-inline: 0.6rem;
+        border-radius: 8px;
+        border: 1px solid #e6e9ef;
+        background: white;
+        font-size: 0.95rem;
+      }
+
+      /* Card grid */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        /* Logical gap */
+        gap: 1rem;
+        /* Logical sizing - min/max inline-size */
+        inline-size: min(1100px, 100%);
+      }
+
+      /* Card using logical properties */
+      .card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+        /* Logical padding for block (top/bottom) and inline (left/right or top/bottom in vertical) */
+        padding-block: 1rem;
+        padding-inline: 1rem;
+        display: flex;
+        flex-direction: column;
+        /* Logical gap */
+        gap: 0.75rem;
+        /* Logical minimum inline size for flex/grid shrinking */
+        min-inline-size: 0;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        /* Logical gap */
+        gap: 0.75rem;
+      }
+
+      .avatar {
+        /* Logical sizing: width -> inline-size, height -> block-size */
+        inline-size: 48px;
+        block-size: 48px;
+        border-radius: 10px;
+        background: var(--avatar-1-gradient);
+        flex: 0 0 48px;
+      }
+
+      /* Styles for the new avatar classes (used to replace inline styles) */
+      .avatar-card-2 {
+        background: var(--avatar-2-gradient);
+      }
+      .avatar-card-3 {
+        background: var(--avatar-3-gradient);
+      }
+
+      .title {
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .card-body {
+        font-size: 0.95rem;
+        line-height: 1.4;
+        color: #0f172a;
+      }
+
+      .card-footer {
+        /* Logical margin to push footer to the block-end */
+        margin-block-start: auto;
+        display: flex;
+        /* Logical gap */
+        gap: 0.5rem;
+        align-items: center;
+        /* Logical justification: flex-start follows inline-start */
+        justify-content: flex-start;
+      }
+
+      .btn {
+        background: transparent;
+        border: 1px solid #e6e9ef;
+        /* Logical padding */
+        padding-block: 0.45rem;
+        padding-inline: 0.6rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
+      .btn.primary {
+        background: var(--accent);
+        color: white;
+        border-color: transparent;
+      }
+
+      /* small helper showing logical inset example */
+      .demo-box {
+        /* Logical margin at the start of the block axis (top in horizontal-tb) */
+        margin-block-start: 0.5rem;
+        /* Logical padding */
+        padding-block: 0.6rem;
+        padding-inline: 0.6rem;
+        border-radius: 8px;
+        background: linear-gradient(180deg, #fbfdff, #f4f8ff);
+        border: 1px dashed #e6eefc;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      /* Logical inset example: uses an explicit logical property */
+      .logical-inset-demo {
+        /* Demonstrates using an explicit logical offset. This is what the example text is talking about. */
+        position: relative;
+        margin-inline-start: 1rem; /* Push the box 1rem from the inline-start edge */
+      }
+
+      /* Make it visually obvious when inline/block swap in vertical modes */
+      .orientation-note {
+        font-size: 0.85rem;
+        color: var(--muted);
+        /* Logical margin at the start of the block axis (top in horizontal-tb) */
+        margin-block-start: 0.25rem;
+      }
+
+      /* Responsive tweaks */
+      @media (max-width: 560px) {
+        .controls {
+          padding: 0.5rem;
+          gap: 0.5rem;
+        }
+        .card {
+          /* Logical padding */
+          padding-block: 0.9rem;
+          padding-inline: 0.9rem;
+        }
+      }
+  - name: scripts.js
+    type: js
+    code: |
+      const writing = document.getElementById("writing");
+      const dir = document.getElementById("dir");
+      const resetBtn = document.getElementById("resetBtn");
+
+      function applySettings() {
+        // set dir attribute on root (affects logical inline-start / end)
+        document.documentElement.setAttribute("dir", dir.value);
+
+        // set writing-mode on root (CSS property)
+        document.documentElement.style.writingMode = writing.value;
+
+        // update small live label for screen-readers (optional)
+        document.getElementById("cards").setAttribute("data-mode", `${writing.value} / ${dir.value}`);
+      }
+
+      writing.addEventListener("change", applySettings);
+      dir.addEventListener("change", applySettings);
+      resetBtn.addEventListener("click", () => {
+        writing.value = "horizontal-tb";
+        dir.value = "ltr";
+        applySettings();
+      });
+
+      // initialise
+      applySettings();
+
