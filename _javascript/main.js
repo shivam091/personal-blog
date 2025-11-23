@@ -13,6 +13,7 @@ import LazyLoader from "./components/lazy-loader";
 import RetroCounter from "./components/retro-counter";
 import Scrollspy from "./components/scroll-spy";
 import * as Hero from "./components/hero";
+import CodeBlock from "./components/code-block";
 import Playground from "./components/playground";
 
 import ThemeSwitcher from "./modules/theme-switcher";
@@ -20,7 +21,6 @@ import AnalyticsTracker from "./modules/analytics-tracker";
 import ContactForm from "./modules/contact-form";
 
 import Clipboard from "./utils/clipboard";
-import CodeBlockUtils from "./utils/code-block-utils";
 
 import TransformBoop from "./animations/transform-boop";
 import IconArrowRight from "./animations/icons/arrow-right";
@@ -57,14 +57,13 @@ Scrollspy.initialize(".toc-wrapper", {
   activeClass: "active",
   rootMargin: "80px 0px -70% 0px"
 });
+CodeBlock.initializeAll();
 Hero.bindHeroTyped();
 
 ThemeSwitcher.initialize();
 AnalyticsTracker.initialize();
 Clipboard.initializeAll();
 ContactForm.initialize();
-
-CodeBlockUtils.initializeAll();
 
 TransformBoop.initialize(".alert-dismiss .icon-times", { rotate: 15, scaleX: 1.2 });
 TransformBoop.initialize(".icon-arrow-up", { translateY: -3 });

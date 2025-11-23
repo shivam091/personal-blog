@@ -2,6 +2,9 @@
 
 source "https://rubygems.org"
 
+# Ruby version
+ruby "3.3.7"
+
 # Simple, blog-aware, static sites
 gem "jekyll", "~> 4.4.1"
 
