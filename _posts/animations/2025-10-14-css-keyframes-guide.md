@@ -19,6 +19,8 @@ toc:
   max: 3
 ---
 
+{% playground id:"css-keyframes-guide" line_numbers:"on" %}
+
 ## Introduction
 
 While CSS transitions animate between two states, **CSS keyframe animations** allow **full control over multiple animation stages**.
