@@ -337,6 +337,8 @@ Modern browsers optimize animations using the `will-change` property. It hints t
 
 Use sparingly — excessive `will-change` declarations force the browser to immediately allocate memory and GPU resources (*layer creation*), which can increase **memory usage** and reduce performance across the rest of the page. **Only apply `will-change` just before the transition is about to occur and remove it immediately after, if possible, to avoid continuous memory use.**
 
+{% playground id:"css-transitions-guide" %}
+
 ## Best Practices
 
 **Optimal Duration is Key:** Aim for short durations, typically between **150–500ms**, for user interface (UI) interactions. Transitions faster than **150ms** can be missed, and those slower than **500ms** can feel sluggish. 🐢
