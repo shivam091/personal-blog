@@ -7,6 +7,12 @@ permalink: /about
 
 ## Hello there 👋
 
+{% playground id:"css-transitions-guide" %}
+
+{% playground id:"unleashing-css-logical-properties" %}
+
+{% playground id:"demo" line_numbers:"on" %}
+
 {% svg stretchy-guy %}
 
 I’m **Harshal Ladhe**, a software engineer, freelancer, and lifelong learner passionate about building **clean, scalable web solutions**. I contribute to open-source, embrace **minimalism in code and life**, and stay curious about emerging tech.
