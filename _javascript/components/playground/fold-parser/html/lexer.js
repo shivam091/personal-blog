@@ -27,7 +27,7 @@ export class HtmlLexer extends BaseLexer {
     while (this.pos < L) {
       const i = this.pos;
 
-      // 1. Comment (Structural/Highlight)
+      // 1. Comment
       if (s.startsWith(htmlTokens.commentStart, i)) {
         const end = s.indexOf("-->", i + 4);
         const j = end === -1 ? L : end + 3;
@@ -36,86 +36,101 @@ export class HtmlLexer extends BaseLexer {
         continue;
       }
 
-      // 2. Tag (Structural/Highlight)
+      // 2. Structural Tag Handling
       if (s[i] === htmlTokens.tagStart) {
-        let j = i + 1;
-        let isClosingTag = s[j] === '/';
+        let initialPos = this.pos;
+        this.pos++; // Consume '<'
 
-        // --- Tokenize the opening bracket and slash/name ---
-        this.pos++;
-        const tagStartPos = this.pos;
+        let isClosingTag = s[this.pos] === '/';
 
         if (isClosingTag) {
-            this.pos++; // Consume '/'
+          this.pos++; // Consume '/'
         }
 
         // Read Tag Name
+        const nameStart = this.pos;
         let tagName = this.readIdentifier();
 
-        // Tokenize the tag content found so far (e.g., `<div`, `</div`)
-        let tagType = isClosingTag ? "TAG_CLOSE" : "TAG_OPEN";
-        this.add(tagType, s.slice(i, this.pos), i, this.pos, "cp-token-tag");
+        // Only proceed if a valid identifier was read AND it is in the allowed list
+        if (tagName.length > 0 && htmlTokens.tags.has(tagName)) {
 
-        // --- Tokenize Attributes (Only for opening tags) ---
-        if (!isClosingTag) {
-          // Stop parsing attributes when encountering the tag end or end of input
-          while (this.pos < L && s[this.pos] !== htmlTokens.tagEnd) {
-            const attrStart = this.pos;
-            this.skipWhitespace();
+            let tagType = isClosingTag ? "TAG_CLOSE" : "TAG_OPEN";
 
-            if (s[this.pos] === htmlTokens.tagEnd) break; // Break if we hit the end bracket
-            if (this.pos >= L) break;
+            // Tokenize the tag content found so far (e.g., `<div`, `</div`)
+            this.add(tagType, s.slice(initialPos, this.pos), initialPos, this.pos, "cp-token-tag");
 
-            const identifierStart = this.pos;
-            const attrName = this.readIdentifier();
+            // --- Tokenize Attributes (Only for opening tags) ---
+            if (!isClosingTag) {
 
-            if (attrName.length > 0) {
-              const cls = htmlTokens.attributes.has(attrName) ? 'cp-token-attribute' : 'cp-token-variable';
-              this.add('ATTRIBUTE_NAME', attrName, identifierStart, this.pos, cls);
-
-              this.skipWhitespace();
-              if (s[this.pos] === '=') {
-                // Tokenize '='
-                this.add('PUNCTUATION', '=', this.pos, this.pos + 1, "cp-token-punctuation");
-                this.pos++;
+              let inTag = true;
+              while (this.pos < L && inTag) {
+                const attrStart = this.pos;
                 this.skipWhitespace();
 
-                const quote = s[this.pos];
-                if (quote === '\'' || quote === '"') {
-                  const valueStart = this.pos;
-                  this.pos++; // Consume opening quote
+                if (s[this.pos] === htmlTokens.tagEnd) { inTag = false; break; }
+                if (s[this.pos] === '/') { this.pos++; continue; } // Consume '/' for self-closing
 
-                  // Read value until matching quote
-                  while (this.pos < L && s[this.pos] !== quote) {
+                const identifierStart = this.pos;
+                const attrName = this.readIdentifier();
+
+                if (attrName.length > 0) {
+                  const cls = htmlTokens.attributes.has(attrName) ? 'cp-token-attribute' : 'cp-token-variable';
+                  this.add('ATTRIBUTE_NAME', attrName, identifierStart, this.pos, cls);
+
+                  this.skipWhitespace();
+                  if (s[this.pos] === '=') {
+                    this.add('PUNCTUATION', '=', this.pos, this.pos + 1, "cp-token-punctuation");
                     this.pos++;
-                  }
+                    this.skipWhitespace();
 
-                  if (s[this.pos] === quote) {
-                    this.pos++; // Consume closing quote
-                  }
+                    const quote = s[this.pos];
+                    if (quote === '\'' || quote === '"') {
+                      const valueStart = this.pos;
+                      this.pos++;
 
-                  // Tokenize the full value string (including quotes)
-                  this.add('ATTRIBUTE_VALUE', s.slice(valueStart, this.pos), valueStart, this.pos, "cp-token-string");
+                      while (this.pos < L && s[this.pos] !== quote && s[this.pos] !== '\n') {
+                        this.pos++;
+                      }
+
+                      if (s[this.pos] === quote) {
+                        this.pos++;
+                      }
+
+                      this.add('ATTRIBUTE_VALUE', s.slice(valueStart, this.pos), valueStart, this.pos, "cp-token-string");
+                    }
+                  }
+                } else {
+                  // Consume one character if we couldn't parse an identifier
+                  if (s[this.pos] !== htmlTokens.tagEnd) this.pos++;
                 }
               }
-            } else {
-              // Consume one character if we couldn't parse an identifier
-              this.pos++;
             }
-          }
-        }
 
-        // --- Tokenize the final tag end bracket ---
-        if (s[this.pos] === htmlTokens.tagEnd) {
-            this.add('PUNCTUATION', htmlTokens.tagEnd, this.pos, this.pos + 1, "cp-token-tag");
-            this.pos++;
-        }
+            // --- Tokenize the final tag end bracket ---
+            if (s[this.pos] === htmlTokens.tagEnd) {
+                this.add('PUNCTUATION', htmlTokens.tagEnd, this.pos, this.pos + 1, "cp-token-tag");
+                this.pos++;
+            }
 
-        continue;
+            continue; // Tag successfully parsed
+
+        } else {
+            // Not a valid tag name. Treat '<' as plain content/junk.
+            this.pos = initialPos + 1;
+        }
       }
 
       // 3. Plain Content / Ignore everything else
-      this.pos++;
+      let contentStart = this.pos;
+      while(this.pos < L && s[this.pos] !== '<') {
+          this.pos++;
+      }
+      if (this.pos > contentStart) {
+          this.add("CONTENT", s.slice(contentStart, this.pos), contentStart, this.pos, "cp-token-content");
+      }
+      if(this.pos === contentStart) {
+          this.pos++; // Advance if stuck
+      }
     }
 
     return this.tokens;

@@ -1,3 +1,5 @@
+import { htmlTokens } from "./constants";
+
 export const htmlGrammar = {
   startRule: "Document",
   rules: {
@@ -5,7 +7,7 @@ export const htmlGrammar = {
       const children = [];
 
       while (!p.eof()) {
-        const node = p.oneOf(["Element", "Comment"]);
+        const node = p.oneOf(["Element", "Comment", "Content"]);
 
         if (!node) {
           // Consume any non-structural token to prevent infinite loop
@@ -19,36 +21,31 @@ export const htmlGrammar = {
       return { type: "Document", children };
     },
 
+    Content(p) {
+      const t = p.matchType("CONTENT");
+      return t ? { type: "Content", start: t.start, end: t.end, value: t.value } : null;
+    },
+
     Comment(p) {
       const t = p.matchType("COMMENT");
 
       return t ? { type: "Comment", start: t.start, end: t.end } : null;
     },
 
-    /**
-     * Parses a full HTML element, including its attributes and children.
-     */
+    // Parses a full HTML element, including its attributes and children.
     Element(p) {
-      const openTagStartToken = p.peek();
-      if (!openTagStartToken || openTagStartToken.type !== "TAG_OPEN") return null;
-
-      // We will parse the entire tag structure within the TAG_OPEN token's range
-      // The attributes are already tokenized by the lexer and we will consume them now.
-
-      // Consume the initial TAG_OPEN token which already includes the tag name
-      const openToken = p.next();
+      const openToken = p.matchType("TAG_OPEN");
       if (!openToken) return null;
 
       const attributes = p.apply("AttributeList"); // Parse the list of attributes
 
-      // The tag ends either with the close bracket (if self-closing) or continues.
-      // For structural folding, we assume the whole open section is consumed,
-      // and look for the final TAG_CLOSE token later.
+      // Consume closing bracket of the opening tag (e.g., > or />)
+      let openTagEndBracket = p.matchType("PUNCTUATION", htmlTokens.tagEnd);
 
       const children = [];
       let closeToken = null;
 
-      // Continue parsing children (nested Elements, Comments, or plain content) until we hit a closing tag
+      // Parse content/children until we hit the corresponding closing tag
       while (true) {
         const next = p.peek();
         if (!next) break;
@@ -56,22 +53,24 @@ export const htmlGrammar = {
         // Stop if we find a closing tag token
         if (next.type === "TAG_CLOSE") {
           closeToken = p.next();
+
+          // Must also consume the final '>' of the closing tag
+          p.matchType("PUNCTUATION", htmlTokens.tagEnd);
           break;
         }
 
         // Recursively parse nested elements or comments
-        const child = p.oneOf(["Element", "Comment"]);
+        const child = p.oneOf(["Element", "Comment", "Content"]);
         if (child) {
           children.push(child);
           continue;
         }
 
-        // Ignore non-structural/content tokens that are not fold nodes
+        // Ignore non-structural tokens
         p.next();
       }
 
-      // Requires a closing tag token to define the fold range
-      if (!closeToken) return null;
+      const closingEnd = closeToken ? closeToken.end : (openTagEndBracket ? openTagEndBracket.end : openToken.end);
 
       return {
         type: "Element",
@@ -79,7 +78,7 @@ export const htmlGrammar = {
         attributes: attributes, // Now includes the parsed attributes
         children,
         start: openToken.start,
-        end: closeToken.end // Use the end of the closing tag token
+        end: closingEnd // Use the end of the closing tag token
       };
     },
 
