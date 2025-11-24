@@ -7,8 +7,8 @@ export const htmlGrammar = {
       const children = [];
 
       while (!p.eof()) {
-        // Added "ProcessingInstruction" to the top-level document rules
-        const node = p.oneOf(["ProcessingInstruction", "Doctype", "Element", "Comment", "Content", "Entity", "Cdata"]);
+        // Added "Space" and "Tab" to the top-level document rules
+        const node = p.oneOf(["ProcessingInstruction", "Doctype", "Element", "Comment", "Content", "Entity", "Cdata", "Space", "Tab"]);
 
         if (!node) {
           p.next();
@@ -25,6 +25,19 @@ export const htmlGrammar = {
         const t = p.matchType("CONTENT");
         return t ? { type: "Content", start: t.start, end: t.end, value: t.value } : null;
     },
+
+    // New rule for Space token
+    Space(p) {
+        const t = p.matchType("SPACE");
+        return t ? { type: "Space", start: t.start, end: t.end, value: t.value } : null;
+    },
+
+    // New rule for Tab token
+    Tab(p) {
+        const t = p.matchType("TAB");
+        return t ? { type: "Tab", start: t.start, end: t.end, value: t.value } : null;
+    },
+
 
     Comment(p) {
       const t = p.matchType("COMMENT");
@@ -46,7 +59,6 @@ export const htmlGrammar = {
         return t ? { type: "Cdata", start: t.start, end: t.end, value: t.value } : null;
     },
 
-    // New rule for Processing Instructions
     ProcessingInstruction(p) {
         const t = p.matchType("PROCESSING_INSTRUCTION");
         return t ? { type: "ProcessingInstruction", start: t.start, end: t.end, value: t.value } : null;
@@ -74,8 +86,8 @@ export const htmlGrammar = {
           break;
         }
 
-        // Includes all potential inner nodes
-        const child = p.oneOf(["Element", "Comment", "Content", "Entity", "Cdata", "ProcessingInstruction"]);
+        // Includes all potential inner nodes (Added Space and Tab)
+        const child = p.oneOf(["Element", "Comment", "Content", "Entity", "Cdata", "ProcessingInstruction", "Space", "Tab"]);
         if (child) {
           children.push(child);
           continue;

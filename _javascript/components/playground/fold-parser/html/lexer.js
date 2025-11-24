@@ -134,7 +134,7 @@ export class HtmlLexer extends BaseLexer {
               let inTag = true;
               while (this.pos < L && inTag) {
                 const attrStart = this.pos;
-                this.skipWhitespace();
+                this.skipWhitespace(); // Still skip whitespace inside tag definition
 
                 if (s[this.pos] === htmlTokens.tagEnd) { inTag = false; break; }
                 if (s[this.pos] === '/') { this.pos++; continue; }
@@ -208,15 +208,54 @@ export class HtmlLexer extends BaseLexer {
       }
 
 
-      // 6. Plain Content / Ignore everything else
+      // 6. Plain Content / Whitespace Tokenization (Refactored)
       let contentStart = this.pos;
-      while(this.pos < L && s[this.pos] !== '<' && s[this.pos] !== '&' && s[this.pos] !== htmlTokens.piStart[0]) {
+
+      // This loop will break when a tag boundary, entity, space, or tab is found.
+      while(this.pos < L) {
+          const char = s[this.pos];
+
+          // Boundary check (Start of Tag, PI, Entity)
+          if (char === '<' || char === '&' || char === htmlTokens.piStart[0]) {
+              break;
+          }
+
+          // Check for specific tokenizable whitespace: space
+          if (char === ' ') {
+              if (this.pos > contentStart) {
+                  // Tokenize any CONTENT (including newlines) built up so far
+                  this.add("CONTENT", s.slice(contentStart, this.pos), contentStart, this.pos, "cp-token-content");
+              }
+              // Tokenize the space
+              this.add("SPACE", char, this.pos, this.pos + 1, "editor-token-space");
+              this.pos++;
+              contentStart = this.pos; // Reset content start
+              continue;
+          }
+
+          // Check for specific tokenizable whitespace: tab
+          if (char === '\t') {
+              if (this.pos > contentStart) {
+                  // Tokenize any CONTENT (including newlines) built up so far
+                  this.add("CONTENT", s.slice(contentStart, this.pos), contentStart, this.pos, "cp-token-content");
+              }
+              // Tokenize the tab
+              this.add("TAB", char, this.pos, this.pos + 1, "editor-token-tab");
+              this.pos++;
+              contentStart = this.pos; // Reset content start
+              continue;
+          }
+
+          // If it's not a boundary, space, or tab, it's general content (e.g., text, newlines)
           this.pos++;
       }
+
+      // Tokenize any remaining CONTENT
       if (this.pos > contentStart) {
           this.add("CONTENT", s.slice(contentStart, this.pos), contentStart, this.pos, "cp-token-content");
       }
-      if(this.pos === contentStart) {
+
+      if(this.pos === i) {
           this.pos++; // Advance if stuck
       }
     }
