@@ -84,19 +84,29 @@ export class HtmlLexer extends BaseLexer {
           continue;
       }
 
-      // 3. Structural Tag Handling and DOCTYPE (both start with '<')
+      // 3. Processing Instruction (PI)
+      if (s.startsWith(htmlTokens.piStart, i)) {
+          const end = s.indexOf("?>", i + htmlTokens.piStart.length);
+          const j = end === -1 ? L : end + 2; // +2 for '?>'
+          this.add("PROCESSING_INSTRUCTION", s.slice(i, j), i, j, "cp-token-entity");
+          this.pos = j;
+          continue;
+      }
+
+
+      // 4. Structural Tag Handling and DOCTYPE (both start with '<')
       if (s[i] === htmlTokens.tagStart) {
 
-        // 3a. DOCTYPE check (must be uppercase to match spec)
+        // 4a. DOCTYPE check (must be uppercase to match spec)
         if (s.toUpperCase().startsWith(htmlTokens.doctypeStart.toUpperCase(), i)) {
             const end = s.indexOf(">", i + htmlTokens.doctypeStart.length);
             const j = end === -1 ? L : end + 1;
-            this.add("DOCTYPE", s.slice(i, j), i, j, "cp-token-doctype");
+            this.add("DOCTYPE", s.slice(i, j), i, j, "cp-token-keyword");
             this.pos = j;
             continue;
         }
 
-        // 3b. Regular Tag Logic starts here
+        // 4b. Regular Tag Logic starts here
         let initialPos = this.pos;
         this.pos++; // Consume '<'
 
@@ -185,12 +195,12 @@ export class HtmlLexer extends BaseLexer {
             continue; // Tag successfully parsed
 
         } else {
-            // Not a valid tag name or DOCTYPE, treat '<' as plain content/junk.
+            // Not a valid tag name, DOCTYPE, or PI, treat '<' as plain content/junk.
             this.pos = initialPos + 1;
         }
       }
 
-      // 4. HTML Entity Check (MUST come before CONTENT)
+      // 5. HTML Entity Check (MUST come before CONTENT)
       if (s[i] === '&') {
           if (this.readEntity()) {
               continue;
@@ -198,9 +208,9 @@ export class HtmlLexer extends BaseLexer {
       }
 
 
-      // 5. Plain Content / Ignore everything else
+      // 6. Plain Content / Ignore everything else
       let contentStart = this.pos;
-      while(this.pos < L && s[this.pos] !== '<' && s[this.pos] !== '&') {
+      while(this.pos < L && s[this.pos] !== '<' && s[this.pos] !== '&' && s[this.pos] !== htmlTokens.piStart[0]) {
           this.pos++;
       }
       if (this.pos > contentStart) {

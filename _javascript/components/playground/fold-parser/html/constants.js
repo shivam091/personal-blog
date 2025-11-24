@@ -4,6 +4,7 @@ export const htmlTokens = {
   commentStart: "<!--",
   cdataStart: "<![CDATA[",
   doctypeStart: "<!DOCTYPE",
+  piStart: "<?xml",
   tags: new Set([
     "!--", "a", "abbr", "address", "area", "article", "aside", "audio", "b", "base",
     "bdi", "bdo", "blockquote", "body", "br", "button", "canvas", "caption", "cite",

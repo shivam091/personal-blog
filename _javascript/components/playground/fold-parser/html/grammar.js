@@ -7,7 +7,8 @@ export const htmlGrammar = {
       const children = [];
 
       while (!p.eof()) {
-        const node = p.oneOf(["Doctype", "Element", "Comment", "Content", "Entity", "Cdata"]);
+        // Added "ProcessingInstruction" to the top-level document rules
+        const node = p.oneOf(["ProcessingInstruction", "Doctype", "Element", "Comment", "Content", "Entity", "Cdata"]);
 
         if (!node) {
           p.next();
@@ -35,16 +36,20 @@ export const htmlGrammar = {
         return t ? { type: "Entity", start: t.start, end: t.end, value: t.value } : null;
     },
 
-    // New rule for DOCTYPE
     Doctype(p) {
         const t = p.matchType("DOCTYPE");
         return t ? { type: "Doctype", start: t.start, end: t.end, value: t.value } : null;
     },
 
-    // New rule for CDATA
     Cdata(p) {
         const t = p.matchType("CDATA");
         return t ? { type: "Cdata", start: t.start, end: t.end, value: t.value } : null;
+    },
+
+    // New rule for Processing Instructions
+    ProcessingInstruction(p) {
+        const t = p.matchType("PROCESSING_INSTRUCTION");
+        return t ? { type: "ProcessingInstruction", start: t.start, end: t.end, value: t.value } : null;
     },
 
     Element(p) {
@@ -70,7 +75,7 @@ export const htmlGrammar = {
         }
 
         // Includes all potential inner nodes
-        const child = p.oneOf(["Element", "Comment", "Content", "Entity", "Cdata"]);
+        const child = p.oneOf(["Element", "Comment", "Content", "Entity", "Cdata", "ProcessingInstruction"]);
         if (child) {
           children.push(child);
           continue;
