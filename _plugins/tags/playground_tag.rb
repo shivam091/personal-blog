@@ -157,6 +157,7 @@ module Jekyll
             <div class="code-editor">
               <div class="editor-gutters">
                 <div class="editor-gutter editor-lines"></div>
+                <div class="editor-gutter editor-folds"></div>
               </div>
               <div id="code-#{id}-#{file['type']}-#{idx}" contenteditable="true" spellcheck="false" autocorrect="off" autocapitalize="off" writingsuggestions="false" translate="no" role="textbox" aria-label="Code editor for #{file["name"]}" aria-multiline="true" aria-describedby="pg-title-#{id}">#{CGI.escapeHTML(file["code"]).strip}</div>
             </div>

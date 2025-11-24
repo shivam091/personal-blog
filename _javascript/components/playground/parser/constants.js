@@ -1,0 +1,1 @@
+export const INSIGNIFICANT_TOKENS = ["WHITESPACE", "TAB", "NEWLINE"];

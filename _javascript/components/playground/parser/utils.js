@@ -18,3 +18,36 @@ export const escapeHTML = (str) => String(str)
 export function joinValues(tokens) {
   return tokens.map(token => token.value).join("");
 }
+
+/*
+ * Pre-calculates line starting positions for fast index-to-line conversion.
+ */
+export function getLineStarts(src) {
+  const lineStarts = [0];
+  for (let i = 0; i < src.length; i++) {
+    if (src[i] === "\n") {
+      lineStarts.push(i + 1);
+    }
+  }
+  return lineStarts;
+}
+
+/*
+ * Converts a character index to a 1-based line number.
+ */
+export function indexToLine(index, lineStarts) {
+  let low = 0;
+  let high = lineStarts.length - 1;
+  let result = 1;
+
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    if (lineStarts[mid] <= index) {
+      result = mid + 1;
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+  return result;
+}
