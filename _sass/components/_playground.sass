@@ -307,3 +307,45 @@ $gutter-min-width: 3rem
 .console-line-error,
 .console-count-error
   color: var(--color-fg-danger)
+
+/* The gutter icon container (assuming it sits in the line number area) */
+.editor-line-number .fold-marker
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  width: 15px
+  height: 15px
+  margin-right: 4px
+  font-size: 10px
+  line-height: 1
+  cursor: pointer
+  user-select: none
+  border: 1px solid #ccc
+  border-radius: 3px
+  background-color: #eee
+  color: #444
+  font-family: monospace
+  transition: background-color 0.1s
+
+  &:hover
+    background-color: #ddd
+    border-color: #bbb
+
+/* Style for the collapsed state of the line */
+.editor-line.collapsed
+  /* Hide the lines within the folding range */
+  display: none
+
+/* Style the line that is currently folded (optional: to show a summary) */
+.editor-line-number.is-folded .fold-marker
+  /* Folded state marker (shows as '+') */
+  content: '+'
+
+.editor-line-number .fold-marker[data-state="expanded"]
+  /* Expanded state marker (shows as '-') */
+  content: '-'
+
+/* Line that is currently hiding content should have the fold icon */
+.editor-line-number.foldable-start
+  /* Ensure the marker is visible in the gutter */
+  position: relative

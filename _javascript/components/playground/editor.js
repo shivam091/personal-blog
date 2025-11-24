@@ -1,7 +1,6 @@
 import { prettifyCode } from "./prettier";
-import { escapeHTML } from "./parser/utils";
 import { findNodeOffset, getCursorMetadata } from "./utils/cursor-metadata";
-import { LanguageEngine } from "./parser/language-engine";
+import { LanguageEngine } from "./fold-parser/language-engine";
 
 /*
  * Provides the core logic for a custom, contenteditable-based code editor component.
@@ -24,9 +23,21 @@ export class Editor {
   // Default cursor state property.
   cursor = { line: 1, col: 1 };
 
+  // Structural update debounce ID
+  #structuralFrameId = null;
+
+  // Store the collapse state for each foldable region
+  #foldedRegions = new Map(); // Key: startLine, Value: {endLine, isCollapsed: boolean}
+
   constructor(root, uniqueKey, meta = {}) {
     this.#root = root;
     this.#key = uniqueKey;
+
+    // The full document AST. (No longer required to be stored, but kept for legacy/debug)
+    this.fullAST = null;
+
+    // The calculated fold regions.
+    this.foldRegions = [];
 
     // The file type (e.g., 'js', 'html') inferred from the unique key or metadata.
     this.fileType = meta.fileType || uniqueKey.split("-")[0];
@@ -43,6 +54,8 @@ export class Editor {
     // The element containing the line numbers (".editor-lines").
     this.linesEl = this.codeEditor?.querySelector(".editor-lines");
 
+    this.foldsEl = this.codeEditor?.querySelector(".editor-folds");
+
     // Initial visibility check to generate lines on load if the attribute is "on"
     const initialLineVisibleAttr = root.getAttribute("data-line-numbers") || "off";
     this.#setLineNumberVisibility(initialLineVisibleAttr === "on");
@@ -57,6 +70,7 @@ export class Editor {
 
     this.#refresh();
     this.#bindEvents();
+    this.#scheduleStructuralUpdate();
   }
 
   /*
@@ -115,6 +129,151 @@ export class Editor {
     }
   }
 
+  /**
+   * Updates the internal map, keeping existing collapse states if regions match.
+   * This preserves the user's folding state when content changes.
+   * @param {Array<{startLine: number, endLine: number}>} newRegions - The fold regions from the parser.
+   */
+  #updateFoldStateMap(newRegions) {
+    const newFoldedRegions = new Map();
+    for (const region of newRegions) {
+        const key = region.startLine;
+        const existing = this.#foldedRegions.get(key);
+
+        // Preserve the collapse state if the region already existed, otherwise default to false (expanded)
+        newFoldedRegions.set(key, {
+            endLine: region.endLine,
+            isCollapsed: existing ? existing.isCollapsed : false
+        });
+    }
+    this.#foldedRegions = newFoldedRegions;
+  }
+
+  /**
+   * Renders the fold markers (+/- icons) in the line number gutter.
+   */
+  #renderFoldGutter() {
+    if (!this.foldsEl) return;
+
+    const totalLines = this.editable.children.length;
+    this.foldsEl.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+
+    for (let line = 1; line <= totalLines; line++) {
+        const lineContainer = document.createElement('div');
+        lineContainer.className = 'editor-fold-line';
+
+        const region = this.#foldedRegions.get(line);
+
+        if (region) {
+            const marker = document.createElement('div');
+            marker.className = 'fold-marker';
+            marker.dataset.line = line;
+            marker.dataset.state = region.isCollapsed ? 'collapsed' : 'expanded';
+            marker.textContent = region.isCollapsed ? '+' : '−';
+
+            lineContainer.appendChild(marker);
+            lineContainer.classList.add('foldable-start');
+        }
+
+        fragment.appendChild(lineContainer);
+    }
+
+    this.foldsEl.appendChild(fragment);
+  }
+
+  #applyFoldState() {
+    // 1. Ensure all editor lines are visible initially
+    Array.from(this.editable.children).forEach(lineEl => lineEl.classList.remove('collapsed'));
+
+    // 2. Iterate over collapsed regions and hide lines
+    for (const [startLine, region] of this.#foldedRegions.entries()) {
+        if (region.isCollapsed) {
+            // Hide lines starting from the line *after* the opening tag (index startLine)
+            // up to the line before the closing tag (index region.endLine).
+            for (let i = startLine; i <= region.endLine; i++) {
+                const lineEl = this.editable.children[i];
+                if (lineEl) {
+                    lineEl.classList.add('collapsed');
+                }
+            }
+        }
+    }
+  }
+
+  #toggleFold(startLine) {
+    const region = this.#foldedRegions.get(startLine);
+    if (!region) return;
+
+    region.isCollapsed = !region.isCollapsed;
+    this.#foldedRegions.set(startLine, region);
+
+    this.#applyFoldState();
+
+    // Update the marker icon in the folds gutter
+    const markerEl = this.foldsEl.querySelector(`.fold-marker[data-line="${startLine}"]`);
+    if (markerEl) {
+        markerEl.dataset.state = region.isCollapsed ? 'collapsed' : 'expanded';
+        markerEl.textContent = region.isCollapsed ? '+' : '−';
+    }
+  }
+
+  #handleGutterClick(event) {
+    // Event delegation on this.foldsEl
+    const marker = event.target.closest('.fold-marker');
+    if (marker) {
+        const startLine = parseInt(marker.dataset.line, 10);
+        this.#toggleFold(startLine);
+    }
+  }
+
+  /**
+   * Runs the specialized LanguageEngine method on the *full* document
+   * to update the folding structure using the fast structural parser.
+   * @public
+   */
+  #updateStructuralMetadata() {
+    const fullValue = this.value;
+    const engine = new LanguageEngine(this.fileType, fullValue);
+
+    // Run the NEW specialized structural parser method
+    // This is much faster than running the full engine.run()
+    const foldRegions = engine.runStructuralFoldParser(fullValue); // <-- KEY CHANGE
+
+    // We don't need to store a full AST here, only the folding data
+    this.fullAST = null;
+    this.errors = []; // Clear errors for simplicity, only relevant for full AST
+    this.foldRegions = foldRegions;
+
+    // Update Fold State Map
+    this.#updateFoldStateMap(foldRegions); // Keeps track of which regions are collapsed
+
+    // Render Markers
+    this.#renderFoldGutter(); // Draws the '+' or '-' icons in the gutter
+
+    // Re-apply any existing collapse state
+    this.#applyFoldState(); // Hides/shows the lines based on the current state
+
+    // Dispatch an event for the editor UI to draw fold markers/gutter icons
+    this.editable.dispatchEvent(new CustomEvent("playground:editor:folds-updated", {
+        bubbles: true,
+        detail: { foldRegions }
+    }));
+
+    console.log("Fold Regions Updated:", this.foldRegions);
+    // console.log("Full AST Updated: [SKIPPED FOR PERFORMANCE]"); // No longer necessary
+  }
+
+  // NEW: Debounce function for structural updates
+  #scheduleStructuralUpdate() {
+    clearTimeout(this.#structuralFrameId); // Clear any existing timeout
+    this.#structuralFrameId = setTimeout(() => {
+        this.#structuralFrameId = null;
+        this.#updateStructuralMetadata();
+    }, 500); // 500ms debounce
+  }
+
   /*
    * Attaches all primary and internal event listeners to the editable area.
    */
@@ -123,6 +282,7 @@ export class Editor {
     this.editable.addEventListener("input", () => {
       this.#scheduleRefresh();
       this.#scheduleCursorUpdate();
+      this.#scheduleStructuralUpdate();
     });
     this.editable.addEventListener("paste", e => this.#handlePaste(e));
 
@@ -160,6 +320,10 @@ export class Editor {
     this.#root.addEventListener("playground:editor:toggle-line-numbers", (e) => {
       this.#setLineNumberVisibility(e.detail.visible);
     });
+
+    if (this.foldsEl) {
+      this.foldsEl.addEventListener("click", this.#handleGutterClick.bind(this));
+    }
   }
 
   /*
@@ -406,22 +570,12 @@ export class Editor {
    * Applies HTML escaping and formats spaces/tabs with styled span elements.
    */
   #applyFormatting(line) {
-    // if (line.length === 0) return "<br>";
-
-    // // Escape HTML entities first to prevent injection, then replace whitespace with styled spans.
-    // const safe = escapeHTML(line)
-    //   .replace(/ /g, "<span class='editor-token-space'> </span>")
-    //   .replace(/\t/g, "<span class='editor-token-tab'>\t</span>");
-
-    // return safe;
-
+    // NOTE: This runs the full LanguageEngine pipeline line-by-line for highlighting,
+    // which is independent of the full-document folding process.
     const engine = new LanguageEngine(this.fileType, line);
 
-    const {ast, tokens, highlighted, errors, foldRegions } = engine.run(line)
-    console.log("AST:", ast);
-    console.log("Tokens", tokens);
-    console.log("Errors", errors);
-    console.log("Folds", foldRegions)
+    // Only run the highlighting part of the pipeline here
+    const { highlighted } = engine.run(line);
     return highlighted;
   }
 
