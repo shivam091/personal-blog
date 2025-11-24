@@ -2,6 +2,8 @@ export const htmlTokens = {
   tagStart: "<",
   tagEnd: ">",
   commentStart: "<!--",
+  cdataStart: "<![CDATA[",
+  doctypeStart: "<!DOCTYPE",
   tags: new Set([
     "!--", "a", "abbr", "address", "area", "article", "aside", "audio", "b", "base",
     "bdi", "bdo", "blockquote", "body", "br", "button", "canvas", "caption", "cite",

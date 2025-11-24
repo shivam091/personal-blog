@@ -37,20 +37,16 @@ export class HtmlLexer extends BaseLexer {
 
       let currentPos = start + 1; // Start after '&'
 
-      // Entity must be followed by letters/numbers/hash
       if (!/[a-zA-Z#]/.test(this.input[currentPos])) return null;
 
-      // Scan until semicolon or end of input
       while (currentPos < this.length && this.input[currentPos] !== ';') {
           currentPos++;
       }
 
-      // Check if we found a semicolon
       if (this.input[currentPos] === ';') {
           currentPos++; // Consume ';'
           const entity = this.input.slice(start, currentPos);
 
-          // 🚨 NEW VALIDATION: Check if the entity is in the allowed set
           if (htmlTokens.entities.has(entity)) {
             this.add("ENTITY", entity, start, currentPos, "cp-token-entity");
             this.pos = currentPos;
@@ -58,7 +54,6 @@ export class HtmlLexer extends BaseLexer {
           }
       }
 
-      // If invalid entity or unclosed sequence, reset position and treat as content later
       this.pos = start;
       return false;
   }
@@ -80,8 +75,28 @@ export class HtmlLexer extends BaseLexer {
         continue;
       }
 
-      // 2. Structural Tag Handling
+      // 2. CDATA
+      if (s.startsWith(htmlTokens.cdataStart, i)) {
+          const end = s.indexOf("]]>", i + htmlTokens.cdataStart.length);
+          const j = end === -1 ? L : end + 3;
+          this.add("CDATA", s.slice(i, j), i, j, "cp-token-cdata");
+          this.pos = j;
+          continue;
+      }
+
+      // 3. Structural Tag Handling and DOCTYPE (both start with '<')
       if (s[i] === htmlTokens.tagStart) {
+
+        // 3a. DOCTYPE check (must be uppercase to match spec)
+        if (s.toUpperCase().startsWith(htmlTokens.doctypeStart.toUpperCase(), i)) {
+            const end = s.indexOf(">", i + htmlTokens.doctypeStart.length);
+            const j = end === -1 ? L : end + 1;
+            this.add("DOCTYPE", s.slice(i, j), i, j, "cp-token-doctype");
+            this.pos = j;
+            continue;
+        }
+
+        // 3b. Regular Tag Logic starts here
         let initialPos = this.pos;
         this.pos++; // Consume '<'
 
@@ -96,7 +111,6 @@ export class HtmlLexer extends BaseLexer {
         let tagName = this.readIdentifier();
 
         // 🚨 CRITICAL VALIDATION CHECK 🚨
-        // Only proceed if a valid identifier was read AND it is in the allowed list
         if (tagName.length > 0 && htmlTokens.tags.has(tagName)) {
 
             let tagType = isClosingTag ? "TAG_CLOSE" : "TAG_OPEN";
@@ -113,7 +127,7 @@ export class HtmlLexer extends BaseLexer {
                 this.skipWhitespace();
 
                 if (s[this.pos] === htmlTokens.tagEnd) { inTag = false; break; }
-                if (s[this.pos] === '/') { this.pos++; continue; } // Consume '/' for self-closing
+                if (s[this.pos] === '/') { this.pos++; continue; }
 
                 const identifierStart = this.pos;
                 const attrName = this.readIdentifier();
@@ -124,7 +138,6 @@ export class HtmlLexer extends BaseLexer {
 
                   this.skipWhitespace();
 
-                  // Check for '=' and value
                   if (s[this.pos] === '=') {
                     this.add('PUNCTUATION', '=', this.pos, this.pos + 1, "cp-token-punctuation");
                     this.pos++;
@@ -136,15 +149,14 @@ export class HtmlLexer extends BaseLexer {
 
                     if (quote === '\'' || quote === '"') {
                       // 1. Quoted Value
-                      this.pos++; // Consume opening quote
+                      this.pos++;
 
-                      // Read value until matching quote or newline
                       while (this.pos < L && s[this.pos] !== quote && s[this.pos] !== '\n') {
                         this.pos++;
                       }
 
                       if (s[this.pos] === quote) {
-                        this.pos++; // Consume closing quote
+                        this.pos++;
                       }
                       value = s.slice(valueStart, this.pos);
                       this.add('ATTRIBUTE_VALUE_QUOTED', value, valueStart, this.pos, "cp-token-string");
@@ -159,7 +171,6 @@ export class HtmlLexer extends BaseLexer {
                     }
                   }
                 } else {
-                  // Consume one character if we couldn't parse an identifier
                   if (s[this.pos] !== htmlTokens.tagEnd) this.pos++;
                 }
               }
@@ -174,24 +185,21 @@ export class HtmlLexer extends BaseLexer {
             continue; // Tag successfully parsed
 
         } else {
-            // Not a valid tag name. Treat '<' as plain content/junk.
+            // Not a valid tag name or DOCTYPE, treat '<' as plain content/junk.
             this.pos = initialPos + 1;
         }
       }
 
-      // 3. HTML Entity Check (MUST come before CONTENT)
+      // 4. HTML Entity Check (MUST come before CONTENT)
       if (s[i] === '&') {
           if (this.readEntity()) {
               continue;
           }
-          // If readEntity failed (e.g., invalid entity),
-          // it falls through to be treated as plain content below.
       }
 
 
-      // 4. Plain Content / Ignore everything else
+      // 5. Plain Content / Ignore everything else
       let contentStart = this.pos;
-      // Content runs until the next '<' (tag start) or '&' (entity start)
       while(this.pos < L && s[this.pos] !== '<' && s[this.pos] !== '&') {
           this.pos++;
       }

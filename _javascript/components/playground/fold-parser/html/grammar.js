@@ -7,8 +7,7 @@ export const htmlGrammar = {
       const children = [];
 
       while (!p.eof()) {
-        // Now includes "Entity" as a possible top-level node (though typically within Element)
-        const node = p.oneOf(["Element", "Comment", "Content", "Entity"]);
+        const node = p.oneOf(["Doctype", "Element", "Comment", "Content", "Entity", "Cdata"]);
 
         if (!node) {
           p.next();
@@ -31,12 +30,22 @@ export const htmlGrammar = {
       return t ? { type: "Comment", start: t.start, end: t.end } : null;
     },
 
-    // Rule for HTML Entities
     Entity(p) {
         const t = p.matchType("ENTITY");
         return t ? { type: "Entity", start: t.start, end: t.end, value: t.value } : null;
     },
 
+    // New rule for DOCTYPE
+    Doctype(p) {
+        const t = p.matchType("DOCTYPE");
+        return t ? { type: "Doctype", start: t.start, end: t.end, value: t.value } : null;
+    },
+
+    // New rule for CDATA
+    Cdata(p) {
+        const t = p.matchType("CDATA");
+        return t ? { type: "Cdata", start: t.start, end: t.end, value: t.value } : null;
+    },
 
     Element(p) {
       const openToken = p.matchType("TAG_OPEN");
@@ -44,28 +53,24 @@ export const htmlGrammar = {
 
       const attributes = p.apply("AttributeList");
 
-      // Consume closing bracket of the opening tag (e.g., > or />)
       let openTagEndBracket = p.matchType("PUNCTUATION", htmlTokens.tagEnd);
 
       const children = [];
       let closeToken = null;
 
-      // Parse content/children until we hit the corresponding closing tag
       while (true) {
         const next = p.peek();
         if (!next) break;
 
-        // Stop if we find a closing tag token
         if (next.type === "TAG_CLOSE") {
           closeToken = p.next();
 
-          // Must also consume the final '>' of the closing tag
           p.matchType("PUNCTUATION", htmlTokens.tagEnd);
           break;
         }
 
-        // Includes "Entity" in the possible children
-        const child = p.oneOf(["Element", "Comment", "Content", "Entity"]);
+        // Includes all potential inner nodes
+        const child = p.oneOf(["Element", "Comment", "Content", "Entity", "Cdata"]);
         if (child) {
           children.push(child);
           continue;
@@ -117,13 +122,7 @@ export const htmlGrammar = {
     },
 
     AttributeValue(p) {
-      // 1. Try to match a quoted value first
-      let valueToken = p.matchType("ATTRIBUTE_VALUE_QUOTED");
-
-      // 2. If quoted failed, try to match an unquoted value
-      if (!valueToken) {
-          valueToken = p.matchType("ATTRIBUTE_VALUE_UNQUOTED");
-      }
+      let valueToken = p.matchType("ATTRIBUTE_VALUE_QUOTED") || p.matchType("ATTRIBUTE_VALUE_UNQUOTED");
 
       if (!valueToken) {
           return null;
@@ -131,7 +130,6 @@ export const htmlGrammar = {
 
       let innerValue = valueToken.value;
 
-      // If quoted, strip the quotes for the final AST value
       if (valueToken.type === 'ATTRIBUTE_VALUE_QUOTED' && innerValue.length >= 2) {
           innerValue = innerValue.slice(1, -1);
       }
