@@ -31,6 +31,39 @@ export class HtmlLexer extends BaseLexer {
     return this.input.slice(start, this.pos);
   }
 
+  readEntity() {
+      const start = this.pos;
+      if (this.input[start] !== '&') return null;
+
+      let currentPos = start + 1; // Start after '&'
+
+      // Entity must be followed by letters/numbers/hash
+      if (!/[a-zA-Z#]/.test(this.input[currentPos])) return null;
+
+      // Scan until semicolon or end of input
+      while (currentPos < this.length && this.input[currentPos] !== ';') {
+          currentPos++;
+      }
+
+      // Check if we found a semicolon
+      if (this.input[currentPos] === ';') {
+          currentPos++; // Consume ';'
+          const entity = this.input.slice(start, currentPos);
+
+          // 🚨 NEW VALIDATION: Check if the entity is in the allowed set
+          if (htmlTokens.entities.has(entity)) {
+            this.add("ENTITY", entity, start, currentPos, "cp-token-entity");
+            this.pos = currentPos;
+            return true;
+          }
+      }
+
+      // If invalid entity or unclosed sequence, reset position and treat as content later
+      this.pos = start;
+      return false;
+  }
+
+
   run() {
     const s = this.input;
     const L = s.length;
@@ -146,9 +179,20 @@ export class HtmlLexer extends BaseLexer {
         }
       }
 
-      // 3. Plain Content / Ignore everything else
+      // 3. HTML Entity Check (MUST come before CONTENT)
+      if (s[i] === '&') {
+          if (this.readEntity()) {
+              continue;
+          }
+          // If readEntity failed (e.g., invalid entity),
+          // it falls through to be treated as plain content below.
+      }
+
+
+      // 4. Plain Content / Ignore everything else
       let contentStart = this.pos;
-      while(this.pos < L && s[this.pos] !== '<') {
+      // Content runs until the next '<' (tag start) or '&' (entity start)
+      while(this.pos < L && s[this.pos] !== '<' && s[this.pos] !== '&') {
           this.pos++;
       }
       if (this.pos > contentStart) {

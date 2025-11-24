@@ -7,7 +7,8 @@ export const htmlGrammar = {
       const children = [];
 
       while (!p.eof()) {
-        const node = p.oneOf(["Element", "Comment", "Content"]);
+        // Now includes "Entity" as a possible top-level node (though typically within Element)
+        const node = p.oneOf(["Element", "Comment", "Content", "Entity"]);
 
         if (!node) {
           p.next();
@@ -29,6 +30,13 @@ export const htmlGrammar = {
       const t = p.matchType("COMMENT");
       return t ? { type: "Comment", start: t.start, end: t.end } : null;
     },
+
+    // Rule for HTML Entities
+    Entity(p) {
+        const t = p.matchType("ENTITY");
+        return t ? { type: "Entity", start: t.start, end: t.end, value: t.value } : null;
+    },
+
 
     Element(p) {
       const openToken = p.matchType("TAG_OPEN");
@@ -56,7 +64,8 @@ export const htmlGrammar = {
           break;
         }
 
-        const child = p.oneOf(["Element", "Comment", "Content"]);
+        // Includes "Entity" in the possible children
+        const child = p.oneOf(["Element", "Comment", "Content", "Entity"]);
         if (child) {
           children.push(child);
           continue;
@@ -103,13 +112,10 @@ export const htmlGrammar = {
         name: nameToken.value,
         value: valueNode ? valueNode.value : true,
         start: nameToken.start,
-        end: valueNode ? valueNode.end : nameToken.end
+        end: nameToken.end
       };
     },
 
-    /*
-      * Parses the attribute value (quoted or unquoted string).
-      */
     AttributeValue(p) {
       // 1. Try to match a quoted value first
       let valueToken = p.matchType("ATTRIBUTE_VALUE_QUOTED");
@@ -120,7 +126,6 @@ export const htmlGrammar = {
       }
 
       if (!valueToken) {
-          // If neither token type is found, return null
           return null;
       }
 
@@ -130,7 +135,6 @@ export const htmlGrammar = {
       if (valueToken.type === 'ATTRIBUTE_VALUE_QUOTED' && innerValue.length >= 2) {
           innerValue = innerValue.slice(1, -1);
       }
-      // If unquoted, the value is already the raw content
 
       return {
         type: "AttributeValue",
