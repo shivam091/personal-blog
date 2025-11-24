@@ -86,11 +86,8 @@ $gutter-min-width: 3rem
       display: block
 
 [data-line-numbers="off"]
-  .editor-gutters
+  .editor-lines
     display: none
-
-  .code-editor
-    grid-template-columns: 1fr
 
 .editor-section,
 .preview-section
@@ -127,8 +124,10 @@ $gutter-min-width: 3rem
   flex: 1
 
   .editor-gutters
+    display: flex
+    align-items: center
+    gap: $space-sm
     user-select: none
-    pointer-events: none
     position: sticky
     inset-inline-start: 0
     padding-block: $space-sm
@@ -158,6 +157,7 @@ $gutter-min-width: 3rem
   .editor-lines
     color: var(--color-fg-muted)
     text-align: center
+    pointer-events: none
 
   [contenteditable="true"]
     padding-block: $space-sm
@@ -173,6 +173,10 @@ $gutter-min-width: 3rem
     width: 100%
     height: 1.5rem
     border-block: 1px solid var(--color-border-transparent)
+
+    &.collapsed
+      /* Hide the lines within the folding range */
+      display: none
 
   .editor-active-line
     border-block-color: var(--color-border-muted)
@@ -307,3 +311,35 @@ $gutter-min-width: 3rem
 .console-line-error,
 .console-count-error
   color: var(--color-fg-danger)
+
+/* The gutter icon container (assuming it sits in the line number area) */
+.editor-fold-line
+  height: 1.5rem
+
+  &.foldable-start
+    /* Ensure the marker is visible in the gutter */
+    position: relative
+
+  .fold-marker
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    font-size: 0.875rem
+    cursor: pointer
+    user-select: none
+    color: var(--color-fg-muted)
+    font-family: $font-stack-monospace
+    transition: color 0.1s
+
+    &:hover
+      color: var(--color-fg-default)
+
+    &::before
+      /* Default content, e.g., for collapsed state */
+      content: "›"
+
+    &[data-state="collapsed"]::before
+      content: "›"
+
+    &[data-state="expanded"]::before
+      content: "⌄"
