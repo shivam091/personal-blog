@@ -1,6 +1,7 @@
 import { prettifyCode } from "./prettier";
 import { escapeHTML } from "./parser/utils";
 import { findNodeOffset, getCursorMetadata } from "./utils/cursor-metadata";
+import { LanguageEngine } from "./parser/language-engine";
 
 /*
  * Provides the core logic for a custom, contenteditable-based code editor component.
@@ -405,14 +406,23 @@ export class Editor {
    * Applies HTML escaping and formats spaces/tabs with styled span elements.
    */
   #applyFormatting(line) {
-    if (line.length === 0) return "<br>";
+    // if (line.length === 0) return "<br>";
 
-    // Escape HTML entities first to prevent injection, then replace whitespace with styled spans.
-    const safe = escapeHTML(line)
-      .replace(/ /g, "<span class='editor-token-space'> </span>")
-      .replace(/\t/g, "<span class='editor-token-tab'>\t</span>");
+    // // Escape HTML entities first to prevent injection, then replace whitespace with styled spans.
+    // const safe = escapeHTML(line)
+    //   .replace(/ /g, "<span class='editor-token-space'> </span>")
+    //   .replace(/\t/g, "<span class='editor-token-tab'>\t</span>");
 
-    return safe;
+    // return safe;
+
+    const engine = new LanguageEngine(this.fileType, line);
+
+    const {ast, tokens, highlighted, errors, foldRegions } = engine.run(line)
+    console.log("AST:", ast);
+    console.log("Tokens", tokens);
+    console.log("Errors", errors);
+    console.log("Folds", foldRegions)
+    return highlighted;
   }
 
   /*
