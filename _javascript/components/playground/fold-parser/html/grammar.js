@@ -10,7 +10,6 @@ export const htmlGrammar = {
         const node = p.oneOf(["Element", "Comment", "Content"]);
 
         if (!node) {
-          // Consume any non-structural token to prevent infinite loop
           p.next();
           continue;
         }
@@ -22,22 +21,20 @@ export const htmlGrammar = {
     },
 
     Content(p) {
-      const t = p.matchType("CONTENT");
-      return t ? { type: "Content", start: t.start, end: t.end, value: t.value } : null;
+        const t = p.matchType("CONTENT");
+        return t ? { type: "Content", start: t.start, end: t.end, value: t.value } : null;
     },
 
     Comment(p) {
       const t = p.matchType("COMMENT");
-
       return t ? { type: "Comment", start: t.start, end: t.end } : null;
     },
 
-    // Parses a full HTML element, including its attributes and children.
     Element(p) {
       const openToken = p.matchType("TAG_OPEN");
       if (!openToken) return null;
 
-      const attributes = p.apply("AttributeList"); // Parse the list of attributes
+      const attributes = p.apply("AttributeList");
 
       // Consume closing bracket of the opening tag (e.g., > or />)
       let openTagEndBracket = p.matchType("PUNCTUATION", htmlTokens.tagEnd);
@@ -59,14 +56,12 @@ export const htmlGrammar = {
           break;
         }
 
-        // Recursively parse nested elements or comments
         const child = p.oneOf(["Element", "Comment", "Content"]);
         if (child) {
           children.push(child);
           continue;
         }
 
-        // Ignore non-structural tokens
         p.next();
       }
 
@@ -75,21 +70,17 @@ export const htmlGrammar = {
       return {
         type: "Element",
         name: openToken.value,
-        attributes: attributes, // Now includes the parsed attributes
+        attributes: attributes,
         children,
         start: openToken.start,
-        end: closingEnd // Use the end of the closing tag token
+        end: closingEnd
       };
     },
 
-    /**
-     * Parses zero or more attributes within a tag.
-     */
     AttributeList(p) {
       const attributes = [];
       let attr = null;
 
-      // Loop as long as we find valid attribute definitions
       while (attr = p.apply("Attribute")) {
         attributes.push(attr);
       }
@@ -97,44 +88,49 @@ export const htmlGrammar = {
       return attributes;
     },
 
-    /*
-     * Parses a single attribute: NAME [= VALUE]
-     */
     Attribute(p) {
-      // Look for the attribute name token
       const nameToken = p.matchType("ATTRIBUTE_NAME");
       if (!nameToken) return null;
 
-      // Optional value part: '=' and then a quoted string
       let valueNode = null;
 
-      // Check for the '=' token
       if (p.matchType("PUNCTUATION", "=")) {
-        // Check for the value token (must be a quoted string)
         valueNode = p.apply("AttributeValue");
       }
 
       return {
         type: "Attribute",
         name: nameToken.value,
-        value: valueNode ? valueNode.value : true, // Value is true if boolean, otherwise the string value
+        value: valueNode ? valueNode.value : true,
         start: nameToken.start,
         end: valueNode ? valueNode.end : nameToken.end
       };
     },
 
     /*
-     * Parses the attribute value (the quoted string).
-     */
+      * Parses the attribute value (quoted or unquoted string).
+      */
     AttributeValue(p) {
-      const valueToken = p.matchType("ATTRIBUTE_VALUE");
+      // 1. Try to match a quoted value first
+      let valueToken = p.matchType("ATTRIBUTE_VALUE_QUOTED");
+
+      // 2. If quoted failed, try to match an unquoted value
       if (!valueToken) {
-          p.error("Expected attribute value token (quoted string)", p.peek());
+          valueToken = p.matchType("ATTRIBUTE_VALUE_UNQUOTED");
+      }
+
+      if (!valueToken) {
+          // If neither token type is found, return null
           return null;
       }
 
-      // The token value includes the quotes, so we extract the inner content
-      const innerValue = valueToken.value.slice(1, -1);
+      let innerValue = valueToken.value;
+
+      // If quoted, strip the quotes for the final AST value
+      if (valueToken.type === 'ATTRIBUTE_VALUE_QUOTED' && innerValue.length >= 2) {
+          innerValue = innerValue.slice(1, -1);
+      }
+      // If unquoted, the value is already the raw content
 
       return {
         type: "AttributeValue",

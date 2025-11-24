@@ -14,7 +14,18 @@ export class HtmlLexer extends BaseLexer {
 
   readIdentifier() {
     const start = this.pos;
+    // Identifiers for tags and attributes
     while (this.pos < this.length && /[a-zA-Z0-9_-]/.test(this.input[this.pos])) {
+      this.pos++;
+    }
+    return this.input.slice(start, this.pos);
+  }
+
+  readUnquotedValue() {
+    const start = this.pos;
+    // Unquoted values can contain letters, numbers, hyphens, and dots, but cannot contain
+    // spaces, quotes, <, >, or =
+    while (this.pos < this.length && /[a-zA-Z0-9._-]/.test(this.input[this.pos])) {
       this.pos++;
     }
     return this.input.slice(start, this.pos);
@@ -44,13 +55,14 @@ export class HtmlLexer extends BaseLexer {
         let isClosingTag = s[this.pos] === '/';
 
         if (isClosingTag) {
-          this.pos++; // Consume '/'
+            this.pos++; // Consume '/'
         }
 
         // Read Tag Name
         const nameStart = this.pos;
         let tagName = this.readIdentifier();
 
+        // 🚨 CRITICAL VALIDATION CHECK 🚨
         // Only proceed if a valid identifier was read AND it is in the allowed list
         if (tagName.length > 0 && htmlTokens.tags.has(tagName)) {
 
@@ -78,25 +90,39 @@ export class HtmlLexer extends BaseLexer {
                   this.add('ATTRIBUTE_NAME', attrName, identifierStart, this.pos, cls);
 
                   this.skipWhitespace();
+
+                  // Check for '=' and value
                   if (s[this.pos] === '=') {
                     this.add('PUNCTUATION', '=', this.pos, this.pos + 1, "cp-token-punctuation");
                     this.pos++;
                     this.skipWhitespace();
 
                     const quote = s[this.pos];
-                    if (quote === '\'' || quote === '"') {
-                      const valueStart = this.pos;
-                      this.pos++;
+                    const valueStart = this.pos;
+                    let value = '';
 
+                    if (quote === '\'' || quote === '"') {
+                      // 1. Quoted Value
+                      this.pos++; // Consume opening quote
+
+                      // Read value until matching quote or newline
                       while (this.pos < L && s[this.pos] !== quote && s[this.pos] !== '\n') {
                         this.pos++;
                       }
 
                       if (s[this.pos] === quote) {
-                        this.pos++;
+                        this.pos++; // Consume closing quote
                       }
+                      value = s.slice(valueStart, this.pos);
+                      this.add('ATTRIBUTE_VALUE_QUOTED', value, valueStart, this.pos, "cp-token-string");
 
-                      this.add('ATTRIBUTE_VALUE', s.slice(valueStart, this.pos), valueStart, this.pos, "cp-token-string");
+                    } else {
+                      // 2. Unquoted Value
+                      const unquotedValue = this.readUnquotedValue();
+                      if (unquotedValue.length > 0) {
+                        value = unquotedValue;
+                        this.add('ATTRIBUTE_VALUE_UNQUOTED', value, valueStart, this.pos, "cp-token-string");
+                      }
                     }
                   }
                 } else {
