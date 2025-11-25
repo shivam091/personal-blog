@@ -77,7 +77,7 @@ export class Core {
 
     // Dispatch a custom event with the clean boolean state
     this.container.dispatchEvent(new CustomEvent("playground:editor:toggle-line-numbers", {
-        detail: { visible: nextAttr === "on" }
+      detail: { visible: nextAttr === "on" }
     }));
   }
 

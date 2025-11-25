@@ -19,6 +19,10 @@ export const htmlTokens = {
     "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track",
     "u", "ul", "var", "video", "wbr"
   ]),
+  voidElements: new Set([
+    "area", "base", "br", "col", "embed", "hr", "img", "input",
+    "link", "meta", "param", "source", "track", "wbr"
+  ]),
   attributes: new Set([
     "accept", "accept-charset", "accesskey", "action", "align", "allow", "alt",
     "aria-activedescendant", "aria-atomic", "aria-autocomplete", "aria-busy",

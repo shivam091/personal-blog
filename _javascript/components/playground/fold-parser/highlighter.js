@@ -1,14 +1,5 @@
 import { escapeHTML } from "./utils";
 
-function escapeWithWhitespace(value) {
-  // fully escape
-  const escaped = escapeHTML(value);
-  // then replace space and tab
-  return escaped
-    .replace(/ /g, "<span class='cp-token-space'> </span>")
-    .replace(/\t/g, "<span class='cp-token-tab'>\t</span>");
-}
-
 export function highlightFromTokens(src, tokens) {
   let highlightedHtml = "";
   let last = 0;
@@ -17,18 +8,18 @@ export function highlightFromTokens(src, tokens) {
     if (token.start > last) {
       // plain segment before token
       const raw = src.slice(last, token.start);
-      highlightedHtml += escapeWithWhitespace(raw);
+      highlightedHtml += escapeHTML(raw);
     }
 
     const rawVal = src.slice(token.start, token.end);
 
-    highlightedHtml += `<span class="cp-token ${token.spanClass}">${escapeWithWhitespace(rawVal)}</span>`;
+    highlightedHtml += `<span class="cp-token ${token.spanClass}">${escapeHTML(rawVal)}</span>`;
     last = token.end;
   }
 
   if (last < src.length) {
     const rest = src.slice(last);
-    highlightedHtml += escapeWithWhitespace(rest);
+    highlightedHtml += escapeHTML(rest);
   }
 
   return highlightedHtml;

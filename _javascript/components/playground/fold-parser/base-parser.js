@@ -3,7 +3,7 @@ export class BaseParser {
     this.tokens = tokens;
     this.pos = 0;
     this.errors = [];
-    this.grammar = {}; // Must be defined by subclass
+    this.grammar = {};
   }
 
   eof() {
@@ -34,29 +34,48 @@ export class BaseParser {
       this.next();
       return token;
     }
-
     return null;
   }
 
-  apply(ruleName) {
-    const startPos = this.pos;
-    const result = this.grammar[ruleName](this);
+  /**
+   * Universal matching method that attempts to apply a complex grammar rule
+   * or match a simple atomic token type.
+   */
+  match(ruleNameOrTokenType) {
+      const startPos = this.pos;
+      const ruleFn = this.grammar[ruleNameOrTokenType];
 
-    // If the rule failed, reset the position and return null
-    if (!result && startPos !== this.pos) {
-      this.pos = startPos;
+      // Case 1: Complex Grammar Rule (is a function in the grammar)
+      if (typeof ruleFn === 'function') {
+          const result = ruleFn(this);
+          if (!result && startPos !== this.pos) {
+              // Rule failed after consuming tokens, backtrack.
+              this.pos = startPos;
+          }
+          return result;
+      }
+
+      // Case 2: Simple Atomic Token Type (is a string, e.g., "COMMA", "SPACE")
+      else if (typeof ruleNameOrTokenType === 'string') {
+          return this.matchType(ruleNameOrTokenType);
+      }
+
+      // Case 3: Error
+      console.error(`Parser Error: Invalid rule or token type: "${ruleNameOrTokenType}"`);
       return null;
-    }
-
-    return result;
   }
 
-  oneOf(ruleNames) {
-    for (const ruleName of ruleNames) {
-      const result = this.apply(ruleName);
+
+  apply(ruleName) {
+    // Apply is now a wrapper for match, ensuring the input is a rule name.
+    return this.match(ruleName);
+  }
+
+  oneOf(ruleNamesOrTokenTypes) {
+    for (const name of ruleNamesOrTokenTypes) {
+      const result = this.match(name);
       if (result) return result;
     }
-
     return null;
   }
 }

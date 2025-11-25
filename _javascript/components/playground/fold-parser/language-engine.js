@@ -68,10 +68,18 @@ export class LanguageEngine {
    * @returns {Array} List of fold regions {startLine, endLine}.
    */
   runStructuralFoldParser(src) {
+    // CRITICAL FIX: Ensure the engine's internal source string is updated,
+    // otherwise future calls to _findFolds might use an outdated source/AST.
+    this.src = src;
+    this.lineStarts = getLineStarts(src); // Ensure line starts are up-to-date for the new source
+
     const foldPipeline = factories[`${this.fileType}_fold`];
     if (!foldPipeline) {
       console.warn(`No dedicated fold parser configured for ${this.fileType}. Falling back to full AST.`);
-      return this.getFoldRegions(this.run(src).ast);
+
+      // Fallback: Call the full run() which updates state, runs full pipeline, and calculates folds.
+      // We return the folds calculated by run() to avoid redundant calculation here.
+      return this.run(src).foldRegions;
     }
 
     // 1. Lexing (Fold-specific)
@@ -81,8 +89,6 @@ export class LanguageEngine {
     // 2. Parsing (Fold-specific)
     const parser = foldPipeline.createParser(tokens);
     const ast = parser.run();
-
-    this.lineStarts = getLineStarts(src); // Ensure line starts are up-to-date
 
     // 3. Extraction
     return this.getFoldRegions(ast);
@@ -103,7 +109,8 @@ export class LanguageEngine {
     const folds = [];
 
     // Check for any structural node type: Element (HTML Tag), Comment (All), Block (CSS/JS Braces)
-    if (node.type === "Element" || node.type === "Comment" || node.type === "Block") {
+    if (node.type === "Element" || node.type === "Comment" || node.type === "Block" || node.type === "DeclarationBlock") {
+      // NOTE: This relies on this.lineStarts being up-to-date with the source code that generated the node's indices.
       const startLine = indexToLine(node.start, this.lineStarts);
       const endLine = indexToLine(node.end, this.lineStarts);
 
