@@ -12,6 +12,18 @@ export const htmlGrammar = {
           continue;
         }
 
+        // Explicitly check for an unmatched closing tag token
+        const next = p.peek();
+        if (next && next.type === "TAG_CLOSE") {
+          // Check if the closing tag actually starts with </ (to exclude self-closing tags,
+          // though typically TAG_CLOSE handles only the closing token itself)
+          if (next.value.startsWith("</")) {
+            p.error(`Unexpected closing HTML tag: ${next.value}`, next);
+            p.next(); // Consume the error token and continue
+            continue;
+          }
+        }
+
         // Explicitly consume known insignificant tokens
         if (p.oneOf(["WHITESPACE", "TAB"])) {
           continue;
@@ -21,9 +33,11 @@ export const htmlGrammar = {
         p.next();
       }
 
-      return { type: "Document", children };
+      // Add start/end to Document node for fold analysis
+      return { type: "Document", children, start: 0, end: p.tokens.at(-1)?.end || 0 };
     },
 
+    // Rule to match and consume a comment.
     Comment(p) {
       const t = p.matchType("COMMENT");
 
@@ -60,13 +74,39 @@ export const htmlGrammar = {
           continue;
         }
 
-        // Consume all other text/unknown tokens (like newlines or actual text content)
+        // Consume all other text/unknown tokens
         p.next();
       }
 
-      // Requires a closing tag token to define the fold range
-      if (!close) return null;
+      // Error Handling: Ensure a closing tag was found.
+      if (!close) {
+        // We consumed an opening tag but never found a closing tag token.
+        p.error(`Unclosed HTML Element: Expected closing tag for ${open.value}`, open);
+        // Continue, but return the element definition based only on the open tag
+        return {
+          type: "Element",
+          name: open.value,
+          children,
+          start: open.start,
+          // Since it's unclosed, its end is the last consumed token or the open tag itself.
+          end: p.tokens.at(-1)?.end || open.end
+        };
+      }
 
+      // 1. Extract the name from the opening tag (e.g., "div" from "<div id='x'>")
+      const openTagMatch = open.value.match(/<([a-zA-Z0-9]+)/);
+      const openTagName = openTagMatch ? openTagMatch[1].toLowerCase() : null;
+
+      // 2. Extract the name from the closing tag (e.g., "p" from "</p>")
+      const closeTagMatch = close.value.match(/<\/([a-zA-Z0-9]+)>/);
+      const closeTagName = closeTagMatch ? closeTagMatch[1].toLowerCase() : null;
+
+      // 3. Error Handling: Check for mismatched tag names
+      if (openTagName && closeTagName && openTagName !== closeTagName) {
+        p.error(`Mismatched closing tag: Expected </${openTagName}> but found ${close.value}`, close);
+      }
+
+      // Success: Both open and close tags found
       return {
         type: "Element",
         name: open.value,

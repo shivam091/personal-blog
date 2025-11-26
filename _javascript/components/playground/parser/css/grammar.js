@@ -12,6 +12,16 @@ export const cssGrammar = {
           continue;
         }
 
+        // Explicitly check for unmatched closing brace
+        const next = p.peek();
+        if (next) {
+          if (next.type === "BLOCK_CLOSE") {
+            p.error(`Unexpected closing brace '}' outside a block.`, next);
+            p.next(); // Consume the error token and continue
+            continue;
+          }
+        }
+
         // Explicitly consume known insignificant tokens
         if (p.oneOf(["WHITESPACE", "TAB"])) {
           continue;
@@ -21,9 +31,11 @@ export const cssGrammar = {
         p.next();
       }
 
-      return { type: "Document", children };
+      // Add start/end to Document node for fold analysis
+      return { type: "Document", children, start: 0, end: p.tokens.at(-1)?.end || 0 };
     },
 
+    // Rule to match and consume a comment.
     Comment(p) {
       const t = p.matchType("COMMENT");
 
@@ -44,6 +56,7 @@ export const cssGrammar = {
         if (!next) break;
 
         if (next.type === "BLOCK_CLOSE") {
+          // Consume the closing brace and exit the loop.
           close = p.next();
           break;
         }
@@ -63,7 +76,17 @@ export const cssGrammar = {
         p.next();
       }
 
-      if (!close) return null;
+      // Error Handling: If the loop exited because of EOF, the block is unclosed.
+      if (!close) {
+        p.error(`Unclosed CSS Block: Expected '}'`, open);
+        // Continue, but define the block's end at the last consumed token.
+        return {
+          type: "Block",
+          children,
+          start: open.start,
+          end: p.tokens.at(-1)?.end || open.end
+        };
+      }
 
       return {
         type: "Block",
