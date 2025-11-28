@@ -23,7 +23,7 @@ export const jsGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
+        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
           continue;
         }
 
@@ -51,18 +51,18 @@ export const jsGrammar = {
 
     // Rule for matching & consuming curly brace regions: { ... }
     Block(p) {
-      const open = p.matchType("BLOCK_OPEN");
-      if (!open) return null;
+      const blockOpen = p.matchType("BLOCK_OPEN");
+      if (!blockOpen) return null;
 
       const children = [];
-      let close = null;
+      let blockClose = null;
 
       while (true) {
         const next = p.peek();
         if (!next) break;
 
         if (next.type === "BLOCK_CLOSE") {
-          close = p.next(); // Consume the closing token
+          blockClose = p.next(); // Consume the closing token
           break;
         }
 
@@ -74,7 +74,7 @@ export const jsGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
+        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
           continue;
         }
 
@@ -83,15 +83,15 @@ export const jsGrammar = {
       }
 
       // Error handling
-      if (!close) {
-        p.error(`Unclosed JavaScript Block: Expected '}'`, open);
+      if (!blockClose) {
+        p.error(`Unclosed JavaScript Block: Expected '}'`, blockOpen);
 
         // Explicitly return the unclosed structure here
         return {
           type: "Block",
           children,
-          start: open.start,
-          end: p.tokens.at(-1)?.end || open.end
+          start: blockOpen.start,
+          end: p.tokens.at(-1)?.end || blockOpen.end
         };
       }
 
@@ -99,25 +99,25 @@ export const jsGrammar = {
       return {
         type: "Block",
         children,
-        start: open.start,
-        end: close.end
+        start: blockOpen.start,
+        end: blockClose.end
       };
     },
 
     // Rule for matching & consuming parenthesis regions: ( ... )
     Parentheses(p) {
-      const open = p.matchType("PAREN_OPEN");
-      if (!open) return null;
+      const parenOpen = p.matchType("PAREN_OPEN");
+      if (!parenOpen) return null;
 
       const children = [];
-      let close = null;
+      let parenClose = null;
 
       while (true) {
         const next = p.peek();
         if (!next) break;
 
         if (next.type === "PAREN_CLOSE") {
-          close = p.next(); // Consume the closing token
+          parenClose = p.next(); // Consume the closing token
           break;
         }
 
@@ -129,7 +129,7 @@ export const jsGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
+        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
           continue;
         }
 
@@ -138,15 +138,15 @@ export const jsGrammar = {
       }
 
       // Error handling
-      if (!close) {
-        p.error(`Unclosed Parentheses: Expected ')'`, open);
+      if (!parenClose) {
+        p.error(`Unclosed Parentheses: Expected ')'`, parenOpen);
 
         // Explicitly return the unclosed structure here
         return {
           type: "Parentheses",
           children,
-          start: open.start,
-          end: p.tokens.at(-1)?.end || open.end
+          start: parenOpen.start,
+          end: p.tokens.at(-1)?.end || parenOpen.end
         };
       }
 
@@ -154,25 +154,25 @@ export const jsGrammar = {
       return {
         type: "Parentheses",
         children,
-        start: open.start,
-        end: close.end
+        start: parenOpen.start,
+        end: parenClose.end
       };
     },
 
     // Rule for matching & consuming brackets regions: [ ... ]
     Brackets(p) {
-      const open = p.matchType("BRACKET_OPEN");
-      if (!open) return null;
+      const bracketOpen = p.matchType("BRACKET_OPEN");
+      if (!bracketOpen) return null;
 
       const children = [];
-      let close = null;
+      let bracketClose = null;
 
       while (true) {
         const next = p.peek();
         if (!next) break;
 
         if (next.type === "BRACKET_CLOSE") {
-          close = p.next(); // Consume the closing token
+          bracketClose = p.next(); // Consume the closing token
           break;
         }
 
@@ -184,7 +184,7 @@ export const jsGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
+        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
           continue;
         }
 
@@ -192,15 +192,15 @@ export const jsGrammar = {
         p.next();
       }
 
-      if (!close) {
-        p.error(`Unclosed Brackets: Expected ']'`, open);
+      if (!bracketClose) {
+        p.error(`Unclosed Brackets: Expected ']'`, bracketOpen);
 
         // Explicitly return the unclosed structure here
         return {
           type: "Brackets",
           children,
-          start: open.start,
-          end: p.tokens.at(-1)?.end || open.end
+          start: bracketOpen.start,
+          end: p.tokens.at(-1)?.end || bracketOpen.end
         };
       }
 
@@ -208,19 +208,18 @@ export const jsGrammar = {
       return {
         type: "Brackets",
         children,
-        start: open.start,
-        end: close.end
+        start: bracketOpen.start,
+        end: bracketClose.end
       };
     },
 
     // Rule to match and consume a single WHITESPACE token.
-    WHITESPACE(p) {
-      return p.matchType("WHITESPACE");
-    },
+    WHITESPACE: (p) => p.matchType("WHITESPACE"),
 
     // Rule to match and consume a single TAB token.
-    TAB(p) {
-      return p.matchType("TAB");
-    },
+    TAB: (p) => p.matchType("TAB"),
+
+    // Rule to match and consume a new line.
+    NEWLINE: (p) => p.matchType("NEWLINE"),
   }
 };

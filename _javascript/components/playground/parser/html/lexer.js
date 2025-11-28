@@ -53,8 +53,8 @@ export class HtmlLexer extends BaseLexer {
         }
       }
 
-      // 3. Whitespace
-      if (char === " ") {
+      // 3. Whitespace (explicitly handle standard space and other non-newline whitespace)
+      if (/\s/.test(char) && char !== "\n" && char !== "\r" && char !== "\t") {
         this.add("WHITESPACE", char, start, start + 1, "editor-token-space");
         this.advancePosition(1);
         continue;
@@ -67,7 +67,15 @@ export class HtmlLexer extends BaseLexer {
         continue;
       }
 
-      // 5. Ignore all other characters (Newlines, text content, unhandled symbols)
+      // 5. Newline
+      if (char === "\n" || char === "\r") {
+        this.add("NEWLINE", char, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 6. Ignore all other characters (Newlines, text content, unhandled symbols)
+      this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
     }
 

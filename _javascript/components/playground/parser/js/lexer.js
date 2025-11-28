@@ -58,18 +58,21 @@ export class JsLexer extends BaseLexer {
         this.advancePosition(1);
         continue;
       }
+
       // 6. Parenthesis Close ())
       if (char === jsTokens.parenEnd) {
         this.add("PAREN_CLOSE", jsTokens.parenEnd, start, start + 1);
         this.advancePosition(1);
         continue;
       }
+
       // 7. Bracket Open ([)
       if (char === jsTokens.bracketStart) {
         this.add("BRACKET_OPEN", jsTokens.bracketStart, start, start + 1);
         this.advancePosition(1);
         continue;
       }
+
       // 8. Bracket Close (])
       if (char === jsTokens.bracketEnd) {
         this.add("BRACKET_CLOSE", jsTokens.bracketEnd, start, start + 1);
@@ -77,8 +80,8 @@ export class JsLexer extends BaseLexer {
         continue;
       }
 
-      // 9. Whitespace
-      if (char === " ") {
+      // 9. Whitespace (explicitly handle standard space and other non-newline whitespace)
+      if (/\s/.test(char) && char !== "\n" && char !== "\r" && char !== "\t") {
         this.add("WHITESPACE", char, start, start + 1, "editor-token-space");
         this.advancePosition(1);
         continue;
@@ -91,7 +94,15 @@ export class JsLexer extends BaseLexer {
         continue;
       }
 
-      // 11. Ignore all other characters (including newlines and other content)
+      // 11. Newline
+      if (char === "\n" || char === "\r") {
+        this.add("NEWLINE", char, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 12. Ignore all other characters (including newlines and other content)
+      this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
     }
 

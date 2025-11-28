@@ -44,11 +44,11 @@ export const cssGrammar = {
 
     // A Block handles rule sets, media queries, etc.
     Block(p) {
-      const open = p.matchType("BLOCK_OPEN");
-      if (!open) return null;
+      const blockOpen = p.matchType("BLOCK_OPEN");
+      if (!blockOpen) return null;
 
       const children = [];
-      let close = null;
+      let blockClose = null;
 
       // Look for nested blocks or comments until the closing brace
       while (true) {
@@ -57,7 +57,7 @@ export const cssGrammar = {
 
         if (next.type === "BLOCK_CLOSE") {
           // Consume the closing brace and exit the loop.
-          close = p.next();
+          blockClose = p.next();
           break;
         }
 
@@ -77,33 +77,31 @@ export const cssGrammar = {
       }
 
       // Error Handling: If the loop exited because of EOF, the block is unclosed.
-      if (!close) {
-        p.error(`Unclosed CSS Block: Expected '}'`, open);
+      if (!blockClose) {
+        p.error(`Unclosed CSS Block: Expected '}'`, blockOpen);
         // Continue, but define the block's end at the last consumed token.
         return {
           type: "Block",
           children,
-          start: open.start,
-          end: p.tokens.at(-1)?.end || open.end
+          start: blockOpen.start,
+          end: p.tokens.at(-1)?.end || blockOpen.end
         };
       }
 
       return {
         type: "Block",
         children,
-        start: open.start,
-        end: close.end
+        start: blockOpen.start,
+        end: blockClose.end
       };
     },
 
-    // Rule to match and consume a single WHITESPACE token.
-    WHITESPACE(p) {
-      return p.matchType("WHITESPACE");
     },
 
+    // Rule to match and consume a single WHITESPACE token.
+    WHITESPACE: (p) => p.matchType("WHITESPACE"),
+
     // Rule to match and consume a single TAB token.
-    TAB(p) {
-      return p.matchType("TAB");
-    },
+    TAB: (p) => p.matchType("TAB"),
   }
 };

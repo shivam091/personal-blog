@@ -6,7 +6,7 @@ export const htmlGrammar = {
 
       while (!p.eof()) {
         // Try to match structural nodes
-        const node = p.oneOf(["Element", "Comment"]);
+        const node = p.oneOf(["Element", "Comment", "NEWLINE"]);
         if (node) {
           children.push(node);
           continue;
@@ -25,7 +25,7 @@ export const htmlGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
+        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
           continue;
         }
 
@@ -45,11 +45,11 @@ export const htmlGrammar = {
     },
 
     Element(p) {
-      const open = p.matchType("TAG_OPEN");
-      if (!open) return null;
+      const tagOpen = p.matchType("TAG_OPEN");
+      if (!tagOpen) return null;
 
       const children = [];
-      let close = null;
+      let tagClose = null;
 
       // Continue parsing children (nested Elements, Comments) until we hit a closing tag
       while (true) {
@@ -58,7 +58,7 @@ export const htmlGrammar = {
 
         // Stop if we find a closing tag token
         if (next.type === "TAG_CLOSE") {
-          close = p.next();
+          tagClose = p.next();
           break;
         }
 
@@ -70,7 +70,7 @@ export const htmlGrammar = {
         }
 
         // Explicitly consume SPACE and TAB
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
+        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
           continue;
         }
 
@@ -79,51 +79,50 @@ export const htmlGrammar = {
       }
 
       // Error Handling: Ensure a closing tag was found.
-      if (!close) {
+      if (!tagClose) {
         // We consumed an opening tag but never found a closing tag token.
-        p.error(`Unclosed HTML Element: Expected closing tag for ${open.value}`, open);
+        p.error(`Unclosed HTML Element: Expected closing tag for ${tagOpen.value}`, tagOpen);
         // Continue, but return the element definition based only on the open tag
         return {
           type: "Element",
-          name: open.value,
+          name: tagOpen.value,
           children,
-          start: open.start,
+          start: tagOpen.start,
           // Since it's unclosed, its end is the last consumed token or the open tag itself.
-          end: p.tokens.at(-1)?.end || open.end
+          end: p.tokens.at(-1)?.end || tagOpen.end
         };
       }
 
       // 1. Extract the name from the opening tag (e.g., "div" from "<div id='x'>")
-      const openTagMatch = open.value.match(/<([a-zA-Z0-9]+)/);
+      const openTagMatch = tagOpen.value.match(/<([a-zA-Z0-9]+)/);
       const openTagName = openTagMatch ? openTagMatch[1].toLowerCase() : null;
 
       // 2. Extract the name from the closing tag (e.g., "p" from "</p>")
-      const closeTagMatch = close.value.match(/<\/([a-zA-Z0-9]+)>/);
+      const closeTagMatch = tagClose.value.match(/<\/([a-zA-Z0-9]+)>/);
       const closeTagName = closeTagMatch ? closeTagMatch[1].toLowerCase() : null;
 
       // 3. Error Handling: Check for mismatched tag names
       if (openTagName && closeTagName && openTagName !== closeTagName) {
-        p.error(`Mismatched closing tag: Expected </${openTagName}> but found ${close.value}`, close);
+        p.error(`Mismatched closing tag: Expected </${openTagName}> but found ${tagClose.value}`, tagClose);
       }
 
       // Success: Both open and close tags found
       return {
         type: "Element",
-        name: open.value,
+        name: tagOpen.value,
         children,
-        start: open.start,
-        end: close.end // Use the end of the closing tag token
+        start: tagOpen.start,
+        end: tagClose.end // Use the end of the closing tag token
       };
     },
 
     // Rule to match and consume a single WHITESPACE token.
-    WHITESPACE(p) {
-      return p.matchType("WHITESPACE");
-    },
+    WHITESPACE: (p) => p.matchType("WHITESPACE"),
 
     // Rule to match and consume a single TAB token.
-    TAB(p) {
-      return p.matchType("TAB");
-    },
+    TAB: (p) => p.matchType("TAB"),
+
+    // Rule to match and consume a new line.
+    NEWLINE: (p) => p.matchType("NEWLINE"),
   }
 };
