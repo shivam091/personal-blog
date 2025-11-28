@@ -1,3 +1,5 @@
+import { INSIGNIFICANT_TOKENS } from "../constants";
+
 export const jsGrammar = {
   startRule: "Document",
   rules: {
@@ -23,9 +25,7 @@ export const jsGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
-          continue;
-        }
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
         // Consume all other tokens (Keywords, Identifiers, Operators, etc.)
         p.next();
@@ -66,6 +66,28 @@ export const jsGrammar = {
           break;
         }
 
+        // Stop condition
+        if (next.type === "PAREN_CLOSE" || next.type === "BRACKET_CLOSE") {
+          let offset = 1;
+          let lookahead = p.peek(offset);
+
+          // 1. skip whitespace in lookahead
+          while (lookahead && INSIGNIFICANT_TOKENS.includes(lookahead.type)) {
+            offset++;
+            lookahead = p.peek(offset);
+          }
+
+          // 2. If the valid closer is next, treat 'next' as a typo/extra char
+          if (lookahead && lookahead.type === "BLOCK_CLOSE") {
+            p.error(`Unexpected '${next.value}' inside Block.`, next);
+            p.next();
+            continue;
+          }
+
+          // 3. Otherwise, it's a structural break (belongs to parent)
+          break;
+        }
+
         // Recursively match ALL structural types
         const child = p.oneOf(["Block", "Parentheses", "Brackets", "Comment", "SingleComment"]);
         if (child) {
@@ -74,9 +96,7 @@ export const jsGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
-          continue;
-        }
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
         // Consume all other content tokens (Keywords, Identifiers, Operators, etc.)
         p.next();
@@ -121,6 +141,28 @@ export const jsGrammar = {
           break;
         }
 
+        // Stop condition
+        if (next.type === "BLOCK_CLOSE" || next.type === "BRACKET_CLOSE") {
+          let offset = 1;
+          let lookahead = p.peek(offset);
+
+          // 1. Look ahead
+          while (lookahead && INSIGNIFICANT_TOKENS.includes(lookahead.type)) {
+            offset++;
+            lookahead = p.peek(offset);
+          }
+
+          // 2. If the valid closer is next, treat 'next' as a typo
+          if (lookahead && lookahead.type === "PAREN_CLOSE") {
+            p.error(`Unexpected '${next.value}' inside Parentheses.`, next);
+            p.next();
+            continue;
+          }
+
+          // 3. Otherwise, break
+          break;
+        }
+
         // Recursively match ALL structural types
         const child = p.oneOf(["Block", "Parentheses", "Brackets", "Comment", "SingleComment"]);
         if (child) {
@@ -129,9 +171,7 @@ export const jsGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
-          continue;
-        }
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
         // Consume all other content tokens (Keywords, Identifiers, Operators, etc.)
         p.next();
@@ -176,6 +216,26 @@ export const jsGrammar = {
           break;
         }
 
+        // Stop condition
+        if (next.type === "BLOCK_CLOSE" || next.type === "PAREN_CLOSE") {
+          // 1. Look ahead
+          let offset = 1;
+          let lookahead = p.peek(offset);
+          while (lookahead && INSIGNIFICANT_TOKENS.includes(lookahead.type)) {
+            offset++;
+            lookahead = p.peek(offset);
+          }
+
+          // 2. If the valid closer is next, treat 'next' as a typo
+          if (lookahead && lookahead.type === "BRACKET_CLOSE") {
+            p.error(`Unexpected '${next.value}' inside Brackets.`, next);
+            p.next();
+            continue;
+          }
+
+          break;
+        }
+
         // Recursively match ALL structural types
         const child = p.oneOf(["Block", "Parentheses", "Brackets", "Comment", "SingleComment"]);
         if (child) {
@@ -184,9 +244,7 @@ export const jsGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
-          continue;
-        }
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
         // Consume all other content tokens (Keywords, Identifiers, Operators, etc.)
         p.next();

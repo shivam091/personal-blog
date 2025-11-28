@@ -1,3 +1,5 @@
+import { INSIGNIFICANT_TOKENS } from "../constants";
+
 export const cssGrammar = {
   startRule: "Document",
   rules: {
@@ -28,9 +30,7 @@ export const cssGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
-          continue;
-        }
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
         // Consume all other tokens (selectors, properties, newlines, etc.)
         p.next();
@@ -73,9 +73,7 @@ export const cssGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
-          continue;
-        }
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
         // Consume all other text/unknown tokens (like newlines or actual text content)
         p.next();
