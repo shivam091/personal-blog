@@ -8,7 +8,7 @@ export const cssGrammar = {
 
       while (!p.eof()) {
         // Try to match structural nodes
-        const node = p.oneOf(["Block", "Comment", "FunctionCall"]);
+        const node = p.oneOf(["Block", "Comment", "FunctionCall", "AtRule", "Parentheses"]);
         if (node) {
           children.push(node);
           continue;
@@ -20,11 +20,6 @@ export const cssGrammar = {
           if (next.type === "BLOCK_CLOSE") {
             p.error(`Unexpected closing brace '}' outside a block.`, next);
             p.next(); // Consume the error token and continue
-            continue;
-          }
-          if (next.type === "PAREN_CLOSE") {
-            p.error(`Unexpected closing parenthesis ')' outside a function.`, next);
-            p.next();
             continue;
           }
         }
@@ -66,6 +61,7 @@ export const cssGrammar = {
           break;
         }
 
+        // Nested parsing: check for structural elements
         const child = p.oneOf(["Block", "Comment", "FunctionCall"]);
         if (child) {
           children.push(child);
@@ -82,7 +78,7 @@ export const cssGrammar = {
       // Error Handling: If the loop exited because of EOF, the block is unclosed.
       if (!blockClose) {
         p.error(`Unclosed CSS Block: Expected '}'`, blockOpen);
-        // Continue, but define the block's end at the last consumed token.
+
         return {
           type: "Block",
           children,
@@ -96,6 +92,56 @@ export const cssGrammar = {
         children,
         start: blockOpen.start,
         end: blockClose.end
+      };
+    },
+
+    // Handles independent parentheses structures like those in media queries.
+    Parentheses(p) {
+      const parenOpen = p.matchType("PAREN_OPEN");
+      if (!parenOpen) return null;
+
+      const children = [];
+      let parenClose = null;
+
+      while (true) {
+        const next = p.peek();
+        if (!next) break;
+
+        if (next.type === "PAREN_CLOSE") {
+          parenClose = p.next();
+          break;
+        }
+
+        // Allow nested structures
+        const child = p.oneOf(["Block", "Comment", "FunctionCall", "Parentheses"]);
+        if (child) {
+          children.push(child);
+          continue;
+        }
+
+        // Consume insignificant tokens
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
+
+        // Consume all other content tokens
+        p.next();
+      }
+
+      if (!parenClose) {
+        p.error(`Unclosed Parentheses: Expected ')'`, parenOpen);
+
+        return {
+          type: "Parentheses",
+          children,
+          start: parenOpen.start,
+          end: p.tokens.at(-1)?.end || parenOpen.end
+        };
+      }
+
+      return {
+        type: "Parentheses",
+        children,
+        start: parenOpen.start,
+        end: parenClose.end
       };
     },
 
@@ -137,7 +183,7 @@ export const cssGrammar = {
         }
 
         // Nested parsing: check for nested blocks, comments, or other function calls
-        const child = p.oneOf(["Block", "Comment", "FunctionCall"]);
+        const child = p.oneOf(["Block", "Comment", "FunctionCall", "Parentheses"]);
         if (child) {
           node.children.push(child);
           continue;
@@ -155,6 +201,80 @@ export const cssGrammar = {
       }
 
       return node;
+    },
+
+    AtRule(p) {
+      const atRuleToken = p.matchType("AT_RULE");
+      if (!atRuleToken) return null;
+
+      const children = [];
+      let endToken = null;
+
+      // AT-RULES come in two main forms:
+      // 1. Rules with a body: @media screen { ... } or @keyframes name { ... }
+      // 2. Rules that end with a semicolon: @import url; or @charset "UTF-8";
+
+      while (true) {
+        const next = p.peek();
+        if (!next) break;
+
+        // 1. Found an opening block brace: {
+        if (next.type === "BLOCK_OPEN") {
+          const block = p.oneOf(["Block"]); // Consume the entire block structure
+          if (block) {
+            children.push(block);
+            endToken = block; // Store the Block node
+          }
+          break; // Stop parsing the at-rule contents
+        }
+
+        // 2. Found the closing semicolon: ;
+        if (next.type === "SEMICOLON") {
+          endToken = p.next(); // Consume the Semicolon token
+          break; // Stop parsing the at-rule contents
+        }
+
+        // 3. Structural Break (start of a new rule set or another AT_RULE)
+        if (next.type === "AT_RULE" || next.type === "IDENTIFIER" || p.eof()) {
+          // If we hit another AT_RULE or an IDENTIFIER (start of a selector)
+          // it means the current at-rule implicitly ended (it was missing a ; or { })
+          break;
+        }
+
+        // Handle Parentheses (for media/supports queries) ***
+        const paren = p.oneOf(["Parentheses"]);
+        if (paren) {
+          children.push(paren);
+          continue;
+        }
+
+        // Handle nested structures that may appear in the rule's preamble (e.g., in @media or @supports)
+        const child = p.oneOf(["FunctionCall", "Comment"]);
+        if (child) {
+          children.push(child);
+          continue;
+        }
+
+        // Consume insignificant tokens
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
+
+        // Consume all other content tokens (conditions, values, etc.)
+        p.next();
+      }
+
+      // Error Handling: If we stopped without consuming the required delimiter ({ or ;).
+      if (!endToken) {
+        p.error(`Missing closing delimiter for At-Rule: Expected ';' or '{'`, atRuleToken);
+      }
+
+      return {
+        type: "AtRule",
+        name: atRuleToken.value,
+        children,
+        start: atRuleToken.start,
+        // The end is the last consumed token, or the start if nothing followed
+        end: endToken ? endToken.end : p.tokens.at(-1)?.end || atRuleToken.end
+      };
     },
 
     // Rule to match and consume a single WHITESPACE token.

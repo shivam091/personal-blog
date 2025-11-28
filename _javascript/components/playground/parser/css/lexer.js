@@ -70,7 +70,7 @@ export class CssLexer extends BaseLexer {
       }
 
       // 8. Semicolon
-      if (char === ";") {
+      if (char === cssTokens.semicolon) {
         this.add("SEMICOLON", char, start, start + 1);
         this.advancePosition(1);
         continue;
@@ -83,7 +83,26 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 10. Identifier/Function Logic
+      // 10. AT-RULES
+      if (char === "@") {
+        let i = this.pos + 1;
+        // At-rules must be followed by an identifier pattern
+        if (/[a-zA-Z_-]/.test(s[i])) {
+          i++;
+          while (i < this.length && /[a-zA-Z0-9_-]/.test(s[i])) {
+            i++;
+          }
+        }
+
+        const value = s.slice(start, i);
+        if (cssTokens.atRules.has(value)) {
+          this.add("AT_RULE", value, start, i, "cp-token-keyword");
+          this.advancePosition(i - start);
+          continue;
+        }
+      }
+
+      // 11. Identifiers/Functions
       if (/[a-zA-Z_-]/.test(char)) {
         let i = this.pos + 1;
         while (i < this.length && /[a-zA-Z0-9_-]/.test(s[i])) {
@@ -104,7 +123,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 11. Ignore all other characters and tokenize as 'TEXT' or similar for now
+      // 12. Ignore all other characters and tokenize as 'TEXT' or similar for now
       this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
     }

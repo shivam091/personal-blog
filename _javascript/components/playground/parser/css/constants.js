@@ -5,6 +5,13 @@ export const cssTokens = {
   braceEnd: "}",
   parenStart: "(",
   parenEnd: ")",
+  colon: ":",
+  semicolon: ";",
+  atRules: new Set([
+    "@charset", "@container", "@counter-style", "@document", "@font-face", "@font-palette-values",
+    "@import", "@keyframes", "@layer", "@media", "@namespace", "@ornaments", "@page", "@property",
+    "@scope", "@starting-style", "@supports", "@swash", "@viewport"
+  ]),
   functions: new Set([
     "abs", "acos", "asin", "atan", "atan2", "attr", "blur", "brightness",
     "calc", "circle", "clamp", "color", "color-contrast", "color-mix",
