@@ -41,21 +41,71 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 4. Whitespace
+      // 4. Parenthesis Open
+      if (char === cssTokens.parenStart) {
+        this.add("PAREN_OPEN", cssTokens.parenStart, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 5. Parenthesis Close
+      if (char === cssTokens.parenEnd) {
+        this.add("PAREN_CLOSE", cssTokens.parenEnd, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 6. Whitespace
       if (char === " ") {
         this.add("WHITESPACE", char, start, start + 1, "editor-token-space");
         this.advancePosition(1);
         continue;
       }
 
-      // 5. Tab
+      // 7. Tab
       if (char === "\t") {
         this.add("TAB", char, start, start + 1, "editor-token-tab");
         this.advancePosition(1);
         continue;
       }
 
-      // 6. Ignore all other characters (including newlines and other content)
+      // 8. Semicolon
+      if (char === ";") {
+        this.add("SEMICOLON", char, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 9. Newline
+      if (char === "\n" || char === "\r") {
+        this.add("NEWLINE", char, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 10. Identifier/Function Logic
+      if (/[a-zA-Z_-]/.test(char)) {
+        let i = this.pos + 1;
+        while (i < this.length && /[a-zA-Z0-9_-]/.test(s[i])) {
+          i++;
+        }
+        const value = s.slice(start, i);
+
+        // Check for function: Identifier immediately followed by '('
+        if (s[i] === cssTokens.parenStart && cssTokens.functions.has(value)) {
+          // Tokenize as a CSS_FUNCTION
+          this.add("CSS_FUNCTION", value, start, i, "cp-token-function");
+        } else {
+          // Tokenize as a generic IDENTIFIER (or something else if you define it)
+          this.add("IDENTIFIER", value, start, i); // No special class for now
+        }
+
+        this.advancePosition(i - start);
+        continue;
+      }
+
+      // 11. Ignore all other characters and tokenize as 'TEXT' or similar for now
+      this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
     }
 

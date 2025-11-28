@@ -6,7 +6,7 @@ export const cssGrammar = {
 
       while (!p.eof()) {
         // Try to match structural nodes
-        const node = p.oneOf(["Block", "Comment"]);
+        const node = p.oneOf(["Block", "Comment", "FunctionCall"]);
         if (node) {
           children.push(node);
           continue;
@@ -20,10 +20,15 @@ export const cssGrammar = {
             p.next(); // Consume the error token and continue
             continue;
           }
+          if (next.type === "PAREN_CLOSE") {
+            p.error(`Unexpected closing parenthesis ')' outside a function.`, next);
+            p.next();
+            continue;
+          }
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
+        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
           continue;
         }
 
@@ -61,14 +66,14 @@ export const cssGrammar = {
           break;
         }
 
-        const child = p.oneOf(["Block", "Comment"]);
+        const child = p.oneOf(["Block", "Comment", "FunctionCall"]);
         if (child) {
           children.push(child);
           continue;
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
+        if (p.oneOf(["WHITESPACE", "TAB", "NEWLINE"])) {
           continue;
         }
 
@@ -96,6 +101,62 @@ export const cssGrammar = {
       };
     },
 
+    FunctionCall(p) {
+      // 1. Match the function name token
+      const funcToken = p.matchType("CSS_FUNCTION");
+      if (!funcToken) return null;
+
+      // The FunctionCall node will be a Parentheses type for fold analysis
+      const node = {
+        type: "Parentheses", // For folding/structural analysis
+        start: funcToken.start,
+        children: []
+      };
+
+      // 2. Match the opening parenthesis
+      const parenOpen = p.matchType("PAREN_OPEN");
+      if (!parenOpen) {
+        // This should ideally not happen if the lexer is correct, but handles a mismatch
+        p.error(`Expected '(' after function '${funcToken.value}'`, funcToken);
+        node.end = funcToken.end;
+        return node;
+      }
+
+      // 3. Consume content until closing parenthesis
+      let parenClose = null;
+      while (true) {
+        const next = p.peek();
+        if (!next) break;
+
+        if (next.type === "PAREN_CLOSE") {
+          parenClose = p.next();
+          break;
+        }
+
+        if (next.type === "SEMICOLON" || next.type === "BLOCK_CLOSE") {
+          p.error(`Unclosed CSS function call: Expected ')'`, funcToken);
+          break; // Stop parsing function content and return to the Block rule
+        }
+
+        // Nested parsing: check for nested blocks, comments, or other function calls
+        const child = p.oneOf(["Block", "Comment", "FunctionCall"]);
+        if (child) {
+          node.children.push(child);
+          continue;
+        }
+
+        // Consume all other tokens (values, operators, etc.)
+        p.next();
+      }
+
+      // Set end position. If parenClose is null, use the last position before the break.
+      if (!parenClose) {
+        node.end = p.tokens.at(-1)?.end || parenOpen.end;
+      } else {
+        node.end = parenClose.end;
+      }
+
+      return node;
     },
 
     // Rule to match and consume a single WHITESPACE token.
@@ -103,5 +164,8 @@ export const cssGrammar = {
 
     // Rule to match and consume a single TAB token.
     TAB: (p) => p.matchType("TAB"),
+
+    // Rule to match and consume a newline token.
+    NEWLINE: (p) => p.matchType("NEWLINE"),
   }
 };
