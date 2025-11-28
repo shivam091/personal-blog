@@ -123,6 +123,82 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
+      // 13. Hex color codes & ID selectors
+      if (char === "#") {
+        const afterHashPos = this.pos + 1;
+        const remaining = s.slice(this.pos + 1); // Slice everything after the '#'
+
+        // 12a. Try to match STRICT Hex Color first
+        // Strict Regex to match 3, 4, 6, or 8 hex digits, anchored to the start of the slice.
+        const hexMatch = remaining.match(cssTokens.hexColorCodeRegex);
+
+        if (hexMatch) {
+          // Get the matched hex digits
+          const fullMatchLength = 1 + hexMatch[0].length; // 1 for '#' + digits length
+          const value = s.slice(start, start + fullMatchLength);
+
+          // Use COLOR token type as requested in the grammar rules
+          this.add("COLOR", value, start, start + fullMatchLength, "cp-token-color");
+          this.advancePosition(fullMatchLength);
+          continue;
+        }
+
+        // 12b. If not a strict Hex Color, check for a valid ID Selector identifier.
+        // A valid CSS identifier starts with a letter, underscore, or hyphen,
+        // OR an escape sequence, but we'll stick to basic CSS identifiers for robustness.
+        let i = afterHashPos;
+
+        // ID Selector must start with a valid identifier character
+        if (i < this.length && /[a-zA-Z_-]/.test(s[i])) {
+          i++;
+          // Consume subsequent identifier characters
+          while (i < this.length && /[a-zA-Z0-9_-]/.test(s[i])) {
+            i++;
+          }
+
+          // If we consumed more than just the '#' (i > afterHashPos), it's an ID Selector
+          if (i > afterHashPos) {
+            const value = s.slice(start, i);
+            this.add("ID_SELECTOR", value, start, i, "cp-token-selector");
+            this.advancePosition(i - start);
+            continue;
+          }
+        }
+      }
+
+      // 12. Number
+      const numberMatch = s.slice(this.pos).match(cssTokens.numberRegex);
+      if (numberMatch) {
+        const numberValue = numberMatch[0];
+        let numberEnd = start + numberValue.length;
+
+        // Add the NUMBER token
+        this.add("NUMBER", numberValue, start, numberEnd, "cp-token-number");
+        this.advancePosition(numberValue.length);
+
+        // Check for an immediate UNIT after the number
+        let unitMatch = "";
+        let longestUnit = "";
+
+        // Find the longest matching unit
+        for (const unit of cssTokens.units) {
+          if (s.startsWith(unit, this.pos)) {
+            if (unit.length > longestUnit.length) {
+              longestUnit = unit;
+            }
+          }
+        }
+
+        if (longestUnit.length > 0) {
+          // Found a unit, tokenize it separately
+          unitMatch = longestUnit;
+          this.add("UNIT", unitMatch, this.pos, this.pos + unitMatch.length, "cp-token-unit");
+          this.advancePosition(unitMatch.length);
+        }
+
+        continue;
+      }
+
       // 12. Ignore all other characters and tokenize as 'TEXT' or similar for now
       this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);

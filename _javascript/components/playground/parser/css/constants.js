@@ -7,6 +7,8 @@ export const cssTokens = {
   parenEnd: ")",
   colon: ":",
   semicolon: ";",
+  numberRegex: /^[+-]?(\d*\.\d+|\d+\.?)([Ee][+-]?\d+)?/,
+  hexColorCodeRegex: /^([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\b/,
   atRules: new Set([
     "@charset", "@container", "@counter-style", "@document", "@font-face", "@font-palette-values",
     "@import", "@keyframes", "@layer", "@media", "@namespace", "@ornaments", "@page", "@property",
@@ -27,5 +29,11 @@ export const cssTokens = {
     "scale", "scale3d", "scaleX", "scaleY", "scaleZ", "sepia", "sign", "sin",
     "skew", "skewX", "skewY", "sqrt", "steps", "symbols", "tan", "translate",
     "translate3d", "translateX", "translateY", "translateZ", "url", "var"
+  ]),
+  units: new Set([
+    "em", "ex", "ch", "rem", "lh", "rlh", "vw", "vh", "vmin", "vmax", "vb", "vi",
+    "svw", "svh", "lvw", "lvh", "dvw", "dvh", "cap", "ic", "px", "cm", "mm", "in",
+    "pc", "pt", "s", "ms", "deg", "grad", "rad", "turn", "Hz", "kHz", "dpi",
+    "dpcm", "dppx", "%", "fr"
   ]),
 };

@@ -24,6 +24,13 @@ export const cssGrammar = {
           }
         }
 
+        // Consume all other tokens
+        const content = p.oneOf(["NUMBER", "UNIT", "COLOR", "IDENTIFIER", "COLON", "ID_SELECTOR", "TEXT", "STRING"]);
+        if (content) {
+          children.push(content);
+          continue;
+        }
+
         // Explicitly consume known insignificant tokens
         if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
@@ -285,5 +292,17 @@ export const cssGrammar = {
 
     // Rule to match and consume a newline token.
     NEWLINE: (p) => p.matchType("NEWLINE"),
+
+    // Rule to match and consume a number token.
+    NUMBER: (p) => p.matchType("NUMBER"),
+
+    // Rule to match and consume a unit token.
+    UNIT: (p) => p.matchType("UNIT"),
+
+    // Rule to match and consume a color token.
+    COLOR: (p) => p.matchType("COLOR"),
+
+    // Rule to match and consume an ID Selector token.
+    ID_SELECTOR: (p) => p.matchType("ID_SELECTOR")
   }
 };
