@@ -22,7 +22,7 @@ export class EditorInputHandler {
 
       this.#core.scheduleRefresh();
       this.scheduleCursorUpdate();
-      this.#core.foldManager.scheduleStructuralUpdate(); // Trigger structural update
+      this.#core.foldManager.updateStructuralMetadata(); // Trigger structural update
     });
     this.#core.editable.addEventListener("paste", e => this.#handlePaste(e));
 
@@ -55,9 +55,17 @@ export class EditorInputHandler {
       this.#state.cursor = { line: line, col: col };
     });
 
-    // Listen for the global toggle event
+    // Listen for the global toggle line numbes event
     this.#core.root.addEventListener("playground:editor:toggle-line-numbers", (e) => {
       this.#core.ui.setLineNumberVisibility(e.detail.visible);
+    });
+
+    // Listen for the global folds updated event
+    this.#core.editable.addEventListener("playground:editor:folds-updated", () => {
+      // Ensure active line is highlighted *after* fold gutter DOM is populated.
+      if (this.#state.cursor) {
+        this.#core.ui.setActiveLine(this.#state.cursor.line);
+      }
     });
 
     // Gutter click for folding

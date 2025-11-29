@@ -81,10 +81,10 @@ export class Editor {
     this.updateValue(initialText);
     this.#initialValue = this.value;
 
-    this.inputHandler.initializeObserver(); // Start watching for single-line edits
-    this.#refresh();
+    this.inputHandler.initializeObserver();
     this.inputHandler.bindEvents();
-    this.foldManager.scheduleStructuralUpdate();
+    this.foldManager.updateStructuralMetadata();
+    this.#refresh();
   }
 
   /*
@@ -132,7 +132,7 @@ export class Editor {
     this.editable.dispatchEvent(new Event("playground:editor:value-changed", { bubbles: true }));
 
     // Also trigger structural update on full value change
-    this.foldManager.scheduleStructuralUpdate();
+    this.foldManager.updateStructuralMetadata();
   }
 
   // Resets the editor's content back to the value it had upon initial load.
