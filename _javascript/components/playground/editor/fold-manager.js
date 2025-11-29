@@ -6,7 +6,6 @@ import { LanguageEngine } from "./../parser/language-engine";
 export class EditorFoldManager {
   #core;
   #state;
-  #structuralFrameId = null;
 
   // Structural metadata storage
   foldRegions = [];
@@ -16,17 +15,8 @@ export class EditorFoldManager {
     this.#state = state;
   }
 
-  // Debounced function for structural updates
-  scheduleStructuralUpdate() {
-    clearTimeout(this.#structuralFrameId);
-    this.#structuralFrameId = setTimeout(() => {
-      this.#structuralFrameId = null;
-      this.#updateStructuralMetadata();
-    }, 500); // 500ms debounce
-  }
-
   // Runs the specialized LanguageEngine method on the full document to update folding structure.
-  #updateStructuralMetadata() {
+  updateStructuralMetadata() {
     const fullValue = this.#core.value;
     const engine = new LanguageEngine(this.#core.fileType, fullValue);
 
@@ -75,7 +65,7 @@ export class EditorFoldManager {
 
     for (let line = 1; line <= totalLines; line++) {
       const lineContainer = document.createElement("div");
-      lineContainer.className = "editor-fold-line";
+      lineContainer.className = "editor-line";
 
       const region = this.#state.foldedRegions.get(line);
 
@@ -96,20 +86,40 @@ export class EditorFoldManager {
   // Applies the fold state by hiding/showing lines in the editable area.
   #applyFoldState() {
     // Ensure all editor lines are visible initially
-    Array.from(this.#core.editable.children).forEach(lineEl => lineEl.classList.remove("collapsed"));
+    Array.from(this.#core.editable.children).forEach(lineEl => {
+      lineEl.classList.remove("collapsed");
+      // Remove the data attribute on all lines before re-application
+      lineEl.removeAttribute("data-collapsed-lines");
+    });
+    Array.from(this.#core.gutterLineNumbersEl.children).forEach(lineNoEl => lineNoEl.classList.remove("collapsed"));
+    Array.from(this.#core.gutterFoldsEl.children).forEach(foldEl => foldEl.classList.remove("collapsed"));
 
     // Iterate over collapsed regions and hide lines
     for (const [startLine, region] of this.#state.foldedRegions.entries()) {
       if (region.isCollapsed) {
-        // Calculate the last line to hide.
-        const lastLineToHide = region.endLine - 1;
+        const startLineEl = this.#core.editable.children[startLine - 1];
+        const collapsedLineCount = region.endLine - startLine;
 
-        for (let i = startLine; i <= lastLineToHide; i++) {
+        // Set the data attribute on the STARTING line element
+        if (startLineEl) {
+          startLineEl.setAttribute("data-collapsed-lines", collapsedLineCount);
+        }
+
+        // Hide the lines in the range (startLine + 1 to endLine)
+        for (let i = startLine + 1; i <= region.endLine; i++) {
           // Use i - 1 to access the correct zero-based DOM element
-          const lineEl = this.#core.editable.children[i - 1];
+          const contentLineEl = this.#core.editable.children[i - 1];
+          const lineNumberEl = this.#core.gutterLineNumbersEl?.children[i - 1];
+          const foldMarkerEl = this.#core.gutterFoldsEl?.children[i - 1];
 
-          if (lineEl) {
-            lineEl.classList.add("collapsed");
+          if (contentLineEl) {
+            contentLineEl.classList.add("collapsed");
+          }
+          if (lineNumberEl) {
+            lineNumberEl.classList.add("collapsed");
+          }
+          if (foldMarkerEl) {
+            foldMarkerEl.classList.add("collapsed");
           }
         }
       }

@@ -2,8 +2,6 @@
 @use "abstracts/mixins/breakpoints" as breakpoint
 @use "abstracts/mixins/middle-dot-separator" as *
 
-$gutter-min-width: 3rem
-
 .playground
   --playground-height: 800px
 
@@ -118,7 +116,7 @@ $gutter-min-width: 3rem
 
 .code-editor
   display: grid
-  grid-template-columns: minmax($gutter-min-width, auto) 1fr
+  grid-template-columns: auto 1fr
   overflow: auto
   scrollbar-width: thin
   flex: 1
@@ -126,7 +124,6 @@ $gutter-min-width: 3rem
   .editor-gutters
     display: flex
     align-items: center
-    gap: $space-sm
     user-select: none
     position: sticky
     inset-inline-start: 0
@@ -168,48 +165,35 @@ $gutter-min-width: 3rem
     outline: none
     z-index: 5
 
-  .editor-line
-    padding-inline-start: $space-sm
-    width: 100%
-    height: 1.5rem
-    border-block: 1px solid var(--color-border-transparent)
+    .editor-line
+      position: relative
+      cursor: text
 
-    &.collapsed
-      /* Hide the lines within the folding range */
-      display: none
+      &:empty::before
+        content: "␣"
+        opacity: 0.3
 
-  .editor-active-line
-    border-block-color: var(--color-border-muted)
+    .editor-token-space
+      position: relative
+      cursor: text
 
-  .editor-token-space
-    position: relative
-    cursor: text
+      &::before
+        content: "·"
+        opacity: 0.4
+        position: absolute
+        left: 50%
+        transform: translateX(-50%)
 
-    &::before
-      content: "·"
-      opacity: 0.4
-      position: absolute
-      left: 50%
-      transform: translateX(-50%)
+    .editor-token-tab
+      position: relative
+      cursor: text
 
-  .editor-token-tab
-    position: relative
-    cursor: text
-
-    &::before
-      content: "→"
-      opacity: 0.4
-      position: absolute
-      left: 50%
-      transform: translateX(-50%)
-
-  .editor-line
-    position: relative
-    cursor: text
-
-    &:empty::before
-      content: "␣"
-      opacity: 0.3
+      &::before
+        content: "→"
+        opacity: 0.4
+        position: absolute
+        left: 50%
+        transform: translateX(-50%)
 
 .preview-tabs
   display: flex
@@ -312,12 +296,19 @@ $gutter-min-width: 3rem
 .console-count-error
   color: var(--color-fg-danger)
 
-/* The gutter icon container (assuming it sits in the line number area) */
-.editor-fold-line
+.editor-line
+  padding-inline: $space-sm
+  width: 100%
   height: 1.5rem
+  border-block: 1px solid var(--color-border-transparent)
+
+  &.editor-active-line
+    border-block-color: var(--color-border-muted)
+
+  &.collapsed
+    display: none
 
   &.foldable-start
-    /* Ensure the marker is visible in the gutter */
     position: relative
 
   .fold-marker
@@ -329,17 +320,23 @@ $gutter-min-width: 3rem
     user-select: none
     color: var(--color-fg-muted)
     font-family: $font-stack-monospace
-    transition: color 0.1s
 
     &:hover
       color: var(--color-fg-default)
 
     &::before
-      /* Default content, e.g., for collapsed state */
-      content: "›"
+      content: "-"
 
     &[data-state="collapsed"]::before
-      content: "›"
+      content: "-"
 
     &[data-state="expanded"]::before
-      content: "⌄"
+      content: "+"
+
+.editor-line[data-collapsed-lines]::after
+  content: " \2026 (+" attr(data-collapsed-lines) " lines)"
+  color: hsl(from var(--color-fg-success) h s l / 0.6)
+  font-style: italic
+  font-size: 0.9em
+  pointer-events: none
+  user-select: none

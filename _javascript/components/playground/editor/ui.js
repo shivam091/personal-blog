@@ -21,10 +21,10 @@ export class EditorUI {
     const engine = new LanguageEngine(this.#fileType, src);
     const { ast, tokens, highlightedLines, errors, foldRegions } = engine.run(src)
 
-    console.log("AST:", ast);
+    // console.log("AST:", ast);
     console.log("Tokens", tokens);
     console.log("Errors", errors);
-    console.log("Folds", foldRegions)
+    // console.log("Folds", foldRegions)
 
     // Map the resulting HTML lines to divs
     return highlightedLines
@@ -55,10 +55,10 @@ export class EditorUI {
     const engine = new LanguageEngine(this.#fileType, fullText);
     const { ast, tokens, highlightedLines, errors, foldRegions } = engine.run(fullText);
 
-    console.log("AST:", ast);
+    // console.log("AST:", ast);
     console.log("Tokens", tokens);
     console.log("Errors", errors);
-    console.log("Folds", foldRegions)
+    // console.log("Folds", foldRegions)
 
     // 4. Extract ONLY the HTML for the line we are editing
     // result.highlightedLines corresponds perfectly to the line indices
@@ -128,14 +128,14 @@ export class EditorUI {
 
     const lineEl = this.#core.gutterLineNumbersEl?.children[line - 1];
     if (lineEl) lineEl.classList.add("editor-active-line");
+
+    const foldEl = this.#core.gutterFoldsEl?.children[line - 1];
+    if (foldEl) foldEl.classList.add("editor-active-line");
   }
 
   // Clears all active line highlights
   #clearHighlights() {
     this.#core.codeEditor?.querySelectorAll(".editor-active-line").forEach(el =>
-      el.classList.remove("editor-active-line")
-    );
-    this.#core.gutterLineNumbersEl?.querySelectorAll(".editor-active-line").forEach(el =>
       el.classList.remove("editor-active-line")
     );
   }
