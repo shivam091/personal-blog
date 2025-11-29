@@ -1,3 +1,5 @@
+import { INSIGNIFICANT_TOKENS } from "../constants";
+
 export const htmlGrammar = {
   startRule: "Document",
   rules: {
@@ -6,24 +8,36 @@ export const htmlGrammar = {
 
       while (!p.eof()) {
         // Try to match structural nodes
-        const node = p.oneOf(["Element", "Comment"]);
+        const node = p.oneOf(["Element", "Comment", "NEWLINE"]);
         if (node) {
           children.push(node);
           continue;
         }
 
-        // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
-          continue;
+        // Explicitly check for an unmatched closing tag token
+        const next = p.peek();
+        if (next && next.type === "TAG_CLOSE") {
+          // Check if the closing tag actually starts with </ (to exclude self-closing tags,
+          // though typically TAG_CLOSE handles only the closing token itself)
+          if (next.value.startsWith("</")) {
+            p.error(`Unexpected closing HTML tag: ${next.value}`, next);
+            p.next(); // Consume the error token and continue
+            continue;
+          }
         }
+
+        // Explicitly consume known insignificant tokens
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
         // Consume all other text/unknown tokens
         p.next();
       }
 
-      return { type: "Document", children };
+      // Add start/end to Document node for fold analysis
+      return { type: "Document", children, start: 0, end: p.tokens.at(-1)?.end || 0 };
     },
 
+    // Rule to match and consume a comment.
     Comment(p) {
       const t = p.matchType("COMMENT");
 
@@ -31,11 +45,11 @@ export const htmlGrammar = {
     },
 
     Element(p) {
-      const open = p.matchType("TAG_OPEN");
-      if (!open) return null;
+      const tagOpen = p.matchType("TAG_OPEN");
+      if (!tagOpen) return null;
 
       const children = [];
-      let close = null;
+      let tagClose = null;
 
       // Continue parsing children (nested Elements, Comments) until we hit a closing tag
       while (true) {
@@ -44,7 +58,7 @@ export const htmlGrammar = {
 
         // Stop if we find a closing tag token
         if (next.type === "TAG_CLOSE") {
-          close = p.next();
+          tagClose = p.next();
           break;
         }
 
@@ -56,34 +70,57 @@ export const htmlGrammar = {
         }
 
         // Explicitly consume SPACE and TAB
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
-          continue;
-        }
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
-        // Consume all other text/unknown tokens (like newlines or actual text content)
+        // Consume all other text/unknown tokens
         p.next();
       }
 
-      // Requires a closing tag token to define the fold range
-      if (!close) return null;
+      // Error Handling: Ensure a closing tag was found.
+      if (!tagClose) {
+        // We consumed an opening tag but never found a closing tag token.
+        p.error(`Unclosed HTML Element: Expected closing tag for ${tagOpen.value}`, tagOpen);
+        // Continue, but return the element definition based only on the open tag
+        return {
+          type: "Element",
+          name: tagOpen.value,
+          children,
+          start: tagOpen.start,
+          // Since it's unclosed, its end is the last consumed token or the open tag itself.
+          end: p.tokens.at(-1)?.end || tagOpen.end
+        };
+      }
 
+      // 1. Extract the name from the opening tag (e.g., "div" from "<div id='x'>")
+      const openTagMatch = tagOpen.value.match(/<([a-zA-Z0-9]+)/);
+      const openTagName = openTagMatch ? openTagMatch[1].toLowerCase() : null;
+
+      // 2. Extract the name from the closing tag (e.g., "p" from "</p>")
+      const closeTagMatch = tagClose.value.match(/<\/([a-zA-Z0-9]+)>/);
+      const closeTagName = closeTagMatch ? closeTagMatch[1].toLowerCase() : null;
+
+      // 3. Error Handling: Check for mismatched tag names
+      if (openTagName && closeTagName && openTagName !== closeTagName) {
+        p.error(`Mismatched closing tag: Expected </${openTagName}> but found ${tagClose.value}`, tagClose);
+      }
+
+      // Success: Both open and close tags found
       return {
         type: "Element",
-        name: open.value,
+        name: tagOpen.value,
         children,
-        start: open.start,
-        end: close.end // Use the end of the closing tag token
+        start: tagOpen.start,
+        end: tagClose.end // Use the end of the closing tag token
       };
     },
 
     // Rule to match and consume a single WHITESPACE token.
-    WHITESPACE(p) {
-      return p.matchType("WHITESPACE");
-    },
+    WHITESPACE: (p) => p.matchType("WHITESPACE"),
 
     // Rule to match and consume a single TAB token.
-    TAB(p) {
-      return p.matchType("TAB");
-    },
+    TAB: (p) => p.matchType("TAB"),
+
+    // Rule to match and consume a new line.
+    NEWLINE: (p) => p.matchType("NEWLINE"),
   }
 };

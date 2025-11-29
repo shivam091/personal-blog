@@ -1,3 +1,5 @@
+import { INSIGNIFICANT_TOKENS } from "../constants";
+
 export const cssGrammar = {
   startRule: "Document",
   rules: {
@@ -12,18 +14,28 @@ export const cssGrammar = {
           continue;
         }
 
-        // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
-          continue;
+        // Explicitly check for unmatched closing brace
+        const next = p.peek();
+        if (next) {
+          if (next.type === "BLOCK_CLOSE") {
+            p.error(`Unexpected closing brace '}' outside a block.`, next);
+            p.next(); // Consume the error token and continue
+            continue;
+          }
         }
+
+        // Explicitly consume known insignificant tokens
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
         // Consume all other tokens (selectors, properties, newlines, etc.)
         p.next();
       }
 
-      return { type: "Document", children };
+      // Add start/end to Document node for fold analysis
+      return { type: "Document", children, start: 0, end: p.tokens.at(-1)?.end || 0 };
     },
 
+    // Rule to match and consume a comment.
     Comment(p) {
       const t = p.matchType("COMMENT");
 
@@ -32,11 +44,11 @@ export const cssGrammar = {
 
     // A Block handles rule sets, media queries, etc.
     Block(p) {
-      const open = p.matchType("BLOCK_OPEN");
-      if (!open) return null;
+      const blockOpen = p.matchType("BLOCK_OPEN");
+      if (!blockOpen) return null;
 
       const children = [];
-      let close = null;
+      let blockClose = null;
 
       // Look for nested blocks or comments until the closing brace
       while (true) {
@@ -44,7 +56,8 @@ export const cssGrammar = {
         if (!next) break;
 
         if (next.type === "BLOCK_CLOSE") {
-          close = p.next();
+          // Consume the closing brace and exit the loop.
+          blockClose = p.next();
           break;
         }
 
@@ -55,32 +68,36 @@ export const cssGrammar = {
         }
 
         // Explicitly consume known insignificant tokens
-        if (p.oneOf(["WHITESPACE", "TAB"])) {
-          continue;
-        }
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
         // Consume all other text/unknown tokens (like newlines or actual text content)
         p.next();
       }
 
-      if (!close) return null;
+      // Error Handling: If the loop exited because of EOF, the block is unclosed.
+      if (!blockClose) {
+        p.error(`Unclosed CSS Block: Expected '}'`, blockOpen);
+        // Continue, but define the block's end at the last consumed token.
+        return {
+          type: "Block",
+          children,
+          start: blockOpen.start,
+          end: p.tokens.at(-1)?.end || blockOpen.end
+        };
+      }
 
       return {
         type: "Block",
         children,
-        start: open.start,
-        end: close.end
+        start: blockOpen.start,
+        end: blockClose.end
       };
     },
 
     // Rule to match and consume a single WHITESPACE token.
-    WHITESPACE(p) {
-      return p.matchType("WHITESPACE");
-    },
+    WHITESPACE: (p) => p.matchType("WHITESPACE"),
 
     // Rule to match and consume a single TAB token.
-    TAB(p) {
-      return p.matchType("TAB");
-    },
+    TAB: (p) => p.matchType("TAB"),
   }
 };

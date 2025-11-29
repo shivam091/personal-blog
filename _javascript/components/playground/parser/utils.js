@@ -51,4 +51,3 @@ export function indexToLine(index, lineStarts) {
   }
   return result;
 }
-

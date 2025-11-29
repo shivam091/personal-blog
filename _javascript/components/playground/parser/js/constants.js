@@ -3,5 +3,9 @@ export const jsTokens = {
   commentEnd: "*/",
   singleLineComment: "//",
   braceStart: "{",
-  braceEnd: "}"
+  braceEnd: "}",
+  parenStart: "(",
+  parenEnd: ")",
+  bracketStart: "[",
+  bracketEnd: "]",
 };

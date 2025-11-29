@@ -1,3 +1,5 @@
+import { ParserError } from "./parser-error";
+
 export class BaseParser {
   constructor(tokens) {
     this.tokens = tokens;
@@ -20,10 +22,26 @@ export class BaseParser {
 
   error(message, token) {
     const errorToken = token || this.peek();
-    this.errors.push({
-      message: message,
-      token: errorToken,
-    });
+
+    // Check if errorToken is valid before proceeding
+    if (errorToken) {
+      // 1. Create and store the error object
+      this.errors.push(new ParserError(message, errorToken));
+
+      // 2. Add the error class to the token object
+      const errorClass = "cp-token-error";
+
+      if (errorToken.class) {
+        // Append the error class if other classes exist
+        if (!errorToken.highlightClass.includes(errorClass)) {
+          errorToken.highlightClass = `${errorToken.highlightClass} ${errorClass}`;
+        }
+      } else {
+        // Set the error class if no other classes exist
+        errorToken.highlightClass = errorClass;
+      }
+    }
+
     console.warn(`[Parser Error] ${message} at pos ${this.pos}`, errorToken);
   }
 
@@ -46,7 +64,7 @@ export class BaseParser {
     const ruleFn = this.grammar[ruleNameOrTokenType];
 
     // Case 1: Complex Grammar Rule (is a function in the grammar)
-    if (typeof ruleFn === 'function') {
+    if (typeof ruleFn === "function") {
       const result = ruleFn(this);
       if (!result && startPos !== this.pos) {
         // Rule failed after consuming tokens, backtrack.
@@ -56,7 +74,7 @@ export class BaseParser {
     }
 
     // Case 2: Simple Atomic Token Type (is a string, e.g., "COMMA", "SPACE")
-    else if (typeof ruleNameOrTokenType === 'string') {
+    else if (typeof ruleNameOrTokenType === "string") {
       return this.matchType(ruleNameOrTokenType);
     }
 

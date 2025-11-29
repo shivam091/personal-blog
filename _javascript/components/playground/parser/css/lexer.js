@@ -4,51 +4,59 @@ import { cssTokens } from "./constants";
 export class CssLexer extends BaseLexer {
   run() {
     const s = this.input;
-    const L = s.length;
-    let i = 0;
 
-    while (i < L) {
-      const char = s[i]; // Peek at the current character
+    while (!this.eof()) {
+      const char = this.peekChar(); // Peek at the current character
+      const start = this.pos; // Token start position
 
       // 1. Multi-line Comment
-      if (s.startsWith(cssTokens.commentStart, i)) {
-        const end = s.indexOf(cssTokens.commentEnd, i + 2);
-        const j = end === -1 ? L : end + 2;
-        this.add("COMMENT", s.slice(i, j), i, j, "cp-token-comment");
-        i = j;
+      if (s.startsWith(cssTokens.commentStart, this.pos)) {
+        const end = s.indexOf(cssTokens.commentEnd, this.pos + 2);
+        let j = this.length;
+
+        if (end === -1) {
+          // Unclosed comment check.
+          this.lexerError("Unclosed CSS comment: Expected '*/'", start, this.length);
+        } else {
+          // Closed comment
+          j = end + 2;
+        }
+
+        this.add("COMMENT", s.slice(start, j), start, j, "cp-token-comment");
+        this.advancePosition(j - start);
         continue;
       }
 
       // 2. Block Open
       if (char === cssTokens.braceStart) {
-        this.add("BLOCK_OPEN", cssTokens.braceStart, i, i + 1);
-        i++;
+        this.add("BLOCK_OPEN", cssTokens.braceStart, start, start + 1);
+        this.advancePosition(1);
         continue;
       }
 
       // 3. Block Close
       if (char === cssTokens.braceEnd) {
-        this.add("BLOCK_CLOSE", cssTokens.braceEnd, i, i + 1);
-        i++;
+        this.add("BLOCK_CLOSE", cssTokens.braceEnd, start, start + 1);
+        this.advancePosition(1);
         continue;
       }
 
       // 4. Whitespace
       if (char === " ") {
-        this.add("WHITESPACE", char, i, i + 1, "editor-token-space");
-        i++;
+        this.add("WHITESPACE", char, start, start + 1, "editor-token-space");
+        this.advancePosition(1);
         continue;
       }
 
       // 5. Tab
       if (char === "\t") {
-        this.add("TAB", char, i, i + 1, "editor-token-tab");
-        i++;
+        this.add("TAB", char, start, start + 1, "editor-token-tab");
+        this.advancePosition(1);
         continue;
       }
 
       // 6. Ignore all other characters (including newlines and other content)
-      i++;
+      this.advancePosition(1);
     }
 
     return this.tokens;
