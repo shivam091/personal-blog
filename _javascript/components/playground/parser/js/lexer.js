@@ -133,9 +133,32 @@ export class JsLexer extends BaseLexer {
         continue;
       }
 
-      // 13. Ignore all other characters (including newlines and other content)
-      this.add("TEXT", char, start, start + 1);
-      this.advancePosition(1);
+      // 13. Ignore all other characters
+      let j = this.pos + 1;
+
+      // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
+      while (j < this.length) {
+        const nextChar = s[j];
+
+        // If the next character starts a known token type, stop here.
+        // Known starts: /, {, }, (, ), [, ], ', ", space, tab, newline.
+        if (
+            nextChar === "/" ||
+            nextChar === jsTokens.braceStart || nextChar === jsTokens.braceEnd ||
+            nextChar === jsTokens.parenStart || nextChar === jsTokens.parenEnd ||
+            nextChar === jsTokens.bracketStart || nextChar === jsTokens.bracketEnd ||
+            nextChar === "'" || nextChar === '"' ||
+            /\s/.test(nextChar)
+        ) {
+            break;
+        }
+        j++;
+      }
+
+      const value = s.slice(start, j);
+      this.add("TEXT", value, start, j, "cp-token-unknown");
+      this.advancePosition(j - start);
+      continue;
     }
 
     return this.tokens;

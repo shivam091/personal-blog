@@ -91,8 +91,30 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 7. Ignore all other characters (including newlines and other content)
-      this.advancePosition(1);
+      // 7. Ignore all other characters
+      let j = this.pos + 1;
+
+      // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
+      while (j < this.length) {
+        const nextChar = s[j];
+
+        // If the next character starts a known token type, stop here.
+        // Known starts: /, {, }, ', ", space, tab, newline.
+        if (
+            nextChar === "/" ||
+            nextChar === cssTokens.braceStart || nextChar === cssTokens.braceEnd ||
+            nextChar === "'" || nextChar === '"' ||
+            nextChar === " " || nextChar === "\t" || nextChar === "\n" || nextChar === "\r"
+        ) {
+            break;
+        }
+        j++;
+      }
+
+      const value = s.slice(start, j);
+      this.add("UNKNOWN", value, start, j, "cp-token-unknown");
+      this.advancePosition(j - start);
+      continue;
     }
 
     return this.tokens;

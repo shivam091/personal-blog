@@ -83,5 +83,8 @@ export const htmlGrammar = {
 
     // Rule to match and consume a new line.
     NEWLINE: (p) => p.matchType("NEWLINE"),
+
+    // Rule to match and consume the large TEXT token groups.
+    TEXT: (p) => p.matchType("TEXT"),
   }
 };

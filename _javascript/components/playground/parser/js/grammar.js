@@ -164,5 +164,8 @@ export const jsGrammar = {
 
     // Rule to match and consume a error string token.
     ERROR_STRING: (p) => p.matchType("ERROR_STRING"),
+
+    // Rule to match and consume the large TEXT token groups.
+    TEXT: (p) => p.matchType("TEXT"),
   }
 };

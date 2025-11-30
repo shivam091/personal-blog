@@ -74,9 +74,28 @@ export class HtmlLexer extends BaseLexer {
         continue;
       }
 
-      // 6. Ignore all other characters (Newlines, text content, unhandled symbols)
-      this.add("TEXT", char, start, start + 1);
-      this.advancePosition(1);
+      // 6. Ignore all other characters
+      let j = this.pos + 1;
+
+      // We check if the next character starts ANY known token (Comment start, Tag start, or Insignificant token).
+      while (j < this.length) {
+        const nextChar = s[j];
+
+        // If the next character is the start of a recognized token, break the loop.
+        // Recognized starts: '<' (tag/comment), space, tab, newline.
+        if (
+            nextChar === htmlTokens.tagStart || // '<'
+            /\s/.test(nextChar) // space, tab, newline (though they are handled explicitly by rules 3, 4, 5)
+        ) {
+            break;
+        }
+        j++;
+      }
+
+      const value = s.slice(start, j);
+      this.add("TEXT", value, start, j, "cp-token-text"); // Use 'TEXT' as appropriate for HTML content
+      this.advancePosition(j - start);
+      continue;
     }
 
     return this.tokens;
