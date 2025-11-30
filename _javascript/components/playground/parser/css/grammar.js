@@ -85,6 +85,12 @@ export const cssGrammar = {
     // Rule to match and consume a error string token.
     ERROR_STRING: (p) => p.matchType("ERROR_STRING"),
 
+    // Rule to match and consume a number token.
+    NUMBER: (p) => p.matchType("NUMBER"),
+
+    // Rule to match and consume a unit token.
+    UNIT: (p) => p.matchType("UNIT"),
+
     // Rule to match and consume the UNKNOWN token groups.
     UNKNOWN: (p) => p.matchType("UNKNOWN"),
   }

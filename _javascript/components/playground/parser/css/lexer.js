@@ -84,14 +84,56 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 5. Newline
+      // 7. Newline
       if (char === "\n" || char === "\r") {
         this.add("NEWLINE", char, start, start + 1);
         this.advancePosition(1);
         continue;
       }
 
-      // 7. Ignore all other characters
+      // 8. Numbers & Units
+      const substring = s.slice(this.pos);
+      const numberMatch = substring.match(new RegExp(cssTokens.numberRegex));
+
+      if (numberMatch) {
+        const numberValue = numberMatch[0];
+        const numberEnd = start + numberValue.length;
+
+        // Tokenize the NUMBER part
+        this.add("NUMBER", numberValue, start, numberEnd, "cp-token-number");
+        this.advancePosition(numberValue.length);
+
+        // Now, check for an immediate unit after the number
+        const unitStart = numberEnd;
+        let unitEnd = numberEnd;
+
+        // Find the longest matching unit
+        let bestMatch = null;
+
+        // CSS units are generally short (2-4 chars), so a simple check is fine.
+        // We iterate through the UNITS set to find a match starting at unitStart.
+        for (const unit of cssTokens.units) {
+          if (substring.startsWith(unit, numberValue.length)) {
+            if (!bestMatch || unit.length > bestMatch.length) {
+              bestMatch = unit;
+            }
+          }
+        }
+
+        if (bestMatch) {
+          unitEnd = unitStart + bestMatch.length;
+          const unitValue = s.slice(unitStart, unitEnd);
+
+          // Tokenize the UNIT part
+          this.add("UNIT", unitValue, unitStart, unitEnd, "cp-token-unit");
+          this.advancePosition(unitValue.length);
+        }
+
+        // Number and optional unit processed, continue the main loop
+        continue;
+      }
+
+      // 9. Ignore all other characters
       let j = this.pos + 1;
 
       // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
@@ -99,12 +141,13 @@ export class CssLexer extends BaseLexer {
         const nextChar = s[j];
 
         // If the next character starts a known token type, stop here.
-        // Known starts: /, {, }, ', ", space, tab, newline.
+        // Known starts: /, {, }, ', ", space, tab, newline, +/-, digit, or dot.
         if (
             nextChar === "/" ||
             nextChar === cssTokens.braceStart || nextChar === cssTokens.braceEnd ||
             nextChar === "'" || nextChar === '"' ||
-            nextChar === " " || nextChar === "\t" || nextChar === "\n" || nextChar === "\r"
+            nextChar === " " || nextChar === "\t" || nextChar === "\n" || nextChar === "\r" ||
+            nextChar === "+" || nextChar === "-" || /[0-9.]/.test(nextChar)
         ) {
             break;
         }
