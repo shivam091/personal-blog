@@ -91,7 +91,39 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 8. Numbers & Units
+      // 8. Class selectors
+      if (char === ".") {
+        const dotStart = this.pos;
+        const identifierStartChar = this.peekChar(1);
+
+        // Check if the character following '.' is a valid identifier start (not a digit or EOF).
+        // If it's a digit or nothing, it must be treated as a number (e.g., .5) or UNKNOWN/TEXT.
+        if (identifierStartChar && !/[0-9.]/.test(identifierStartChar)) {
+
+          // It's a class selector. Start consuming the identifier name.
+          let classEnd = this.pos + 1; // Start looking *after* the '.'
+
+          // Consume the identifier characters (letters, numbers, underscores, hyphens)
+          while (classEnd < this.length && /[a-zA-Z0-9_\-]/.test(s[classEnd])) {
+            classEnd++;
+          }
+
+          const classValue = s.slice(dotStart, classEnd);
+
+          // Check to ensure we consumed more than just the '.' itself.
+          if (classValue.length > 1) {
+            this.add("CLASS_SELECTOR", classValue, dotStart, classEnd, "cp-token-selector");
+            this.advancePosition(classEnd - dotStart); // Advance by the full token length
+            continue;
+          }
+        }
+
+        this.add("UNKNOWN", char, start, start + 1, "cp-token-unknown");
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 9. Numbers & Units
       const substring = s.slice(this.pos);
       const numberMatch = substring.match(new RegExp(cssTokens.numberRegex));
 
@@ -133,7 +165,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 9. Hex Color Codes and ID Selectors (NEW RULE)
+      // 10. Hex Color Codes and ID Selectors
       if (char === "#") {
         const hashStart = this.pos;
         const hashSubstring = s.slice(this.pos + 1);
@@ -180,7 +212,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 10. Identifiers (Handles tag selectors like 'h1', property names, etc.)
+      // 11. Identifiers (Handles tag selectors like 'h1', property names, etc.)
       if (/[a-zA-Z_\-]/.test(char) || /[\u0080-\uffff]/.test(char)) {
         let j = this.pos + 1;
 
@@ -197,7 +229,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 11. Ignore all other characters
+      // 12. Ignore all other characters
       let j = this.pos + 1;
 
       // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
@@ -209,6 +241,7 @@ export class CssLexer extends BaseLexer {
         if (
             nextChar === "/" || nextChar === "'" || nextChar === '"' || nextChar === "#" ||
             nextChar === " " || nextChar === "\t" || nextChar === "\n" || nextChar === "\r" ||
+            nextChar === "." ||
             nextChar === cssTokens.braceStart || nextChar === cssTokens.braceEnd ||
             /[+\-.]/.test(nextChar) || /[0-9.]/.test(nextChar) || /[a-zA-Z_\-]/.test(nextChar)
         ) {

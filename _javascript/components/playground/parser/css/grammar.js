@@ -85,6 +85,9 @@ export const cssGrammar = {
     // Rule to match and consume a error string token.
     ERROR_STRING: (p) => p.matchType("ERROR_STRING"),
 
+    // Rule to match and consume class Selector
+    CLASS_SELECTOR: (p) => p.matchType("CLASS_SELECTOR"),
+
     // Rule to match and consume a number token.
     NUMBER: (p) => p.matchType("NUMBER"),
 
