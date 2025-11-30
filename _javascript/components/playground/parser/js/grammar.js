@@ -14,24 +14,14 @@ export const jsGrammar = {
           continue;
         }
 
-        // Explicitly check for unmatched closing delimiters
-        const next = p.peek();
-        if (next) {
-          if (next.type === "BLOCK_CLOSE" || next.type === "PAREN_CLOSE" || next.type === "BRACKET_CLOSE") {
-            p.error(`Unexpected closing delimiter: ${next.value}`, next);
-            p.next(); // Consume the error token and continue
-            continue;
-          }
-        }
-
-        // Explicitly consume known insignificant tokens
+        // Consume insignificant tokens
         if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
         // Consume all other tokens (Keywords, Identifiers, Operators, etc.)
         p.next();
       }
 
-      // Add start/end to Document node for fold analysis
+      // Final Document node
       return { type: "Document", children, start: 0, end: p.tokens.at(-1)?.end || 0 };
     },
 
@@ -66,28 +56,6 @@ export const jsGrammar = {
           break;
         }
 
-        // Stop condition
-        if (next.type === "PAREN_CLOSE" || next.type === "BRACKET_CLOSE") {
-          let offset = 1;
-          let lookahead = p.peek(offset);
-
-          // 1. skip whitespace in lookahead
-          while (lookahead && INSIGNIFICANT_TOKENS.includes(lookahead.type)) {
-            offset++;
-            lookahead = p.peek(offset);
-          }
-
-          // 2. If the valid closer is next, treat 'next' as a typo/extra char
-          if (lookahead && lookahead.type === "BLOCK_CLOSE") {
-            p.error(`Unexpected '${next.value}' inside Block.`, next);
-            p.next();
-            continue;
-          }
-
-          // 3. Otherwise, it's a structural break (belongs to parent)
-          break;
-        }
-
         // Recursively match ALL structural types
         const child = p.oneOf(["Block", "Parentheses", "Brackets", "Comment", "SingleComment"]);
         if (child) {
@@ -95,32 +63,16 @@ export const jsGrammar = {
           continue;
         }
 
-        // Explicitly consume known insignificant tokens
-        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
-
-        // Consume all other content tokens (Keywords, Identifiers, Operators, etc.)
+        // Consume all other content tokens and insignificant tokens
         p.next();
       }
 
-      // Error handling
-      if (!blockClose) {
-        p.error(`Unclosed JavaScript Block: Expected '}'`, blockOpen);
-
-        // Explicitly return the unclosed structure here
-        return {
-          type: "Block",
-          children,
-          start: blockOpen.start,
-          end: p.tokens.at(-1)?.end || blockOpen.end
-        };
-      }
-
-      // Open and close braces found
+      // Return structure whether closed or unclosed
       return {
         type: "Block",
         children,
         start: blockOpen.start,
-        end: blockClose.end
+        end: (blockClose || p.tokens.at(-1))?.end || blockOpen.end
       };
     },
 
@@ -141,28 +93,6 @@ export const jsGrammar = {
           break;
         }
 
-        // Stop condition
-        if (next.type === "BLOCK_CLOSE" || next.type === "BRACKET_CLOSE") {
-          let offset = 1;
-          let lookahead = p.peek(offset);
-
-          // 1. Look ahead
-          while (lookahead && INSIGNIFICANT_TOKENS.includes(lookahead.type)) {
-            offset++;
-            lookahead = p.peek(offset);
-          }
-
-          // 2. If the valid closer is next, treat 'next' as a typo
-          if (lookahead && lookahead.type === "PAREN_CLOSE") {
-            p.error(`Unexpected '${next.value}' inside Parentheses.`, next);
-            p.next();
-            continue;
-          }
-
-          // 3. Otherwise, break
-          break;
-        }
-
         // Recursively match ALL structural types
         const child = p.oneOf(["Block", "Parentheses", "Brackets", "Comment", "SingleComment"]);
         if (child) {
@@ -170,32 +100,16 @@ export const jsGrammar = {
           continue;
         }
 
-        // Explicitly consume known insignificant tokens
-        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
-
-        // Consume all other content tokens (Keywords, Identifiers, Operators, etc.)
+        // Consume all other content tokens and insignificant tokens
         p.next();
       }
 
-      // Error handling
-      if (!parenClose) {
-        p.error(`Unclosed Parentheses: Expected ')'`, parenOpen);
-
-        // Explicitly return the unclosed structure here
-        return {
-          type: "Parentheses",
-          children,
-          start: parenOpen.start,
-          end: p.tokens.at(-1)?.end || parenOpen.end
-        };
-      }
-
-      // Open and close parenthesis found
+      // Return structure whether closed or unclosed
       return {
         type: "Parentheses",
         children,
         start: parenOpen.start,
-        end: parenClose.end
+        end: (parenClose || p.tokens.at(-1))?.end || parenOpen.end
       };
     },
 
@@ -216,26 +130,6 @@ export const jsGrammar = {
           break;
         }
 
-        // Stop condition
-        if (next.type === "BLOCK_CLOSE" || next.type === "PAREN_CLOSE") {
-          // 1. Look ahead
-          let offset = 1;
-          let lookahead = p.peek(offset);
-          while (lookahead && INSIGNIFICANT_TOKENS.includes(lookahead.type)) {
-            offset++;
-            lookahead = p.peek(offset);
-          }
-
-          // 2. If the valid closer is next, treat 'next' as a typo
-          if (lookahead && lookahead.type === "BRACKET_CLOSE") {
-            p.error(`Unexpected '${next.value}' inside Brackets.`, next);
-            p.next();
-            continue;
-          }
-
-          break;
-        }
-
         // Recursively match ALL structural types
         const child = p.oneOf(["Block", "Parentheses", "Brackets", "Comment", "SingleComment"]);
         if (child) {
@@ -243,31 +137,16 @@ export const jsGrammar = {
           continue;
         }
 
-        // Explicitly consume known insignificant tokens
-        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
-
-        // Consume all other content tokens (Keywords, Identifiers, Operators, etc.)
+        // Consume all other content tokens and insignificant tokens
         p.next();
       }
 
-      if (!bracketClose) {
-        p.error(`Unclosed Brackets: Expected ']'`, bracketOpen);
-
-        // Explicitly return the unclosed structure here
-        return {
-          type: "Brackets",
-          children,
-          start: bracketOpen.start,
-          end: p.tokens.at(-1)?.end || bracketOpen.end
-        };
-      }
-
-      // Open and close brackets found
+      // Return structure whether closed or unclosed
       return {
         type: "Brackets",
         children,
         start: bracketOpen.start,
-        end: bracketClose.end
+        end: (bracketClose || p.tokens.at(-1))?.end || bracketOpen.end
       };
     },
 
