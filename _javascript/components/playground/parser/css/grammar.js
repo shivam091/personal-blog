@@ -91,6 +91,15 @@ export const cssGrammar = {
     // Rule to match and consume a unit token.
     UNIT: (p) => p.matchType("UNIT"),
 
+    // Rule to match and consume Hex Color Code
+    HEX_COLOR: (p) => p.matchType("HEX_COLOR"),
+
+    // Rule to match and consume ID Selector
+    ID_SELECTOR: (p) => p.matchType("ID_SELECTOR"),
+
+    // Rule to match and consume identifiers
+    IDENTIFIER: (p) => p.matchType("IDENTIFIER"),
+
     // Rule to match and consume the UNKNOWN token groups.
     UNKNOWN: (p) => p.matchType("UNKNOWN"),
   }

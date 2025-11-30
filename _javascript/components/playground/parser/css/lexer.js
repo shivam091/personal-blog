@@ -133,7 +133,71 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 9. Ignore all other characters
+      // 9. Hex Color Codes and ID Selectors (NEW RULE)
+      if (char === "#") {
+        const hashStart = this.pos;
+        const hashSubstring = s.slice(this.pos + 1);
+
+        // 1. Try to match as a Hex Color Code
+        const hexMatch = hashSubstring.match(cssTokens.hexColorCodeRegex);
+
+        if (hexMatch) {
+          const hexValue = "#" + hexMatch[0];
+          const hexEnd = hashStart + hexValue.length;
+
+          this.add("HEX_COLOR", hexValue, hashStart, hexEnd, "cp-token-color");
+          this.advancePosition(hexValue.length);
+          continue;
+        }
+
+        // 2. If not a hex code, try to match as an ID Selector.
+        // Check the character immediately following '#'
+        const identifierStartChar = this.peekChar(1);
+
+        if (identifierStartChar && (/[a-zA-Z_\-]/.test(identifierStartChar) || /[\u0080-\uffff]/.test(identifierStartChar))) {
+          let idEnd = this.pos + 1; // Start looking *after* the '#'
+
+          // Consume the identifier characters (letters, numbers, underscores, hyphens)
+          while (idEnd < this.length && /[a-zA-Z0-9_\-]/.test(s[idEnd])) {
+            idEnd++;
+          }
+
+          // ID selector: # followed by identifier characters.
+          const idValue = s.slice(hashStart, idEnd);
+
+          // Check to ensure we consumed more than just the '#' itself.
+          if (idValue.length > 1) {
+            this.add("ID_SELECTOR", idValue, hashStart, idEnd, "cp-token-selector");
+            this.advancePosition(idEnd - hashStart); // Advance by the full token length
+            continue;
+          }
+        }
+
+        // 3. If it failed both checks (Hex/ID), treat the '#' as UNKNOWN/TEXT for now.
+        // This must be done manually since the UNKNOWN rule only groups from the *next* char.
+        this.add("UNKNOWN", char, start, start + 1, "cp-token-unknown");
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 10. Identifiers (Handles tag selectors like 'h1', property names, etc.)
+      if (/[a-zA-Z_\-]/.test(char) || /[\u0080-\uffff]/.test(char)) {
+        let j = this.pos + 1;
+
+        // Consume the rest of the valid identifier characters
+        while (j < this.length && /[a-zA-Z0-9_\-]/.test(s[j])) {
+          j++;
+        }
+
+        const value = s.slice(start, j);
+
+        // Tokenize as a generic IDENTIFIER (this includes selectors like h1)
+        this.add("IDENTIFIER", value, start, j, "cp-token-identifier");
+        this.advancePosition(j - start);
+        continue;
+      }
+
+      // 11. Ignore all other characters
       let j = this.pos + 1;
 
       // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
@@ -141,13 +205,12 @@ export class CssLexer extends BaseLexer {
         const nextChar = s[j];
 
         // If the next character starts a known token type, stop here.
-        // Known starts: /, {, }, ', ", space, tab, newline, +/-, digit, or dot.
+        // Known starts: /, {, }, ', ", space, tab, newline, +/-, digit, dot, or #.
         if (
-            nextChar === "/" ||
-            nextChar === cssTokens.braceStart || nextChar === cssTokens.braceEnd ||
-            nextChar === "'" || nextChar === '"' ||
+            nextChar === "/" || nextChar === "'" || nextChar === '"' || nextChar === "#" ||
             nextChar === " " || nextChar === "\t" || nextChar === "\n" || nextChar === "\r" ||
-            nextChar === "+" || nextChar === "-" || /[0-9.]/.test(nextChar)
+            nextChar === cssTokens.braceStart || nextChar === cssTokens.braceEnd ||
+            /[+\-.]/.test(nextChar) || /[0-9.]/.test(nextChar) || /[a-zA-Z_\-]/.test(nextChar)
         ) {
             break;
         }
