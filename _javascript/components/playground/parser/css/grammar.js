@@ -8,7 +8,7 @@ export const cssGrammar = {
 
       while (!p.eof()) {
         // Try to match structural nodes
-        const node = p.oneOf(["Block", "Comment"]);
+        const node = p.oneOf(["Block", "Comment", "NEWLINE"]);
         if (node) {
           children.push(node);
           continue;
@@ -17,7 +17,7 @@ export const cssGrammar = {
         // Consume insignificant tokens
         if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
-        // Consume all other tokens (selectors, properties, newlines, etc.)
+        // Consume all other text/unknown tokens
         p.next();
       }
 
@@ -75,5 +75,14 @@ export const cssGrammar = {
 
     // Rule to match and consume a single TAB token.
     TAB: (p) => p.matchType("TAB"),
+
+    // Rule to match and consume a new line.
+    NEWLINE: (p) => p.matchType("NEWLINE"),
+
+    // Rule to match and consume a string token.
+    STRING: (p) => p.matchType("STRING"),
+
+    // Rule to match and consume a error string token.
+    ERROR_STRING: (p) => p.matchType("ERROR_STRING"),
   }
 };

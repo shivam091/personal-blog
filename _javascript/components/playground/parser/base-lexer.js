@@ -51,8 +51,29 @@ export class BaseLexer {
 
   // Collects lexical errors using the new LexerError class
   lexerError(message, start, end) {
-    this.errors.push(new LexerError(message, start, end));
-    console.warn(`[Lexer Error] ${message} at pos ${start}`);
+    // 1. Calculate line and column from the start index
+    const oneBasedLine = indexToLine(start, this.lineStarts);
+    const zeroBasedLineIndex = oneBasedLine - 1;
+    const lineStart = this.lineStarts[zeroBasedLineIndex];
+    const oneBasedCol = (start - lineStart) + 1;
+
+    // 2. Create an incomplete/error Token object
+    const errorValue = this.input.slice(start, end);
+
+    const errorToken = new Token(
+      "ERROR",
+      errorValue,
+      start,
+      end,
+      "cp-token-error",
+      oneBasedLine,
+      oneBasedCol
+    );
+
+    // 3. Pass the token to LexerError
+    this.errors.push(new LexerError(message, errorToken));
+
+    console.warn(`[Lexer Error] ${message} at L${oneBasedLine}:C${oneBasedCol} (pos ${start})`);
   }
 
   // Method to move the current reading position forward

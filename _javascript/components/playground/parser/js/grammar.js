@@ -158,5 +158,11 @@ export const jsGrammar = {
 
     // Rule to match and consume a new line.
     NEWLINE: (p) => p.matchType("NEWLINE"),
+
+    // Rule to match and consume a string token.
+    STRING: (p) => p.matchType("STRING"),
+
+    // Rule to match and consume a error string token.
+    ERROR_STRING: (p) => p.matchType("ERROR_STRING"),
   }
 };

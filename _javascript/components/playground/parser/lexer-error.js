@@ -1,8 +1,7 @@
 export class LexerError extends Error {
-  constructor(message, start, end) {
+  constructor(message, token) {
     super(message);
     this.name = "LexerError";
-    this.start = start;
-    this.end = end;
+    this.token = token;
   }
 }

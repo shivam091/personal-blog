@@ -41,21 +41,57 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 4. Whitespace
+      // 4. String literals
+      if (char === "'" || char === '"') {
+        const quoteType = char;
+        this.advancePosition(1); // Consume opening quote
+
+        // Scan until the closing quote
+        while (!this.eof() && this.peekChar() !== quoteType) {
+          // Handle escaped characters (e.g., 'it\'s')
+          if (this.peekChar() === '\\' && this.peekChar(1)) {
+            this.advancePosition(2); // Consume '\' and the escaped character
+            continue;
+          }
+          this.advancePosition(1);
+        }
+
+        const end = this.pos;
+
+        // Check for closing quote
+        if (this.peekChar() === quoteType) {
+          this.advancePosition(1); // Consume closing quote
+          this.add("STRING", s.slice(start, this.pos), start, this.pos, "cp-token-string");
+        } else {
+          // Unclosed string literal: treat content found so far as a string error
+          this.lexerError(`Unclosed string literal: Expected '${quoteType}'`, start, end);
+          this.add("ERROR_STRING", s.slice(start, end), start, end, "cp-token-error");
+        }
+        continue;
+      }
+
+      // 5. Whitespace
       if (char === " ") {
         this.add("WHITESPACE", char, start, start + 1, "editor-token-space");
         this.advancePosition(1);
         continue;
       }
 
-      // 5. Tab
+      // 6. Tab
       if (char === "\t") {
         this.add("TAB", char, start, start + 1, "editor-token-tab");
         this.advancePosition(1);
         continue;
       }
 
-      // 6. Ignore all other characters (including newlines and other content)
+      // 5. Newline
+      if (char === "\n" || char === "\r") {
+        this.add("NEWLINE", char, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 7. Ignore all other characters (including newlines and other content)
       this.advancePosition(1);
     }
 

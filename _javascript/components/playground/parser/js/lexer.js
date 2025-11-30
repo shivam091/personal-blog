@@ -80,28 +80,60 @@ export class JsLexer extends BaseLexer {
         continue;
       }
 
-      // 9. Whitespace (explicitly handle standard space and other non-newline whitespace)
+      // 9. String literals
+      if (char === "'" || char === '"') {
+        const quoteType = char;
+        this.advancePosition(1); // Consume opening quote
+
+        // Scan until the closing quote
+        while (!this.eof() && this.peekChar() !== quoteType) {
+          // Handle escaped characters (e.g., 'it\'s')
+          if (this.peekChar() === '\\' && this.peekChar(1)) {
+            this.advancePosition(2); // Consume '\' and the escaped character
+            continue;
+          }
+          // Note: Standard strings cannot span multiple lines without escaping the newline,
+          // but for this basic lexer, we'll stop at EOF or the closing quote.
+          this.advancePosition(1);
+        }
+
+        const end = this.pos;
+
+        // Check for closing quote
+        if (this.peekChar() === quoteType) {
+          this.advancePosition(1); // Consume closing quote
+          this.add("STRING", s.slice(start, this.pos), start, this.pos, "cp-token-string");
+        } else {
+          // Log error and create a LexerError object (using the refactored method)
+          this.lexerError(`Unclosed string literal: Expected '${quoteType}'`, start, end);
+          // Add the token anyway, but use a specific error type/class for visualization
+          this.add("ERROR_STRING", s.slice(start, end), start, end, "cp-token-error");
+        }
+        continue;
+      }
+
+      // 10. Whitespace (explicitly handle standard space and other non-newline whitespace)
       if (/\s/.test(char) && char !== "\n" && char !== "\r" && char !== "\t") {
         this.add("WHITESPACE", char, start, start + 1, "editor-token-space");
         this.advancePosition(1);
         continue;
       }
 
-      // 10. Tab
+      // 11. Tab
       if (char === "\t") {
         this.add("TAB", char, start, start + 1, "editor-token-tab");
         this.advancePosition(1);
         continue;
       }
 
-      // 11. Newline
+      // 12. Newline
       if (char === "\n" || char === "\r") {
         this.add("NEWLINE", char, start, start + 1);
         this.advancePosition(1);
         continue;
       }
 
-      // 12. Ignore all other characters (including newlines and other content)
+      // 13. Ignore all other characters (including newlines and other content)
       this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
     }
