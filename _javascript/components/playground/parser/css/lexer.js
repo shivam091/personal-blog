@@ -212,7 +212,34 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 11. Identifiers (Handles tag selectors like 'h1', property names, etc.)
+      // Custom properties (variables)
+      if (s.startsWith("--", this.pos)) {
+        const propStart = this.pos;
+        this.advancePosition(2); // Consume the initial '--'
+
+        let j = this.pos; // j is now pointing to the character after '--'
+
+        // CSS custom properties allow any valid identifier characters, including digits
+        // right after the initial --
+        while (j < this.length && /[a-zA-Z0-9_\-]/.test(s[j])) {
+          j++;
+        }
+
+        const value = s.slice(propStart, j);
+
+        // A valid custom property must be longer than just '--'
+        if (value.length > 2) {
+          this.add("CUSTOM_PROPERTY", value, propStart, j, "cp-token-variable");
+          this.advancePosition(j - this.pos); // Advance past the identifier part
+          continue;
+        }
+
+        this.lexerError("Invalid CSS custom property: Name expected after '--'", propStart, j);
+        this.add("ERROR_TOKEN", value, propStart, j, "cp-token-error");
+        this.advancePosition(j - this.pos);
+        continue;
+      }
+
       if (/[a-zA-Z_\-]/.test(char) || /[\u0080-\uffff]/.test(char)) {
         let j = this.pos + 1;
 
