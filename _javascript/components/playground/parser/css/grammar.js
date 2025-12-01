@@ -134,7 +134,7 @@ export const cssGrammar = {
     // Rule to match and consume a parenthesis close token.
     PAREN_CLOSE: (p) => p.matchType("PAREN_CLOSE"),
 
-    // Rule to match and consume class Selector
+    // Rule to match and consume class selector.
     CLASS_SELECTOR: (p) => p.matchType("CLASS_SELECTOR"),
 
     // Rule to match and consume a number token.
@@ -143,23 +143,32 @@ export const cssGrammar = {
     // Rule to match and consume a unit token.
     UNIT: (p) => p.matchType("UNIT"),
 
-    // Rule to match and consume Hex Color Code
+    // Rule to match and consume hex color code.
     HEX_COLOR: (p) => p.matchType("HEX_COLOR"),
 
-    // Rule to match and consume ID Selector
+    // Rule to match and consume ID Selector.
     ID_SELECTOR: (p) => p.matchType("ID_SELECTOR"),
 
-    // Rule to match and consume function
+    // Rule to match and consume function.
     FUNCTION: (p) => p.matchType("FUNCTION"),
 
-    // Rule to match and consume identifiers
+    // Rule to match and consume identifiers.
     IDENTIFIER: (p) => p.matchType("IDENTIFIER"),
 
-    // Rule to match and consume custom properties
+    // Rule to match and consume custom properties.
     CUSTOM_PROPERTY: (p) => p.matchType("CUSTOM_PROPERTY"),
 
-    // Rule to match and consume color keyword
+    // Rule to match and consume color keyword.
     COLOR_KEYWORD: (p) => p.matchType("COLOR_KEYWORD"),
+
+    // Rule to match and consume pseudo classes.
+    PSEUDO_CLASS: (p) => p.matchType("PSEUDO_CLASS"),
+
+    // Rule to match and consume pseudo elements.
+    PSEUDO_ELEMENT: (p) => p.matchType("PSEUDO_ELEMENT"),
+
+    // Rule to match and consume error token.
+    ERROR_TOKEN: (p) => p.matchType("ERROR_TOKEN"),
 
     // Rule to match and consume the UNKNOWN token groups.
     UNKNOWN: (p) => p.matchType("UNKNOWN"),

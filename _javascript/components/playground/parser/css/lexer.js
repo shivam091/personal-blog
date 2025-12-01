@@ -187,7 +187,64 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 10. Hex Color Codes and ID Selectors
+      // 10. Pseudo-Classes/Elements
+      if (char === ":") {
+        const colonStart = this.pos;
+        let colonCount = 1;
+        this.advancePosition(1); // Consume the first ':'
+
+        // Check for double colon (::) for Pseudo-Elements
+        if (this.peekChar() === ":") {
+          colonCount = 2;
+          this.advancePosition(1); // Consume the second ':'
+        }
+
+        const identifierStart = this.pos;
+        let identifierEnd = this.pos;
+
+        // Consume the identifier characters that follow
+        while (identifierEnd < this.length && /[a-zA-Z0-9_\-]/.test(s[identifierEnd])) {
+          identifierEnd++;
+        }
+
+        const identifierValue = s.slice(identifierStart, identifierEnd);
+        const tokenValue = s.slice(colonStart, identifierEnd);
+        const tokenEnd = identifierEnd;
+
+        // Ensure we actually found an identifier
+        if (identifierValue.length > 0) {
+          if (colonCount === 2) {
+            // Check for Pseudo-Element
+            if (cssTokens.pseudoElements.has(identifierValue)) {
+              this.add("PSEUDO_ELEMENT", tokenValue, colonStart, tokenEnd, "cp-token-pseudo-element");
+              this.advancePosition(tokenEnd - identifierStart); // Advance past the identifier
+              continue;
+            }
+          } else {
+            // Check for Pseudo-Class
+            if (cssTokens.pseudoClasses.has(identifierValue)) {
+              this.add("PSEUDO_CLASS", tokenValue, colonStart, tokenEnd, "cp-token-pseudo-class");
+              this.advancePosition(tokenEnd - identifierStart); // Advance past the identifier
+              continue;
+            }
+          }
+
+          // If the identifier was found but not in the known list, treat it as an UNKNOWN pseudo.
+          this.lexerError(`Unknown pseudo selector: ${tokenValue}`, colonStart, tokenEnd);
+          this.add("ERROR_TOKEN", tokenValue, colonStart, tokenEnd, "cp-token-error");
+          this.advancePosition(tokenEnd - identifierStart); // Advance past the identifier
+          continue;
+
+        } else {
+          // Error: Just ':' or '::' without a name (e.g., div: { } or div:: )
+          const errorValue = s.slice(colonStart, this.pos);
+          this.lexerError(`Incomplete pseudo selector: Identifier expected after '${errorValue}'`, colonStart, this.pos);
+          this.add("ERROR_TOKEN", errorValue, colonStart, this.pos, "cp-token-error");
+          continue; // Position is already advanced past the colon(s)
+        }
+      }
+
+      // 11. Hex Color Codes and ID Selectors
       if (char === "#") {
         const hashStart = this.pos;
         const hashSubstring = s.slice(this.pos + 1);
@@ -234,7 +291,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 11. Custom properties (variables)
+      // 12. Custom properties (variables)
       if (s.startsWith("--", this.pos)) {
         const propStart = this.pos;
         this.advancePosition(2); // Consume the initial '--'
@@ -262,7 +319,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 12. Functions and Color Keywords
+      // 13. Functions and Color Keywords
       if (/[a-zA-Z_\-]/.test(char)) { // Only proceed if it starts like a normal identifier
         let identifierEnd = this.pos + 1;
 
@@ -296,7 +353,7 @@ export class CssLexer extends BaseLexer {
         }
       }
 
-      // 13. Identifiers (Handles tag selectors like 'h1', property names, etc.)
+      // 14. Identifiers (Handles tag selectors like 'h1', property names, etc.)
       if (/[a-zA-Z_\-]/.test(char) || /[\u0080-\uffff]/.test(char)) {
         let j = this.pos + 1;
 
@@ -313,7 +370,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 14. Ignore all other characters
+      // 15. Ignore all other characters
       let j = this.pos + 1;
 
       // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
