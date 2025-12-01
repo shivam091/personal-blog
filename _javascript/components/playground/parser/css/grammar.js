@@ -8,7 +8,7 @@ export const cssGrammar = {
 
       while (!p.eof()) {
         // Try to match structural nodes
-        const node = p.oneOf(["Block", "Comment", "NEWLINE"]);
+        const node = p.oneOf(["Block", "FunctionCall", "Comment", "NEWLINE"]);
         if (node) {
           children.push(node);
           continue;
@@ -51,7 +51,8 @@ export const cssGrammar = {
           break;
         }
 
-        const child = p.oneOf(["Block", "Comment"]);
+        // Recursively parse nested blocks, function calls, or comments.
+        const child = p.oneOf(["Block", "FunctionCall", "Comment"]);
         if (child) {
           children.push(child);
           continue;
@@ -70,6 +71,48 @@ export const cssGrammar = {
       };
     },
 
+    // Rule to match and consume function callssss
+    FunctionCall(p) {
+      // 1. Must start with a FUNCTION token
+      const funcToken = p.matchType("FUNCTION");
+      if (!funcToken) return null;
+
+      // 2. Must be immediately followed by the opening parenthesis
+      const parenOpen = p.matchType("PAREN_OPEN");
+
+      const children = [];
+      let parenClose = null;
+
+      // Look for nested content until the closing parenthesis
+      while (true) {
+        const next = p.peek();
+        if (!next) break;
+
+        if (next.type === "PAREN_CLOSE") {
+          parenClose = p.next();
+          break;
+        }
+
+        // Recursively parse nested blocks, function calls, or comments.
+        const child = p.oneOf(["Block", "FunctionCall", "Comment"]);
+        if (child) {
+          children.push(child);
+          continue;
+        }
+
+        // Consume all other text/unknown tokens
+        p.next();
+      }
+
+      // Return structure whether closed or unclosed
+      return {
+        type: "FunctionCall",
+        children,
+        start: funcToken.start,
+        end: (parenClose || p.tokens.at(-1))?.end || funcToken.end
+      };
+    },
+
     // Rule to match and consume a single WHITESPACE token.
     WHITESPACE: (p) => p.matchType("WHITESPACE"),
 
@@ -85,6 +128,12 @@ export const cssGrammar = {
     // Rule to match and consume a error string token.
     ERROR_STRING: (p) => p.matchType("ERROR_STRING"),
 
+    // Rule to match and consume a parenthesis open token.
+    PAREN_OPEN: (p) => p.matchType("PAREN_OPEN"),
+
+    // Rule to match and consume a parenthesis close token.
+    PAREN_CLOSE: (p) => p.matchType("PAREN_CLOSE"),
+
     // Rule to match and consume class Selector
     CLASS_SELECTOR: (p) => p.matchType("CLASS_SELECTOR"),
 
@@ -99,6 +148,9 @@ export const cssGrammar = {
 
     // Rule to match and consume ID Selector
     ID_SELECTOR: (p) => p.matchType("ID_SELECTOR"),
+
+    // Rule to match and consume function
+    FUNCTION: (p) => p.matchType("FUNCTION"),
 
     // Rule to match and consume identifiers
     IDENTIFIER: (p) => p.matchType("IDENTIFIER"),

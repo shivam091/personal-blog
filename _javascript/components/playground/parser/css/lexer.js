@@ -48,8 +48,16 @@ export class CssLexer extends BaseLexer {
 
         // Scan until the closing quote
         while (!this.eof() && this.peekChar() !== quoteType) {
+          // Check for illegal newline inside unescaped string
+          // if (this.peekChar() === "\n" || this.peekChar() === "\r") {
+          //   this.lexerError(`Illegal newline in string literal: Expected '${quoteType}'`, start, this.pos);
+          //   this.add("ERROR_STRING", s.slice(start, this.pos), start, this.pos, "cp-token-error");
+          //   this.advancePosition(1); // Advance past the newline to recover
+          //   continue;
+          // }
+
           // Handle escaped characters (e.g., 'it\'s')
-          if (this.peekChar() === '\\' && this.peekChar(1)) {
+          if (this.peekChar() === "\\" && this.peekChar(1)) {
             this.advancePosition(2); // Consume '\' and the escaped character
             continue;
           }
@@ -87,6 +95,20 @@ export class CssLexer extends BaseLexer {
       // 7. Newline
       if (char === "\n" || char === "\r") {
         this.add("NEWLINE", char, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // Parenthesis open
+      if (char === cssTokens.functionStart) {
+        this.add("PAREN_OPEN", cssTokens.functionStart, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 9. Parenthesis close
+      if (char === cssTokens.functionEnd) {
+        this.add("PAREN_CLOSE", cssTokens.functionEnd, start, start + 1);
         this.advancePosition(1);
         continue;
       }
@@ -240,6 +262,34 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
+      // 11. Functions
+      if (/[a-zA-Z_\-]/.test(char)) { // Only proceed if it starts like a normal identifier
+        let identifierEnd = this.pos + 1;
+
+        // 1. Consume full potential identifier
+        while (identifierEnd < this.length && /[a-zA-Z0-9_\-]/.test(s[identifierEnd])) {
+          identifierEnd++;
+        }
+
+        const potentialFunction = s.slice(start, identifierEnd);
+
+        // 2. Check if it's a known function AND followed by '('
+        if (cssTokens.functions.has(potentialFunction) && s.startsWith(cssTokens.functionStart, identifierEnd)) {
+          const tokenEnd = identifierEnd + 1;
+
+          // Tokenize the function name
+          this.add("FUNCTION", potentialFunction, start, identifierEnd, "cp-token-function");
+
+          // Tokenize the opening parenthesis (consume it in place)
+          this.add("PAREN_OPEN", cssTokens.functionStart, identifierEnd, tokenEnd);
+
+          // Advance position past the function name and the '('
+          this.advancePosition(tokenEnd - start);
+          continue;
+        }
+      }
+
+      // 12. Identifiers (Handles tag selectors like 'h1', property names, etc.)
       if (/[a-zA-Z_\-]/.test(char) || /[\u0080-\uffff]/.test(char)) {
         let j = this.pos + 1;
 
@@ -256,7 +306,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 12. Ignore all other characters
+      // 13. Ignore all other characters
       let j = this.pos + 1;
 
       // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
@@ -266,11 +316,12 @@ export class CssLexer extends BaseLexer {
         // If the next character starts a known token type, stop here.
         // Known starts: /, {, }, ', ", space, tab, newline, +/-, digit, dot, or #.
         if (
-            nextChar === "/" || nextChar === "'" || nextChar === '"' || nextChar === "#" ||
-            nextChar === " " || nextChar === "\t" || nextChar === "\n" || nextChar === "\r" ||
-            nextChar === "." ||
-            nextChar === cssTokens.braceStart || nextChar === cssTokens.braceEnd ||
-            /[+\-.]/.test(nextChar) || /[0-9.]/.test(nextChar) || /[a-zA-Z_\-]/.test(nextChar)
+          nextChar === "/" || nextChar === "'" || nextChar === '"' || nextChar === "#" ||
+          nextChar === " " || nextChar === "\t" || nextChar === "\n" || nextChar === "\r" ||
+          nextChar === "." ||
+          nextChar === cssTokens.braceStart || nextChar === cssTokens.braceEnd ||
+          nextChar === cssTokens.functionStart || nextChar === cssTokens.functionEnd ||
+          /[+\-.]/.test(nextChar) || /[0-9.]/.test(nextChar) || /[a-zA-Z_\-]/.test(nextChar)
         ) {
             break;
         }
@@ -278,6 +329,17 @@ export class CssLexer extends BaseLexer {
       }
 
       const value = s.slice(start, j);
+
+      // Explicit Error Handling: Check if 'value' contains characters that should be impossible in CSS.
+      if (value.length === 1 && j === start + 1) {
+        // If the single character is not part of a multi-char token (like comment, string),
+        // AND it wasn't recognized by any rule, it's likely an error.
+        this.lexerError(`Illegal character found: '${char}'`, start, j);
+        this.add("ERROR_TOKEN", char, start, j, "cp-token-error");
+        this.advancePosition(1);
+        continue;
+      }
+
       this.add("UNKNOWN", value, start, j, "cp-token-unknown");
       this.advancePosition(j - start);
       continue;
