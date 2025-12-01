@@ -66,5 +66,11 @@ export const cssTokens = {
   pseudoElements: new Set([
     "after", "backdrop", "before", "cue", "cue-region", "first-letter", "first-line", "grammar-error",
     "marker", "part", "placeholder", "selection", "slotted", "spelling-error"
-   ]),
+  ]),
+  values: new Set([
+    "auto", "none", "inherit", "initial", "unset", "solid", "dashed", "dotted",
+    "block", "inline", "flex", "grid", "absolute", "relative", "fixed", "hidden",
+    "visible", "center", "left", "right", "top", "bottom", "middle", "start", "end",
+    "auto-fit"
+  ]),
 };

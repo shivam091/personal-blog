@@ -167,6 +167,9 @@ export const cssGrammar = {
     // Rule to match and consume pseudo elements.
     PSEUDO_ELEMENT: (p) => p.matchType("PSEUDO_ELEMENT"),
 
+    // Rule to match and consume property value keywords.
+    VALUE_KEYWORD: (p) => p.matchType("VALUE_KEYWORD"),
+
     // Rule to match and consume error token.
     ERROR_TOKEN: (p) => p.matchType("ERROR_TOKEN"),
 

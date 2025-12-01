@@ -99,7 +99,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // Parenthesis open
+      // 8. Parenthesis open
       if (char === cssTokens.functionStart) {
         this.add("PAREN_OPEN", cssTokens.functionStart, start, start + 1);
         this.advancePosition(1);
@@ -113,7 +113,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 8. Class selectors
+      // 10. Class selectors
       if (char === ".") {
         const dotStart = this.pos;
         const identifierStartChar = this.peekChar(1);
@@ -145,7 +145,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 9. Numbers & Units
+      // 11. Numbers & Units
       const substring = s.slice(this.pos);
       const numberMatch = substring.match(new RegExp(cssTokens.numberRegex));
 
@@ -187,7 +187,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 10. Pseudo-Classes/Elements
+      // 12. Pseudo-Classes/Elements
       if (char === ":") {
         const colonStart = this.pos;
         let colonCount = 1;
@@ -244,7 +244,7 @@ export class CssLexer extends BaseLexer {
         }
       }
 
-      // 11. Hex Color Codes and ID Selectors
+      // 13. Hex Color Codes and ID Selectors
       if (char === "#") {
         const hashStart = this.pos;
         const hashSubstring = s.slice(this.pos + 1);
@@ -291,7 +291,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 12. Custom properties (variables)
+      // 14. Custom properties (variables)
       if (s.startsWith("--", this.pos)) {
         const propStart = this.pos;
         this.advancePosition(2); // Consume the initial '--'
@@ -319,7 +319,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 13. Functions and Color Keywords
+      // 15. Functions, color keywords, and values
       if (/[a-zA-Z_\-]/.test(char)) { // Only proceed if it starts like a normal identifier
         let identifierEnd = this.pos + 1;
 
@@ -351,9 +351,16 @@ export class CssLexer extends BaseLexer {
           this.advancePosition(identifierEnd - start);
           continue;
         }
+
+        // 4. Check if it's a general CSS value keyword
+        if (cssTokens.values.has(value)) {
+          this.add("VALUE_KEYWORD", value, start, identifierEnd, "cp-token-value");
+          this.advancePosition(identifierEnd - start);
+          continue;
+        }
       }
 
-      // 14. Identifiers (Handles tag selectors like 'h1', property names, etc.)
+      // 16. Identifiers (Handles tag selectors like 'h1', property names, etc.)
       if (/[a-zA-Z_\-]/.test(char) || /[\u0080-\uffff]/.test(char)) {
         let j = this.pos + 1;
 
@@ -370,7 +377,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 15. Ignore all other characters
+      // 17. Ignore all other characters
       let j = this.pos + 1;
 
       // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
