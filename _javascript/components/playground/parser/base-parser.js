@@ -36,6 +36,11 @@ export class BaseParser {
     return null;
   }
 
+  peekType(offset = 0) {
+    const token = this.tokens[this.pos + offset];
+    return token ? token.type : null;
+  }
+
   /*
    * Universal matching method that attempts to apply a complex grammar rule
    * or match a simple atomic token type.
@@ -75,5 +80,32 @@ export class BaseParser {
       if (result) return result;
     }
     return null;
+  }
+
+  /**
+   * Consumes all consecutive tokens whose types match any in the provided list.
+   * This is typically used to skip non-significant tokens like WHITESPACE or NEWLINE.
+   *
+   * @param {string[]} tokenTypes - An array of token type strings to consume.
+   */
+  consumeAll(tokenTypes) {
+    let consumed = false;
+
+    // Loop as long as we haven't reached EOF
+    while (!this.eof()) {
+      const token = this.peek();
+
+      // Check if the current token's type is in the list of types to consume
+      if (token && tokenTypes.includes(token.type)) {
+        this.next(); // Consume the token
+        consumed = true;
+      } else {
+        // If the current token's type does not match any in the list, stop consuming
+        break;
+      }
+    }
+
+    // Return true if at least one token was consumed, false otherwise
+    return consumed;
   }
 }
