@@ -158,6 +158,9 @@ export const cssGrammar = {
     // Rule to match and consume custom properties
     CUSTOM_PROPERTY: (p) => p.matchType("CUSTOM_PROPERTY"),
 
+    // Rule to match and consume color keyword
+    COLOR_KEYWORD: (p) => p.matchType("COLOR_KEYWORD"),
+
     // Rule to match and consume the UNKNOWN token groups.
     UNKNOWN: (p) => p.matchType("UNKNOWN"),
   }

@@ -234,7 +234,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // Custom properties (variables)
+      // 11. Custom properties (variables)
       if (s.startsWith("--", this.pos)) {
         const propStart = this.pos;
         this.advancePosition(2); // Consume the initial '--'
@@ -262,7 +262,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 11. Functions
+      // 12. Functions and Color Keywords
       if (/[a-zA-Z_\-]/.test(char)) { // Only proceed if it starts like a normal identifier
         let identifierEnd = this.pos + 1;
 
@@ -271,14 +271,14 @@ export class CssLexer extends BaseLexer {
           identifierEnd++;
         }
 
-        const potentialFunction = s.slice(start, identifierEnd);
+        const value = s.slice(start, identifierEnd);
 
         // 2. Check if it's a known function AND followed by '('
-        if (cssTokens.functions.has(potentialFunction) && s.startsWith(cssTokens.functionStart, identifierEnd)) {
+        if (cssTokens.functions.has(value) && s.startsWith(cssTokens.functionStart, identifierEnd)) {
           const tokenEnd = identifierEnd + 1;
 
           // Tokenize the function name
-          this.add("FUNCTION", potentialFunction, start, identifierEnd, "cp-token-function");
+          this.add("FUNCTION", value, start, identifierEnd, "cp-token-function");
 
           // Tokenize the opening parenthesis (consume it in place)
           this.add("PAREN_OPEN", cssTokens.functionStart, identifierEnd, tokenEnd);
@@ -287,9 +287,16 @@ export class CssLexer extends BaseLexer {
           this.advancePosition(tokenEnd - start);
           continue;
         }
+
+        // 3. Check if it's known color keyword
+        if (cssTokens.colorKeywords.has(value)) {
+          this.add("COLOR_KEYWORD", value, start, identifierEnd, "cp-token-color");
+          this.advancePosition(identifierEnd - start);
+          continue;
+        }
       }
 
-      // 12. Identifiers (Handles tag selectors like 'h1', property names, etc.)
+      // 13. Identifiers (Handles tag selectors like 'h1', property names, etc.)
       if (/[a-zA-Z_\-]/.test(char) || /[\u0080-\uffff]/.test(char)) {
         let j = this.pos + 1;
 
@@ -306,7 +313,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 13. Ignore all other characters
+      // 14. Ignore all other characters
       let j = this.pos + 1;
 
       // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
