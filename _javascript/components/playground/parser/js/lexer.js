@@ -87,13 +87,20 @@ export class JsLexer extends BaseLexer {
 
         // Scan until the closing quote
         while (!this.eof() && this.peekChar() !== quoteType) {
+          // Check for illegal newline inside unescaped string
+          // if (this.peekChar() === "\n" || this.peekChar() === "\r") {
+          //   this.lexerError(`Illegal newline in string literal: Expected '${quoteType}'`, start, this.pos);
+          //   this.add("ERROR_STRING", s.slice(start, this.pos), start, this.pos, "cp-token-error");
+          //   this.advancePosition(1); // Advance past the newline to recover
+          //   continue;
+          // }
+
           // Handle escaped characters (e.g., 'it\'s')
-          if (this.peekChar() === '\\' && this.peekChar(1)) {
+          if (this.peekChar() === "\\" && this.peekChar(1)) {
             this.advancePosition(2); // Consume '\' and the escaped character
             continue;
           }
-          // Note: Standard strings cannot span multiple lines without escaping the newline,
-          // but for this basic lexer, we'll stop at EOF or the closing quote.
+
           this.advancePosition(1);
         }
 
@@ -109,6 +116,22 @@ export class JsLexer extends BaseLexer {
           // Add the token anyway, but use a specific error type/class for visualization
           this.add("ERROR_STRING", s.slice(start, end), start, end, "cp-token-error");
         }
+        continue;
+      }
+
+      // 10. Operators
+      let matchedOperator = null;
+      for (const op of jsTokens.operators) {
+        if (s.startsWith(op, this.pos)) {
+          matchedOperator = op;
+          break; // Found the longest match
+        }
+      }
+
+      if (matchedOperator) {
+        const length = matchedOperator.length;
+        this.add("OPERATOR", matchedOperator, start, start + length, "cp-delimiter");
+        this.advancePosition(length);
         continue;
       }
 
@@ -142,13 +165,17 @@ export class JsLexer extends BaseLexer {
 
         // If the next character starts a known token type, stop here.
         // Known starts: /, {, }, (, ), [, ], ', ", space, tab, newline.
+        // We can check if the character is one of the starting characters of an operator.
+        const opStarts = new Set(Array.from(jsTokens.operators).map(op => op[0]));
+
         if (
             nextChar === "/" ||
             nextChar === jsTokens.braceStart || nextChar === jsTokens.braceEnd ||
             nextChar === jsTokens.parenStart || nextChar === jsTokens.parenEnd ||
             nextChar === jsTokens.bracketStart || nextChar === jsTokens.bracketEnd ||
             nextChar === "'" || nextChar === '"' ||
-            /\s/.test(nextChar)
+            /\s/.test(nextChar) ||
+            opStarts.has(nextChar)
         ) {
             break;
         }

@@ -162,6 +162,9 @@ export const jsGrammar = {
     // Rule to match and consume a string token.
     STRING: (p) => p.matchType("STRING"),
 
+    // Rule to match and consume a operator.
+    OPERATOR: (p) => p.matchType("OPERATOR"),
+
     // Rule to match and consume a error string token.
     ERROR_STRING: (p) => p.matchType("ERROR_STRING"),
 
