@@ -8,6 +8,9 @@ export const jsTokens = {
   parenEnd: ")",
   bracketStart: "[",
   bracketEnd: "]",
+  templateLiteral: '`',
+  templateExprStart: '${',
+  templateExprEnd: '}',
   operators: new Set([
     ">>>=", "<<<=", "**=", "===", "!==", ">>>", "<<=", ">>=", "&&=", "||=", "??=",
     "++", "--", "+=", "-=", "*=", "/=", "%=", "==", "!=", ">=", "<=", "&&", "||",

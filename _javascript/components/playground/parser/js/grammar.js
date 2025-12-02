@@ -8,7 +8,7 @@ export const jsGrammar = {
 
       while (!p.eof()) {
         // Try to match structural nodes
-        const node = p.oneOf(["Block", "Parentheses", "Brackets", "Comment", "SingleComment"]);
+        const node = p.oneOf(["Block", "Parentheses", "Brackets", "TemplateLiteral", "Comment", "SingleComment"]);
         if (node) {
           children.push(node);
           continue;
@@ -57,7 +57,7 @@ export const jsGrammar = {
         }
 
         // Recursively match ALL structural types
-        const child = p.oneOf(["Block", "Parentheses", "Brackets", "Comment", "SingleComment"]);
+        const child = p.oneOf(["Block", "Parentheses", "Brackets", "TemplateLiteral", "Comment", "SingleComment"]);
         if (child) {
           children.push(child);
           continue;
@@ -94,7 +94,7 @@ export const jsGrammar = {
         }
 
         // Recursively match ALL structural types
-        const child = p.oneOf(["Block", "Parentheses", "Brackets", "Comment", "SingleComment"]);
+        const child = p.oneOf(["Block", "Parentheses", "Brackets", "TemplateLiteral", "Comment", "SingleComment"]);
         if (child) {
           children.push(child);
           continue;
@@ -131,7 +131,7 @@ export const jsGrammar = {
         }
 
         // Recursively match ALL structural types
-        const child = p.oneOf(["Block", "Parentheses", "Brackets", "Comment", "SingleComment"]);
+        const child = p.oneOf(["Block", "Parentheses", "Brackets", "TemplateLiteral", "Comment", "SingleComment"]);
         if (child) {
           children.push(child);
           continue;
@@ -147,6 +147,93 @@ export const jsGrammar = {
         children,
         start: bracketOpen.start,
         end: (bracketClose || p.tokens.at(-1))?.end || bracketOpen.end
+      };
+    },
+
+    // Rule for matching & consuming a complete template literal: `...`
+    TemplateLiteral(p) {
+      const templateStart = p.matchType("TEMPLATE_LITERAL_START");
+      if (!templateStart) return null;
+
+      const children = [];
+      let templateEnd = null;
+
+      while (true) {
+        const next = p.peek();
+        if (!next) break;
+
+        // Check for the closing backtick
+        if (next.type === "TEMPLATE_LITERAL_END") {
+          templateEnd = p.next();
+          break;
+        }
+
+        // Try to match an interpolation expression
+        const expression = p.oneOf(["TemplateExpression", "TemplateContent"]);
+        if (expression) {
+          children.push(expression);
+          continue;
+        }
+
+        // Consume insignificant tokens or other non-structural tokens that are not part of content/expression
+        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
+
+        // Consume any unexpected tokens inside the template
+        p.next();
+      }
+
+      return {
+        type: "TemplateLiteral",
+        children,
+        start: templateStart.start,
+        end: (templateEnd || p.tokens.at(-1))?.end || templateStart.end
+      };
+    },
+
+    // Rule for matching & consuming the plain content part of the template
+    TemplateContent(p) {
+      const t = p.matchType("TEMPLATE_CONTENT");
+      return t ? { type: "TemplateContent", start: t.start, end: t.end } : null;
+    },
+
+    // Rule for matching & consuming an expression inside a template: ${ ... }
+    TemplateExpression(p) {
+      const exprOpen = p.matchType("TEMPLATE_EXPR_OPEN");
+      if (!exprOpen) return null;
+
+      const children = [];
+      let exprClose = null;
+
+      while (true) {
+        const next = p.peek();
+        if (!next) break;
+
+        // Check for the closing brace '}'
+        if (next.type === "TEMPLATE_EXPR_CLOSE") {
+          exprClose = p.next(); // Consume the closing token
+          break;
+        }
+
+        // Recursively match ALL structural types and template literals inside the expression
+        // This is crucial for handling things like: `${ [1, 2] }` or `${ if (a) { b } }`
+        const child = p.oneOf([
+          "Block", "Parentheses", "Brackets", "Comment", "SingleComment", "TemplateLiteral"
+        ]);
+        if (child) {
+          children.push(child);
+          continue;
+        }
+
+        // Consume all other content tokens (Keywords, Identifiers, Operators, etc.) and insignificant tokens
+        p.next();
+      }
+
+      // Return structure whether closed or unclosed
+      return {
+        type: "TemplateExpression",
+        children,
+        start: exprOpen.start,
+        end: (exprClose || p.tokens.at(-1))?.end || exprOpen.end
       };
     },
 
