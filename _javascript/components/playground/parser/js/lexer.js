@@ -194,7 +194,7 @@ export class JsLexer extends BaseLexer {
 
       if (matchedOperator) {
         const length = matchedOperator.length;
-        this.add("OPERATOR", matchedOperator, start, start + length, "cp-delimiter");
+        this.add("OPERATOR", matchedOperator, start, start + length, "cp-token-delimiter");
         this.advancePosition(length);
         continue;
       }
@@ -220,7 +220,34 @@ export class JsLexer extends BaseLexer {
         continue;
       }
 
-      // 15. Ignore all other characters
+      // 15. Identifiers, Keywords, Built-ins, and Literals
+      if (/[a-zA-Z_$]/.test(char)) {
+        let j = this.pos + 1;
+
+        // Scan until a character that cannot be part of an identifier
+        while (j < this.length && /[a-zA-Z0-9_$]/.test(s[j])) {
+          j++;
+        }
+
+        const value = s.slice(start, j);
+
+        if (jsTokens.keywords.has(value)) {
+          this.add("KEYWORD", value, start, j, "cp-token-keyword");
+        } else if (jsTokens.builtInGlobals.has(value) || jsTokens.builtInVariables.has(value)) {
+          this.add("BUILT_IN", value, start, j, "cp-token-built-in");
+        } else if (jsTokens.domMethods.has(value)) {
+          this.add("BUILT_IN", value, start, j, "cp-token-function");
+        } else if (jsTokens.literals.has(value)) {
+          this.add("LITERAL", value, start, j, "cp-token-keyword");
+        } else {
+          this.add("IDENTIFIER", value, start, j, "cp-token-identifier");
+        }
+
+        this.advancePosition(j - start);
+        continue;
+      }
+
+      // 16. Ignore all other characters
       let j = this.pos + 1;
 
       // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
@@ -239,7 +266,7 @@ export class JsLexer extends BaseLexer {
           nextChar === jsTokens.parenStart || nextChar === jsTokens.parenEnd ||
           nextChar === jsTokens.bracketStart || nextChar === jsTokens.bracketEnd ||
           nextChar === "'" || nextChar === '"' ||
-          /\s/.test(nextChar) ||
+          /\s/.test(nextChar) || /[a-zA-Z_$]/.test(nextChar) ||
           opStarts.has(nextChar) ||
           (nextChar === "`" && this.templateState === TEMPLATE_STATE.OUTSIDE) ||
           (nextChar === "$" && s[j + 1] === "{" && this.templateState === TEMPLATE_STATE.IN_TEMPLATE)

@@ -252,6 +252,18 @@ export const jsGrammar = {
     // Rule to match and consume a operator.
     OPERATOR: (p) => p.matchType("OPERATOR"),
 
+    // Rule to match and consume a keyword token.
+    KEYWORD: (p) => p.matchType("KEYWORD"),
+
+    // Rule to match and consume a literal token (true, false, null, etc.).
+    LITERAL: (p) => p.matchType("LITERAL"),
+
+    // Rule to match and consume a built-in global/variable token.
+    BUILT_IN: (p) => p.matchType("BUILT_IN"),
+
+    // Rule to match and consume a generic identifier token.
+    IDENTIFIER: (p) => p.matchType("IDENTIFIER"),
+
     // Rule to match and consume a error string token.
     ERROR_STRING: (p) => p.matchType("ERROR_STRING"),
 
