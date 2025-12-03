@@ -92,6 +92,35 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
+      // 8. Comma (Used in selector lists, function arguments, etc.)
+      if (char === ",") {
+        this.add("COMMA", char, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 9. Semicolon (Ends a declaration)
+      if (char === ";") {
+        this.add("SEMICOLON", char, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 10. Colon (Separates property: value, or starts a pseudo-selector)
+      if (char === ":") {
+        const nextChar = this.peekChar(1);
+
+        // If followed by an identifier character or another colon, it's a pseudo-selector/element (Rule 13 handles it).
+        if (nextChar === ":" || (nextChar && /[a-zA-Z_\-]/.test(nextChar))) {
+          // Do nothing, fall through to Rule 13 (Pseudo-Classes/Elements)
+        } else {
+          // It's a standalone COLON (for a declaration or in a function call).
+          this.add("COLON", char, start, start + 1);
+          this.advancePosition(1);
+          continue;
+        }
+      }
+
       // 7. Newline
       if (char === "\n" || char === "\r") {
         this.add("NEWLINE", char, start, start + 1);
@@ -358,6 +387,13 @@ export class CssLexer extends BaseLexer {
           this.advancePosition(identifierEnd - start);
           continue;
         }
+
+        // 4. Check if it's a valid property
+        if (cssTokens.properties.has(value) || cssTokens.logicalProperties.has(value)) {
+          this.add("PROPERTY", value, start, identifierEnd, "cp-token-property");
+          this.advancePosition(identifierEnd - start);
+          continue;
+        }
       }
 
       // 16. Identifiers (Handles tag selectors like 'h1', property names, etc.)
@@ -389,7 +425,7 @@ export class CssLexer extends BaseLexer {
         if (
           nextChar === "/" || nextChar === "'" || nextChar === '"' || nextChar === "#" ||
           nextChar === " " || nextChar === "\t" || nextChar === "\n" || nextChar === "\r" ||
-          nextChar === "." ||
+          nextChar === "." || nextChar === ":" || nextChar === ";" || nextChar === "," ||
           nextChar === cssTokens.braceStart || nextChar === cssTokens.braceEnd ||
           nextChar === cssTokens.functionStart || nextChar === cssTokens.functionEnd ||
           /[+\-.]/.test(nextChar) || /[0-9.]/.test(nextChar) || /[a-zA-Z_\-]/.test(nextChar)

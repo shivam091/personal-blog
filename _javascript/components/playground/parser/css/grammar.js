@@ -155,6 +155,9 @@ export const cssGrammar = {
     // Rule to match and consume identifiers.
     IDENTIFIER: (p) => p.matchType("IDENTIFIER"),
 
+    // Rule to match and consume properties.
+    PROPERTY: (p) => p.matchType("PROPERTY"),
+
     // Rule to match and consume custom properties.
     CUSTOM_PROPERTY: (p) => p.matchType("CUSTOM_PROPERTY"),
 
