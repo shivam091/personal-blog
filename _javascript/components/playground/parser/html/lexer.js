@@ -297,19 +297,29 @@ export class HtmlLexer extends BaseLexer {
           continue;
       }
 
-      // 7. Newline/Carriage Return (Handled as content boundary for now)
+      // 7. Newline
+      if (char === "\n" || char === "\r") {
+        this.add("NEWLINE", char, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
 
       // 8. Content / Text / Junk
       // We consume everything until we hit a boundary character (<, &, space, tab)
       let contentEnd = start + 1;
+      let boundaryHit = false;
+      while (contentEnd <= this.length) {
+          const nextChar = s[contentEnd];
 
-      while (contentEnd < this.length) {
-          const c = s[contentEnd];
+          // Break on structural boundaries (start of tag/comment/entity)
+          if (nextChar === htmlTokens.tagStart || nextChar === '&') {
+              boundaryHit = true;
+              break;
+          }
 
-          // Break on boundaries
-          if (c === '<' || c === '&' || c === ' ' || c === '\t') {
-              // Special case: `<?` is also a boundary
-              if (c === '<' && s[contentEnd+1] === '?') break;
+          // Break on whitespace boundaries (which should be tokenized separately)
+          if (this.isWhitespace(nextChar)) {
+              boundaryHit = true;
               break;
           }
           contentEnd++;
@@ -317,15 +327,15 @@ export class HtmlLexer extends BaseLexer {
 
       const content = s.slice(start, contentEnd);
 
-      // If the content is just a newline, we can tokenise it specifically if required.
-      // Keeping it simple as CONTENT for now based on the existing structure.
       if (content.length > 0) {
-        // this.add("CONTENT", content, start, contentEnd, "cp-token-content");
-        // this.advancePosition(contentEnd - start);
+        this.add("CONTENT", content, start, contentEnd, "cp-token-content");
+        this.advancePosition(contentEnd - start);
       } else {
-         // Should not happen if contentEnd > start
+         // Should only happen if the loop started directly on a non-tokenized character
+         // e.g., an unrecognized symbol that wasn't a boundary, or a raw '&' that didn't form an entity.
+         // Advance by 1 for robustness if no content was gathered but the loop hasn't ended.
+         this.advancePosition(1);
       }
-      this.advancePosition(1);
     }
 
     return this.tokens;
