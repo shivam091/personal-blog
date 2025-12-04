@@ -201,4 +201,9 @@ export const cssTokens = {
     "scroll-padding-block-start", "scroll-padding-inline", "scroll-padding-inline-end",
     "scroll-padding-inline-start", "unicode-bidi", "writing-mode"
   ]),
+  atRules: new Set([
+    "@charset", "@container", "@counter-style", "@document", "@font-face", "@font-palette-values",
+    "@import", "@keyframes", "@layer", "@media", "@namespace", "@ornaments", "@page", "@property",
+    "@scope", "@starting-style", "@supports", "@swash", "@viewport"
+  ]),
 };

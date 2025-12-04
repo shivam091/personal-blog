@@ -41,7 +41,21 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 4. String literals
+      // 4. Parenthesis open
+      if (char === cssTokens.functionStart) {
+        this.add("PAREN_OPEN", cssTokens.functionStart, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 5. Parenthesis close
+      if (char === cssTokens.functionEnd) {
+        this.add("PAREN_CLOSE", cssTokens.functionEnd, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 6. String literals
       if (char === "'" || char === '"') {
         const quoteType = char;
         this.advancePosition(1); // Consume opening quote
@@ -78,35 +92,35 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 5. Whitespace
+      // 7. Whitespace
       if (char === " ") {
         this.add("WHITESPACE", char, start, start + 1, "editor-token-space");
         this.advancePosition(1);
         continue;
       }
 
-      // 6. Tab
+      // 8. Tab
       if (char === "\t") {
         this.add("TAB", char, start, start + 1, "editor-token-tab");
         this.advancePosition(1);
         continue;
       }
 
-      // 8. Comma (Used in selector lists, function arguments, etc.)
+      // 9. Comma (Used in selector lists, function arguments, etc.)
       if (char === ",") {
         this.add("COMMA", char, start, start + 1);
         this.advancePosition(1);
         continue;
       }
 
-      // 9. Semicolon (Ends a declaration)
+      // 10. Semicolon
       if (char === ";") {
         this.add("SEMICOLON", char, start, start + 1);
         this.advancePosition(1);
         continue;
       }
 
-      // 10. Colon (Separates property: value, or starts a pseudo-selector)
+      // 11. Colon (Separates property: value, or starts a pseudo-selector)
       if (char === ":") {
         const nextChar = this.peekChar(1);
 
@@ -121,28 +135,14 @@ export class CssLexer extends BaseLexer {
         }
       }
 
-      // 7. Newline
+      // 12. Newline
       if (char === "\n" || char === "\r") {
         this.add("NEWLINE", char, start, start + 1);
         this.advancePosition(1);
         continue;
       }
 
-      // 8. Parenthesis open
-      if (char === cssTokens.functionStart) {
-        this.add("PAREN_OPEN", cssTokens.functionStart, start, start + 1);
-        this.advancePosition(1);
-        continue;
-      }
-
-      // 9. Parenthesis close
-      if (char === cssTokens.functionEnd) {
-        this.add("PAREN_CLOSE", cssTokens.functionEnd, start, start + 1);
-        this.advancePosition(1);
-        continue;
-      }
-
-      // 10. Class selectors
+      // 13. Class selectors
       if (char === ".") {
         const dotStart = this.pos;
         const identifierStartChar = this.peekChar(1);
@@ -174,7 +174,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 11. Numbers & Units
+      // 14. Numbers & Units
       const substring = s.slice(this.pos);
       const numberMatch = substring.match(new RegExp(cssTokens.numberRegex));
 
@@ -216,7 +216,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 12. Pseudo-Classes/Elements
+      // 15. Pseudo-Classes/Elements
       if (char === ":") {
         const colonStart = this.pos;
         let colonCount = 1;
@@ -273,7 +273,7 @@ export class CssLexer extends BaseLexer {
         }
       }
 
-      // 13. Hex Color Codes and ID Selectors
+      // 16. Hex Color Codes and ID Selectors
       if (char === "#") {
         const hashStart = this.pos;
         const hashSubstring = s.slice(this.pos + 1);
@@ -320,7 +320,35 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 14. Custom properties (variables)
+      // 17. At-Rule (e.g., @import, @media, @charset)
+      if (char === "@") {
+        const atStart = this.pos;
+        this.advancePosition(1); // Consume '@'
+
+        let j = this.pos;
+
+        // Consume the identifier characters (letters, numbers, underscores, hyphens)
+        while (j < this.length && /[a-zA-Z0-9_\-]/.test(s[j])) {
+          j++;
+        }
+
+        const value = s.slice(atStart, j);
+
+        // Check if it's known at-rule
+        if (cssTokens.atRules.has(value)) {
+          this.add("AT_RULE", value, atStart, j, "cp-token-keyword");
+          this.advancePosition(j - this.pos); // Advance past the identifier part
+          continue;
+        }
+
+        // If it's just '@', treat as UNKNOWN/Error
+        this.lexerError("Invalid At-Rule: Expected identifier after '@'", atStart, j);
+        this.add("ERROR_TOKEN", char, start, start + 1, "cp-token-error");
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 18. Custom properties (variables)
       if (s.startsWith("--", this.pos)) {
         const propStart = this.pos;
         this.advancePosition(2); // Consume the initial '--'
@@ -348,7 +376,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 15. Functions, color keywords, and values
+      // 19. Functions, color keywords, and values
       if (/[a-zA-Z_\-]/.test(char)) { // Only proceed if it starts like a normal identifier
         let identifierEnd = this.pos + 1;
 
@@ -397,6 +425,7 @@ export class CssLexer extends BaseLexer {
       }
 
       // 16. Identifiers (Handles tag selectors like 'h1', property names, etc.)
+      // 20. Identifiers (Handles tag selectors like 'h1', property names, etc.)
       if (/[a-zA-Z_\-]/.test(char) || /[\u0080-\uffff]/.test(char)) {
         let j = this.pos + 1;
 
@@ -413,7 +442,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 17. Ignore all other characters
+      // 21. Ignore all other characters
       let j = this.pos + 1;
 
       // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
@@ -426,6 +455,7 @@ export class CssLexer extends BaseLexer {
           nextChar === "/" || nextChar === "'" || nextChar === '"' || nextChar === "#" ||
           nextChar === " " || nextChar === "\t" || nextChar === "\n" || nextChar === "\r" ||
           nextChar === "." || nextChar === ":" || nextChar === ";" || nextChar === "," ||
+          nextChar === "@" ||
           nextChar === cssTokens.braceStart || nextChar === cssTokens.braceEnd ||
           nextChar === cssTokens.functionStart || nextChar === cssTokens.functionEnd ||
           /[+\-.]/.test(nextChar) || /[0-9.]/.test(nextChar) || /[a-zA-Z_\-]/.test(nextChar)
