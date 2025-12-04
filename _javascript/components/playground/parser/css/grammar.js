@@ -241,12 +241,18 @@ export const cssGrammar = {
       let startToken = p.peek();
       const children = [];
 
-      // 1. Optional Tag Name (must be first)
-      const tagName = p.matchType("TAG_NAME");
-      if (tagName) {
-        children.push(tagName);
+      // 1. Check for the :root selector (must appear first if no tag name)
+      const rootSelector = p.matchType("ROOT_SELECTOR");
+      if (rootSelector) {
+        children.push(rootSelector);
       } else {
-        startToken = p.peek(); // Update start if no tag name
+        // 1. Optional Tag Name (must be first)
+        const tagName = p.matchType("TAG_NAME");
+        if (tagName) {
+          children.push(tagName);
+        } else {
+          startToken = p.peek(); // Update start if no tag name
+        }
       }
 
       // 2. Consume zero or more non-tag simple selectors in any order
@@ -271,7 +277,7 @@ export const cssGrammar = {
       return {
         type: "SimpleSelector",
         children,
-        start: tagName?.start || startToken.start,
+        start: tagName?.start,
         end: children.at(-1).end
       };
     },
@@ -374,6 +380,9 @@ export const cssGrammar = {
 
     // Rule to match and consume pseudo elements.
     PSEUDO_ELEMENT: (p) => p.matchType("PSEUDO_ELEMENT"),
+
+    // Rule to match and consume :root selector
+    ROOT_SELECTOR: (p) => p.matchType("ROOT_SELECTOR"),
 
     // Rule to match and consume property value keywords.
     VALUE_KEYWORD: (p) => p.matchType("VALUE_KEYWORD"),

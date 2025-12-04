@@ -254,6 +254,17 @@ export class CssLexer extends BaseLexer {
       // 17. Pseudo-Classes/Elements
       if (char === ":") {
         const colonStart = this.pos;
+
+        // Check specifically for :root
+        const rootSelectorValue = ":root";
+        if (s.startsWith(rootSelectorValue, this.pos)) {
+          const tokenEnd = this.pos + rootSelectorValue.length;
+          this.add("ROOT_SELECTOR", rootSelectorValue, colonStart, tokenEnd, "cp-token-selector");
+          this.advancePosition(rootSelectorValue.length);
+          continue;
+        }
+
+        // Pseudo-Class/Element Logic
         let colonCount = 1;
         this.advancePosition(1); // Consume the first ':'
 
