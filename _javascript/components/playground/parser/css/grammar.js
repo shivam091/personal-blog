@@ -124,6 +124,58 @@ export const cssGrammar = {
       };
     },
 
+    AttributeSelector(p) {
+      // 1. Must start with '['
+      const attrOpen = p.matchType("ATTR_OPEN");
+      if (!attrOpen) return null;
+
+      const children = [];
+      let lastToken = attrOpen;
+
+      // 2. Expect the attribute name (mandatory)
+      const attrName = p.oneOf(["ATTRIBUTE_NAME", "IDENTIFIER"]); // Allow any identifier if not a known attribute
+      if (attrName) {
+        children.push(attrName);
+        lastToken = attrName;
+      } else {
+        // Error: Missing attribute name after '['
+        p.error("Expected attribute name after '['", attrOpen);
+      }
+
+      // 3. Optional operator and value (e.g., = 'value', ~= 'value')
+      const operator = p.oneOf(["ATTR_EQUAL", "ATTR_OPERATOR"]);
+      if (operator) {
+        children.push(operator);
+        lastToken = operator;
+
+        // Expect the value (STRING or IDENTIFIER)
+        const value = p.oneOf(["STRING", "IDENTIFIER"]);
+        if (value) {
+          children.push(value);
+          lastToken = value;
+        } else {
+          // Error: Operator present but value missing
+          p.error("Expected attribute value after operator", operator);
+        }
+      }
+
+      // 4. Must end with ']'
+      const attrClose = p.matchType("ATTR_CLOSE");
+      if (attrClose) {
+        lastToken = attrClose;
+      } else {
+        // Error: Unclosed attribute selector
+        p.error("Unclosed attribute selector: Expected ']'", lastToken);
+      }
+
+      return {
+        type: "AttributeSelector",
+        children,
+        start: attrOpen.start,
+        end: lastToken.end
+      };
+    },
+
     // Handles all @-rules. It must consume the entire rule.
     AtRule(p) {
       const atRuleToken = p.matchType("AT_RULE");
@@ -179,6 +231,89 @@ export const cssGrammar = {
         type: "AtRule",
         children,
         start: atRuleToken.start,
+        end: lastToken.end
+      };
+    },
+
+    SimpleSelector(p) {
+      // Simple selectors can start with a tag name (like 'div') OR one of the other selector types.
+
+      let startToken = p.peek();
+      const children = [];
+
+      // 1. Optional Tag Name (must be first)
+      const tagName = p.matchType("TAG_NAME");
+      if (tagName) {
+        children.push(tagName);
+      } else {
+        startToken = p.peek(); // Update start if no tag name
+      }
+
+      // 2. Consume zero or more non-tag simple selectors in any order
+      while (true) {
+        const selectorPart = p.oneOf([
+          "ID_SELECTOR",
+          "CLASS_SELECTOR",
+          "AttributeSelector",
+          "PSEUDO_CLASS",
+          "PSEUDO_ELEMENT"
+        ]);
+
+        if (selectorPart) {
+          children.push(selectorPart);
+        } else {
+          break; // Stop if no more simple selector parts are found
+        }
+      }
+
+      if (children.length === 0) return null; // Failed to match any part
+
+      return {
+        type: "SimpleSelector",
+        children,
+        start: tagName?.start || startToken.start,
+        end: children.at(-1).end
+      };
+    },
+
+    Selector(p) {
+      // A selector starts with a SimpleSelector
+      const children = [];
+      const initialSelector = p.oneOf(["SimpleSelector"]);
+      if (!initialSelector) return null;
+
+      children.push(initialSelector);
+      let lastToken = initialSelector;
+
+      // Consume zero or more subsequent SimpleSelectors separated by combinators
+      while (true) {
+        // Optional: Match combinators (e.g., WHITESPACE for descendant, or other operators)
+        const combinator = p.oneOf(["WHITESPACE", "COMMA"]); // COMMA separates selectors in a list
+
+        // If we found a comma, the full Selector rule ends here (it's part of a list)
+        if (combinator?.type === "COMMA") {
+          // If you want to keep the comma in the list: children.push(combinator);
+          p.back(1); // Put the COMMA back so the parent RuleSet can handle the selector list
+          break;
+        }
+
+        // Look for the next simple selector group
+        const nextSelector = p.oneOf(["SimpleSelector"]);
+
+        if (nextSelector) {
+          if (combinator) children.push(combinator); // Include the combinator if one was found
+          children.push(nextSelector);
+          lastToken = nextSelector;
+        } else {
+          if (combinator) p.back(1); // Put the non-leading combinator back if no selector follows
+          break;
+        }
+      }
+
+      return {
+        type: "Selector",
+        children,
+        start: initialSelector.start,
         end: lastToken.end
       };
     },

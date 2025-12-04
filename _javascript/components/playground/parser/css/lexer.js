@@ -135,14 +135,32 @@ export class CssLexer extends BaseLexer {
         }
       }
 
-      // 12. Newline
+      // 12. Attribute Operators (e.g., =, ~=, |=, ^=, $=, *=)
+      if (char === "=") {
+        this.add("ATTR_EQUAL", char, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // Check for other attribute operators (e.g., ^=, $=, *=, ~=, |=)
+      if (char === "~" || char === "|" || char === "^" || char === "$" || char === "*") {
+        const nextChar = this.peekChar(1);
+        if (nextChar === "=") {
+          const operator = char + nextChar;
+          this.add("ATTR_OPERATOR", operator, start, start + 2);
+          this.advancePosition(2);
+          continue;
+        }
+      }
+
+      // 13. Newline
       if (char === "\n" || char === "\r") {
         this.add("NEWLINE", char, start, start + 1);
         this.advancePosition(1);
         continue;
       }
 
-      // 13. Class selectors
+      // 14. Class selectors
       if (char === ".") {
         const dotStart = this.pos;
         const identifierStartChar = this.peekChar(1);
@@ -174,7 +192,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 14. Numbers & Units
+      // 15. Numbers & Units
       const substring = s.slice(this.pos);
       const numberMatch = substring.match(new RegExp(cssTokens.numberRegex));
 
@@ -216,7 +234,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 15. Pseudo-Classes/Elements
+      // 16. Pseudo-Classes/Elements
       if (char === ":") {
         const colonStart = this.pos;
         let colonCount = 1;
@@ -273,7 +291,7 @@ export class CssLexer extends BaseLexer {
         }
       }
 
-      // 16. Hex Color Codes and ID Selectors
+      // 17. Hex Color Codes and ID Selectors
       if (char === "#") {
         const hashStart = this.pos;
         const hashSubstring = s.slice(this.pos + 1);
@@ -320,7 +338,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 17. At-Rule (e.g., @import, @media, @charset)
+      // 18. At-Rule (e.g., @import, @media, @charset)
       if (char === "@") {
         const atStart = this.pos;
         this.advancePosition(1); // Consume '@'
@@ -348,7 +366,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 18. Custom properties (variables)
+      // 19. Custom properties (variables)
       if (s.startsWith("--", this.pos)) {
         const propStart = this.pos;
         this.advancePosition(2); // Consume the initial '--'
@@ -376,7 +394,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 19. Functions, color keywords, and values
+      // 20. Functions, color keywords, and values
       if (/[a-zA-Z_\-]/.test(char)) { // Only proceed if it starts like a normal identifier
         let identifierEnd = this.pos + 1;
 
@@ -423,7 +441,14 @@ export class CssLexer extends BaseLexer {
           continue;
         }
 
-        // 5. Check if it's a known HTML Tag
+        // 5. Check if it's a known HTML Attribute
+        if (cssTokens.attributeSelectors.has(value)) {
+          this.add("ATTRIBUTE_NAME", value, start, identifierEnd, "cp-token-attribute");
+          this.advancePosition(identifierEnd - start);
+          continue;
+        }
+
+        // 6. Check if it's a known HTML Tag
         if (cssTokens.tagSelectors.has(value)) {
           this.add("TAG_NAME", value, start, identifierEnd, "cp-token-tag-selector");
           this.advancePosition(identifierEnd - start);
@@ -431,7 +456,7 @@ export class CssLexer extends BaseLexer {
         }
       }
 
-      // 20. Identifiers (Handles tag selectors like 'h1', property names, etc.)
+      // 21. Identifiers (Handles tag selectors like 'h1', property names, etc.)
       if (/[a-zA-Z_\-]/.test(char) || /[\u0080-\uffff]/.test(char)) {
         let j = this.pos + 1;
 
@@ -448,7 +473,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 21. Ignore all other characters
+      // 22. Ignore all other characters
       let j = this.pos + 1;
 
       // We check if the next character starts ANY known token (comment, brace, quote, whitespace).
@@ -461,7 +486,9 @@ export class CssLexer extends BaseLexer {
           nextChar === "/" || nextChar === "'" || nextChar === '"' || nextChar === "#" ||
           nextChar === " " || nextChar === "\t" || nextChar === "\n" || nextChar === "\r" ||
           nextChar === "." || nextChar === ":" || nextChar === ";" || nextChar === "," ||
-          nextChar === "@" ||
+          nextChar === "@" || nextChar === '[' || nextChar === ']' || nextChar === '=' ||
+          nextChar === '~' || nextChar === '|' || nextChar === '^' || nextChar === '$' ||
+          nextChar === '*' ||
           nextChar === cssTokens.braceStart || nextChar === cssTokens.braceEnd ||
           nextChar === cssTokens.functionStart || nextChar === cssTokens.functionEnd ||
           /[+\-.]/.test(nextChar) || /[0-9.]/.test(nextChar) || /[a-zA-Z_\-]/.test(nextChar)
