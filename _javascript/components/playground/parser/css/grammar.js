@@ -243,6 +243,9 @@ export const cssGrammar = {
     // Rule to match and consume property value keywords.
     VALUE_KEYWORD: (p) => p.matchType("VALUE_KEYWORD"),
 
+    // Rule to match and consume a known tag name.
+    TAG_NAME: (p) => p.matchType("TAG_NAME"),
+
     // Rule to match and consume error token.
     ERROR_TOKEN: (p) => p.matchType("ERROR_TOKEN"),
 

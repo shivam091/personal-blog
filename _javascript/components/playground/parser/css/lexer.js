@@ -422,9 +422,15 @@ export class CssLexer extends BaseLexer {
           this.advancePosition(identifierEnd - start);
           continue;
         }
+
+        // 5. Check if it's a known HTML Tag
+        if (cssTokens.tagSelectors.has(value)) {
+          this.add("TAG_NAME", value, start, identifierEnd, "cp-token-tag-selector");
+          this.advancePosition(identifierEnd - start);
+          continue;
+        }
       }
 
-      // 16. Identifiers (Handles tag selectors like 'h1', property names, etc.)
       // 20. Identifiers (Handles tag selectors like 'h1', property names, etc.)
       if (/[a-zA-Z_\-]/.test(char) || /[\u0080-\uffff]/.test(char)) {
         let j = this.pos + 1;
