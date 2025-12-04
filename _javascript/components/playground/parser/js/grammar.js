@@ -264,6 +264,12 @@ export const jsGrammar = {
     // Rule to match and consume a generic identifier token.
     IDENTIFIER: (p) => p.matchType("IDENTIFIER"),
 
+    // Rule to match and consume a Number token
+    NUMBER: (p) => p.matchType("NUMBER"),
+
+    // Rule to match and consume a Regex token
+    REGEX: (p) => p.matchType("REGEX"),
+
     // Rule to match and consume a error string token.
     ERROR_STRING: (p) => p.matchType("ERROR_STRING"),
 

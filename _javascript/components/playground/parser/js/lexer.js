@@ -12,6 +12,35 @@ export class JsLexer extends BaseLexer {
   // New state management property
   templateState = TEMPLATE_STATE.OUTSIDE;
 
+  // Checks if the last significant token implies a Regex is expected next.
+  // Returns true if the previous token was an Operator, Keyword (like return), or Block start.
+  isRegexContext() {
+    let i = this.tokens.length - 1;
+    // Skip "insignificant" tokens (Whitespace, Comments, Newlines) to find the semantic predecessor
+    while (i >= 0) {
+      const type = this.tokens[i].type;
+      if (!["WHITESPACE", "NEWLINE", "COMMENT", "SINGLE_COMMENT", "TAB"].includes(type)) break;
+      i--;
+    }
+
+    // If no previous tokens, we are at start of file -> Regex
+    if (i < 0) return true;
+
+    const lastToken = this.tokens[i];
+
+    // If last token was an operator (e.g., =, +, (, [, :, ?, !) -> Regex
+    if (["OPERATOR", "TEMPLATE_EXPR_OPEN"].includes(lastToken.type)) return true;
+
+    // Specific structural delimiters
+    if (["PAREN_OPEN", "BRACKET_OPEN", "BLOCK_OPEN"].includes(lastToken.type)) return true;
+
+    // Specific keywords that expect values (return, throw, case, typeof, etc.)
+    if (lastToken.type === "KEYWORD") return jsTokens.keywords.has(lastToken.value);
+
+    // Otherwise (Identifier, Number, String, closing parenthesis, etc.) -> Division Operator
+    return false;
+  }
+
   run() {
     const s = this.input;
 
@@ -180,6 +209,108 @@ export class JsLexer extends BaseLexer {
           // Add the token anyway, but use a specific error type/class for visualization
           this.add("ERROR_STRING", s.slice(start, end), start, end, "cp-token-error");
         }
+        continue;
+      }
+
+      // 11. Regular Expression Literal
+      if (char === "/") {
+        // If context suggests a Regex, we parse it as a literal.
+        // Otherwise, we let it fall through to the Operator parser (division).
+        if (this.isRegexContext()) {
+           this.advancePosition(1); // Consume opening '/'
+
+           let inClass = false; // Inside [...]
+           let escaped = false;
+
+           while (!this.eof()) {
+             const ch = this.peekChar();
+
+             // Handle Error: Newline not allowed in standard regex
+             if (ch === "\n" || ch === "\r") {
+               // We don't error immediately, we stop and let the rest be treated as invalid or next tokens
+               // But usually, regex ends at line break -> Unclosed Regex
+               this.lexerError("Unclosed Regular Expression", start, this.pos);
+               break;
+             }
+
+             if (escaped) {
+               escaped = false;
+               this.advancePosition(1);
+               continue;
+             }
+
+             if (ch === "\\") {
+               escaped = true;
+               this.advancePosition(1);
+               continue;
+             }
+
+             if (ch === "[") inClass = true;
+             if (ch === "]") inClass = false;
+
+             // Closing slash (only if not escaped and not inside a class)
+             if (ch === "/" && !inClass) {
+               this.advancePosition(1); // Consume closing '/'
+
+               // Consume Flags (g, i, m, s, u, y, d)
+               while (!this.eof() && /[gimsuy]/.test(this.peekChar())) {
+                 this.advancePosition(1);
+               }
+               break;
+             }
+
+             this.advancePosition(1);
+           }
+
+           this.add("REGEX", s.slice(start, this.pos), start, this.pos, "cp-token-regex");
+           continue;
+        }
+      }
+
+      // ---------------------------------------------------------
+      // 12. NUMBER LITERALS
+      // ---------------------------------------------------------
+      // Matches: 123, 12.34, .5, 0xFF, 0b101, 1e10
+      // Check if char is digit, OR if char is '.' and next is digit
+      if (/[0-9]/.test(char) || (char === '.' && /[0-9]/.test(this.peekChar(1)))) {
+        let j = this.pos;
+
+        // Helper to check hex/bin/octal
+        if (char === '0') {
+           const next = s[j+1];
+           if (next === 'x' || next === 'X') { // Hex
+             j += 2;
+             while (j < this.length && /[0-9a-fA-F]/.test(s[j])) j++;
+           } else if (next === 'b' || next === 'B') { // Binary
+             j += 2;
+             while (j < this.length && /[01]/.test(s[j])) j++;
+           } else if (next === 'o' || next === 'O') { // Octal
+             j += 2;
+             while (j < this.length && /[0-7]/.test(s[j])) j++;
+           } else {
+             // Standard integer or float starting with 0
+             while (j < this.length && /[0-9]/.test(s[j])) j++;
+           }
+        } else {
+           // Standard integer part (or empty if starting with .)
+           while (j < this.length && /[0-9]/.test(s[j])) j++;
+        }
+
+        // Decimal Point
+        if (s[j] === '.') {
+          j++;
+          while (j < this.length && /[0-9]/.test(s[j])) j++;
+        }
+
+        // Exponent (e.g., 1e10, 2E-5)
+        if (s[j] === 'e' || s[j] === 'E') {
+          j++;
+          if (s[j] === '+' || s[j] === '-') j++; // Optional sign
+          while (j < this.length && /[0-9]/.test(s[j])) j++;
+        }
+
+        this.add("NUMBER", s.slice(start, j), start, j, "cp-token-number");
+        this.advancePosition(j - start);
         continue;
       }
 
