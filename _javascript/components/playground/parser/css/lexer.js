@@ -120,7 +120,17 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 11. Colon (Separates property: value, or starts a pseudo-selector)
+      // 11. Combinators (+, >, ~)
+      if (char === "+" || char === ">") {
+        // We must handle standalone '~' here because it can be a combinator but it's checked in
+        // other rule with '='. If it fails there, the loop continues, and we need to check if
+        // '~' is a combinator.
+        this.add("COMBINATOR", char, start, start + 1);
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 12. Colon (Separates property: value, or starts a pseudo-selector)
       if (char === ":") {
         const nextChar = this.peekChar(1);
 
@@ -135,7 +145,7 @@ export class CssLexer extends BaseLexer {
         }
       }
 
-      // 12. Attribute Operators (e.g., =, ~=, |=, ^=, $=, *=)
+      // 13. Attribute Operators (e.g., =, ~=, |=, ^=, $=, *=)
       if (char === "=") {
         this.add("ATTR_EQUAL", char, start, start + 1);
         this.advancePosition(1);
@@ -151,16 +161,23 @@ export class CssLexer extends BaseLexer {
           this.advancePosition(2);
           continue;
         }
+
+        // If it was '~' but NOT followed by '=', it is the general sibling COMBINATOR.
+        if (char === "~") {
+          this.add("COMBINATOR", char, start, start + 1);
+          this.advancePosition(1);
+          continue;
+        }
       }
 
-      // 13. Newline
+      // 14. Newline
       if (char === "\n" || char === "\r") {
         this.add("NEWLINE", char, start, start + 1);
         this.advancePosition(1);
         continue;
       }
 
-      // 14. Class selectors
+      // 15. Class selectors
       if (char === ".") {
         const dotStart = this.pos;
         const identifierStartChar = this.peekChar(1);
@@ -192,7 +209,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 15. Numbers & Units
+      // 16. Numbers & Units
       const substring = s.slice(this.pos);
       const numberMatch = substring.match(new RegExp(cssTokens.numberRegex));
 
@@ -234,7 +251,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 16. Pseudo-Classes/Elements
+      // 17. Pseudo-Classes/Elements
       if (char === ":") {
         const colonStart = this.pos;
         let colonCount = 1;
@@ -291,7 +308,7 @@ export class CssLexer extends BaseLexer {
         }
       }
 
-      // 17. Hex Color Codes and ID Selectors
+      // 18. Hex Color Codes and ID Selectors
       if (char === "#") {
         const hashStart = this.pos;
         const hashSubstring = s.slice(this.pos + 1);
@@ -338,7 +355,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 18. At-Rule (e.g., @import, @media, @charset)
+      // 19. At-Rule (e.g., @import, @media, @charset)
       if (char === "@") {
         const atStart = this.pos;
         this.advancePosition(1); // Consume '@'
@@ -366,7 +383,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 19. Custom properties (variables)
+      // 20. Custom properties (variables)
       if (s.startsWith("--", this.pos)) {
         const propStart = this.pos;
         this.advancePosition(2); // Consume the initial '--'
@@ -394,7 +411,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 20. Functions, color keywords, and values
+      // 21. Functions, color keywords, and values
       if (/[a-zA-Z_\-]/.test(char)) { // Only proceed if it starts like a normal identifier
         let identifierEnd = this.pos + 1;
 
@@ -456,7 +473,7 @@ export class CssLexer extends BaseLexer {
         }
       }
 
-      // 21. Identifiers (Handles tag selectors like 'h1', property names, etc.)
+      // 22. Identifiers (Handles tag selectors like 'h1', property names, etc.)
       if (/[a-zA-Z_\-]/.test(char) || /[\u0080-\uffff]/.test(char)) {
         let j = this.pos + 1;
 
@@ -473,7 +490,7 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 22. Ignore all other characters
+      // 23. Ignore all other characters
       let j = this.pos + 1;
 
       // We check if the next character starts ANY known token (comment, brace, quote, whitespace).

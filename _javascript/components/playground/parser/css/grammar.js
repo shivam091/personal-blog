@@ -287,12 +287,11 @@ export const cssGrammar = {
 
       // Consume zero or more subsequent SimpleSelectors separated by combinators
       while (true) {
-        // Optional: Match combinators (e.g., WHITESPACE for descendant, or other operators)
-        const combinator = p.oneOf(["WHITESPACE", "COMMA"]); // COMMA separates selectors in a list
+        // Optional: Match combinators (WHITESPACE, COMBINATOR) or the COMMA for list separation
+        const combinator = p.oneOf(["WHITESPACE", "COMBINATOR", "COMMA"]);
 
         // If we found a comma, the full Selector rule ends here (it's part of a list)
         if (combinator?.type === "COMMA") {
-          // If you want to keep the comma in the list: children.push(combinator);
           p.back(1); // Put the COMMA back so the parent RuleSet can handle the selector list
           break;
         }
@@ -301,11 +300,12 @@ export const cssGrammar = {
         const nextSelector = p.oneOf(["SimpleSelector"]);
 
         if (nextSelector) {
-          if (combinator) children.push(combinator); // Include the combinator if one was found
+          if (combinator) children.push(combinator); // Include the combinator (WHITESPACE or + > ~)
           children.push(nextSelector);
           lastToken = nextSelector;
         } else {
-          if (combinator) p.back(1); // Put the non-leading combinator back if no selector follows
+          // If we found a combinator but no selector follows (e.g., "div > "), put it back.
+          if (combinator) p.back(1);
           break;
         }
       }
@@ -383,6 +383,9 @@ export const cssGrammar = {
 
     // Rule to match and consume error token.
     ERROR_TOKEN: (p) => p.matchType("ERROR_TOKEN"),
+
+    // Rule to match and consume a combinator token (+, >, ~)
+    COMBINATOR: (p) => p.matchType("COMBINATOR"),
 
     // Rule to match and consume the UNKNOWN token groups.
     UNKNOWN: (p) => p.matchType("UNKNOWN"),
