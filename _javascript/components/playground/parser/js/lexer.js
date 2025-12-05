@@ -80,28 +80,31 @@ export class JsLexer extends BaseLexer {
         continue;
       }
 
-      // 9. Whitespace (explicitly handle standard space and other non-newline whitespace)
-      if (/\s/.test(char) && char !== "\n" && char !== "\r" && char !== "\t") {
-        this.add("WHITESPACE", char, start, start + 1, "editor-token-space");
+      // 9. Whitespace
+      if (/\s/.test(char)) {
+        let tokenType = "TEXT"; // Default fallback
+        let tokenClass = undefined;
+
+        if (char === " ") {
+          // Case 9a: Standard Space
+          tokenType = "WHITESPACE";
+          tokenClass = "editor-token-space";
+        } else if (char === "\t") {
+          // Case 9b: Tab
+          tokenType = "TAB";
+          tokenClass = "editor-token-tab";
+        } else if (char === "\n" || char === "\r") {
+          // Case 9c: Newline (CR, LF, or CRLF start)
+          tokenType = "NEWLINE";
+        }
+
+        // Handle the token
+        this.add(tokenType, char, start, start + 1, tokenClass);
         this.advancePosition(1);
         continue;
       }
 
-      // 10. Tab
-      if (char === "\t") {
-        this.add("TAB", char, start, start + 1, "editor-token-tab");
-        this.advancePosition(1);
-        continue;
-      }
-
-      // 11. Newline
-      if (char === "\n" || char === "\r") {
-        this.add("NEWLINE", char, start, start + 1);
-        this.advancePosition(1);
-        continue;
-      }
-
-      // 12. Ignore all other characters (including newlines and other content)
+      // 10. Ignore all other characters (including newlines and other content)
       this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
     }

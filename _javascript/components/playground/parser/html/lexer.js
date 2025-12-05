@@ -10,9 +10,9 @@ export class HtmlLexer extends BaseLexer {
       const start = this.pos; // Token start position
 
       // 1. Comment
-      if (s.startsWith(htmlTokens.commentStart, this.pos)) {
+      if (s.startsWith("<!--", this.pos)) {
         // Find '-->' starting after the initial '<!--'
-        const end = s.indexOf(htmlTokens.commentEnd, this.pos + 4);
+        const end = s.indexOf("-->", this.pos + 4);
         let j = this.length;
         if (end === -1) {
           // Unclosed HTML comment
@@ -28,11 +28,11 @@ export class HtmlLexer extends BaseLexer {
       }
 
       // 2. Opening Tag / Closing Tag
-      if (char === htmlTokens.tagStart) {
+      if (char === "<") {
         // Check if it's an end tag: '</'
         if (this.peekChar(1) === "/") {
           let j = this.pos + 2; // Start looking after '</'
-          while (j < this.length && s[j] !== htmlTokens.tagEnd) j++;
+          while (j < this.length && s[j] !== ">") j++;
 
           const tagValue = s.slice(start, j + 1);
           this.add("TAG_CLOSE", tagValue, start, j + 1, "cp-token-tag");
@@ -44,7 +44,7 @@ export class HtmlLexer extends BaseLexer {
         if (/[A-Za-z]/.test(this.peekChar(1))) {
           let j = this.pos + 1;
           // Scan until the closing '>' or EOF
-          while (j < this.length && s[j] !== htmlTokens.tagEnd) j++;
+          while (j < this.length && s[j] !== ">") j++;
 
           const tagValue = s.slice(start, j + 1);
           this.add("TAG_OPEN", tagValue, start, j + 1, "cp-token-tag");
@@ -53,28 +53,31 @@ export class HtmlLexer extends BaseLexer {
         }
       }
 
-      // 3. Whitespace (explicitly handle standard space and other non-newline whitespace)
-      if (/\s/.test(char) && char !== "\n" && char !== "\r" && char !== "\t") {
-        this.add("WHITESPACE", char, start, start + 1, "editor-token-space");
+      // 3. Whitespace
+      if (/\s/.test(char)) {
+        let tokenType = "TEXT"; // Default fallback
+        let tokenClass = undefined;
+
+        if (char === " ") {
+          // Case 9a: Standard Space
+          tokenType = "WHITESPACE";
+          tokenClass = "editor-token-space";
+        } else if (char === "\t") {
+          // Case 9b: Tab
+          tokenType = "TAB";
+          tokenClass = "editor-token-tab";
+        } else if (char === "\n" || char === "\r") {
+          // Case 9c: Newline (CR, LF, or CRLF start)
+          tokenType = "NEWLINE";
+        }
+
+        // Handle the token
+        this.add(tokenType, char, start, start + 1, tokenClass);
         this.advancePosition(1);
         continue;
       }
 
-      // 4. Tab
-      if (char === "\t") {
-        this.add("TAB", char, start, start + 1, "editor-token-tab");
-        this.advancePosition(1);
-        continue;
-      }
-
-      // 5. Newline
-      if (char === "\n" || char === "\r") {
-        this.add("NEWLINE", char, start, start + 1);
-        this.advancePosition(1);
-        continue;
-      }
-
-      // 6. Ignore all other characters (Newlines, text content, unhandled symbols)
+      // 4. Ignore all other characters (Newlines, text content, unhandled symbols)
       this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
     }

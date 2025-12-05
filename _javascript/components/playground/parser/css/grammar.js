@@ -16,22 +16,20 @@ export const cssGrammar = {
 
         // Explicitly check for unmatched closing brace
         const next = p.peek();
-        if (next) {
-          if (next.type === "BLOCK_CLOSE") {
-            p.error(`Unexpected closing brace '}' outside a block.`, next);
-            p.next(); // Consume the error token and continue
-            continue;
-          }
+        if (next && next.type === "BLOCK_CLOSE") {
+          p.error(`Unexpected closing brace '}' outside a block.`, next);
+          p.next(); // Consume the error token and continue
+          continue;
         }
 
-        // Explicitly consume known insignificant tokens
+        // Consume insignificant tokens
         if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
 
         // Consume all other tokens (selectors, properties, newlines, etc.)
         p.next();
       }
 
-      // Add start/end to Document node for fold analysis
+      // Final Document node
       return { type: "Document", children, start: 0, end: p.tokens.at(-1)?.end || 0 };
     },
 
@@ -67,30 +65,21 @@ export const cssGrammar = {
           continue;
         }
 
-        // Explicitly consume known insignificant tokens
-        if (p.oneOf(...INSIGNIFICANT_TOKENS)) continue;
-
-        // Consume all other text/unknown tokens (like newlines or actual text content)
+        // Consume all other text/unknown tokens
         p.next();
       }
 
-      // Error Handling: If the loop exited because of EOF, the block is unclosed.
+      // Raise error if block is not closed
       if (!blockClose) {
         p.error(`Unclosed CSS Block: Expected '}'`, blockOpen);
-        // Continue, but define the block's end at the last consumed token.
-        return {
-          type: "Block",
-          children,
-          start: blockOpen.start,
-          end: p.tokens.at(-1)?.end || blockOpen.end
-        };
       }
 
+      // Return structure whether closed or unclosed
       return {
         type: "Block",
         children,
         start: blockOpen.start,
-        end: blockClose.end
+        end: blockClose ? blockClose.end : blockOpen.end
       };
     },
 

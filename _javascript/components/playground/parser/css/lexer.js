@@ -42,20 +42,30 @@ export class CssLexer extends BaseLexer {
       }
 
       // 4. Whitespace
-      if (char === " ") {
-        this.add("WHITESPACE", char, start, start + 1, "editor-token-space");
+      if (/\s/.test(char)) {
+        let tokenType = "TEXT"; // Default fallback
+        let tokenClass = undefined;
+
+        if (char === " ") {
+          // Case 9a: Standard Space
+          tokenType = "WHITESPACE";
+          tokenClass = "editor-token-space";
+        } else if (char === "\t") {
+          // Case 9b: Tab
+          tokenType = "TAB";
+          tokenClass = "editor-token-tab";
+        } else if (char === "\n" || char === "\r") {
+          // Case 9c: Newline (CR, LF, or CRLF start)
+          tokenType = "NEWLINE";
+        }
+
+        // Handle the token
+        this.add(tokenType, char, start, start + 1, tokenClass);
         this.advancePosition(1);
         continue;
       }
 
-      // 5. Tab
-      if (char === "\t") {
-        this.add("TAB", char, start, start + 1, "editor-token-tab");
-        this.advancePosition(1);
-        continue;
-      }
-
-      // 6. Ignore all other characters (including newlines and other content)
+      // 5. Ignore all other characters (including newlines and other content)
       this.advancePosition(1);
     }
 
