@@ -74,9 +74,8 @@ export class Editor {
     this.inputHandler = new EditorInputHandler(this, this.state);
 
     // 3. Initial Setup
-    // Initial visibility check to generate lines on load
-    const initialLineVisibleAttr = root.getAttribute("data-line-numbers") || "off";
-    this.gutter.setVisibility(initialLineVisibleAttr === "on");
+    const initialGutterVisibleAttr = root.getAttribute("data-gutters") || "off";
+    this.gutter.setGutterVisibility(initialGutterVisibleAttr === "on");
 
     // Initialization of value and initial DOM structure
     const initialText = this.editable.innerText.replace(/\r/g, "");
@@ -119,8 +118,8 @@ export class Editor {
 
     this.inputHandler.scheduleCursorUpdate();
 
-    // Use Gutter to update line numbers
-    this.gutter.updateLineNumbers(val.split("\n").length);
+    // Update gutter
+    this.gutter.update(val.split("\n").length);
 
     this.editable.dispatchEvent(new Event("playground:editor:value-changed", { bubbles: true }));
 
@@ -145,7 +144,7 @@ export class Editor {
 
   // Refreshes UI elements based on current state (Line Numbers, Active Line)
   #refresh() {
-    this.gutter.updateLineNumbers();
+    this.gutter.update();
 
     if (this.state.cursor) {
       this.ui.setActiveLine(this.state.cursor.line);

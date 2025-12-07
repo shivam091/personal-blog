@@ -26,10 +26,13 @@ export class EditorFoldManager {
     // Update fold state map
     this.#updateFoldStateMap(this.foldRegions);
 
-    // Render the markers
+    // Ensure gutter line count is correct BEFORE adding fold markers
+    this.#core.gutter.update(fullValue.split("\n").length);
+
+    // Now safe to render fold markers
     this.#core.gutter.renderFoldMarkers(this.#state.foldedRegions);
 
-    // Apply the visual hiding of lines
+    // Apply the visual hiding
     this.#applyFoldState();
 
     // Dispatch an event for other UI components
@@ -66,17 +69,17 @@ export class EditorFoldManager {
 
     this.#applyFoldState();
 
-    // DELEGATION: Update specific icon in gutter
+    // Update specific icon in gutter
     this.#core.gutter.updateMarkerState(startLine, region.isCollapsed);
   }
 
   // Applies the fold state by hiding/showing lines in the editable area AND the gutter.
   #applyFoldState() {
     // 1. Reset all editor lines
-    Array.from(this.#core.editable.children).forEach(el => {
+    for (const el of this.#core.editable.children) {
       el.classList.remove("collapsed");
       el.removeAttribute("data-collapsed-lines");
-    });
+    }
 
     // 2. Hide lines in editor content
     for (const [startLine, region] of this.#state.foldedRegions.entries()) {

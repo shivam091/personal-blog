@@ -18,7 +18,12 @@ export class EditorUI {
   // Converts a string of code into the HTML structure used by the editor
   toHTML(src) {
     const engine = new LanguageEngine(this.#fileType, src);
-    const highlightedLines = engine.run(src).highlightedLines;
+    const { ast, errors, tokens, highlightedLines, foldRegions } = engine.run(src);
+
+    console.log("AST: ", ast);
+    console.log("Errors: ", errors);
+    console.log("Tokens: ", tokens);
+    console.log("Fold regions: ", foldRegions);
 
     // Map the resulting HTML lines to divs
     return highlightedLines
@@ -37,7 +42,12 @@ export class EditorUI {
 
     const fullText = this.#core.value;
     const engine = new LanguageEngine(this.#fileType, fullText);
-    const highlightedLines = engine.run(fullText).highlightedLines;
+    const { ast, errors, tokens, highlightedLines, foldRegions } = engine.run(fullText);
+
+    console.log("AST: ", ast);
+    console.log("Errors: ", errors);
+    console.log("Tokens: ", tokens);
+    console.log("Fold regions: ", foldRegions);
 
     const newLineHTML = highlightedLines[lineIndex] || "<br>";
 

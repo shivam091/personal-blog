@@ -18,7 +18,7 @@ export class EditorInputHandler {
   bindEvents() {
     // Primary user input events
     this.#core.editable.addEventListener("input", () => {
-      this.#core.gutter.updateLineNumbers();
+      this.#core.gutter.update();
 
       this.#core.scheduleRefresh();
       this.scheduleCursorUpdate();
@@ -56,11 +56,6 @@ export class EditorInputHandler {
       this.#state.cursor = { line: line, col: col };
     });
 
-    // Listen for the global toggle line numbers event
-    this.#core.root.addEventListener("playground:editor:toggle-line-numbers", (e) => {
-      this.#core.gutter.setVisibility(e.detail.visible);
-    });
-
     // Listen for the global folds updated event
     this.#core.editable.addEventListener("playground:editor:folds-updated", () => {
       if (this.#state.cursor) {
@@ -77,11 +72,18 @@ export class EditorInputHandler {
 
   // Handles click on the fold gutter
   #handleGutterClick(event) {
-    const marker = event.target.closest(".fold-marker");
-    if (marker) {
-      const startLine = parseInt(marker.dataset.line, 10);
-      this.#core.foldManager.toggleFold(startLine);
-    }
+    const marker = event.target.closest(".fold-marker.has-marker");
+    if (!marker) return;
+
+    // 2. Find the parent line element to get the line number
+    const lineEl = marker.closest(".editor-line");
+    if (!lineEl) return;
+
+    // 3. Get the line number from the PARENT
+    const startLine = parseInt(lineEl.dataset.line, 10);
+
+    // 4. Toggle
+    this.#core.foldManager.toggleFold(startLine);
   }
 
   /*
@@ -144,7 +146,7 @@ export class EditorInputHandler {
     this.restoreCaretAt(finalCaretPos);
 
     // Explicitly run necessary UI updates
-    this.#core.gutter.updateLineNumbers(newValue.split("\n").length);
+    this.#core.gutter.update(newValue.split("\n").length);
     this.scheduleCursorUpdate(); // Re-schedule to capture the manually set caret
     this.#core.scheduleRefresh();
   }

@@ -117,6 +117,12 @@
   scrollbar-width: thin
   flex: 1
 
+  .editor-gutters,
+  [contenteditable="true"]
+    font-family: $font-stack-monospace
+    font-size: $font-size-sm
+    line-height: $line-height-code
+
   .editor-gutters
     display: flex
     align-items: center
@@ -129,21 +135,6 @@
     z-index: 6
     color: var(--color-fg-muted)
     text-align: center
-
-  .editor-gutter
-    display: flex
-    align-items: center
-    flex-direction: column
-    flex-shrink: 0
-    box-sizing: border-box
-    min-height: 100%
-    overflow: hidden
-
-  .editor-gutters,
-  [contenteditable="true"]
-    font-family: $font-stack-monospace
-    font-size: $font-size-sm
-    line-height: $line-height-code
 
   [contenteditable="true"]
     padding-block: $space-sm
@@ -158,20 +149,10 @@
       position: relative
       cursor: text
 
-      &:empty::before
+      &:has(> br:only-child)::before
         content: "␣"
         opacity: 0.3
-
-    .editor-token-space
-      position: relative
-      cursor: text
-
-      &::before
-        content: "·"
-        opacity: 0.4
         position: absolute
-        left: 50%
-        transform: translateX(-50%)
 
     .editor-token-tab
       position: relative
@@ -179,6 +160,14 @@
 
       &::before
         content: "→"
+        opacity: 0.4
+
+    .editor-token-space
+      position: relative
+      cursor: text
+
+      &::before
+        content: "·"
         opacity: 0.4
         position: absolute
         left: 50%
@@ -285,60 +274,11 @@
 .console-count-error
   color: var(--color-fg-danger)
 
-.editor-gutter
-  .editor-line
-    &::before
-      content: attr(data-line)
-
-    &::after
-      content: ""
-      display: inline-block
-      width: 0.5rem
-      margin-inline-start: 0.5rem
-      text-align: center
-
-    &.fold-marker
-      display: inline-flex
-      align-items: center
-      justify-content: center
-      font-size: 0.875rem
-      cursor: pointer
-      user-select: none
-      color: var(--color-fg-muted)
-      font-family: $font-stack-monospace
-
-      &[data-state="collapsed"]::after
-        content: "+"
-
-      &[data-state="expanded"]::after
-        content: "-"
-
-    [data-line-numbers="off"] &
-      &:before
-        display: none
-
-      &:after
-        margin-inline-start: 0
-
-  .editor-active-line
-    color: var(--color-fg-default) !important
-    font-weight: $font-weight-semi-bold
-
-[contenteditable="true"]
-  .editor-line
-    &[data-collapsed-lines]::after
-      content: " \2026 (+" attr(data-collapsed-lines) " lines)"
-      color: hsl(from var(--color-fg-success) h s l / 0.6)
-      font-style: italic
-      font-size: 0.9em
-      pointer-events: none
-      user-select: none
-
 .editor-line
   padding-inline: $space-sm
   width: 100%
   height: 1.5rem
-  border-block: 1px solid var(--color-border-transparent)
+  border-block: $border-width-default solid var(--color-border-transparent)
   position: relative
 
   &.editor-active-line
@@ -346,3 +286,61 @@
 
   &.collapsed
     display: none !important
+
+.editor-gutter
+  display: flex
+  align-items: center
+  flex-direction: column
+  flex-shrink: 0
+  box-sizing: border-box
+  min-height: 100%
+  overflow: hidden
+
+  &.hidden
+    display: none
+
+  .editor-line
+    display: inline-flex
+    align-items: center
+    gap: $space-sm
+
+    &.collapsed
+      display: none !important
+
+    [data-line-numbers="off"] &
+      .line-number
+        display: none
+
+  .line-number
+    min-width: 3ch
+    text-align: center
+
+  .fold-marker
+    display: flex
+    align-items: center
+    justify-content: center
+    user-select: none
+
+    &.has-marker
+      cursor: pointer
+
+      &[data-state="expanded"]
+        &::after
+          content: "-"
+
+      &[data-state="collapsed"]
+        &::after
+          content: "+"
+
+  .editor-active-line
+    color: var(--color-fg-default)
+    font-weight: $font-weight-semi-bold
+
+[contenteditable="true"]
+  .editor-line[data-collapsed-lines]::after
+    content: " \2026 (+" attr(data-collapsed-lines) " lines)"
+    color: hsl(from var(--color-fg-success) h s l / 0.6)
+    font-style: italic
+    font-size: 0.9em
+    pointer-events: none
+    user-select: none

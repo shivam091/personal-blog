@@ -22,6 +22,7 @@ module Jekyll
       id = @params["id"]
       autorun = @params.fetch("autorun", "true")
       line_numbers = @params.fetch("line_numbers", "off")
+      gutters = @params.fetch("gutters", "on")
 
       playground = playgrounds[id]
 
@@ -32,7 +33,7 @@ module Jekyll
 
       <<~HTML
         <section id="pg-#{id}" class="playground" aria-label="Code playground: #{name}"
-                 data-playground data-id="#{id}" data-autorun="#{autorun}" data-line-numbers="#{line_numbers}">
+                 data-playground data-id="#{id}" data-autorun="#{autorun}" data-line-numbers="#{line_numbers}" data-gutters="#{gutters}">
           #{render_header(playground, context, id, name, url)}
           #{render_main_content(playground, context, id, name, autorun)}
           #{render_footer(id)}
