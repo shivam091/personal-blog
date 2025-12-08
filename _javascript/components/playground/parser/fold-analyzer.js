@@ -1,6 +1,6 @@
 import { indexToLine } from "./utils";
 
-const STRUCTURAL_NODES = ["Element", "Comment", "Block", "Parentheses", "Brackets", "FunctionCall"];
+const STRUCTURAL_NODES = ["Element", "Comment", "Block", "Parentheses", "Brackets", "FunctionCall", "Template"];
 
 /*
  * Analyzes a given AST to identify structural regions (like comments, blocks,
