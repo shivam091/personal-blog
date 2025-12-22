@@ -22,6 +22,7 @@ module Jekyll
       id = @params["id"]
       autorun = @params.fetch("autorun", "true")
       line_numbers = @params.fetch("line_numbers", "off")
+      gutters = @params.fetch("gutters", "on")
 
       playground = playgrounds[id]
 
@@ -32,7 +33,7 @@ module Jekyll
 
       <<~HTML
         <section id="pg-#{id}" class="playground" aria-label="Code playground: #{name}"
-                 data-playground data-id="#{id}" data-autorun="#{autorun}" data-line-numbers="#{line_numbers}">
+                 data-playground data-id="#{id}" data-autorun="#{autorun}" data-line-numbers="#{line_numbers}" data-gutters="#{gutters}">
           #{render_header(playground, context, id, name, url)}
           #{render_main_content(playground, context, id, name, autorun)}
           #{render_footer(id)}
@@ -156,7 +157,7 @@ module Jekyll
             </div>
             <div class="code-editor">
               <div class="editor-gutters">
-                <div class="editor-gutter editor-lines"></div>
+                <div class="editor-gutter"></div>
               </div>
               <div id="code-#{id}-#{file['type']}-#{idx}" contenteditable="true" spellcheck="false" autocorrect="off" autocapitalize="off" writingsuggestions="false" translate="no" role="textbox" aria-label="Code editor for #{file["name"]}" aria-multiline="true" aria-describedby="pg-title-#{id}">#{CGI.escapeHTML(file["code"]).strip}</div>
             </div>

@@ -1,8 +1,7 @@
 @use "abstracts/tokens" as *
 @use "abstracts/mixins/breakpoints" as breakpoint
 @use "abstracts/mixins/middle-dot-separator" as *
-
-$gutter-min-width: 3rem
+@use "abstracts/mixins/icon-mask" as *
 
 .playground
   --playground-height: 800px
@@ -10,14 +9,15 @@ $gutter-min-width: 3rem
   position: relative
   display: flex
   flex-direction: column
-  background: var(--color-bg-default)
+  height: var(--playground-height)
   margin-block: $space-base
+  padding: $space-none
+  background: var(--color-bg-default)
   color: var(--color-fg-default)
   border: $border-width-default solid var(--color-border-default)
   border-radius: $border-radius-default
   box-shadow: var(--box-shadow-floating-legacy)
   font-size: $font-size-sm
-  height: var(--playground-height)
   overflow: hidden
   resize: vertical
 
@@ -28,9 +28,9 @@ $gutter-min-width: 3rem
   display: flex
   align-items: center
   justify-content: space-between
+  padding: $space-sm $space-md
   background: var(--color-bg-muted)
   color: var(--color-fg-muted)
-  padding: $space-sm $space-md
 
 .playground-brand,
 .playground-toolbar
@@ -39,13 +39,13 @@ $gutter-min-width: 3rem
   gap: $space-sm
 
 .playground-title
+  margin: $space-none
+  padding-bottom: $space-none !important
+  border: none !important
   font-weight: $font-weight-medium
+  font-size: $font-size-base
   letter-spacing: 0.2px
   color: var(--color-fg-default)
-  font-size: $font-size-base
-  margin: $space-none
-  border: none !important
-  padding-bottom: 0 !important
 
 .window-controls
   display: flex
@@ -67,9 +67,10 @@ $gutter-min-width: 3rem
       fill: var(--color-bg-success-emphasis)
 
 .playground-content
-  flex: 1
   display: flex
+  flex: 1
   overflow: hidden
+  position: relative
 
   &::before
     content: ""
@@ -80,17 +81,9 @@ $gutter-min-width: 3rem
     display: none
     z-index: 10
 
-  &.resizing
-    &::before
-      pointer-events: all
-      display: block
-
-[data-line-numbers="off"]
-  .editor-gutters
-    display: none
-
-  .code-editor
-    grid-template-columns: 1fr
+  &.resizing::before
+    display: block
+    pointer-events: all
 
 .editor-section,
 .preview-section
@@ -99,65 +92,58 @@ $gutter-min-width: 3rem
   flex-direction: column
   overflow: hidden
 
-.editor-tabs
+.editor-tabs,
+.preview-tabs
   display: flex
-  border-bottom: $border-width-default solid var(--color-border-default)
 
-.editor-panels
+.preview-tabs
+  @include breakpoint.container-max(lg)
+    border-block-start: none
+
+.editor-panels,
+.preview-panels
   flex: 1
   display: flex
   flex-direction: column
   min-height: 0
   overflow: hidden
 
-.editor-panel
+.editor-panel,
+.preview-panel
   display: none
-  flex: 1
+  flex-direction: column
+  flex: 1 1 auto
+  min-height: 0
   overflow: auto
 
   &.active
     display: flex
-    flex-direction: column
 
 .code-editor
   display: grid
-  grid-template-columns: minmax($gutter-min-width, auto) 1fr
+  grid-template-columns: auto 1fr
+  flex: 1
   overflow: auto
   scrollbar-width: thin
-  flex: 1
 
-  .editor-gutters
-    user-select: none
-    pointer-events: none
-    position: sticky
-    inset-inline-start: 0
-    padding-block: $space-sm
-    background: var(--color-bg-muted)
-    border-right: $border-width-default solid var(--color-border-muted)
-    z-index: 6
-
-  .editor-gutter
-    display: flex
-    align-items: center
-    flex-direction: column
-    flex-shrink: 0
-    box-sizing: border-box
-    min-height: 100%
-    overflow: hidden
-
-    .editor-active-line
-      color: var(--color-fg-default)
-      font-weight: $font-weight-semi-bold
-
-  .editor-lines,
+  .editor-gutters,
   [contenteditable="true"]
     font-family: $font-stack-monospace
     font-size: $font-size-sm
     line-height: $line-height-code
 
-  .editor-lines
+  .editor-gutters
+    display: flex
+    align-items: center
+    position: sticky
+    inset-inline-start: 0
+    padding-block: $space-sm
+    background: var(--color-bg-muted)
     color: var(--color-fg-muted)
+    border-right: $border-width-default solid var(--color-border-muted)
     text-align: center
+    user-select: none
+    z-index: 6
 
   [contenteditable="true"]
     padding-block: $space-sm
@@ -168,76 +154,46 @@ $gutter-min-width: 3rem
     outline: none
     z-index: 5
 
-  .editor-line
-    padding-inline-start: $space-sm
-    width: 100%
-    height: 1.5rem
-    border-block: 1px solid var(--color-border-transparent)
+    .editor-line
+      position: relative
+      cursor: text
 
-  .editor-active-line
-    border-block-color: var(--color-border-muted)
+      &:has(> br:only-child)::before
+        position: absolute
+        content: "␣"
+        opacity: 0.3
 
-  .editor-token-space
-    position: relative
-    cursor: text
+    .token-tab
+      position: relative
+      cursor: text
 
-    &::before
-      content: "·"
-      opacity: 0.4
-      position: absolute
-      left: 50%
-      transform: translateX(-50%)
+      &::before
+        content: "→"
+        position: absolute
+        inset-block-start: 50%
+        transform: translateY(-50%)
+        opacity: 0.4
 
-  .editor-token-tab
-    position: relative
-    cursor: text
+    .token-space
+      position: relative
+      cursor: text
 
-    &::before
-      content: "→"
-      opacity: 0.4
-      position: absolute
-      left: 50%
-      transform: translateX(-50%)
+      &::before
+        content: "·"
+        position: absolute
+        inset-inline-start: 50%
+        inset-block-start: 50%
+        transform: translate(-50%, -50%)
+        opacity: 0.4
 
-  .editor-line
-    position: relative
-    cursor: text
-
-    &:empty::before
-      content: "␣"
-      opacity: 0.3
-
-.preview-tabs
-  display: flex
-
-  @include breakpoint.container-max(lg)
-    border-block-start: none
-
-.preview-panels
-  flex: 1
-  display: flex
-  flex-direction: column
-  min-height: 0
-  overflow: hidden
-
-.preview-panel
+.preview-frame,
+.console-output
   flex: 1 1 auto
-  display: none
   min-height: 0
   overflow: auto
-
-  &.active
-    display: flex
-    flex-direction: column
-
-  .preview-frame,
-  .console-output
-    flex: 1 1 auto
-    border: none
-    background: var(--color-bg-default)
-    min-height: 0
-    overflow: auto
-    scrollbar-width: thin
+  background: var(--color-bg-default)
+  border: none
+  scrollbar-width: thin
 
 .editor-header,
 .preview-header,
@@ -254,13 +210,10 @@ $gutter-min-width: 3rem
 
 .console-output
   padding: $space-sm $space-md
+  white-space: pre
   font-family: $font-stack-monospace
   font-size: $font-size-xs
   line-height: $line-height-relaxed
-  white-space: pre
-  background: var(--color-bg-default)
-  min-height: 0
-  overflow: auto
 
 .autorun-check-label
   font-weight: $font-weight-base !important
@@ -274,10 +227,10 @@ $gutter-min-width: 3rem
   justify-content: space-between
   align-items: center
   padding: $space-xs $space-md
-  border-top: $border-width-default solid var(--color-border-default)
-  background: color-mix(in srgb, var(--color-bg-muted) 50%, transparent 50%)
-  color: var(--color-fg-muted)
   font-size: $font-size-xs
+  background: color-mix(in srgb, var(--color-bg-muted) 50%, transparent 50%)
+  border-top: $border-width-default solid var(--color-border-default)
+  color: var(--color-fg-muted)
 
 .caret-metadata,
 .console-metadata,
@@ -285,25 +238,91 @@ $gutter-min-width: 3rem
   display: inline-flex
   align-items: center
   user-select: none
-
   @include middle-dot-separator
 
-.console-line-log,
-.console-count-log
-  color: var(--color-fg-success)
+$console-levels: (
+  log: var(--color-fg-success),
+  info: var(--color-fg-accent),
+  debug: var(--color-fg-default),
+  warn: var(--color-fg-attention),
+  error: var(--color-fg-danger)
+)
 
-.console-line-info,
-.console-count-info
-  color: var(--color-fg-accent)
+@each $level, $color in $console-levels
+  .console-line-#{$level},
+  .console-count-#{$level}
+    color: #{$color}
 
-.console-line-debug,
-.console-count-debug
-  color: var(--color-fg-default)
+.editor-line
+  padding-inline: $space-xs
+  width: 100%
+  height: 1.5rem
+  border-block: $border-width-default solid var(--color-border-transparent)
+  position: relative
 
-.console-line-warn,
-.console-count-warn
-  color: var(--color-fg-attention)
+  &.editor-active-line
+    border-block-color: var(--color-border-muted)
 
-.console-line-error,
-.console-count-error
-  color: var(--color-fg-danger)
+  &.collapsed
+    display: none !important
+
+.editor-gutter
+  display: flex
+  align-items: center
+  flex-direction: column
+  flex-shrink: 0
+  overflow: hidden
+  min-height: 100%
+  box-sizing: border-box
+
+  &.hidden
+    display: none
+
+  .editor-line
+    display: inline-flex
+    align-items: center
+    justify-content: space-between
+    gap: $space-xs
+
+    &.collapsed
+      display: none !important
+
+    [data-line-numbers="off"] &
+      .line-number
+        display: none
+
+  .line-number
+    min-width: 3ch
+
+  .fold-marker
+    display: flex
+    align-items: center
+    justify-content: center
+    user-select: none
+
+    &.has-marker
+      cursor: pointer
+
+      &::after
+        pointer-events: none
+
+      &[data-state="expanded"]::after
+        content: ""
+        @include icon-mask(url("../assets/svg/chevron-down.svg"), $size: 0.875rem)
+
+      &[data-state="collapsed"]::after
+        content: ""
+        @include icon-mask(url("../assets/svg/chevron-right.svg"), $size: 0.875rem)
+
+  .editor-active-line
+    color: var(--color-fg-default)
+    font-weight: $font-weight-semi-bold
+
+[contenteditable="true"]
+  .editor-line[data-collapsed-lines]::after
+    content: " … (+" attr(data-collapsed-lines) " lines)"
+    color: hsl(from var(--color-fg-success) h s l / 0.6)
+    font-size: 0.9em
+    font-style: italic
+    pointer-events: none
+    user-select: none
