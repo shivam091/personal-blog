@@ -13,6 +13,16 @@ export class DocumentComposer {
   static #liveRuntimeScript() {
     return `
 (function() {
+  // Ask parent for current theme immediately
+  window.parent?.postMessage({ type: "theme-request" }, "*");
+
+  // Listen for theme updates
+  window.addEventListener("message", (e) => {
+    if (e.data?.type === "theme-change") {
+      document.documentElement.setAttribute("data-theme", e.data.theme);
+    }
+  });
+
   // Store original console methods
   const orig = {
     log: console.log,

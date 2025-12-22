@@ -86,3 +86,38 @@ IconCircleSlash.initialize();
 IconDownload.initialize();
 
 Playground.initializeAll();
+
+function syncAllIframes(theme) {
+  document.querySelectorAll("iframe").forEach((iframe) => {
+    iframe.contentDocument?.documentElement?.setAttribute("data-theme", theme);
+
+    iframe.contentWindow?.postMessage({ type: "theme-change", theme }, "*");
+  });
+}
+
+// Initial sync
+document.addEventListener("DOMContentLoaded", () => {
+  syncAllIframes(ThemeSwitcher.getCurrentTheme());
+});
+
+// React to theme changes
+window.addEventListener("app-theme-change", (e) => {
+  syncAllIframes(e.detail.theme);
+});
+
+// Catch late-loading iframes
+document.addEventListener("load", (e) => {
+  if (e.target.tagName === "IFRAME") {
+    const theme = ThemeSwitcher.getCurrentTheme();
+
+    e.target.contentWindow?.postMessage({ type: "theme-change", theme }, "*");
+  }
+}, true);
+
+window.addEventListener("message", (e) => {
+  if (e.data?.type === "theme-request") {
+    const theme = document.documentElement.dataset.theme || "light";
+
+    e.source?.postMessage({ type: "theme-change", theme }, "*");
+  }
+});
