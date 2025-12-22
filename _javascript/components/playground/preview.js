@@ -27,13 +27,6 @@ export class Preview {
     this.previewFrame = root.querySelector(".preview-frame");
     this.consolePanel = consolePanel;
     this.playgroundName = root.querySelector(".playground-name")?.textContent.trim();
-
-    // Observe theme changes in parent document's <html> element
-    this.themeObserver = new MutationObserver(() => this.#applyTheme());
-    this.themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
   }
 
   /*
@@ -47,7 +40,6 @@ export class Preview {
       const duration = performance.now() - this.renderStartTime;
       this.iframeReady = true;
 
-      this.#applyTheme();
       console.debug("[Playground] Channel established. Iframe ready.");
 
       // Dispatch scoped event for RenderMetadata
@@ -155,17 +147,6 @@ export class Preview {
     this.lastBlobUrl = url;
 
     this.renderStartTime = performance.now();
-
-    iframe.onload = () => {
-      this.#applyTheme();
-
-      try {
-        // Handshake: Transfer Port 2 to the iframe
-        iframe.contentWindow.postMessage("init-channel", "*", [this.channel.port2]);
-      } catch (err) {
-        console.error("[Playground] Port transfer failed:", err);
-      }
-    };
 
     // Set the source to the Blob URL to load the new document
     iframe.src = url;
