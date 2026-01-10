@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="220" viewBox="0 0 540 220" role="img" aria-label="SVG stroke-linecap comparison">
+  <rect width="100%" height="100%" rx="10" fill="#f8fafb" />
+
+  <defs>
+    <circle id="pt" r="3" fill="#ef4444" stroke="white" stroke-width="1" />
+  </defs>
+
+  <!-- guideline -->
+  <line x1="40" y1="80" x2="500" y2="80" stroke="#e5e7eb" stroke-dasharray="4 4" />
+
+  <g font-family="system-ui, sans-serif" text-anchor="middle">
+    <!-- Butt -->
+    <g transform="translate(120 80)">
+      <line x1="-50" x2="50" stroke="#6366f1" stroke-width="28" stroke-linecap="butt" />
+      <use href="#pt" x="-50"  />
+      <use href="#pt" x="50" />
+      <text y="50" fill="#111827" font-weight="600">butt</text>
+      <text y="68" fill="#6b7280" font-size="12">default</text>
+    </g>
+
+    <!-- Round -->
+    <g transform="translate(270 80)">
+      <line x1="-50" x2="50" stroke="#6366f1" stroke-width="28" stroke-linecap="round" />
+      <use href="#pt" x="-50" />
+      <use href="#pt" x="50" />
+      <text y="50" fill="#111827" font-weight="600">round</text>
+      <text y="68" fill="#6b7280" font-size="12">adds radius</text>
+    </g>
+
+    <!-- Square -->
+    <g transform="translate(420 80)">
+      <line x1="-50" x2="50" stroke="#6366f1" stroke-width="28" stroke-linecap="square" />
+      <use href="#pt" x="-50" />
+      <use href="#pt" x="50" />
+      <text y="50" fill="#111827" font-weight="600">square</text>
+      <text y="68" fill="#6b7280" font-size="12">extends half width</text>
+    </g>
+  </g>
+</svg>

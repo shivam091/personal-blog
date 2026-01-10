@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="240" viewBox="0 0 540 240" role="img" aria-label="SVG stroke-linejoin comparison">
+  <rect width="100%" height="100%" rx="10" fill="#f8fafb"/>
+
+  <g stroke="#6366f1" stroke-width="28" fill="none" font-family="system-ui, sans-serif" text-anchor="middle">
+
+    <!-- miter -->
+    <g transform="translate(100 140)">
+      <polyline points="-45,-70 0,0 45,-70" stroke-linejoin="miter"/>
+      <text y="40" fill="#111827" stroke="none" font-weight="600">miter</text>
+      <text y="58" fill="#6b7280" stroke="none" font-size="12">sharp corner, intersection point</text>
+    </g>
+
+    <!-- round -->
+    <g transform="translate(270 140)">
+      <polyline points="-45,-70 0,0 45,-70" stroke-linejoin="round"/>
+      <text y="40" fill="#111827" stroke="none" font-weight="600">round</text>
+      <text y="58" fill="#6b7280" stroke="none" font-size="12">smooth curve, circular join</text>
+    </g>
+
+    <!-- bevel -->
+    <g transform="translate(440 140)">
+      <polyline points="-45,-70 0,0 45,-70" stroke-linejoin="bevel"/>
+      <text y="40" fill="#111827" stroke="none" font-weight="600">bevel</text>
+      <text y="58" fill="#6b7280" stroke="none" font-size="12">flat cut, corner clipped</text>
+    </g>
+  </g>
+</svg>
