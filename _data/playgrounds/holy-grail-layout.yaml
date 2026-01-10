@@ -1,0 +1,139 @@
+id: holy-grail-layout
+name: Holy Grail Layout
+url: https://codepen.io/shivam091/pen/KwMgwXE
+files:
+  - name: index.html
+    type: html
+    code: |
+      <div class="holy-grail-wrapper">
+        <header>Header</header>
+        <nav>Navigation</nav>
+        <main>
+          <h1>Main Content</h1>
+          <p>
+            This is the primary content area. Resize the viewport to see how the
+            grid adapts across screen sizes.
+          </p>
+        </main>
+        <aside>Right Sidebar</aside>
+        <footer>Footer</footer>
+      </div>
+  - name: styles.css
+    type: css
+    code: |
+      /* CSS Reset (Lightweight) */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        line-height: 1.6;
+        background: #0f172a; /* slate-900 */
+        color: #0f172a;
+      }
+
+      /* Design Tokens */
+      :root {
+        --sidebar-width: 220px;
+        --layout-gap: 1rem;
+
+        --color-header: #6366f1; /* indigo */
+        --color-nav: #22c55e; /* green */
+        --color-main: #f8fafc; /* slate-50 */
+        --color-aside: #f59e0b; /* amber */
+        --color-footer: #0ea5e9; /* sky */
+
+        --radius: 0.75rem;
+        --shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Holy Grail Grid */
+      .holy-grail-wrapper {
+        display: grid;
+        grid-template-areas:
+          "header header header"
+          "nav main side"
+          "footer footer footer";
+        grid-template-columns: var(--sidebar-width) 1fr var(--sidebar-width);
+        grid-template-rows: auto 1fr auto;
+
+        min-height: 100vh;
+        gap: var(--layout-gap);
+        padding: var(--layout-gap);
+      }
+
+      /* Layout Regions */
+      header,
+      nav,
+      main,
+      aside,
+      footer {
+        padding: 1.25rem;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      /* Header */
+      header {
+        grid-area: header;
+        background: var(--color-header);
+        color: white;
+        font-weight: 600;
+      }
+
+      /* Navigation */
+      nav {
+        grid-area: nav;
+        background: var(--color-nav);
+        color: #052e16;
+        font-weight: 500;
+      }
+
+      /* Main Content */
+      main {
+        grid-area: main;
+        background: var(--color-main);
+      }
+
+      main h1 {
+        margin-top: 0;
+      }
+
+      /* Right Sidebar */
+      aside {
+        grid-area: side;
+        background: var(--color-aside);
+        color: #451a03;
+        font-weight: 500;
+      }
+
+      /* Footer */
+      footer {
+        grid-area: footer;
+        background: var(--color-footer);
+        color: #082f49;
+        font-weight: 500;
+        text-align: center;
+      }
+
+      /* Mobile Layout */
+      @media (max-width: 768px) {
+        .holy-grail-wrapper {
+          grid-template-areas:
+            "header"
+            "main"
+            "nav"
+            "side"
+            "footer";
+          grid-template-columns: 1fr;
+        }
+      }
