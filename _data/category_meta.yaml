@@ -7,3 +7,6 @@ javascript:
 animations:
   title: Web Animations Masterclass (CSS, JS, SVG, and Spring)
   description: Dive into web animations! Explore tutorials and guides on CSS transitions, JavaScript-powered effects, SVG animation, spring physics, and performance optimization for stunning UI/UX.
+svg:
+  title: Mastering Scalable Vector Graphics (SVG) for the Web
+  description: Build sharp, resolution-independent web graphics. Explore tutorials on SVG ranging from coordinate systems and basic shapes to advanced path manipulation, complex animations, and performance-driven vector techniques.
