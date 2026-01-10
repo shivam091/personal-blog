@@ -1,0 +1,524 @@
+shared_styles: &shared_css |
+  [data-theme="light"] {
+    --color-bg-default: hsl(0 0% 100%);
+    --color-bg-muted: hsl(210 29% 97%);
+    --color-fg-default: hsl(222 22% 5%);
+    --color-fg-muted: hsl(225 15% 50%);
+    --color-fg-accent: hsl(212 92% 43%);
+    --color-fg-accent-muted: hsl(200 40% 27%);
+    --color-border-default: hsl(210 21% 88%);
+    --color-bg-scrollbar: hsl(0 0% 100%);
+    --color-bg-scrollbar-thumb: hsl(210 30% 55%);
+    --color-bg-scrollbar-thumb-hover: hsl(225 7% 60%);
+  }
+  [data-theme="soft-dark"] {
+    --color-bg-default: hsl(212 18% 16%);
+    --color-bg-muted: hsl(218 17% 18%);
+    --color-fg-default: hsl(216 19% 85%);
+    --color-fg-muted: hsl(214 8% 60%);
+    --color-fg-accent: hsl(214 76% 59%);
+    --color-fg-accent-muted: hsl(210 100% 82%);
+    --color-border-default: hsl(214 12% 27%);
+    --color-bg-scrollbar: hsl(215 19% 15%);
+    --color-bg-scrollbar-thumb: hsl(220 21% 30%);
+    --color-bg-scrollbar-thumb-hover: hsl(220 20% 38%);
+  }
+  [data-theme="dark"] {
+    --color-bg-default: hsl(210 15% 6%);
+    --color-bg-muted: hsl(213 20% 10%);
+    --color-fg-default: hsl(210 10% 90%);
+    --color-fg-muted: hsl(210 12% 60%);
+    --color-fg-accent: hsl(213 85% 60%);
+    --color-fg-accent-muted: hsl(199 42% 78%);
+    --color-border-default: hsl(213 12% 24%);
+    --color-bg-scrollbar: hsl(216 14% 6%);
+    --color-bg-scrollbar-thumb: hsl(215 23% 20%);
+    --color-bg-scrollbar-thumb-hover: hsl(215 23% 35%);
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-bg-scrollbar-thumb) var(--color-bg-scrollbar)
+  }
+  body {
+    font-family: system-ui, sans-serif;
+    background: var(--color-bg-default);
+    color: var(--color-fg-default);
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  /* Canvas Area */
+  .canvas {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    position: relative;
+  }
+  .canvas::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(var(--color-fg-muted) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.4;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    max-width: 350px;
+    max-height: 350px;
+    background: var(--color-bg-muted);
+    border: 1px solid var(--color-border-default)
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  /* Controls Area */
+  .controls {
+    background: var(--color-bg-muted);
+    border-top: 1px solid var(--color-border-default);
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 24px;
+    overflow-y: auto;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .field label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .range-value {
+    color: var(--color-fg-accent);
+    font-family: monospace;
+    background: var(--color-bg-default);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+  }
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--color-bg-default);
+    border-radius: 3px;
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--color-fg-accent);
+    border: 3px solid var(--color-border-default);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+  }
+shared_logic: &shared_js |
+  const shape = document.getElementById("target");
+  document.querySelectorAll("input[type='range']").forEach(input => {
+    input.addEventListener("input", (e) => {
+      const val = e.target.value;
+      const attr = e.target.id;
+
+      shape.setAttribute(attr, val);
+
+      const display = e.target.parentElement.querySelector(".range-value");
+      if (display) display.textContent = val;
+    });
+  });
+
+line_demo:
+  title: "Interactive Example - Line"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <line id="target" x1="10" y1="10" x2="90" y2="90" stroke="#6366f1" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="x1">x1:<span class="range-value">10</span></label>
+          <input type="range" id="x1" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label for="y1">y1:<span class="range-value">10</span></label>
+          <input type="range" id="y1" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label for="x2">x2:<span class="range-value">90</span></label>
+          <input type="range" id="x2" min="0" max="100" value="90">
+        </div>
+        <div class="field">
+          <label for="y2">y2:<span class="range-value">90</span></label>
+          <input type="range" id="y2" min="0" max="100" value="90">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js: *shared_js
+
+rect_demo:
+  title: "Interactive Example - Rectangle"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <rect id="target" x="15" y="15" width="70" height="50" rx="10" ry="10" fill="#6366f1" fill-opacity="0.2" stroke="#4338ca" stroke-width="2" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="x">x:<span class="range-value">15</span></label>
+          <input type="range" id="x" min="0" max="100" value="15">
+        </div>
+        <div class="field">
+          <label for="y">y:<span class="range-value">15</span></label>
+          <input type="range" id="y" min="0" max="100" value="15">
+        </div>
+        <div class="field">
+          <label for="width">width:<span class="range-value">70</span></label>
+          <input type="range" id="width" min="1" max="100" value="70">
+        </div>
+        <div class="field">
+          <label for="height">height:<span class="range-value">50</span></label>
+          <input type="range" id="height" min="1" max="100" value="50">
+        </div>
+        <div class="field">
+          <label for="rx">rx (horizontal radius):<span class="range-value">10</span></label>
+          <input type="range" id="rx" min="1" max="50" value="10">
+        </div>
+        <div class="field">
+          <label for="ry">ry (vertical radius):<span class="range-value">10</span></label>
+          <input type="range" id="ry" min="1" max="50" value="10">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js: *shared_js
+
+circle_demo:
+  title: "Interactive Example - Circle"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <circle id="target" cx="50" cy="50" r="30" fill="#f43f5e" fill-opacity="0.2" stroke="#be123c" stroke-width="2" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="cx">cx (center x):<span class="range-value">50</span></label>
+          <input type="range" id="cx" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label for="cy">cy (center y):<span class="range-value">50</span></label>
+          <input type="range" id="cy" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label for="r">r (radius):<span class="range-value">30</span></label>
+          <input type="range" id="r" min="1" max="50" value="30">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js: *shared_js
+
+ellipse_demo:
+  title: "Interactive Example - Ellipse"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <ellipse id="target" cx="50" cy="50" rx="40" ry="25" fill="#ec4899" fill-opacity="0.2" stroke="#be185d" stroke-width="2" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="cx">cx (center x):<span class="range-value">50</span></label>
+          <input type="range" id="cx" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label for="cy">cy (center y):<span class="range-value">50</span></label>
+          <input type="range" id="cy" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label for="rx">rx (horizontal radius):<span class="range-value">40</span></label>
+          <input type="range" id="rx" min="1" max="50" value="40">
+        </div>
+        <div class="field">
+          <label for="ry">ry (vertical radius):<span class="range-value">25</span></label>
+          <input type="range" id="ry" min="1" max="50" value="25">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js: *shared_js
+
+polyline_demo:
+  title: "Interactive Example - Polyline"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <polyline id="target" points="20,80 50,20 80,80" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="x1">x (start):<span class="range-value">20</span></label>
+          <input type="range" id="x1" data-index="0" data-axis="x" min="0" max="100" value="20">
+        </div>
+        <div class="field">
+          <label for="y1">y (start):<span class="range-value">80</span></label>
+          <input type="range" id="y1" data-index="0" data-axis="y" min="0" max="100" value="80">
+        </div>
+        <div class="field">
+          <label for="x2">x (apex):<span class="range-value">50</span></label>
+          <input type="range" id="x2" data-index="1" data-axis="x" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label for="y2">y (apex):<span class="range-value">20</span></label>
+          <input type="range" id="y2" data-index="1" data-axis="y" min="0" max="100" value="20">
+        </div>
+        <div class="field">
+          <label for="x3">x (end):<span class="range-value">80</span></label>
+          <input type="range" id="x3" data-index="2" data-axis="x" min="0" max="100" value="80">
+        </div>
+        <div class="field">
+          <label for="y3">y (end):<span class="range-value">80</span></label>
+          <input type="range" id="y3" data-index="2" data-axis="y" min="0" max="100" value="80">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js: |
+    const shape = document.getElementById("target");
+    const points = [[20, 80], [50, 20], [80, 80]];
+    document.querySelectorAll("input").forEach(input => {
+      input.addEventListener("input", (e) => {
+        const idx = parseInt(e.target.dataset.index);
+        const axis = e.target.dataset.axis === "x" ? 0 : 1;
+        points[idx][axis] = e.target.value;
+
+        // Update the SVG attribute
+        shape.setAttribute("points", points.map(p => p.join(",")).join(" "));
+
+        // Update the UI label
+        e.target.parentElement.querySelector(".range-value").textContent = e.target.value;
+      });
+    });
+
+polygon_demo:
+  title: "Interactive Example - Polygon"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <polygon id="target" points="50,15 85,85 15,85" fill="#f59e0b" fill-opacity="0.2" stroke="#b45309" stroke-width="2" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="x1">x (top vertex):<span class="range-value">50</span></label>
+          <input type="range" id="x1" data-index="0" data-axis="x" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label for="y1">y (top vertex):<span class="range-value">15</span></label>
+          <input type="range" id="y1" data-index="0" data-axis="y" min="0" max="100" value="15">
+        </div>
+        <div class="field">
+          <label for="x2">x (right vertex):<span class="range-value">85</span></label>
+          <input type="range" id="x2" data-index="1" data-axis="x" min="0" max="100" value="85">
+        </div>
+        <div class="field">
+          <label for="y2">y (right vertex):<span class="range-value">85</span></label>
+          <input type="range" id="y2" data-index="1" data-axis="y" min="0" max="100" value="85">
+        </div>
+        <div class="field">
+          <label for="x3">x (left vertex):<span class="range-value">15</span></label>
+          <input type="range" id="x3" data-index="2" data-axis="x" min="0" max="100" value="15">
+        </div>
+        <div class="field">
+          <label for="y3">y (left vertex):<span class="range-value">85</span></label>
+          <input type="range" id="y3" data-index="2" data-axis="y" min="0" max="100" value="85">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js: |
+    const shape = document.getElementById("target");
+    const points = [[50, 15], [85, 85], [15, 85]];
+    document.querySelectorAll("input").forEach(input => {
+      input.addEventListener("input", (e) => {
+        const idx = parseInt(e.target.dataset.index);
+        const axis = e.target.dataset.axis === "x" ? 0 : 1;
+        points[idx][axis] = e.target.value;
+
+        shape.setAttribute("points", points.map(p => p.join(",")).join(" "));
+        e.target.parentElement.querySelector(".range-value").textContent = e.target.value;
+      });
+    });
+
+linecap_demo:
+  title: "Interactive Example - Linecap"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <line x1="20" y1="50" x2="80" y2="50" stroke="var(--color-border-default)" stroke-width="1" />
+          <line id="target" x1="20" y1="50" x2="80" y2="50" stroke="#6366f1" stroke-width="12" stroke-linecap="butt" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field" style="grid-column: span 2;">
+          <label for="linecap-slider">stroke-linecap: <span class="range-value">butt</span></label>
+          <input type="range" id="linecap-slider" min="0" max="2" value="0" step="1">
+          <div style="display: flex; justify-content: space-between; font-size: 10px; margin-top: 4px; opacity: 0.6;">
+            <span>butt</span>
+            <span>round</span>
+            <span>square</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js: |
+    const shape = document.getElementById("target");
+    const caps = ["butt", "round", "square"];
+    document.getElementById("linecap-slider").addEventListener("input", (e) => {
+      const val = caps[e.target.value];
+      shape.setAttribute("stroke-linecap", val);
+      document.querySelector(".range-value").textContent = val;
+    });
+
+linejoin_demo:
+  title: "Interactive Example - Linejoin"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <polyline id="target" points="20,60 50,20 80,60" fill="none" stroke="#10b981" stroke-width="15" stroke-linejoin="miter" stroke-linecap="square" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="linejoin-slider">stroke-linejoin: <span id="join-val" class="range-value">miter</span></label>
+          <input type="range" id="linejoin-slider" min="0" max="2" value="0" step="1">
+        </div>
+        <div class="field">
+          <label for="width-slider">stroke-width: <span id="width-val" class="range-value">15</span></label>
+          <input type="range" id="width-slider" min="1" max="30" value="15">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js: |
+    const shape = document.getElementById("target");
+    const joins = ["miter", "round", "bevel"];
+
+    document.getElementById("linejoin-slider").addEventListener("input", (e) => {
+      const val = joins[e.target.value];
+      shape.setAttribute("stroke-linejoin", val);
+      document.getElementById("join-val").textContent = val;
+    });
+
+    document.getElementById("width-slider").addEventListener("input", (e) => {
+      shape.setAttribute("stroke-width", e.target.value);
+      document.getElementById("width-val").textContent = e.target.value;
+    });
+
+radar_demo:
+  element: "group-transform"
+  title: "Interactive Example - Radar Scanner"
+  css:
+    - *shared_css
+    - |
+      #radar-beam {
+        fill: span;
+        fill: url(#beamGradient);
+        transform-box: fill-box;
+        transform-origin: bottom center;
+      }
+      .grid-line {
+        stroke: var(--color-fg-accent);
+        opacity: 0.2;
+      }
+  js: |
+    const beam = document.getElementById("radar-group");
+    const speedSlider = document.getElementById("speed");
+    const pulseSlider = document.getElementById("pulse");
+    const circle = document.getElementById("pulse-circle");
+
+    let angle = 0;
+    function animate() {
+      angle = (angle + parseFloat(speedSlider.value)) % 360;
+      beam.setAttribute("transform", `rotate(${angle} 50 50)`);
+
+      // Pulse effect
+      const s = 1 + Math.sin(Date.now() * 0.005) * (pulseSlider.value / 100);
+      circle.setAttribute("transform", `translate(50 50) scale(${s}) translate(-50 -50)`);
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    speedSlider.addEventListener("input", (e) => {
+      document.getElementById("speed-val").textContent = e.target.value;
+    });
+    pulseSlider.addEventListener("input", (e) => {
+      document.getElementById("pulse-val").textContent = e.target.value;
+    });
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="beamGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="var(--color-fg-accent)" stop-opacity="0" />
+              <stop offset="100%" stop-color="var(--color-fg-accent)" stop-opacity="0.6" />
+            </linearGradient>
+          </defs>
+
+          <circle cx="50" cy="50" r="40" fill="none" class="grid-line" stroke-width="0.5" />
+          <circle cx="50" cy="50" r="25" fill="none" class="grid-line" stroke-width="0.5" />
+          <line x1="10" y1="50" x2="90" y2="50" class="grid-line" stroke-width="0.5" />
+          <line x1="50" y1="10" x2="50" y2="90" class="grid-line" stroke-width="0.5" />
+
+          <circle id="pulse-circle" cx="50" cy="50" r="5" fill="var(--color-fg-accent)" opacity="0.5" />
+
+          <g id="radar-group">
+            <path id="radar-beam" d="M50,50 L50,10 A40,40 0 0,1 90,50 Z" fill="url(#beamGradient)" />
+            <line x1="50" y1="50" x2="50" y2="10" stroke="var(--color-fg-accent)" stroke-width="1" stroke-linecap="round" />
+          </g>
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="speed">Rotation Speed: <span id="speed-val" class="range-value">2</span></label>
+          <input type="range" id="speed" min="0" max="10" step="0.5" value="2">
+        </div>
+        <div class="field">
+          <label for="pulse">Pulse Intensity: <span id="pulse-val" class="range-value">20</span></label>
+          <input type="range" id="pulse" min="0" max="100" value="20">
+        </div>
+      </div>
+    </div>
