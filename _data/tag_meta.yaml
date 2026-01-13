@@ -154,3 +154,21 @@ coordinate-system:
 viewbox:
   title: Mastering the SVG viewBox and Scaling
   description: Learn how to use the viewBox attribute to define virtual coordinate grids (User Units) and create graphics that scale perfectly in any container.
+keyframes:
+  title: Mastering CSS @keyframes for Complex Animations
+  description: Comprehensive guides on using the CSS `@keyframes` rule to create complex, multi-stage, and iterative animations with precise control over style changes.
+gpu-performance:
+  title: GPU Performance Optimization for Web Motion
+  description: Techniques and best practices for leveraging the Graphics Processing Unit (GPU) to achieve faster, smoother, and non-janky animations in the browser.
+multi-step:
+  title: Creating Multi-Step and Sequential Animations
+  description: Tutorials on building complex animation sequences that execute in distinct, ordered steps, often using `@keyframes` and precise timing functions.
+web-motion:
+  title: Principles and Techniques of Web Motion Design
+  description: Articles dedicated to the art and science of adding movement to web interfaces, covering animation theory, user experience, and visual communication.
+scroll-animation:
+  title: Implementing Scroll-Triggered Web Animations
+  description: Guides on creating dynamic animations that are directly controlled by the user's scroll position, perfect for unique storytelling and interactive experiences.
+view-timeline:
+  title: Utilizing the CSS `view-timeline` for Scroll-Driven Effects
+  description: Deep dive into the experimental CSS `view-timeline` property for defining precise timelines based on an element's visibility within a scroll container.

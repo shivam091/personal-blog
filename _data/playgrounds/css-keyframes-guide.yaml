@@ -1,0 +1,361 @@
+id: css-keyframes-guide
+name: Demostrating CSS Keyframe Animations
+url: "https://codepen.io/shivam091/pen/myPyOBy"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <div class="playground-container">
+        <div class="demo-area">
+          <div id="animated-box" class="box-animate"></div>
+        </div>
+
+        <div class="controls-grid property-grid">
+          <label for="duration-input">Duration (s):</label>
+          <input type="number" id="duration-input" min="0.1" max="5" step="0.1" value="1.5">
+
+          <label for="iteration-input">Iteration Count:</label>
+          <select id="iteration-input">
+            <option value="1">1 (Once)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="infinite" selected>infinite</option>
+          </select>
+
+          <label for="delay-input">Delay (s):</label>
+          <input type="number" id="delay-input" min="-2" max="3" step="0.1" value="0">
+
+          <label for="direction-select">Direction:</label>
+          <select id="direction-select">
+            <option value="normal" selected>normal</option>
+            <option value="reverse">reverse</option>
+            <option value="alternate">alternate</option>
+            <option value="alternate-reverse">alternate-reverse</option>
+          </select>
+
+          <label for="fill-mode-select">Fill Mode:</label>
+          <select id="fill-mode-select">
+            <option value="none" selected>none</option>
+            <option value="forwards">forwards</option>
+            <option value="backwards">backwards</option>
+            <option value="both">both</option>
+          </select>
+
+          <label for="play-state-select">Play State:</label>
+          <select id="play-state-select">
+            <option value="running" selected>running</option>
+            <option value="paused">paused</option>
+          </select>
+        </div>
+
+        <div class="controls-grid timing-function-grid">
+          <label>Timing Function:</label>
+          <div class="radio-group">
+            <label for="timing-preset"><input type="radio" id="timing-preset" name="timing-type" value="preset" checked> Preset</label>
+
+            <label for="timing-bezier"><input type="radio" id="timing-bezier" name="timing-type" value="bezier"> Bezier</label>
+
+            <label for="timing-steps"><input type="radio" id="timing-steps" name="timing-type" value="steps"> Steps</label>
+          </div>
+        </div>
+
+        <div id="timing-options-container">
+          <div id="preset-options" class="timing-group active-group">
+            <label for="timing-select-preset">Select Preset:</label>
+            <select id="timing-select-preset">
+              <option value="ease" selected>ease</option>
+              <option value="linear">linear</option>
+              <option value="ease-in">ease-in</option>
+              <option value="ease-out">ease-out</option>
+              <option value="ease-in-out">ease-in-out</option>
+            </select>
+          </div>
+
+          <div id="bezier-options" class="timing-group">
+            <label for="bezier-x1">x1:</label><input type="number" id="bezier-x1" min="-2" max="2" step="0.1" value="0.17">
+            <label for="bezier-y1">y1:</label><input type="number" id="bezier-y1" min="-2" max="2" step="0.1" value="0.67">
+            <label for="bezier-x2">x2:</label><input type="number" id="bezier-x2" min="-2" max="2" step="0.1" value="0.83">
+            <label for="bezier-y2">y2:</label><input type="number" id="bezier-y2" min="-2" max="2" step="0.1" value="0.67">
+            <div class="tip">Try (0.1, 0.7, 1, 0.1) for a fast start.</div>
+          </div>
+
+          <div id="steps-options" class="timing-group">
+            <label for="steps-count">Steps count:</label>
+            <input type="number" id="steps-count" min="1" max="10" value="5">
+            <label for="steps-direction">Direction:</label>
+            <select id="steps-direction">
+              <option value="jump-end">jump-end (default)</option>
+              <option value="jump-start">jump-start</option>
+              <option value="jump-none">jump-none</option>
+              <option value="jump-both">jump-both</option>
+              <option value="start">start (classic)</option>
+              <option value="end">end (classic)</option>
+            </select>
+            <div class="tip">
+              Use "start" to display first step immediately.
+            </div>
+          </div>
+        </div>
+        <button id="restart-btn">Restart Animation</button>
+      </div>
+  - name: style.css
+    type: css
+    code: |
+      /* Container and Layout */
+      .playground-container {
+        width: 100%;
+        max-width: 760px;
+        margin: 40px auto;
+        padding: 28px;
+        background: #fff;
+        border-radius: 1rem;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.08);
+        font-family: system-ui, sans-serif;
+      }
+      .demo-area {
+        height: 190px;
+        border-radius: 0.75rem;
+        border: 1px dashed #adb5bd;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-inline: 24px;
+        margin-bottom: 1.5rem;
+        background: #f8f9fa;
+      }
+      /* Controls Grids */
+      .property-grid {
+        grid-template-columns: auto 1fr auto 1fr;
+      }
+      .timing-function-grid {
+        grid-template-columns: auto 1fr;
+        padding-bottom: 0;
+      }
+      .controls-grid {
+        display: grid;
+        gap: 10px 20px;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      /* Radio Button Group Styling */
+      .radio-group {
+        display: flex;
+        gap: 15px;
+      }
+      .radio-group label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+      }
+
+      /* Timing Options Container */
+      #timing-options-container {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        background: #f8f9fa;
+      }
+      .tip {
+        grid-column: 1 / -1;
+        margin-top: -4px;
+        font-size: 0.85rem;
+        color: #6c757d;
+      }
+      /* Individual Timing Groups (for Cubic-Bezier and Steps) */
+      .timing-group {
+        display: none;
+        grid-template-columns: repeat(4, auto 1fr);
+        gap: 10px;
+        padding: 10px 0;
+        align-items: center;
+      }
+      .timing-group.active-group {
+        display: grid;
+      }
+      #steps-options {
+        grid-template-columns: auto 1fr auto 1fr;
+      }
+      #preset-options {
+        grid-template-columns: auto 1fr;
+      }
+      /* Labels */
+      label {
+        font-size: 0.95rem;
+        color: #495057;
+        font-weight: 500;
+      }
+
+      /* Inputs and Selects */
+      input[type="number"],
+      select {
+        padding: 0.6rem 0.75rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ced4da;
+        background: #fff;
+        font-size: 0.95rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        outline: none;
+      }
+
+      /* The Animated Box */
+      #animated-box {
+        width: 50px;
+        height: 50px;
+        background-color: #007bff;
+        border-radius: 6px;
+        /* Use will-change to hint for performance */
+        will-change: transform, background-color;
+      }
+
+      /* --- CORE KEYFRAMES DEFINITION --- */
+      @keyframes stretch-and-color {
+        /* Use 'from' and 'to' keywords */
+        from {
+          transform: translateX(0) rotate(0deg);
+          background-color: #007bff; /* Blue */
+        }
+
+        30% {
+          transform: translateX(180px) rotate(45deg) scaleX(1.5);
+          background-color: #ffc107; /* Yellow */
+        }
+
+        70% {
+          transform: translateX(360px) rotate(135deg) scaleY(1.5);
+          background-color: #dc3545; /* Red */
+        }
+
+        to {
+          transform: translateX(530px) rotate(180deg);
+          background-color: #20c997; /* Green */
+        }
+      }
+
+      /* Class to apply the animation (will be modified by JS) */
+      .box-animate {
+        animation-name: stretch-and-color;
+        /* Initial animation properties set by JS */
+      }
+
+      /* Button */
+      #restart-btn {
+        margin-top: 1.5rem;
+        width: 100%;
+        padding: 14px;
+        background: #0d6efd;
+        color: #fff;
+        font-size: 1.05rem;
+        font-weight: 500;
+        border: none;
+        border-radius: 0.6rem;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.15s ease;
+      }
+
+      #restart-btn:hover {
+        background: #3700b3;
+      }
+
+      .restart-btn:active {
+        transform: scale(0.98);
+      }
+
+      /* Media Query for Responsiveness */
+      @media (max-width: 650px) {
+        @keyframes stretch-and-color {
+          from {
+            transform: translateX(0) rotate(0deg);
+          }
+          30% {
+            transform: translateX(30vw) rotate(45deg) scaleX(1.5);
+          }
+          70% {
+            transform: translateX(60vw) rotate(135deg) scaleY(1.5);
+          }
+          to {
+            transform: translateX(80vw) rotate(180deg);
+          }
+        }
+        .property-grid {
+          grid-template-columns: auto 1fr;
+        }
+        .timing-group {
+          grid-template-columns: auto 1fr;
+        }
+      }
+  - name: script.js
+    type: js
+    code: |
+      document.addEventListener("DOMContentLoaded", () => {
+        const box = document.getElementById("animated-box");
+        const restartBtn = document.getElementById("restart-btn");
+        const cssDisplay = document.getElementById("css-code-display");
+
+        const inputs = document.querySelectorAll("input, select");
+        const timingRadios = document.querySelectorAll('input[name="timing-type"]');
+
+        function getTiming() {
+          const type = document.querySelector('input[name="timing-type"]:checked')
+            .value;
+          if (type === "preset")
+            return document.getElementById("timing-select-preset").value;
+          if (type === "bezier") {
+            const vals = ["bezier-x1", "bezier-y1", "bezier-x2", "bezier-y2"].map(
+              (id) => document.getElementById(id).value
+            );
+            return `cubic-bezier(${vals.join(",")})`;
+          }
+          return `steps(${document.getElementById("steps-count").value}, ${
+            document.getElementById("steps-direction").value
+          })`;
+        }
+
+        function update() {
+          const config = {
+            duration: document.getElementById("duration-input").value + "s",
+            delay: document.getElementById("delay-input").value + "s",
+            timing: getTiming(),
+            iteration: document.getElementById("iteration-input").value,
+            direction: document.getElementById("direction-select").value,
+            fill: document.getElementById("fill-mode-select").value,
+            state: document.getElementById("play-state-select").value
+          };
+
+          const shorthand = `stretch-and-color ${config.duration} ${config.timing} ${config.delay} ${config.iteration} ${config.direction} ${config.fill} ${config.state}`;
+          box.style.animation = shorthand;
+        }
+
+        inputs.forEach((i) =>
+          i.addEventListener("input", () => {
+            if (i.name === "timing-type") {
+              document
+                .querySelectorAll(".timing-group")
+                .forEach((g) => g.classList.remove("active-group"));
+              document
+                .getElementById(i.value + "-options")
+                .classList.add("active-group");
+            }
+            update();
+          })
+        );
+
+        restartBtn.addEventListener("click", () => {
+          box.style.animation = "none";
+          void box.offsetWidth;
+          update();
+        });
+
+        update();
+      });
