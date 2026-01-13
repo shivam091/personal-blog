@@ -13,6 +13,10 @@ image:
   height: 940
   alt: Visual guide using abstract geometric shapes to demonstrate ease-in-out and linear CSS transition functions.
 changelog:
+  - date: 2026-01-13
+    change: |
+      Added link to navigate to 'Keyframes Vs. Transitions' section of
+      'An Interactive Guide to CSS Keyframes' post and added playground
   - date: 2025-11-11
     change: "Initial publication"
 toc:
@@ -333,6 +337,14 @@ Modern browsers optimize animations using the `will-change` property. It hints t
 
 Use sparingly — excessive `will-change` declarations force the browser to immediately allocate memory and GPU resources (*layer creation*), which can increase **memory usage** and reduce performance across the rest of the page. **Only apply `will-change` just before the transition is about to occur and remove it immediately after, if possible, to avoid continuous memory use.**
 
+## Interactive Example
+
+Reading about timing functions is one thing, but feeling them is another. Use this interactive playground to experiment
+with different easing curves and durations. Notice how a slight change in the `cubic-bezier` coordinates can turn a
+robotic movement into a snappy, organic interaction.
+
+{% playground id:"css-transitions-guide" line_numbers:"on" %}
+
 ## Best Practices
 
 **Optimal Duration is Key:** Aim for short durations, typically between **150–500ms**, for user interface (UI) interactions. Transitions faster than **150ms** can be missed, and those slower than **500ms** can feel sluggish. 🐢
@@ -350,6 +362,9 @@ Use sparingly — excessive `will-change` declarations force the browser to imme
 ## Conclusion
 
 CSS transitions are a lightweight, intuitive way to animate **state changes**. By using them correctly, particularly by leveraging **GPU-accelerated properties** like `transform` and `opacity`, you can ensure your UI motion is smooth, responsive, and performant. Understanding all `transition-*` properties, the nuances of timing functions, and strategically using `will-change` provides the control you need. Master them, and you’ll build a strong foundation for crafting delightful micro-interactions and tackling more advanced CSS animations.
+
+While transitions are excellent for simple, state-driven changes, complex motion that requires more than two steps, looping, or
+scroll-linking necessitates CSS Keyframe Animations. For a full feature comparison, see the **Keyframes vs. Transitions** Comparison Table in my **[An Interactive Guide to CSS Keyframes](/post/css-keyframes-guide#keyframes-vs-transitions)** post.
 
 **Key Takeaways:**
 
