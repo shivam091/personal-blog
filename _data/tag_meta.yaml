@@ -44,8 +44,17 @@ operators:
   title: A Complete Guide to JavaScript Operators
   description: A complete guide to JavaScript operators, including arithmetic, assignment, comparison, logical, and unary operators.
 javascript:
-  title: "Modern JavaScript Development and Logic"
-  description: All posts covering JavaScript, from core syntax and ES6+ features to DOM manipulation and scripting dynamic SVG behaviors.
+  title: "JavaScript: The Full Guide to Modern DevelopmentLogic"
+  description: "Comprehensive resources covering the entire JavaScript ecosystem, from foundational syntax and logic to advanced runtime execution and modern web patterns."
+async-javascript:
+  title: "Asynchronous Programming and Concurrency in JS"
+  description: "Mastering the non-blocking nature of JavaScript. Guides on managing time-sensitive operations, the event loop, and evolving patterns for handling asynchronous data."
+modern-js:
+  title: "Modern JavaScript (ES6+) and Future Standards"
+  description: "Stay updated with the latest ECMAScript features and modern development workflows that enhance code efficiency, readability, and maintainability."
+js-fundamentals:
+  title: "JavaScript Core Fundamentals and Logic"
+  description: "Detailed breakdowns of JavaScript syntax, operators, and core programming principles that form the backbone of scalable frontend engineering."
 tutorial:
   title: Step-by-Step Programming Tutorials
   description: Step-by-step instructional guides to help you learn and implement specific web development techniques and concepts.
@@ -256,3 +265,21 @@ web-performance:
 ui-animation:
   title: Designing Purposeful Animation for User Interfaces
   description: Focus on using motion to improve UX—providing feedback, guiding user attention, and communicating state changes through meaningful UI transitions.
+async:
+  title: Asynchronous Programming in JavaScript
+  description: Master the art of non-blocking code. Explore how JavaScript handles concurrent operations, network requests, and background tasks to keep your applications responsive.
+callbacks:
+  title: "JavaScript Callbacks: From Basics to Callback Hell"
+  description: Understand the foundational pattern of async JS. Learn about error-first callbacks, anonymous functions, and strategies to avoid the pitfalls of deeply nested "callback hell."
+promises:
+  title: "Mastering JavaScript Promises: Chaining and Composition"
+  description: Deep dive into the Promise API. Explore states (pending, fulfilled, rejected), chaining techniques, and utility methods like Promise.all, race, and allSettled for robust async logic.
+async-await:
+  title: Clean Async Code with Async/Await
+  description: Use ES2017 syntactic sugar to write asynchronous code that reads like synchronous logic. Master try/catch error handling, top-level await, and refactoring promise chains.
+event-loop:
+  title: Decoding the JavaScript Event Loop and Runtime
+  description: A technical look at how the JavaScript engine executes code. Understand the relationship between the Call Stack, Web APIs, and the Task Queues that power non-blocking I/O.
+microtasks:
+  title: "Task Prioritization: Microtasks vs. Macrotasks"
+  description: Learn why Promises execute before SetTimeout. Master the microtask queue, the queueMicrotask() API, and how to avoid "event loop starvation" in high-performance apps.
