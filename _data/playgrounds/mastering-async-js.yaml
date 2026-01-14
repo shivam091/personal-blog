@@ -1,0 +1,505 @@
+id: mastering-async-js
+name: Demostrating CSS Gradient Text Colors
+url: "https://codepen.io/shivam091/pen/MYevxez"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <div class="container">
+        <h1>Async JS Master Playground</h1>
+        <div class="controls">
+          <button onclick="runEventLoopDemo()">1. Event Loop Challenge</button>
+          <button onclick="runParallelDemo()">2. Serial vs Parallel</button>
+          <button onclick="runRetryDemo()">3. Exponential Retry</button>
+          <button onclick="runPromisifyDemo()">4. Promisification</button>
+          <button onclick="runAbortDemo()">5. Abort/Cancel Fetch</button>
+          <button onclick="runLoopDemo()">6. forEach vs for...of</button>
+          <button onclick="runStarveDemo()">7. Microtask Starvation</button>
+          <button onclick="runConcurrencyDemo()">8. Concurrency Limit</button>
+          <button onclick="runSettledDemo()">9. Fail-Safe (Settled)</button>
+          <button onclick="runRaceDemo()">10. Promise.race (Timeout)</button>
+          <button onclick="runAnyDemo()">11. Promise.any (Mirrors)</button>
+          <button onclick="runAllDemo()">12. Promise.all (Fail-Fast)</button>
+          <button onclick="runAllSettledDemo()">13. Promise.allSettled (Resilient)</button>
+          <button onclick="runIIFEDemo()">14. Async IIFE (Self-Starter)</button>
+        </div>
+
+        <div id="console-output" class="terminal">
+          <span class="prompt"></span>
+        </div>
+      </div>
+  - name: variables.css
+    type: css
+    code: |
+      :root {
+        --gradient-start: #ff6a00;
+        --gradient-end: #ee0979;
+      }
+  - name: style.css
+    type: css
+    code: |
+      body {
+        font-family: system-ui, -apple-system;
+        background: #f4f7f6;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      .container h1 {
+        text-align: center;
+      }
+      .controls {
+        display: grid;
+        align-items: center;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      button {
+        padding: 0.5rem 0.75rem;
+        border: none;
+        border-radius: 6px;
+        background: #3b82f6;
+        color: white;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      button:hover {
+        background: #2563eb;
+      }
+      .terminal {
+        background: #1e293b;
+        color: #38bdf8;
+        padding: 20px;
+        border-radius: 8px;
+        font-family: monospace;
+        min-height: 300px;
+        overflow-y: auto;
+        line-height: 1.6;
+      }
+      .log-line {
+        border-bottom: 1px solid #334155;
+        padding: 4px 0;
+        color: #94a3b8;
+      }
+      .meta {
+        color: var(--color-fg-accent);
+        font-size: 0.85rem;
+      }
+      .highlight {
+        color: #fbbf24;
+        font-weight: bold;
+      }
+  - name: script.js
+    type: js
+    code: |
+      const terminal = document.getElementById("console-output");
+
+      function log(message, isMeta = false) {
+        const div = document.createElement("div");
+        div.className = isMeta ? "log-line meta" : "log-line";
+        div.innerHTML = message;
+        terminal.appendChild(div);
+        terminal.scrollTop = terminal.scrollHeight;
+      }
+
+      function clearConsole() {
+        terminal.innerHTML = "";
+      }
+
+      // 1. EVENT LOOP DEMO
+      function runEventLoopDemo() {
+        clearConsole();
+        log("--- Starting Event Loop Challenge ---", true);
+        log("1. [Sync] Start");
+
+        setTimeout(() => log("4. [Macrotask] setTimeout (0ms)"), 0);
+
+        queueMicrotask(() => log("3. [Microtask] queueMicrotask"));
+
+        Promise.resolve().then(() => log("3. [Microtask] Promise.then"));
+
+        log("2. [Sync] End");
+      }
+
+      // 2. SERIAL VS PARALLEL DEMO
+      async function runParallelDemo() {
+        clearConsole();
+        const mockFetch = (id, time) =>
+          new Promise((res) => setTimeout(() => res(`Data ${id}`), time));
+
+        log("--- Comparing Execution Speeds ---", true);
+
+        const startSerial = Date.now();
+        log("Starting Serial (await task1, then await task2)...");
+        await mockFetch("A", 1000);
+        await mockFetch("B", 1000);
+        log(
+          `✅ Serial Finished in: <span class="highlight">${
+            Date.now() - startSerial
+          }ms</span>`
+        );
+
+        const startParallel = Date.now();
+        log("Starting Parallel (Promise.all)...");
+        await Promise.all([mockFetch("C", 1000), mockFetch("D", 1000)]);
+        log(
+          `✅ Parallel Finished in: <span class="highlight">${
+            Date.now() - startParallel
+          }ms</span>`
+        );
+      }
+
+      // 3. RETRY LOGIC WITH EXPONENTIAL BACKOFF
+      async function retry(fn, retries = 3, delay = 1000) {
+        try {
+          return await fn();
+        } catch (e) {
+          if (retries === 0) throw e;
+          log(`⚠️ Attempt failed. Retrying in ${delay}ms... (${retries} left)`, true);
+          await new Promise((resolve) => setTimeout(resolve, delay));
+          return retry(fn, retries - 1, delay * 2);
+        }
+      }
+
+      function runRetryDemo() {
+        clearConsole();
+        log("--- Starting Flaky API Simulation ---", true);
+        let attempts = 0;
+
+        const flakyTask = () =>
+          new Promise((resolve, reject) => {
+            attempts++;
+            attempts < 3 ? reject("Network Error") : resolve("SUCCESS!");
+          });
+
+        retry(flakyTask)
+          .then((res) => log(`Result: <span class="highlight">${res}</span>`))
+          .catch((err) => log(`Final Error: ${err}`));
+      }
+
+      // 4. PROMISIFICATION DEMO
+      function runPromisifyDemo() {
+        clearConsole();
+        log("--- Promisifying a Callback ---", true);
+
+        // Old callback style function
+        const legacyApi = (id, cb) => {
+          setTimeout(() => cb(null, `User_${id}_Data`), 500);
+        };
+
+        // The wrapper
+        const modernApi = (id) =>
+          new Promise((res, rej) => {
+            legacyApi(id, (err, data) => (err ? rej(err) : res(data)));
+          });
+
+        log("Calling promisified API...");
+        modernApi(101).then((data) =>
+          log(`✅ Received: <span class="highlight">${data}</span>`)
+        );
+      }
+
+      // 5. ABORT CONTROLLER DEMO
+      let currentController = null;
+      async function runAbortDemo() {
+        clearConsole();
+        if (currentController) {
+          currentController.abort();
+          log("🚫 Previous request aborted!", true);
+        }
+
+        currentController = new AbortController();
+        log("Fetching data... (Click button again to cancel me)");
+
+        try {
+          // Simulated fetch
+          await new Promise((res, rej) => {
+            const timeout = setTimeout(() => res(log("✅ Fetch completed!")), 2000);
+            currentController.signal.onabort = () => {
+              clearTimeout(timeout);
+              rej(new Error("AbortError"));
+            };
+          });
+        } catch (err) {
+          if (err.message === "AbortError")
+            log("System: Request was successfully cancelled.");
+        } finally {
+          currentController = null;
+        }
+      }
+
+      // 6. ASYNC LOOP DEMO
+      async function runLoopDemo() {
+        clearConsole();
+        const ids = [1, 2, 3];
+        const delayFetch = (id) =>
+          new Promise((res) => setTimeout(() => res(`Item ${id}`), 800));
+
+        log("--- Async Loop Comparison ---", true);
+
+        log("Running forEach (Buggy - starts all at once)...");
+        ids.forEach(async (id) => {
+          const res = await delayFetch(id);
+          log(`forEach result: ${res}`);
+        });
+
+        // Wait a bit before showing the correct way so logs don't mix too much
+        setTimeout(async () => {
+          log("Running for...of (Correct - waits for each)...", true);
+          for (const id of ids) {
+            const res = await delayFetch(id);
+            log(`for...of result: ${res}`);
+          }
+        }, 3000);
+      }
+
+      // 7. MICROTASK STARVATION DEMO (True Starvation)
+      function runStarveDemo() {
+        clearConsole();
+        log("--- Starvation Demo ---", true);
+
+        setTimeout(() => {
+          log("<span class='highlight'>FINALLY! The Macrotask ran.</span>");
+        }, 0);
+
+        log("Starting infinite Microtask recursion...");
+        log(
+          "<i>Note: This demo is limited to 5 seconds to avoid crashing your tab!</i>",
+          true
+        );
+
+        const startTime = Date.now();
+        function infiniteMicrotask() {
+          // If we don't stop this, the 'FINALLY' log above will NEVER appear
+          if (Date.now() - startTime < 5000) {
+            Promise.resolve().then(infiniteMicrotask);
+          } else {
+            log("Stopping recursion after 5s.");
+          }
+        }
+
+        infiniteMicrotask();
+      }
+
+      // 8. CONCURRENCY LIMIT DEMO
+      async function runConcurrencyDemo() {
+        clearConsole();
+        log("--- Concurrency Limit (Max 2 at a time) ---", true);
+
+        const tasks = [1, 2, 3, 4, 5, 6];
+        const limit = 2;
+        const activeTasks = new Set();
+        const results = [];
+
+        log(`Processing ${tasks.length} tasks with limit of ${limit}...`, true);
+
+        for (const id of tasks) {
+          // If we hit the limit, wait for the fastest active task to finish
+          if (activeTasks.size >= limit) {
+            await Promise.race(activeTasks);
+          }
+
+          log(`🚀 Starting Task ${id}`);
+          const promise = (async () => {
+            await new Promise((res) => setTimeout(res, Math.random() * 2000 + 1000));
+            log(`✅ Finished Task ${id}`);
+          })();
+
+          activeTasks.add(promise);
+          // Remove the promise from the set when it finishes
+          promise.finally(() => activeTasks.delete(promise));
+        }
+
+        await Promise.all(activeTasks);
+        log("--- All tasks complete! ---", true);
+      }
+
+      // 9. PROMISE.ALLSETTLED DEMO
+      async function runSettledDemo() {
+        clearConsole();
+        log("--- Promise.allSettled (Partial Failure) ---", true);
+
+        const mockApi = (name, shouldFail) =>
+          new Promise((res, rej) => {
+            setTimeout(() => {
+              shouldFail ? rej(`${name} failed!`) : res(`${name} data`);
+            }, 1500);
+          });
+
+        log("Fetching from 3 sources (one is broken)...");
+
+        const results = await Promise.allSettled([
+          mockApi("User Profile", false),
+          mockApi("Broken Service", true),
+          mockApi("User Settings", false)
+        ]);
+
+        results.forEach((result, i) => {
+          if (result.status === "fulfilled") {
+            log(`Success: <span class="highlight">${result.value}</span>`);
+          } else {
+            log(`Error: <span style="color: #ef4444">${result.reason}</span>`);
+          }
+        });
+
+        log("The app is still running because we handled failures!", true);
+      }
+
+      // 10. PROMISE.RACE (TIMEOUT PATTERN)
+      async function runRaceDemo() {
+        clearConsole();
+        log("--- Promise.race (Request vs Timeout) ---", true);
+
+        const slowRequest = new Promise((res) =>
+          setTimeout(() => res("Safe Data"), 5000)
+        );
+        const timeout = new Promise((_, rej) =>
+          setTimeout(() => rej(new Error("Timeout Exceeded!")), 2000)
+        );
+
+        log("Starting request (will take 5s) with a 2s timeout...");
+
+        try {
+          const result = await Promise.race([slowRequest, timeout]);
+          log(`Result: ${result}`);
+        } catch (err) {
+          log(`❌ Race Lost: <span style="color: #ef4444">${err.message}</span>`);
+          log(
+            "Usage: Use .race when you want the very first settlement, even if it's an error.",
+            true
+          );
+        }
+      }
+
+      // 11. PROMISE.ANY (FIRST SUCCESS PATTERN)
+      async function runAnyDemo() {
+        clearConsole();
+        log("--- Promise.any (Ignore Failures) ---", true);
+
+        const mirrorA = new Promise((_, rej) =>
+          setTimeout(() => rej("Server A Down"), 1000)
+        );
+        const mirrorB = new Promise((res) =>
+          setTimeout(() => res("Data from Server B"), 2500)
+        );
+        const mirrorC = new Promise((_, rej) =>
+          setTimeout(() => rej("Server C Down"), 500)
+        );
+
+        log("Attempting mirrors (A and C will fail, B will eventually succeed)...");
+
+        try {
+          const result = await Promise.any([mirrorA, mirrorB, mirrorC]);
+          log(`✅ Success: <span class="highlight">${result}</span>`);
+          log(
+            "Note: Server C failed first, but .any ignored it and waited for B!",
+            true
+          );
+        } catch (err) {
+          // This only runs if ALL fail
+          log("❌ All servers failed.");
+        }
+      }
+
+      // 12. PROMISE.ALL DEMO (FAIL-FAST)
+      async function runAllDemo() {
+        clearConsole();
+        log("--- Promise.all (The All-or-Nothing Leader) ---", true);
+
+        const task1 = new Promise((res) =>
+          setTimeout(() => res("User Auth: OK"), 1000)
+        );
+        const task2 = new Promise((_, rej) =>
+          setTimeout(() => rej("Database Connection: FAILED"), 1500)
+        );
+        const task3 = new Promise((res) =>
+          setTimeout(() => res("Settings: OK"), 2000)
+        );
+
+        log("Starting 3 tasks. Task #2 will fail at 1.5s...");
+
+        try {
+          const results = await Promise.all([task1, task2, task3]);
+          log(`Result: ${results}`);
+        } catch (err) {
+          log(`❌ Global Failure: <span style="color: #ef4444">${err}</span>`);
+          log(
+            "Note: Even though Task 1 was 'OK', the whole batch was rejected because of Task 2.",
+            true
+          );
+        }
+      }
+
+      // 13. PROMISE.ALLSETTLED DEMO (RESILIENT)
+      async function runAllSettledDemo() {
+        clearConsole();
+        log("--- Promise.allSettled (The Resilient Leader) ---", true);
+
+        const task1 = new Promise((res) =>
+          setTimeout(() => res("Widget A: Loaded"), 1000)
+        );
+        const task2 = new Promise((_, rej) =>
+          setTimeout(() => rej("Widget B: Network Error"), 1500)
+        );
+        const task3 = new Promise((res) =>
+          setTimeout(() => res("Widget C: Loaded"), 2000)
+        );
+
+        log("Starting 3 independent widgets. Widget B will fail...");
+
+        const results = await Promise.allSettled([task1, task2, task3]);
+
+        results.forEach((result, index) => {
+          if (result.status === "fulfilled") {
+            log(
+              `Task ${index + 1}: ✅ <span class="highlight">${result.value}</span>`
+            );
+          } else {
+            log(
+              `Task ${index + 1}: ❌ <span style="color: #ef4444">${
+                result.reason
+              }</span>`
+            );
+          }
+        });
+
+        log(
+          "Conclusion: Every task reached the finish line, regardless of their outcome.",
+          true
+        );
+      }
+
+      // 14. ASYNC IIFE DEMO
+      function runIIFEDemo() {
+        clearConsole();
+        log("--- Async IIFE (Immediately Invoked) ---", true);
+
+        log("Starting the wrapper function...");
+
+        // The IIFE starts here
+        (async () => {
+          log("1. IIFE has started internally.");
+
+          const result = await new Promise((res) =>
+            setTimeout(() => res("Async Data from IIFE"), 1500)
+          );
+
+          log(`2. IIFE received: <span class="highlight">${result}</span>`);
+          log("3. IIFE logic complete.");
+        })();
+
+        log("End of wrapper function (Sync code continues!)");
+        log(
+          "<i>Note how the wrapper finished before the IIFE was done awaiting.</i>",
+          true
+        );
+      }
+
+
