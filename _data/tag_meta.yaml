@@ -220,3 +220,18 @@ bezier-curves:
 web-animation:
   title: "High-Performance Web Animation and Motion"
   description: Techniques for creating engaging web experiences using CSS transitions, @keyframes, and JavaScript-driven motion for SVG and UI elements.
+typography:
+  title: Web Typography and Fluid Font Styling
+  description: Mastering web fonts, fluid typography, and CSS text properties to enhance readability, visual hierarchy, and brand personality across all screen sizes.
+background-clip:
+  title: "Creating Visual Effects with CSS 'background-clip'"
+  description: Deep dive into the background-clip property to create stunning visual effects, including text-masking with gradients and creative border-box backgrounds.
+text-effects:
+  title: Creative CSS Text Effects and Styling Techniques
+  description: Explore advanced techniques for styling text, including shadows, variable font animations, masking, and interactive effects for impactful web typography.
+css-animation:
+  title: Declarative Web Motion with CSS Animations
+  description: Learn to create smooth, performant, and declarative animations using CSS @keyframes and transitions to enhance user interaction and interface storytelling.
+frontend-development:
+  title: Modern Frontend Development Trends and Tools
+  description: Articles covering the broad spectrum of frontend engineering, from architectural patterns and performance optimization to modern browser APIs and development workflows.
