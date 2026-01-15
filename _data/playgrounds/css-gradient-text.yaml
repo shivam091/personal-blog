@@ -1,0 +1,251 @@
+id: css-gradient-text
+name: Demostrating CSS Gradient Text Colors
+url: "https://codepen.io/shivam091/pen/wBWgrEN"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <div class="demo-grid">
+        <div class="card">
+          <span>01. Basic Linear Gradient Text</span>
+          <h2 class="linear-gradient">Golden Horizon</h2>
+        </div>
+
+        <div class="card">
+          <span>02. Animated Gradient Text</span>
+          <h2 class="animated-gradient">Flowing Energy</h2>
+        </div>
+
+        <div class="card">
+          <span>03. Gradient Stroke Text</span>
+          <h2 class="stroke-gradient">Neon Outline</h2>
+        </div>
+
+        <div class="card">
+          <span>04. Conic & Radial Gradients</span>
+          <h2 class="conic-gradient">Spectrum Wheel</h2>
+        </div>
+
+        <div class="card">
+          <span>05. Masked Layering for Shadows</span>
+          <h2 class="masked-gradient" data-text="Deep Layer">Deep Layer</h2>
+        </div>
+
+        <div class="card">
+          <span>06. Blend Modes</span>
+          <div class="blend-container">
+            <h2 class="blend-gradient">Vivid Fusion</h2>
+          </div>
+        </div>
+
+        <div class="card">
+          <span>07. Video & GIF Backgrounds</span>
+          <h2 class="video-gradient">Cyber Motion</h2>
+        </div>
+
+        <div class="card full-width">
+          <span>Responsive (Resize your browser)</span>
+          <h2 class="responsive-gradient">Dynamic Scale Text</h2>
+          <div class="controls">
+            <label>Start: <input type="color" id="colorStart" value="#ff6a00"></label>
+            <label>End: <input type="color" id="colorEnd" value="#ee0979"></label>
+          </div>
+        </div>
+      </div>
+  - name: variables.css
+    type: css
+    code: |
+      :root {
+        --gradient-start: #ff6a00;
+        --gradient-end: #ee0979;
+      }
+  - name: style.css
+    type: css
+    code: |
+      body {
+        background-color: var(--color-bg-default);
+        color: var(--color-fg-default);
+        font-family: system-ui, -apple-system;
+        padding: 2rem;
+        margin: 0;
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .card {
+        background: var(--color-bg-muted);
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid var(--color-border-default);
+      }
+
+      .full-width {
+        grid-column: 1 / -1;
+      }
+
+      .card span {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        display: block;
+        margin-bottom: 1rem;
+      }
+
+      .card h2 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 800;
+      }
+
+      /* 1. Linear Gradient Text */
+      .linear-gradient {
+        background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent; /* Fallback */
+      }
+
+      /* 2. Animated Gradient Text */
+      .animated-gradient {
+        background: linear-gradient(90deg, #ff6a00, #ee0979, #00c6ff, #ff6a00);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: shine 3s linear infinite;
+      }
+
+      @keyframes shine {
+        to {
+          background-position: 200% center;
+        }
+      }
+
+      /* 3. Gradient Stroke Text */
+      .stroke-gradient {
+        background: linear-gradient(90deg, #00dbde, #fc00ff);
+        -webkit-text-stroke: 1.5px transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+
+      /* 4. Conic & Radial Gradients */
+      .conic-gradient {
+        background: conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+
+      /* 5. Masked Layering for Shadows */
+      .masked-gradient {
+        position: relative;
+        color: transparent;
+        /* The shadow is on the parent */
+        filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.5));
+      }
+
+      .masked-gradient::after {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, #fff, #64748b);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+
+      /* 6. Blend Modes */
+      .blend-container {
+        background: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+        padding: 10px;
+      }
+
+      .blend-gradient {
+        color: #ff0055;
+        background: linear-gradient(to right, #00ffcc, #333);
+        mix-blend-mode: color-dodge;
+      }
+
+      /* 7. Video & GIF Backgrounds */
+      .video-gradient {
+        background: url("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXN4bm94bm94bm94bm94bm94bm94bm94bm94bm94bm94JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxx6xY25YlO/giphy.gif");
+        background-size: cover;
+        background-position: center;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+
+      /* Responsive Gradient Text */
+      .responsive-gradient {
+        font-size: clamp(2rem, 8vw, 5rem) !important;
+        background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        word-wrap: break-word;
+      }
+
+      /* Controls */
+      .controls {
+        background: var(--color-bg-muted);
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      label {
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      input {
+        margin: 10px;
+        cursor: pointer;
+      }
+
+      .help-text {
+        font-size: 0.75rem;
+        color: var(--color-fg-muted);
+      }
+  - name: script.js
+    type: js
+    code: |
+      document.addEventListener("DOMContentLoaded", () => {
+        const colorStart = document.getElementById("colorStart");
+        const colorEnd = document.getElementById("colorEnd");
+        const root = document.documentElement;
+
+        // 1. Update Responsive Gradient via CSS Variables
+        const updateGradients = () => {
+          root.style.setProperty("--gradient-start", colorStart.value);
+          root.style.setProperty("--gradient-end", colorEnd.value);
+        };
+
+        colorStart.addEventListener("input", updateGradients);
+        colorEnd.addEventListener("input", updateGradients);
+
+        // 2. Feature Detection Alert (Optional learning helper)
+        if (!CSS.supports("-webkit-background-clip", "text")) {
+          console.warn(
+            "Your browser does not support background-clip: text. Falling back to solid colors."
+          );
+          document.body.classList.add("no-support");
+        }
+      });
+
