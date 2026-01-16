@@ -142,12 +142,30 @@ body {
     return `
 [data-theme="light"] {
   --color-bg-default: hsl(0 0% 100%);
+  --color-bg-muted: hsl(210 29% 97%);
+  --color-bg-accent-muted: hsl(203 100% 94%);
+  --color-fg-default: hsl(222 22% 5%);
+  --color-fg-muted: hsl(225 15% 50%);
+  --color-fg-accent: hsl(212 92% 43%);
+  --color-border-default: hsl(210 21% 88%);
 }
 [data-theme="soft-dark"] {
   --color-bg-default: hsl(212 18% 16%);
+  --color-bg-muted: hsl(218 17% 18%);
+  --color-bg-accent-muted: hsl(215 75% 57% / 0.102);
+  --color-fg-default: hsl(216 19% 85%);
+  --color-fg-muted: hsl(214 8% 60%);
+  --color-fg-accent: hsl(214 76% 59%);
+  --color-border-default: hsl(214 12% 27%);
 }
 [data-theme="dark"] {
   --color-bg-default: hsl(210 15% 6%);
+  --color-bg-muted: hsl(213 20% 10%);
+  --color-bg-accent-muted: hsl(213 90% 60% / 0.15);
+  --color-fg-default: hsl(210 10% 90%);
+  --color-fg-muted: hsl(210 12% 60%);
+  --color-fg-accent: hsl(213 85% 60%);
+  --color-border-default: hsl(213 12% 24%);
 }`;
   }
 
