@@ -28,6 +28,9 @@ export default class Playground {
   // Store the debounced function for external control (cancellation).
   debouncedRun = null;
 
+  // Tracks whether debounce listeners have been initialized to safely recreate them later
+  debounceInitialized = false;
+
   /*
    * Initializes the Playground, setting up the file structure and components.
    */
@@ -104,6 +107,28 @@ export default class Playground {
   }
 
   /*
+   * Attaches the debounced autorun handler to all editor input-related events
+   */
+  #bindDebounceListeners(debouncedFn) {
+    Object.values(this.editors).forEach(editor => {
+      editor.editable.addEventListener("input", debouncedFn);
+      editor.editable.addEventListener("playground:editor:value-changed", debouncedFn);
+    });
+  }
+
+  /*
+   * Detaches the debounced autorun handler from all editor events to prevent duplicate triggers
+   */
+  #unbindDebounceListeners(debouncedFn) {
+    if (!debouncedFn) return;
+
+    Object.values(this.editors).forEach(editor => {
+      editor.editable.removeEventListener("input", debouncedFn);
+      editor.editable.removeEventListener("playground:editor:value-changed", debouncedFn);
+    });
+  }
+
+  /*
    * Initializes and executes registered plugins stored in `Playground.plugins`.
    */
   #initializePlugins() {
@@ -127,16 +152,16 @@ export default class Playground {
   #initializeDebounce() {
     const wait = this.core.getState("autorunDebounceDuration");
 
-    // Store the created debounce function on the class instance
+    if (this.debouncedRun && typeof this.debouncedRun.cancel === "function") {
+      this.debouncedRun.cancel();
+    }
+
     this.debouncedRun = debounce(() => {
       if (this.core.getState("autorun")) this.core.run();
     }, wait);
 
-    Object.values(this.editors).forEach(editor => {
-      // Use the stored instance for the listener
-      editor.editable.addEventListener("input", this.debouncedRun);
-      editor.editable.addEventListener("playground:editor:value-changed", this.debouncedRun);
-    });
+    this.#bindDebounceListeners(this.debouncedRun);
+    this.debounceInitialized = true;
   }
 
   /*
@@ -158,17 +183,31 @@ export default class Playground {
    * Updates the Core state.
    */
   setDebounceDuration = (ms) => {
-    // Add validation for robustness
     const duration = Number(ms);
     if (isNaN(duration) || duration < 0) {
       console.warn("[Playground] Invalid debounce duration:", ms);
       return;
     }
-    // Updating Core state is the single source of truth for the duration
+
+    // Update Core state (single source of truth)
     this.core?.setState("autorunDebounceDuration", duration);
-    // Note: Re-initialization of listeners is required if the debounce value changes after init.
-    // The current implementation relies on Core's state but doesn't rebind `#initDebounce()`.
-    // For a proper dynamic update, the debounced functions should be recreated or the debounce utility itself should be able to update its wait time.
+
+    // If debounce already exists, fully recreate it
+    if (this.debounceInitialized) {
+      // 1. Remove old listeners
+      this.#unbindDebounceListeners(this.debouncedRun);
+
+      // 2. Cancel pending execution
+      if (typeof this.debouncedRun?.cancel === "function") {
+        this.debouncedRun.cancel();
+      }
+
+      // 3. Recreate debounce with new delay
+      this.#initializeDebounce();
+
+      // 4. Update Core reference
+      this.core.setDebounceInstance(this.debouncedRun);
+    }
   };
 
   /*

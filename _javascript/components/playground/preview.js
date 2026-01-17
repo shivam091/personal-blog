@@ -148,25 +148,16 @@ export class Preview {
 
     this.renderStartTime = performance.now();
 
+    iframe.onload = () => {
+      try {
+        // Handshake: Transfer Port 2 to the iframe
+        iframe.contentWindow.postMessage("init-channel", "*", [this.channel.port2]);
+      } catch (err) {
+        console.error("[Playground] Port transfer failed:", err);
+      }
+    };
+
     // Set the source to the Blob URL to load the new document
     iframe.src = url;
-  }
-
-  /*
-   * Applies the current theme (`data-theme` attribute from the parent document)
-   * to the iframe's document element.
-   */
-  #applyTheme() {
-    const iframeDoc = this.previewFrame?.contentDocument?.documentElement;
-    const theme = document.documentElement.dataset.theme || "light";
-
-    if (iframeDoc) {
-      iframeDoc.setAttribute("data-theme", theme);
-
-      // Notify iframe of theme change for potential JS-controlled styling
-      if (this.iframeReady && this.previewFrame?.contentWindow) {
-        this.previewFrame.contentWindow.postMessage({ type: "theme-change", theme }, "*");
-      }
-    }
   }
 }

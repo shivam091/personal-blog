@@ -46,7 +46,9 @@ export class Core {
     this.#syncAttr(key, val);
   }
 
-  // Setter method to receive the debounced function instance from Playground
+  /*
+   * Setter method to receive the debounced function instance from Playground
+   */
   setDebounceInstance(debouncedRun) {
     this.#debouncedRunInstance = debouncedRun;
   }
@@ -65,9 +67,9 @@ export class Core {
   }
 
   /*
-    * Toggles the line numbers attribute on the main playground container and
-    * dispatches an event for all Editors to handle the DOM manipulation.
-    */
+   * Toggles the line numbers attribute on the main playground container and
+   * dispatches an event for all Editors to handle the DOM manipulation.
+   */
   toggleLineNumbers() {
     // Use "on"/"off" strings for the DOM attribute
     const currentAttr = this.container.getAttribute("data-line-numbers") || "on";
@@ -77,7 +79,7 @@ export class Core {
 
     // Dispatch a custom event with the clean boolean state
     this.container.dispatchEvent(new CustomEvent("playground:editor:toggle-line-numbers", {
-        detail: { visible: nextAttr === "on" }
+      detail: { visible: nextAttr === "on" }
     }));
   }
 
