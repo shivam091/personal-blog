@@ -1,0 +1,359 @@
+id: css-gradients
+name: Demostrating CSS Gradients
+url: "https://codepen.io/shivam091/pen/raLyrBx"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <div class="playground-wrapper">
+        <h1>CSS Gradient Lab</h1>
+
+        <main class="grid">
+          <section class="card">
+            <div class="card-header">
+              <span class="badge">Linear</span>
+              <h3>Sunrise Linear</h3>
+            </div>
+            <div class="demo linear-gradient"></div>
+            <code>linear-gradient(135deg, #6366f1, #a855f7)</code>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <span class="badge">Radial</span>
+              <h3>Soft Spotlight</h3>
+            </div>
+            <div class="demo radial-gradient"></div>
+            <code>radial-gradient(circle, #818cf8, #312e81)</code>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <span class="badge">Conic</span>
+              <h3>Modern Pie</h3>
+            </div>
+            <div class="demo conic-gradient"></div>
+            <code>conic-gradient(#6366f1, #ec4899, #6366f1)</code>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <span class="badge">Pattern</span>
+              <h3>Carbon Fiber</h3>
+            </div>
+            <div class="demo repeating-stripes"></div>
+            <code>repeating-linear-gradient(...)</code>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <span class="badge">Hint</span>
+              <h3>Hard Transition</h3>
+            </div>
+            <div class="demo interpolation-hint"></div>
+            <code>linear-gradient(90deg, #6366f1 80%, #f43f5e)</code>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <span class="badge">Modern</span>
+              <h3>OKLCH Lab</h3>
+            </div>
+            <div class="oklch-comparison">
+              <div class="split oklch-vibrant">OKLCH</div>
+              <div class="split oklch-muddy">RGB</div>
+            </div>
+            <code>in oklch to right, #6366f1, #f43f5e</code>
+          </section>
+
+          <section class="card full-width">
+            <div class="card-header">
+              <span class="badge">Layered</span>
+              <h3>Glassmorphism Dashboard</h3>
+            </div>
+            <div class="glass-bg">
+              <div class="glass-card">
+                <h4>Premium UI</h4>
+                <p>Layered Indigo Gradients</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <span class="badge">Liquid</span>
+              <h3>Aurora Flow</h3>
+            </div>
+            <div class="demo animated-flow"></div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <span class="badge">Conic</span>
+              <h3>Neon Perimeter</h3>
+            </div>
+            <div class="border-beam-box">
+              <div class="card-inner">Hover Effect</div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <span class="badge">Spinner</span>
+              <h3>Velocity Loader</h3>
+            </div>
+            <div class="loader-box">
+              <div class="sweep-loader"></div>
+            </div>
+          </section>
+        </main>
+      </div>
+  - name: style.css
+    type: css
+    code: |
+      /* --- 1. Basic Gradients (Modern Palette) --- */
+      .linear-gradient {
+        background: linear-gradient(135deg, #f97316, #fbbf24, #a855f7);
+      }
+
+      .radial-gradient {
+        background: radial-gradient(circle at center, #c7d2fe 0%, #4f46e5 40%, #1e1b4b 100%);
+      }
+
+      .conic-gradient {
+        background: conic-gradient(from 0deg, #6366f1, #ec4899, #f59e0b, #10b981, #6366f1);
+      }
+
+      /* --- 2. Patterns & Hints --- */
+      .repeating-stripes {
+        background:
+          linear-gradient(270deg, rgba(0,0,0,0.2) 0%, transparent 100%),
+          repeating-linear-gradient(
+            45deg,
+            #111827 0px,
+            #111827 10px,
+            #1f2937 10px,
+            #1f2937 11px
+          );
+      }
+
+      .interpolation-hint {
+        /* Using a 80% hint to force the 'Hard' look from the heading */
+        background: linear-gradient(90deg, #6366f1 80%, #f43f5e);
+      }
+
+      .oklch-vibrant {
+        background: linear-gradient(to right in oklch, #6366f1, #f43f5e);
+      }
+
+      .oklch-muddy {
+        background: linear-gradient(to right, #6366f1, #f43f5e);
+      }
+
+      /* --- 3. Glassmorphism (Professional Indigo) --- */
+      .glass-bg {
+        background: linear-gradient(45deg, #0f172a, #1e1b4b);
+        padding: 60px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Decorative circles behind glass */
+      .glass-bg::after {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: #f43f5e;
+        filter: blur(50px);
+        top: 20%;
+        left: 20%;
+      }
+
+      .glass-card {
+        width: 100%;
+        max-width: 280px;
+        padding: 2.5rem;
+        color: white;
+        border-radius: 24px;
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.02)
+          ),
+          radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.3) 0%, transparent 50%);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      /* --- 4. Animations --- */
+      .animated-flow {
+        background: linear-gradient(270deg, #06b6d4, #8b5cf6, #d946ef, #06b6d4);
+        background-size: 400% 400%;
+        animation: gradient-flow 10s ease infinite;
+      }
+
+      /* Border Beam (Neon Violet) */
+      .border-beam-box {
+        position: relative;
+        height: 150px;
+        background: #0f172a;
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .border-beam-box::before {
+        content: "";
+        position: absolute;
+        inset: -150%;
+        background: conic-gradient(
+          from 0deg,
+          transparent 75%,
+          #22d3ee 85%,
+          #f472b6 95%,
+          transparent 100%
+        );
+        animation: spin 3s linear infinite;
+      }
+
+      .card-inner {
+        position: relative;
+        z-index: 1;
+        background: #1e1b4b;
+        width: calc(100% - 2px);
+        height: calc(100% - 2px);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #c7d2fe;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+
+      /* Velocity Loader */
+      .sweep-loader {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: conic-gradient(from 0deg, #f97316, #fde047, transparent);
+        -webkit-mask: radial-gradient(
+          farthest-side,
+          transparent calc(100% - 6px),
+          #fff 0
+        );
+        mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #fff 0);
+        animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+
+      /* Keyframes */
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes gradient-flow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* --- Layout UI Refinements --- */
+      body {
+        font-family: system-ui, -apple-system;
+        background: var(--color-bg-default);
+        color: var(--color-fg-default);
+        padding: 10px;
+      }
+      h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        color: var(--color-fg-default);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: auto;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        background: var(--color-bg-muted);
+        padding: 16px;
+        border-radius: 12px;
+        border: 1px solid var(--color-border-default);
+      }
+      .full-width {
+        grid-column: 1 / -1;
+      }
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .card-header h3 {
+        margin-block: 8px;
+      }
+      .demo {
+        height: 160px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+      }
+      .badge {
+        font-size: 12px;
+        background: var(--color-bg-accent-muted);
+        color: var(--color-fg-accent);
+        padding: 4px 10px;
+        border-radius: 16px;
+        font-weight: 600;
+      }
+      code {
+        display: block;
+        background: var(--color-bg-accent-muted);
+        padding: 10px;
+        font-size: 11px;
+        border-radius: 8px;
+        color: var(--color-fg-accent);
+        border: 1px solid var(--color-border-default);
+        overflow-x: auto;
+      }
+      .oklch-comparison {
+        display: flex;
+        height: 100px;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 15px;
+        flex: 1;
+        border: 1px solid #334155;
+      }
+      .split {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 13px;
+      }
+      .loader-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 160px;
+      }
