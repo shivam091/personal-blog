@@ -75,6 +75,28 @@ export class HtmlLexer extends BaseLexer {
         continue;
       }
 
+      // 4. HTML Entity Check (&copy;)
+      if (char === "&") {
+        let currentPos = start + 1;
+        if (currentPos < this.length && /[a-zA-Z#]/.test(s[currentPos])) {
+          while (currentPos < this.length && s[currentPos] !== ";") {
+            currentPos++;
+          }
+
+          if (currentPos < this.length && s[currentPos] === ";") {
+            currentPos++; // Consume ';'
+            const entity = s.slice(start, currentPos);
+
+            if (htmlTokens.entities.has(entity)) {
+              this.add("ENTITY", entity, start, currentPos, "token-entity");
+              this.advancePosition(currentPos - start);
+              continue;
+            }
+          }
+        }
+        // If invalid entity, fall through to CONTENT
+      }
+
       // 4. Whitespace
       if (this.handleWhitespace()) continue;
 
