@@ -1,6 +1,9 @@
 @use "abstracts/tokens" as *
 @use "abstracts/mixins/breakpoints" as breakpoint
 @use "abstracts/modules/text-underline" as *
+@keyframes shine
+  to
+    background-position: 200% center
 
 .hero
   padding: $fluid-space-md
@@ -24,6 +27,14 @@
     line-height: $line-height-title
     margin-bottom: $space-sm
     font-weight: $font-weight-semi-bold
+
+    background: linear-gradient(90deg, #ff6a00, #ee0979, #00c6ff, #ff6a00)
+    background-size: 200% auto
+    -webkit-background-clip: text
+    background-clip: text
+    -webkit-text-fill-color: transparent
+    color: transparent
+    animation: shine 3s linear infinite
 
   .hero-subheading
     font-size: $fluid-font-size-lg
