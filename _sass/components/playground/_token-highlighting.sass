@@ -1,0 +1,49 @@
+@use "abstracts/tokens" as *
+
+.token-tag
+  color: var(--color-code-syntax-tag)
+
+.token-comment
+  color: var(--color-code-syntax-comment)
+  font-style: italic
+
+.token-keyword
+  color: var(--color-code-syntax-keyword)
+  font-weight: $font-weight-bold
+
+.token-type
+  color: var(--color-code-syntax-namespace)
+  font-weight: $font-weight-bold
+
+.token-number, .token-unit
+  color: var(--color-code-syntax-number)
+
+.token-string, .token-regex
+  color: var(--color-code-syntax-string)
+
+.token-variable
+  color: var(--color-code-syntax-name)
+
+.token-value, .token-built-in
+  color: var(--color-code-syntax-builtin)
+
+.token-selector
+  color: var(--color-code-syntax-namespace)
+  font-weight: $font-weight-bold
+
+.token-pseudo-class, .token-pseudo-element
+  color: var(--color-code-syntax-decorator)
+  font-weight: $font-weight-bold
+
+.token-entity
+  color: var(--color-code-syntax-entity)
+
+.token-function, .token-attribute, .token-property
+  color: var(--color-code-syntax-function)
+  font-weight: $font-weight-bold
+
+// .cp-regex, .cp-attribute, .cp-delimiter
+.token-error
+  text-decoration: underline
+  text-decoration-style: wavy
+  text-decoration-color: var(--color-fg-danger)
