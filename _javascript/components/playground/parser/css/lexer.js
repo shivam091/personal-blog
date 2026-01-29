@@ -24,10 +24,37 @@ export class CssLexer extends BaseLexer {
       // 2. Static tokens
       if (this.handleStaticTokens(CssLexer.STATIC_TOKENS, CssLexer.KEYS)) continue;
 
-      // 4. Whitespace
+      // 3. Whitespace
       if (this.handleWhitespace()) continue;
 
-      // 5. Ignore all other characters (including newlines and other content)
+      // 4. Custom properties (variables)
+      if (s.startsWith("--", this.pos)) {
+        const propStart = this.pos;
+        this.advancePosition(2); // Consume the initial '--'
+
+        let j = this.pos; // j is now pointing to the character after '--'
+
+        // CSS custom properties allow any valid identifier characters, including digits
+        // right after the initial --
+        while (j < this.length && /[a-zA-Z0-9_\-]/.test(s[j])) {
+          j++;
+        }
+
+        const value = s.slice(propStart, j);
+
+        // A valid custom property must be longer than just '--'
+        if (value.length > 2) {
+          this.add("CUSTOM_PROPERTY", value, propStart, j, "token-variable");
+          this.advancePosition(j - this.pos); // Advance past the identifier part
+          continue;
+        }
+
+        this.lexerError("Invalid CSS custom property: Name expected after '--'", propStart, j);
+        this.add("ERROR_TOKEN", value, propStart, j, "token-error");
+        this.advancePosition(j - this.pos);
+        continue;
+      }
+
       this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
       continue;
