@@ -117,6 +117,12 @@ export const cssGrammar = {
     // Rule to match and consume a unit token.
     UNIT: (p) => p.matchType("UNIT"),
 
+    // Rule to match and consume hex color code.
+    HEX_COLOR: (p) => p.matchType("HEX_COLOR"),
+
+    // Rule to match and consume ID Selector.
+    ID_SELECTOR: (p) => p.matchType("ID_SELECTOR"),
+
     // Rule to match and consume a single WHITESPACE token.
     WHITESPACE: (p) => p.matchType("WHITESPACE"),
 
@@ -125,5 +131,11 @@ export const cssGrammar = {
 
     // Rule to match and consume a new line.
     NEWLINE: (p) => p.matchType("NEWLINE"),
+
+    // Rule to match and consume error token.
+    ERROR_TOKEN: (p) => p.matchType("ERROR_TOKEN"),
+
+    // Rule to match and consume the UNKNOWN token groups.
+    UNKNOWN: (p) => p.matchType("UNKNOWN"),
   }
 };
