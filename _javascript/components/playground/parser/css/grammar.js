@@ -111,6 +111,12 @@ export const cssGrammar = {
     // Rule to match and consume custom properties.
     CUSTOM_PROPERTY: (p) => p.matchType("CUSTOM_PROPERTY"),
 
+    // Rule to match and consume a number token.
+    NUMBER: (p) => p.matchType("NUMBER"),
+
+    // Rule to match and consume a unit token.
+    UNIT: (p) => p.matchType("UNIT"),
+
     // Rule to match and consume a single WHITESPACE token.
     WHITESPACE: (p) => p.matchType("WHITESPACE"),
 
