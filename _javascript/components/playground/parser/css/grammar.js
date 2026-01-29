@@ -107,5 +107,8 @@ export const cssGrammar = {
 
     // Rule to match and consume a single TAB token.
     TAB: (p) => p.matchType("TAB"),
+
+    // Rule to match and consume custom properties.
+    CUSTOM_PROPERTY: (p) => p.matchType("CUSTOM_PROPERTY"),
   }
 };
