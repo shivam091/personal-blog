@@ -172,3 +172,33 @@ scroll-animation:
 view-timeline:
   title: Utilizing the CSS `view-timeline` for Scroll-Driven Effects
   description: Deep dive into the experimental CSS `view-timeline` property for defining precise timelines based on an element's visibility within a scroll container.
+gradients:
+  title: Mastering CSS Gradients and Color Blending
+  description: Learn to create smooth color transitions and visual depth using various CSS gradient functions for background, borders, and text styling.
+background:
+  title: Advanced CSS Background Styling and Patterns
+  description: Explore the versatile background property, including shorthand syntax, multiple backgrounds, positioning, and sizing techniques for robust UI.
+linear-gradient:
+  title: "Directional Color: Guide to CSS Linear Gradients"
+  description: Create directional color transitions along a straight line, mastering angles, color stops, and transparency for modern web backgrounds.
+radial-gradient:
+  title: Circular Effects with CSS Radial Gradients
+  description: Build circular and elliptical color transitions, exploring shapes, sizes, and positioning for glow, shadow, and depth effects.
+conic-gradient:
+  title: Angular Transitions with CSS Conic Gradients
+  description: Master conic (polar) gradients to create pie charts, color wheels, and interesting angular patterns for modern, unique web design.
+repeating-gradient:
+  title: Patterns and Textures with Repeating Gradients
+  description: Use repeating-linear and repeating-radial gradients to create seamless patterns, stripes, and textured backgrounds without external image assets.
+modern-css:
+  title: Exploring Modern CSS Features and Future Specs
+  description: Stay updated with the latest CSS specifications, including subgrid, container queries, the :has() selector, and high-level layout modules.
+color-theory:
+  title: Color Theory and Palette Design for the Web
+  description: Understand the fundamentals of color psychology, harmony, and contrast to build accessible, balanced, and visually appealing color systems.
+oklch:
+  title: Perceptual Color with OKLCH in Modern CSS
+  description: A deep dive into the OKLCH color space for creating perceptually uniform, predictable, and high-gamut colors in modern browser environments.
+scss:
+  title: Streamlined Styling with SCSS and Preprocessors
+  description: Optimize your CSS workflow using SCSS (Sass) features like variables, nesting, mixins, and modular imports for scalable and maintainable code.
