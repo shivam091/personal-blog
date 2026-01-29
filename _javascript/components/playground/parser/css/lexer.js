@@ -97,7 +97,54 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 6. Ignore all other characters (including newlines and other content)
+      // 6. Hex Color Codes and ID Selectors
+      if (char === "#") {
+        const hashStart = this.pos;
+        const hashSubstring = s.slice(this.pos + 1);
+
+        // 1. Try to match as a Hex Color Code
+        const hexMatch = hashSubstring.match(cssTokens.hexColorCodeRegex);
+
+        if (hexMatch) {
+          const hexValue = "#" + hexMatch[0];
+          const hexEnd = hashStart + hexValue.length;
+
+          this.add("HEX_COLOR", hexValue, hashStart, hexEnd, "token-color");
+          this.advancePosition(hexValue.length);
+          continue;
+        }
+
+        // 2. If not a hex code, try to match as an ID Selector.
+        // Check the character immediately following '#'
+        const identifierStartChar = this.peekChar(1);
+
+        if (identifierStartChar && (/[a-zA-Z_\-]/.test(identifierStartChar) || /[\u0080-\uffff]/.test(identifierStartChar))) {
+          let idEnd = this.pos + 1; // Start looking *after* the '#'
+
+          // Consume the identifier characters (letters, numbers, underscores, hyphens)
+          while (idEnd < this.length && /[a-zA-Z0-9_\-]/.test(s[idEnd])) {
+            idEnd++;
+          }
+
+          // ID selector: # followed by identifier characters.
+          const idValue = s.slice(hashStart, idEnd);
+
+          // Check to ensure we consumed more than just the '#' itself.
+          if (idValue.length > 1) {
+            this.add("ID_SELECTOR", idValue, hashStart, idEnd, "token-selector");
+            this.advancePosition(idEnd - hashStart); // Advance by the full token length
+            continue;
+          }
+        }
+
+        // 3. If it failed both checks (Hex/ID), treat the '#' as UNKNOWN/TEXT for now.
+        // This must be done manually since the UNKNOWN rule only groups from the *next* char.
+        this.add("UNKNOWN", char, start, start + 1, "token-unknown");
+        this.advancePosition(1);
+        continue;
+      }
+
+      // 7. Ignore all other characters (including newlines and other content)
       this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
       continue;
