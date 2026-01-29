@@ -55,6 +55,49 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
+      // 5. Numbers & Units
+      const substring = s.slice(this.pos);
+      const numberMatch = substring.match(new RegExp(cssTokens.numberRegex));
+
+      if (numberMatch) {
+        const numberValue = numberMatch[0];
+        const numberEnd = start + numberValue.length;
+
+        // Tokenize the NUMBER part
+        this.add("NUMBER", numberValue, start, numberEnd, "token-number");
+        this.advancePosition(numberValue.length);
+
+        // Now, check for an immediate unit after the number
+        const unitStart = numberEnd;
+        let unitEnd = numberEnd;
+
+        // Find the longest matching unit
+        let bestMatch = null;
+
+        // CSS units are generally short (2-4 chars), so a simple check is fine.
+        // We iterate through the UNITS set to find a match starting at unitStart.
+        for (const unit of cssTokens.units) {
+          if (substring.startsWith(unit, numberValue.length)) {
+            if (!bestMatch || unit.length > bestMatch.length) {
+              bestMatch = unit;
+            }
+          }
+        }
+
+        if (bestMatch) {
+          unitEnd = unitStart + bestMatch.length;
+          const unitValue = s.slice(unitStart, unitEnd);
+
+          // Tokenize the UNIT part
+          this.add("UNIT", unitValue, unitStart, unitEnd, "token-unit");
+          this.advancePosition(unitValue.length);
+        }
+
+        // Number and optional unit processed, continue the main loop
+        continue;
+      }
+
+      // 6. Ignore all other characters (including newlines and other content)
       this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
       continue;
