@@ -108,6 +108,9 @@ export const cssGrammar = {
     // Rule to match and consume a parenthesis close token.
     PAREN_CLOSE: (p) => p.matchType("PAREN_CLOSE"),
 
+    // Rule to match and consume custom properties.
+    CUSTOM_PROPERTY: (p) => p.matchType("CUSTOM_PROPERTY"),
+
     // Rule to match and consume a single WHITESPACE token.
     WHITESPACE: (p) => p.matchType("WHITESPACE"),
 
