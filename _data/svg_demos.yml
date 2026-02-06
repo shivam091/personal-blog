@@ -1,4 +1,4 @@
-shared_styles: &shared_css |
+shared_css: &shared_css |
   [data-theme="light"] {
     --color-bg-default: hsl(0 0% 100%);
     --color-bg-muted: hsl(210 29% 97%);
@@ -96,11 +96,15 @@ shared_styles: &shared_css |
     gap: 6px;
     margin-bottom: 0.5rem;
   }
+  .field.full-width {
+    grid-column: 1 / -1;
+  }
   .field label {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
     font-weight: 600;
+    margin-block-end: 0.25rem;
   }
   .range-value {
     color: var(--color-fg-accent);
@@ -131,7 +135,14 @@ shared_styles: &shared_css |
   input[type="range"]::-webkit-slider-thumb:hover {
     transform: scale(1.1);
   }
-shared_logic: &shared_js |
+  .active-point {
+    r: 1.5 !important;
+    fill: #f59e0b;
+    stroke: #ffffff;
+    stroke-width: 0.5;
+    transition: fill 0.2s ease, stroke 0.2s ease;
+  }
+shared_basic_shapes_scripts: &shared_basic_shapes_scripts |
   const shape = document.getElementById("target");
   document.querySelectorAll("input[type='range']").forEach(input => {
     input.addEventListener("input", (e) => {
@@ -144,6 +155,13 @@ shared_logic: &shared_js |
       if (display) display.textContent = val;
     });
   });
+shared_js: &shared_js |
+  const setActivePoint = (id) => {
+    highlightMap[id].classList.add("active-point");
+  };
+  const unsetActivePoint = (id) => {
+    highlightMap[id].classList.remove("active-point");
+  };
 
 line_demo:
   title: "Interactive Example - Line"
@@ -151,7 +169,7 @@ line_demo:
     <div class="wrapper">
       <div class="canvas">
         <svg viewBox="0 0 100 100">
-          <line id="target" x1="10" y1="10" x2="90" y2="90" stroke="#6366f1" stroke-width="2" stroke-linecap="round" />
+          <line id="target" x1="10" y1="10" x2="90" y2="90" stroke="#6366f1" stroke-width="1" stroke-linecap="round" />
         </svg>
       </div>
       <div class="controls">
@@ -174,7 +192,7 @@ line_demo:
       </div>
     </div>
   css: *shared_css
-  js: *shared_js
+  js: *shared_basic_shapes_scripts
 
 rect_demo:
   title: "Interactive Example - Rectangle"
@@ -182,7 +200,7 @@ rect_demo:
     <div class="wrapper">
       <div class="canvas">
         <svg viewBox="0 0 100 100">
-          <rect id="target" x="15" y="15" width="70" height="50" rx="10" ry="10" fill="#6366f1" fill-opacity="0.2" stroke="#4338ca" stroke-width="2" />
+          <rect id="target" x="15" y="15" width="70" height="50" rx="10" ry="10" fill="#6366f1" fill-opacity="0.2" stroke="#4338ca" stroke-width="1" />
         </svg>
       </div>
       <div class="controls">
@@ -213,7 +231,7 @@ rect_demo:
       </div>
     </div>
   css: *shared_css
-  js: *shared_js
+  js: *shared_basic_shapes_scripts
 
 circle_demo:
   title: "Interactive Example - Circle"
@@ -221,7 +239,7 @@ circle_demo:
     <div class="wrapper">
       <div class="canvas">
         <svg viewBox="0 0 100 100">
-          <circle id="target" cx="50" cy="50" r="30" fill="#f43f5e" fill-opacity="0.2" stroke="#be123c" stroke-width="2" />
+          <circle id="target" cx="50" cy="50" r="30" fill="#f43f5e" fill-opacity="0.2" stroke="#be123c" stroke-width="1" />
         </svg>
       </div>
       <div class="controls">
@@ -240,7 +258,7 @@ circle_demo:
       </div>
     </div>
   css: *shared_css
-  js: *shared_js
+  js: *shared_basic_shapes_scripts
 
 ellipse_demo:
   title: "Interactive Example - Ellipse"
@@ -248,7 +266,7 @@ ellipse_demo:
     <div class="wrapper">
       <div class="canvas">
         <svg viewBox="0 0 100 100">
-          <ellipse id="target" cx="50" cy="50" rx="40" ry="25" fill="#ec4899" fill-opacity="0.2" stroke="#be185d" stroke-width="2" />
+          <ellipse id="target" cx="50" cy="50" rx="40" ry="25" fill="#ec4899" fill-opacity="0.2" stroke="#be185d" stroke-width="1" />
         </svg>
       </div>
       <div class="controls">
@@ -271,7 +289,7 @@ ellipse_demo:
       </div>
     </div>
   css: *shared_css
-  js: *shared_js
+  js: *shared_basic_shapes_scripts
 
 polyline_demo:
   title: "Interactive Example - Polyline"
@@ -279,7 +297,7 @@ polyline_demo:
     <div class="wrapper">
       <div class="canvas">
         <svg viewBox="0 0 100 100">
-          <polyline id="target" points="20,80 50,20 80,80" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+          <polyline id="target" points="20,80 50,20 80,80" fill="none" stroke="#10b981" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
       <div class="controls">
@@ -333,7 +351,7 @@ polygon_demo:
     <div class="wrapper">
       <div class="canvas">
         <svg viewBox="0 0 100 100">
-          <polygon id="target" points="50,15 85,85 15,85" fill="#f59e0b" fill-opacity="0.2" stroke="#b45309" stroke-width="2" stroke-linejoin="round" />
+          <polygon id="target" points="50,15 85,85 15,85" fill="#f59e0b" fill-opacity="0.2" stroke="#b45309" stroke-width="1" stroke-linejoin="round" />
         </svg>
       </div>
       <div class="controls">
@@ -385,7 +403,7 @@ linecap_demo:
       <div class="canvas">
         <svg viewBox="0 0 100 100">
           <line x1="20" y1="50" x2="80" y2="50" stroke="var(--color-border-default)" stroke-width="1" />
-          <line id="target" x1="20" y1="50" x2="80" y2="50" stroke="#6366f1" stroke-width="12" stroke-linecap="butt" />
+          <line id="target" x1="20" y1="50" x2="80" y2="50" stroke="#6366f1" stroke-width="6" stroke-linecap="butt" />
         </svg>
       </div>
       <div class="controls">
@@ -416,7 +434,7 @@ linejoin_demo:
     <div class="wrapper">
       <div class="canvas">
         <svg viewBox="0 0 100 100">
-          <polyline id="target" points="20,60 50,20 80,60" fill="none" stroke="#10b981" stroke-width="15" stroke-linejoin="miter" stroke-linecap="square" />
+          <polyline id="target" points="20,60 50,20 80,60" fill="none" stroke="#10b981" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square" />
         </svg>
       </div>
       <div class="controls">
@@ -425,8 +443,8 @@ linejoin_demo:
           <input type="range" id="linejoin-slider" min="0" max="2" value="0" step="1">
         </div>
         <div class="field">
-          <label for="width-slider">stroke-width: <span id="width-val" class="range-value">15</span></label>
-          <input type="range" id="width-slider" min="1" max="30" value="15">
+          <label for="width-slider">stroke-width: <span id="width-val" class="range-value">6</span></label>
+          <input type="range" id="width-slider" min="1" max="30" value="6">
         </div>
       </div>
     </div>
@@ -446,8 +464,106 @@ linejoin_demo:
       document.getElementById("width-val").textContent = e.target.value;
     });
 
+heart_icon_demo:
+  title: "Interactive Heart - Hover & Transform"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <path d="M 10 35 A 20 20 0 0 1 50 35 A 20 20 0 0 1 90 35 Q 90 65 50 95 Q 10 65 10 35 Z" class="icon-heart" />
+        </svg>
+      </div>
+      <p style="font-size: 11px; color: var(--color-fg-muted); border-top: 1px solid var(--color-border-default); text-align: center; padding-block: 0.5rem;">
+        Hover over the heart to see fill and scale transitions.
+      </p>
+    </div>
+  css:
+    - *shared_css
+    - |
+      .icon-heart {
+        fill: #f43f5e;
+        fill-opacity: 0.2;
+        stroke: #e11d48;
+        stroke-width: 1;
+        transition: fill 0.3s ease, transform 0.3s ease;
+        cursor: pointer;
+        transform-origin: center;
+      }
+      .icon-heart:hover {
+        fill: #e11d48;
+        transform: scale(1.1);
+      }
+
+sun_rotation_demo:
+  title: "Interactive Sun - transform-box: fill-box"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="20" fill="#fbbf24" />
+
+          <g id="sun-rays" class="sun-icon-rays" stroke="#fbbf24" stroke-width="4" stroke-linecap="round">
+            <line x1="50" y1="20" x2="50" y2="10" />
+            <line x1="50" y1="80" x2="50" y2="90" />
+            <line x1="20" y1="50" x2="10" y2="50" />
+            <line x1="80" y1="50" x2="90" y2="50" />
+            <line x1="28.8" y1="28.8" x2="21.7" y2="21.7" />
+            <line x1="71.2" y1="71.2" x2="78.3" y2="78.3" />
+            <line x1="28.8" y1="71.2" x2="21.7" y2="78.3" />
+            <line x1="71.2" y1="28.8" x2="78.3" y2="21.7" />
+          </g>
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="rotation">Rotate Degrees: <span class="range-value">0°</span></label>
+          <input type="range" id="rotation" min="0" max="360" value="0">
+        </div>
+        <div class="field">
+          <label for="scale">Scale: <span class="range-value">1</span></label>
+          <input type="range" id="scale" min="0.5" max="1.5" step="0.1" value="1">
+        </div>
+        <div class="field full-width">
+          <p style="font-size: 11px; color: var(--color-fg-muted); text-align: center;">
+            Hover over the sun or use sliders. <code>fill-box</code> keeps the center stable.
+          </p>
+        </div>
+      </div>
+    </div>
+  css:
+    - *shared_css
+    - |
+      .sun-icon-rays {
+        transform-box: fill-box;
+        transform-origin: center;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+      }
+      /* Hover interaction */
+      .canvas:hover .sun-icon-rays {
+        transform: rotate(90deg) scale(1.1);
+      }
+  js: |
+    const rays = document.getElementById("sun-rays");
+    const rotInput = document.getElementById("rotation");
+    const scaleInput = document.getElementById("scale");
+
+    const updateTransform = () => {
+      const deg = rotInput.value;
+      const scale = scaleInput.value;
+
+      // We apply the transform via JS, but the CSS 'transform-box'
+      // ensures the origin remains at the center of the rays group.
+      rays.style.transform = `rotate(${deg}deg) scale(${scale})`;
+
+      rotInput.parentElement.querySelector(".range-value").textContent = `${deg}°`;
+      scaleInput.parentElement.querySelector(".range-value").textContent = scale;
+    };
+
+    rotInput.addEventListener("input", updateTransform);
+    scaleInput.addEventListener("input", updateTransform);
+
 radar_demo:
-  element: "group-transform"
   title: "Interactive Example - Radar Scanner"
   css:
     - *shared_css
@@ -469,7 +585,7 @@ radar_demo:
     const circle = document.getElementById("pulse-circle");
 
     let angle = 0;
-    function animate() {
+    const animate = () => {
       angle = (angle + parseFloat(speedSlider.value)) % 360;
       beam.setAttribute("transform", `rotate(${angle} 50 50)`);
 
@@ -522,3 +638,1035 @@ radar_demo:
         </div>
       </div>
     </div>
+
+path_lines_demo:
+  title: "Interactive Path - Straight Lines"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <line x1="0" y1="50" x2="100" y2="50" stroke="var(--color-border-default)" stroke-width="0.5" stroke-dasharray="2" />
+          <line x1="50" y1="0" x2="50" y2="100" stroke="var(--color-border-default)" stroke-width="0.5" stroke-dasharray="2" />
+
+          <path id="target" d="M 10 50 L 50 10 H 90 V 90 Z" fill="none" stroke="#6366f1" stroke-width="2" />
+
+          <circle id="marker" cx="90" cy="90" r="2" fill="#f43f5e" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="m_x">M (Start X): <span class="range-value">10</span></label>
+          <input type="range" id="m_x" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label for="l_y">L (Line Y): <span class="range-value">10</span></label>
+          <input type="range" id="l_y" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label for="h_x">H (Horizontal): <span class="range-value">90</span></label>
+          <input type="range" id="h_x" min="0" max="100" value="90">
+        </div>
+        <div class="field">
+          <label for="v_y">V (Vertical): <span class="range-value">90</span></label>
+          <input type="range" id="v_y" min="0" max="100" value="90">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js: |
+    const path = document.getElementById("target");
+    const marker = document.getElementById("marker");
+    const inputs = {
+      mx: document.getElementById("m_x"),
+      ly: document.getElementById("l_y"),
+      hx: document.getElementById("h_x"),
+      vy: document.getElementById("v_y")
+    };
+
+    const update = () => {
+      const d = `M ${inputs.mx.value} 50 L 50 ${inputs.ly.value} H ${inputs.hx.value} V ${inputs.vy.value} Z`;
+      path.setAttribute("d", d);
+
+      // Update marker to current point
+      marker.setAttribute("cx", inputs.hx.value);
+      marker.setAttribute("cy", inputs.vy.value);
+
+      Object.values(inputs).forEach(i => {
+        i.parentElement.querySelector(".range-value").textContent = i.value;
+      });
+    }
+
+    Object.values(inputs).forEach(i => i.addEventListener("input", update));
+
+quadratic_demo:
+  title: "Interactive Path - Quadratic Curves"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <path id="guide" d="" stroke="var(--color-fg-muted)" stroke-width="0.5" stroke-dasharray="2" fill="none" />
+          <path id="target" d="M 10 80 Q 50 10 90 80" fill="none" stroke="#ec4899" stroke-width="2" />
+          <circle id="cp1" cx="50" cy="10" r="2" fill="#ec4899" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="qx">Control X: <span class="range-value">50</span></label>
+          <input type="range" id="qx" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label for="qy">Control Y: <span class="range-value">10</span></label>
+          <input type="range" id="qy" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label for="ex">End X: <span class="range-value">90</span></label>
+          <input type="range" id="ex" min="0" max="100" value="90">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js: |
+    const path = document.getElementById("target");
+    const guide = document.getElementById("guide");
+    const cp1 = document.getElementById("cp1");
+
+    const inputs = ["qx", "qy", "ex"];
+
+    const update = () => {
+      const qx = document.getElementById("qx").value;
+      const qy = document.getElementById("qy").value;
+      const ex = document.getElementById("ex").value;
+
+      const d = `M 10 80 Q ${qx} ${qy} ${ex} 80`;
+      path.setAttribute("d", d);
+
+      // Control point visualizer
+      cp1.setAttribute("cx", qx);
+      cp1.setAttribute("cy", qy);
+      guide.setAttribute("d", `M 10 80 L ${qx} ${qy} L ${ex} 80`);
+
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.parentElement.querySelector(".range-value").textContent = el.value;
+      });
+    }
+    inputs.forEach(id => document.getElementById(id).addEventListener("input", update));
+    update();
+
+arc_demo:
+  title: "Interactive Path - Elliptical Arc"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <circle cx="20" cy="50" r="1.5" fill="var(--color-fg-muted)" />
+          <circle cx="80" cy="50" r="1.5" fill="var(--color-fg-muted)" />
+          <path id="target" d="M 20 50 A 30 30 0 0 1 80 50" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="2" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label for="rx">rx (Radius X): <span class="range-value">30</span></label>
+          <input type="range" id="rx" min="10" max="50" value="30">
+        </div>
+        <div class="field">
+          <label for="rot">Rotation: <span class="range-value">0</span>°</label>
+          <input type="range" id="rot" min="0" max="360" value="0">
+        </div>
+        <div class="field">
+          <label for="large">Large Arc Flag: <span class="range-value">0</span></label>
+          <input type="range" id="large" min="0" max="1" step="1" value="0">
+        </div>
+        <div class="field">
+          <label for="sweep">Sweep Flag: <span class="range-value">1</span></label>
+          <input type="range" id="sweep" min="0" max="1" step="1" value="1">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js: |
+    const path = document.getElementById("target");
+    const controls = ["rx", "rot", "large", "sweep"];
+
+    const update = () => {
+      const rx = document.getElementById("rx").value;
+      const rot = document.getElementById("rot").value;
+      const large = document.getElementById("large").value;
+      const sweep = document.getElementById("sweep").value;
+
+      const d = `M 20 50 A ${rx} 30 ${rot} ${large} ${sweep} 80 50`;
+      path.setAttribute("d", d);
+
+      controls.forEach(id => {
+        const el = document.getElementById(id);
+        el.parentElement.querySelector(".range-value").textContent = el.value;
+      });
+    }
+    controls.forEach(id => document.getElementById(id).addEventListener("input", update));
+
+m_command_demo:
+  title: "Path Command: M (MoveTo)"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <circle id="marker" cx="20" cy="20" r="1" fill="#6366f1" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>Start X: <span class="range-value">20</span></label>
+          <input type="range" id="msx" min="0" max="100" value="20">
+        </div>
+        <div class="field">
+          <label>Start Y: <span class="range-value">20</span></label>
+          <input type="range" id="msy" min="0" max="100" value="20">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js:
+    - *shared_js
+    - |
+      const marker = document.getElementById("marker");
+      const inputs = ["msx", "msy"];
+      const highlightMap = { "msx": marker, "msy": marker };
+
+      const update = () => {
+        const x = document.getElementById("msx").value;
+        const y = document.getElementById("msy").value;
+
+        marker.setAttribute("cx", x);
+        marker.setAttribute("cy", y);
+
+        inputs.forEach(id => {
+          const el = document.getElementById(id);
+          el.parentElement.querySelector(".range-value").textContent = el.value;
+        });
+      }
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", update);
+        el.addEventListener("mouseenter", () => setActivePoint(id));
+        el.addEventListener("mouseleave", () => unsetActivePoint(id));
+      });
+
+l_command_demo:
+  title: "Path Command: L (LineTo)"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <path id="l-target" d="M 10 10 L 90 90" fill="none" stroke="#6366f1" stroke-width="1" stroke-linecap="round" />
+          <circle id="l-start-point" cx="10" cy="10" r="1" fill="#6366f1" />
+          <circle id="l-end-point" cx="90" cy="90" r="1" fill="#6366f1" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>Start X: <span class="range-value">10</span></label>
+          <input type="range" id="lsx" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label>Start Y: <span class="range-value">10</span></label>
+          <input type="range" id="lsy" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label>End X: <span class="range-value">90</span></label>
+          <input type="range" id="lex" min="0" max="100" value="90">
+        </div>
+        <div class="field">
+          <label>End Y: <span class="range-value">90</span></label>
+          <input type="range" id="ley" min="0" max="100" value="90">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js:
+    - *shared_js
+    - |
+      const path = document.getElementById("l-target");
+      const sp = document.getElementById("l-start-point");
+      const ep = document.getElementById("l-end-point");
+      const inputs = ["lsx", "lsy", "lex", "ley"];
+
+      const highlightMap = { "lsx": sp, "lsy": sp, "lex": ep, "ley": ep };
+
+      const update = () => {
+        const sx = document.getElementById("lsx").value;
+        const sy = document.getElementById("lsy").value;
+        const ex = document.getElementById("lex").value;
+        const ey = document.getElementById("ley").value;
+
+        path.setAttribute("d", `M ${sx} ${sy} L ${ex} ${ey}`);
+        sp.setAttribute("cx", sx);
+        sp.setAttribute("cy", sy);
+        ep.setAttribute("cx", ex);
+        ep.setAttribute("cy", ey);
+
+        inputs.forEach(id => {
+          const el = document.getElementById(id);
+          el.parentElement.querySelector(".range-value").textContent = el.value;
+        });
+      }
+
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", update);
+        el.addEventListener("mouseenter", () => setActivePoint(id));
+        el.addEventListener("mouseleave", () => unsetActivePoint(id));
+      });
+
+h_command_demo:
+  title: "Path Command: H (Horizontal)"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <path id="h-target" d="M 10 50 H 90" stroke="#10b981" stroke-width="1" fill="none" stroke-linecap="round" />
+          <circle cx="10" cy="50" r="1" fill="var(--color-border-default)" />
+          <circle id="h-end" cx="90" cy="50" r="1" fill="#10b981" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>End X: <span class="range-value">90</span></label>
+          <input type="range" id="hex" min="0" max="100" value="90">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js:
+    - *shared_js
+    - |
+      const path = document.getElementById("h-target");
+      const end = document.getElementById("h-end");
+      const input = document.getElementById("hex");
+      const highlightMap = { "hex": document.getElementById("h-end") };
+
+      const update = () => {
+        const x = input.value;
+        path.setAttribute("d", `M 10 50 H ${x}`);
+        end.setAttribute("cx", x);
+        input.parentElement.querySelector(".range-value").textContent = x;
+      }
+      input.addEventListener("input", update);
+      input.addEventListener("mouseenter", () => setActivePoint("hex"));
+      input.addEventListener("mouseleave", () => unsetActivePoint("hex"));
+
+v_command_demo:
+  title: "Path Command: V (Vertical)"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <path id="v-target" d="M 50 10 V 90" stroke="#f43f5e" stroke-width="1" fill="none" stroke-linecap="round" />
+          <circle cx="50" cy="10" r="1" fill="var(--color-border-default)" />
+          <circle id="v-end" cx="50" cy="90" r="1" fill="#f43f5e" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>End Y: <span class="range-value">90</span></label>
+          <input type="range" id="vey" min="0" max="100" value="90">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js:
+    - *shared_js
+    - |
+      const path = document.getElementById("v-target");
+      const end = document.getElementById("v-end");
+      const input = document.getElementById("vey");
+      const highlightMap = { "vey": document.getElementById("v-end") };
+
+      const update = () => {
+        const y = input.value;
+        path.setAttribute("d", `M 50 10 V ${y}`);
+        end.setAttribute("cy", y);
+        input.parentElement.querySelector(".range-value").textContent = y;
+      }
+      input.addEventListener("input", update);
+      input.addEventListener("mouseenter", () => setActivePoint("vey"));
+      input.addEventListener("mouseleave", () => unsetActivePoint("vey"));
+
+z_command_demo:
+  title: "Path Command: Z (ClosePath)"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <path id="z-target" d="M 20 80 L 50 20 80 80 Z" fill="#6366f1" fill-opacity="0.2" stroke="#6366f1" stroke-width="1" />
+          <circle id="z-peak" cx="50" cy="20" r="1" fill="#6366f1" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>Peak X: <span class="range-value">50</span></label>
+          <input type="range" id="zpx" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label>Peak Y: <span class="range-value">20</span></label>
+          <input type="range" id="zpy" min="0" max="100" value="20">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js:
+    - *shared_js
+    - |
+      const path = document.getElementById("z-target");
+      const peak = document.getElementById("z-peak");
+      const inputs = ["zpx", "zpy"];
+      const highlightMap = { "zpx": peak, "zpy": peak };
+
+      const update = () => {
+        const x = document.getElementById("zpx").value;
+        const y = document.getElementById("zpy").value;
+
+        path.setAttribute("d", `M 20 80 L ${x} ${y} 80 80 Z`);
+        peak.setAttribute("cx", x);
+        peak.setAttribute("cy", y);
+
+        inputs.forEach(id => {
+          const el = document.getElementById(id);
+          el.parentElement.querySelector(".range-value").textContent = el.value;
+        });
+      }
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", update);
+        el.addEventListener("mouseenter", () => setActivePoint(id));
+        el.addEventListener("mouseleave", () => unsetActivePoint(id));
+      });
+
+q_command_demo:
+  title: "Path Command: Q (Quadratic Bézier)"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <path id="q-guide" d="M 10 50 L 50 10 90 50" stroke="var(--color-border-default)" stroke-dasharray="1" fill="none" />
+          <path id="q-target" d="M 10 50 Q 50 10 90 50" fill="none" stroke="#ec4899" stroke-width="1" />
+          <circle id="q-p1" cx="10" cy="50" r="1" fill="var(--color-fg-muted)" />
+          <circle id="q-cp" cx="50" cy="10" r="1" fill="#ec4899" />
+          <circle id="q-ep" cx="90" cy="50" r="1" fill="var(--color-fg-muted)" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>Start X: <span class="range-value">10</span></label>
+          <input type="range" id="qsx" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label>Start Y: <span class="range-value">50</span></label>
+          <input type="range" id="qsy" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label>Control X: <span class="range-value">50</span></label>
+          <input type="range" id="qcx" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label>Control Y: <span class="range-value">10</span></label>
+          <input type="range" id="qcy" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label>End X: <span class="range-value">90</span></label>
+          <input type="range" id="qex" min="0" max="100" value="90">
+        </div>
+        <div class="field">
+          <label>End Y: <span class="range-value">50</span></label>
+          <input type="range" id="qey" min="0" max="100" value="50">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js:
+    - *shared_js
+    - |
+      const path = document.getElementById("q-target");
+      const guide = document.getElementById("q-guide");
+      const p1 = document.getElementById("q-p1");
+      const cp = document.getElementById("q-cp");
+      const ep = document.getElementById("q-ep");
+      const inputs = ["qsx", "qsy", "qcx", "qcy", "qex", "qey"];
+      const highlightMap = {
+        "qsx": p1, "qsy": p1,
+        "qcx": cp, "qcy": cp,
+        "qex": ep, "qey": ep
+      };
+
+      const update = () => {
+        const sx = document.getElementById("qsx").value;
+        const sy = document.getElementById("qsy").value;
+        const cx = document.getElementById("qcx").value;
+        const cy = document.getElementById("qcy").value;
+        const ex = document.getElementById("qex").value;
+        const ey = document.getElementById("qey").value;
+
+        path.setAttribute("d", `M ${sx} ${sy} Q ${cx} ${cy} ${ex} ${ey}`);
+        guide.setAttribute("d", `M ${sx} ${sy} L ${cx} ${cy} ${ex} ${ey}`);
+
+        p1.setAttribute("cx", sx);
+        p1.setAttribute("cy", sy);
+        cp.setAttribute("cx", cx);
+        cp.setAttribute("cy", cy);
+        ep.setAttribute("cx", ex);
+        ep.setAttribute("cy", ey);
+
+        inputs.forEach(id => {
+          const el = document.getElementById(id);
+          el.parentElement.querySelector(".range-value").textContent = el.value;
+        });
+      }
+
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", update);
+        el.addEventListener("mouseenter", () => {
+          setActivePoint(id);
+          // If we touch any control point slider, highlight the guide skeleton
+          if (id.includes("qc")) {
+            document.getElementById("q-guide").style.opacity = "1";
+          }
+        });
+        el.addEventListener("mouseleave", () => {
+          unsetActivePoint(id);
+          document.getElementById("q-guide").style.opacity = "0.4";
+        });
+      });
+
+t_command_demo:
+  title: "Path Command: T (Smooth Quadratic Bézier)"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <path id="guide-q" d="M 10 50 L 30 10 50 50" stroke="var(--color-fg-muted)" stroke-dasharray="1" fill="none" opacity="0.4" />
+          <path id="guide-t" d="M 50 50 L 70 90 90 50" stroke="var(--color-fg-accent)" stroke-dasharray="1" fill="none" opacity="0.3" />
+          <path id="target" d="M 10 50 Q 30 10 50 50 T 90 50" fill="none" stroke="#ec4899" stroke-width="1" />
+          <circle id="p-start" cx="10" cy="50" r="1" fill="var(--color-fg-muted)" />
+          <circle id="cp-q" cx="30" cy="10" r="1" fill="#ec4899" />
+          <circle id="p-mid" cx="50" cy="50" r="1" fill="var(--color-fg-muted)" />
+          <circle id="cp-ghost" cx="70" cy="90" r="1.5" fill="none" stroke="#ec4899" stroke-dasharray="1" />
+          <circle id="p-end" cx="90" cy="50" r="1" fill="var(--color-fg-muted)" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>Start X: <span class="range-value">10</span></label>
+          <input type="range" id="tsx" min="0" max="50" value="10">
+        </div>
+        <div class="field">
+          <label>Start Y: <span class="range-value">50</span></label>
+          <input type="range" id="tsy" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label>Q Control X: <span class="range-value">30</span></label>
+          <input type="range" id="tqx" min="0" max="100" value="30">
+        </div>
+        <div class="field">
+          <label>Q Control Y: <span class="range-value">10</span></label>
+          <input type="range" id="tqy" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label>Junction X: <span class="range-value">50</span></label>
+          <input type="range" id="tjx" min="20" max="80" value="50">
+        </div>
+        <div class="field">
+          <label>Junction Y: <span class="range-value">50</span></label>
+          <input type="range" id="tjy" min="20" max="80" value="50">
+        </div>
+        <div class="field">
+          <label>End X: <span class="range-value">90</span></label>
+          <input type="range" id="tex" min="50" max="100" value="90">
+        </div>
+        <div class="field">
+          <label>End Y: <span class="range-value">50</span></label>
+          <input type="range" id="tey" min="0" max="100" value="50">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js:
+    - *shared_js
+    - |
+      const path = document.getElementById("target");
+      const gq = document.getElementById("guide-q");
+      const gt = document.getElementById("guide-t");
+      const pS = document.getElementById("p-start");
+      const cpQ = document.getElementById("cp-q");
+      const pM = document.getElementById("p-mid");
+      const cpG = document.getElementById("cp-ghost");
+      const pE = document.getElementById("p-end");
+      const inputs = ["tsx", "tsy", "tqx", "tqy", "tjx", "tjy", "tex", "tey"];
+      const highlightMap = {
+        "tsx": pS, "tsy": pS,
+        "tqx": cpQ, "tqy": cpQ,
+        "tjx": pM, "tjy": pM,
+        "tex": pE, "tey": pE
+      };
+
+      const update = () => {
+        const sx = parseInt(document.getElementById("tsx").value);
+        const sy = parseInt(document.getElementById("tsy").value);
+        const qx = parseInt(document.getElementById("tqx").value);
+        const qy = parseInt(document.getElementById("tqy").value);
+        const jx = parseInt(document.getElementById("tjx").value);
+        const jy = parseInt(document.getElementById("tjy").value);
+        const ex = parseInt(document.getElementById("tex").value);
+        const ey = parseInt(document.getElementById("tey").value);
+
+        const rx = (2 * jx) - qx;
+        const ry = (2 * jy) - qy;
+
+        path.setAttribute("d", `M ${sx} ${sy} Q ${qx} ${qy} ${jx} ${jy} T ${ex} ${ey}`);
+        gq.setAttribute("d", `M ${sx} ${sy} L ${qx} ${qy} L ${jx} ${jy}`);
+        gt.setAttribute("d", `M ${jx} ${jy} L ${rx} ${ry} L ${ex} ${ey}`);
+
+        pS.setAttribute("cx", sx);
+        pS.setAttribute("cy", sy);
+        cpQ.setAttribute("cx", qx);
+        cpQ.setAttribute("cy", qy);
+        pM.setAttribute("cx", jx);
+        pM.setAttribute("cy", jy);
+        cpG.setAttribute("cx", rx);
+        cpG.setAttribute("cy", ry);
+        pE.setAttribute("cx", ex);
+        pE.setAttribute("cy", ey);
+
+        inputs.forEach(id => document.getElementById(id).parentElement.querySelector(".range-value").textContent = document.getElementById(id).value);
+      }
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", update);
+
+        el.addEventListener("mouseenter", () => {
+          setActivePoint(id);
+
+          if (id.startsWith("tq") || id.startsWith("tj")) {
+            gq.style.opacity = "1";
+          }
+          if (id.startsWith("tj")) {
+            gt.style.opacity = "0.8";
+            cpG.setAttribute("r", "2.5");
+          }
+        });
+
+        el.addEventListener("mouseleave", () => {
+          unsetActivePoint(id);
+          gq.style.opacity = "0.3";
+          gt.style.opacity = "0.2";
+          cpG.setAttribute("r", "1.5");
+        });
+      });
+
+c_command_demo:
+  title: "Path Command: C (Cubic Bézier)"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <path id="h1" d="M 10 50 L 30 10" stroke="#6366f1" stroke-dasharray="1" opacity="0.5" />
+          <path id="h2" d="M 90 50 L 70 90" stroke="#6366f1" stroke-dasharray="1" opacity="0.5" />
+          <path id="target" d="M 10 50 C 30 10 70 90 90 50" fill="none" stroke="#6366f1" stroke-width="1" />
+          <circle id="p1" cx="10" cy="50" r="1" fill="var(--color-fg-muted)" />
+          <circle id="cp1" cx="30" cy="10" r="1" fill="#6366f1" />
+          <circle id="cp2" cx="70" cy="90" r="1" fill="#6366f1" />
+          <circle id="p2" cx="90" cy="50" r="1" fill="var(--color-fg-muted)" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>Start X: <span class="range-value">10</span></label>
+          <input type="range" id="sx" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label>Start Y: <span class="range-value">50</span></label>
+          <input type="range" id="sy" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label>C1 (Entry) X: <span class="range-value">30</span></label>
+          <input type="range" id="x1" min="0" max="50" value="30">
+        </div>
+        <div class="field">
+          <label>C1 (Entry) Y: <span class="range-value">10</span></label>
+          <input type="range" id="y1" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label>C2 (Exit) X: <span class="range-value">70</span></label>
+          <input type="range" id="x2" min="50" max="100" value="70">
+        </div>
+        <div class="field">
+          <label>C2 (Exit) Y: <span class="range-value">90</span></label>
+          <input type="range" id="y2" min="0" max="100" value="90">
+        </div>
+        <div class="field">
+          <label>End X: <span class="range-value">90</span></label>
+          <input type="range" id="ex" min="0" max="100" value="90">
+        </div>
+        <div class="field">
+          <label>End Y: <span class="range-value">50</span></label>
+          <input type="range" id="ey" min="0" max="100" value="50">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js:
+    - *shared_js
+    - |
+      const path = document.getElementById("target");
+      const h1 = document.getElementById("h1");
+      const h2 = document.getElementById("h2");
+      const cp1 = document.getElementById("cp1");
+      const cp2 = document.getElementById("cp2");
+      const inputs = ["sx", "sy", "x1", "y1", "x2", "y2", "ex", "ey"];
+      const highlightMap = {
+        "sx": p1, "sy": p1,
+        "x1": cp1, "y1": cp1,
+        "x2": cp2, "y2": cp2,
+        "ex": p2, "ey": p2
+      };
+
+      const update = () => {
+        const sx = document.getElementById("sx").value;
+        const sy = document.getElementById("sy").value;
+        const x1 = document.getElementById("x1").value;
+        const y1 = document.getElementById("y1").value;
+        const x2 = document.getElementById("x2").value;
+        const y2 = document.getElementById("y2").value;
+        const ex = document.getElementById("ex").value;
+        const ey = document.getElementById("ey").value;
+
+        path.setAttribute("d", `M ${sx} ${sy} C ${x1} ${y1} ${x2} ${y2} ${ex} ${ey}`);
+        h1.setAttribute("d", `M ${sx} ${sy} L ${x1} ${y1}`);
+        h2.setAttribute("d", `M ${ex} ${ey} L ${x2} ${y2}`);
+
+        p1.setAttribute("cx", sx);
+        p1.setAttribute("cy", sy);
+        cp1.setAttribute("cx", x1);
+        cp1.setAttribute("cy", y1);
+        cp2.setAttribute("cx", x2);
+        cp2.setAttribute("cy", y2);
+        p2.setAttribute("cx", ex);
+        p2.setAttribute("cy", ey);
+
+        inputs.forEach(id => document.getElementById(id).parentElement.querySelector(".range-value").textContent = document.getElementById(id).value);
+      }
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", update);
+        el.addEventListener("mouseenter", () => {
+          setActivePoint(id);
+          if (id === "x1" || id === "y1") h1.style.opacity = "1";
+          if (id === "x2" || id === "y2") h2.style.opacity = "1";
+        });
+        el.addEventListener("mouseleave", () => {
+          unsetActivePoint(id);
+          h1.style.opacity = "0.5";
+          h2.style.opacity = "0.5";
+        });
+      });
+
+s_command_demo:
+  title: "Path Command: S (Smooth Cubic Bézier)"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <path id="guide-c" d="M 10 50 20 10 40 10 50 50" stroke="var(--color-fg-muted)" stroke-dasharray="1" fill="none" opacity="0.4" />
+          <path id="guide-s" d="M 50 50 60 90 80 90 90 50" stroke="var(--color-fg-accent)" stroke-dasharray="1" fill="none" opacity="0.3" />
+          <path id="target" d="M 10 50 C 20 10 40 10 50 50 S 80 90 90 50" fill="none" stroke="#6366f1" stroke-width="1" />
+          <circle id="p-start" cx="10" cy="50" r="1" fill="var(--color-fg-muted)" />
+          <circle id="cp-c2" cx="40" cy="10" r="1" fill="#6366f1" />
+          <circle id="p-mid" cx="50" cy="50" r="1" fill="var(--color-fg-muted)" />
+          <circle id="cp-s-ghost" cx="60" cy="90" r="1.5" fill="none" stroke="#6366f1" stroke-dasharray="1" />
+          <circle id="cp-s2" cx="80" cy="90" r="1" fill="#6366f1" />
+          <circle id="p-end" cx="90" cy="50" r="1" fill="var(--color-fg-muted)" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>Start X: <span class="range-value">10</span></label>
+          <input type="range" id="ssx" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label>Start Y: <span class="range-value">50</span></label>
+          <input type="range" id="ssy" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label>C2 X: <span class="range-value">40</span></label>
+          <input type="range" id="sc2x" min="10" max="50" value="40">
+        </div>
+        <div class="field">
+          <label>C2 Y: <span class="range-value">10</span></label>
+          <input type="range" id="sc2y" min="0" max="100" value="10">
+        </div>
+        <div class="field">
+          <label>Junction X: <span class="range-value">50</span></label>
+          <input type="range" id="sjx" min="30" max="70" value="50">
+        </div>
+        <div class="field">
+          <label>Junction Y: <span class="range-value">50</span></label>
+          <input type="range" id="sjy" min="30" max="70" value="50">
+        </div>
+        <div class="field">
+          <label>S2 X: <span class="range-value">80</span></label>
+          <input type="range" id="ss2x" min="50" max="100" value="80">
+        </div>
+        <div class="field">
+          <label>S2 Y: <span class="range-value">90</span></label>
+          <input type="range" id="ss2y" min="0" max="100" value="90">
+        </div>
+        <div class="field">
+          <label>End X: <span class="range-value">90</span></label>
+          <input type="range" id="sex" min="70" max="100" value="90">
+        </div>
+        <div class="field">
+          <label>End Y: <span class="range-value">50</span></label>
+          <input type="range" id="sey" min="0" max="100" value="50">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js:
+    - *shared_js
+    - |
+      const path = document.getElementById("target");
+      const gc = document.getElementById("guide-c");
+      const gs = document.getElementById("guide-s");
+      const pS = document.getElementById("p-start");
+      const cpC2 = document.getElementById("cp-c2");
+      const pM = document.getElementById("p-mid");
+      const cpG = document.getElementById("cp-s-ghost");
+      const cpS2 = document.getElementById("cp-s2");
+      const pE = document.getElementById("p-end");
+      const inputs = ["ssx", "ssy", "sc2x", "sc2y", "sjx", "sjy", "ss2x", "ss2y", "sex", "sey"];
+      const highlightMap = {
+        "ssx": pS, "ssy": pS,
+        "sc2x": cpC2, "sc2y": cpC2,
+        "sjx": pM, "sjy": pM,
+        "ss2x": cpS2, "ss2y": cpS2,
+        "sex": pE, "sey": pE
+      };
+
+      const update = () => {
+        const sx = parseInt(document.getElementById("ssx").value);
+        const sy = parseInt(document.getElementById("ssy").value);
+        const c2x = parseInt(document.getElementById("sc2x").value);
+        const c2y = parseInt(document.getElementById("sc2y").value);
+        const jx = parseInt(document.getElementById("sjx").value);
+        const jy = parseInt(document.getElementById("sjy").value);
+        const s2x = parseInt(document.getElementById("ss2x").value);
+        const s2y = parseInt(document.getElementById("ss2y").value);
+        const ex = parseInt(document.getElementById("sex").value);
+        const ey = parseInt(document.getElementById("sey").value);
+
+        const rx = (2 * jx) - c2x;
+        const ry = (2 * jy) - c2y;
+
+        path.setAttribute("d", `M ${sx} ${sy} C 20 10 ${c2x} ${c2y} ${jx} ${jy} S ${s2x} ${s2y} ${ex} ${ey}`);
+        gc.setAttribute("d", `M ${sx} ${sy} L 20 10 L ${c2x} ${c2y} L ${jx} ${jy}`);
+        gs.setAttribute("d", `M ${jx} ${jy} L ${rx} ${ry} L ${s2x} ${s2y} L ${ex} ${ey}`);
+
+        pS.setAttribute("cx", sx);
+        pS.setAttribute("cy", sy);
+        cpC2.setAttribute("cx", c2x);
+        cpC2.setAttribute("cy", c2y);
+        pM.setAttribute("cx", jx);
+        pM.setAttribute("cy", jy);
+        cpG.setAttribute("cx", rx);
+        cpG.setAttribute("cy", ry);
+        cpS2.setAttribute("cx", s2x);
+        cpS2.setAttribute("cy", s2y);
+        pE.setAttribute("cx", ex);
+        pE.setAttribute("cy", ey);
+
+        inputs.forEach(id => document.getElementById(id).parentElement.querySelector(".range-value").textContent = document.getElementById(id).value);
+      }
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", update);
+        el.addEventListener("mouseenter", () => {
+          setActivePoint(id);
+          // Highlight the cubic guide if we are on C2
+          if (id.includes("sc2")) {
+            gc.style.opacity = "1";
+          }
+          // Highlight the smooth reflection if we are on Junction or S2
+          if (id.includes("sj")) {
+            gs.style.opacity = "1";
+            cpG.setAttribute("r", "2.5");
+          }
+        });
+        el.addEventListener("mouseleave", () => {
+          unsetActivePoint(id);
+          gc.style.opacity = "0.4";
+          gs.style.opacity = "0.3";
+          cpG.setAttribute("r", "1.5");
+        });
+      });
+
+a_command_demo:
+  title: "Path Command: A (Elliptical Arc)"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <ellipse id="ghost" cx="50" cy="50" rx="30" ry="20" fill="none" stroke="var(--color-border-default)" stroke-dasharray="1" />
+          <path id="target" d="M 20 50 A 30 20 0 0 1 80 50" fill="none" stroke="#10b981" stroke-width="1" />
+          <circle cx="20" cy="50" r="1" id="p1" fill="var(--color-fg-muted)" />
+          <circle cx="80" cy="50" r="1" id="p2" fill="var(--color-fg-muted)" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>Start X: <span class="range-value">20</span></label>
+          <input type="range" id="asx" min="0" max="100" value="20">
+        </div>
+        <div class="field">
+          <label>Start Y: <span class="range-value">50</span></label>
+          <input type="range" id="asy" min="0" max="100" value="50">
+        </div>
+        <div class="field">
+          <label>rx: <span class="range-value">30</span></label>
+          <input type="range" id="arx" min="10" max="50" value="30">
+        </div>
+        <div class="field">
+          <label>ry: <span class="range-value">20</span></label>
+          <input type="range" id="ary" min="10" max="50" value="20">
+        </div>
+        <div class="field full-width">
+          <label>Rotation: <span class="range-value">0</span></label>
+          <input type="range" id="arot" min="0" max="360" value="0">
+        </div>
+        <div class="field">
+          <label>End X: <span class="range-value">80</span></label>
+          <input type="range" id="aex" min="0" max="100" value="80">
+        </div>
+        <div class="field">
+          <label>End Y: <span class="range-value">50</span></label>
+          <input type="range" id="aey" min="0" max="100" value="50">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js:
+    - *shared_js
+    - |
+      const path = document.getElementById("target");
+      const ghost = document.getElementById("ghost");
+      const p1 = document.getElementById("p1");
+      const p2 = document.getElementById("p2");
+      const inputs = ["asx", "asy", "arx", "ary", "arot", "aex", "aey"];
+      const highlightMap = {
+        "asx": p1, "asy": p1,
+        "aex": p2, "aey": p2,
+        "arx": ghost, "ary": ghost, "arot": ghost
+      };
+
+      const update = () => {
+        const sx = parseInt(document.getElementById("asx").value);
+        const sy = parseInt(document.getElementById("asy").value);
+        const rx = parseInt(document.getElementById("arx").value);
+        const ry = parseInt(document.getElementById("ary").value);
+        const rot = parseInt(document.getElementById("arot").value);
+        const ex = parseInt(document.getElementById("aex").value);
+        const ey = parseInt(document.getElementById("aey").value);
+
+        path.setAttribute("d", `M ${sx} ${sy} A ${rx} ${ry} ${rot} 0 1 ${ex} ${ey}`);
+
+        p1.setAttribute("cx", sx);
+        p1.setAttribute("cy", sy);
+        p2.setAttribute("cx", ex);
+        p2.setAttribute("cy", ey);
+
+        ghost.setAttribute("cx", (sx + ex) / 2);
+        ghost.setAttribute("cy", (sy + ey) / 2);
+        ghost.setAttribute("rx", rx);
+        ghost.setAttribute("ry", ry); 
+        ghost.setAttribute("transform", `rotate(${rot}, ${(sx + ex) / 2}, ${(sy + ey) / 2})`);
+
+        inputs.forEach(id => document.getElementById(id).parentElement.querySelector(".range-value").textContent = document.getElementById(id).value);
+      }
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", update);
+        el.addEventListener("mouseenter", () => {
+          if (["arx", "ary", "arot"].includes(id)) {
+            ghost.style.opacity = "0.8";
+            ghost.style.stroke = "var(--color-fg-accent)";
+          } else {
+            setActivePoint(id);
+          }
+        });
+        el.addEventListener("mouseleave", () => {
+          if (["arx", "ary", "arot"].includes(id)) {
+            ghost.style.opacity = "0.2";
+            ghost.style.stroke = "var(--color-border-default)";
+          } else {
+            unsetActivePoint(id);
+          }
+        });
+      });
+
+heart_shape_demo:
+  title: "Practical Example: The Heart Shape"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg viewBox="0 0 100 100">
+          <path id="h-guide" d="" stroke="var(--color-fg-accent)" stroke-dasharray="1" fill="none" opacity="0" />
+          <path id="target" d="" fill="#f43f5e" fill-opacity="0.2" stroke="#e11d48" stroke-width="1" />
+          <circle id="tip-marker" cx="50" cy="95" r="1" fill="#e11d48" />
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>Hump Radius: <span class="range-value">20</span></label>
+          <input type="range" id="radius" min="15" max="25" value="20">
+        </div>
+        <div class="field">
+          <label>Tip Depth: <span class="range-value">95</span></label>
+          <input type="range" id="tip" min="70" max="100" value="95">
+        </div>
+        <div class="field">
+          <label>Bulge: <span class="range-value">65</span></label>
+          <input type="range" id="bulge" min="40" max="80" value="65">
+        </div>
+      </div>
+    </div>
+  css: *shared_css
+  js:
+    - *shared_js
+    - |
+      const path = document.getElementById("target");
+      const guide = document.getElementById("h-guide");
+      const marker = document.getElementById("tip-marker");
+      const inputs = ["radius", "tip", "bulge"];
+      const highlightMap = { "radius": path, "tip": marker, "bulge": path };
+
+      const update = () => {
+        const r = document.getElementById("radius").value, t = document.getElementById("tip").value, b = document.getElementById("bulge").value;
+        path.setAttribute("d", `M 10 35 A ${r} ${r} 0 0 1 50 35 A ${r} ${r} 0 0 1 90 35 Q 90 ${b} 50 ${t} Q 10 ${b} 10 35 Z`);
+        guide.setAttribute("d", `M 90 35 L 90 ${b} L 50 ${t} L 10 ${b} L 10 35`);
+        marker.setAttribute("cy", t);
+        inputs.forEach(id => {
+          const el = document.getElementById(id);
+          el.parentElement.querySelector(".range-value").textContent = el.value;
+        });
+      }
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", update);
+        el.addEventListener("mouseenter", () => {
+          if(id === "bulge") guide.style.opacity = "0.6";
+          path.style.fillOpacity = "0.5";
+        });
+        el.addEventListener("mouseleave", () => {
+          guide.style.opacity = "0";
+          path.style.fillOpacity = "0.2";
+        });
+      });
+      update();
