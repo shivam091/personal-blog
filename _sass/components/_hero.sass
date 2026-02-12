@@ -1,6 +1,7 @@
 @use "abstracts/tokens" as *
 @use "abstracts/mixins/breakpoints" as breakpoint
 @use "abstracts/modules/text-underline" as *
+@use "abstracts/animations/bg-slide" as *
 
 .hero
   padding: $fluid-space-md
@@ -24,6 +25,13 @@
     line-height: $line-height-title
     margin-bottom: $space-sm
     font-weight: $font-weight-semi-bold
+    background: linear-gradient(90deg, var(--color-fg-attention) , var(--color-fg-success) , var(--color-fg-danger) , var(--color-fg-accent) , var(--color-fg-attention))
+    background-size: 200% auto
+    -webkit-background-clip: text
+    background-clip: text
+    -webkit-text-fill-color: transparent
+    color: transparent
+    animation: bg-slide 3s linear infinite
 
   .hero-subheading
     font-size: $fluid-font-size-lg
