@@ -103,7 +103,7 @@ Only the wrapper requires a class. All layout positioning is handled by semantic
 
 This keeps the markup clean and readable while allowing CSS Grid to control layout independently of source order.
 
-{% playground id:"holy-grail-layout" line_numbers:"on" %}
+{% playground id:"holy-grail-layout" line_numbers:"on" orientation:"vertical" %}
 
 ## Highlights
 
