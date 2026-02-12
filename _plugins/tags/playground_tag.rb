@@ -23,6 +23,7 @@ module Jekyll
       autorun = @params.fetch("autorun", "true")
       line_numbers = @params.fetch("line_numbers", "off")
       gutters = @params.fetch("gutters", "on")
+      orientation = @params.fetch("orientation", "auto") # auto, horizontal, vertical
 
       playground = playgrounds[id]
 
@@ -33,9 +34,9 @@ module Jekyll
 
       <<~HTML
         <section id="pg-#{id}" class="playground" aria-label="Code playground: #{name}"
-                 data-playground data-id="#{id}" data-autorun="#{autorun}" data-line-numbers="#{line_numbers}" data-gutters="#{gutters}">
+                 data-playground data-id="#{id}" data-orientation="#{orientation}" data-autorun="#{autorun}" data-line-numbers="#{line_numbers}" data-gutters="#{gutters}">
           #{render_header(playground, context, id, name, url)}
-          #{render_main_content(playground, context, id, name, autorun)}
+          #{render_main_content(playground, context, id, name, autorun, orientation)}
           #{render_footer(id)}
         </section>
       HTML
@@ -88,9 +89,9 @@ module Jekyll
       HTML
     end
 
-    def render_main_content(playground, context, id, name, autorun)
+    def render_main_content(playground, context, id, name, autorun, orientation)
       <<~HTML
-        <div class="playground-content" data-split-pane role="group" aria-label="Playground workspace">
+        <div class="playground-content" data-split-pane data-orientation="#{orientation}" role="group" aria-label="Playground workspace">
           <!-- Editor Section -->
           <section class="editor-section" data-pane="left" role="region" aria-label="Code Editors">
             <div class="tabs editor-tabs" role="tablist" aria-label="Editor Tabs">
