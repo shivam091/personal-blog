@@ -13,9 +13,14 @@ export default class SplitPane {
 
     this.isTouch = useTouch();
     this.isDragging = false;
-    this.options = Object.assign({ min: MIN_PERCENT, max: MAX_PERCENT }, options);
 
-    // initial CSS var fallback
+    // orientation can be 'horizontal', 'vertical', or 'auto'
+    this.options = Object.assign({
+      min: MIN_PERCENT,
+      max: MAX_PERCENT,
+      orientation: "auto"
+    }, options);
+
     const styles = getComputedStyle(this.container);
     this.leftPaneDefault = parseFloat(styles.getPropertyValue("--left-pane-size")) || 50;
 
@@ -39,25 +44,31 @@ export default class SplitPane {
     }
   }
 
+  // Helper to determine if we are currently in vertical mode
+  get isVertical() {
+    if (this.options.orientation === "auto") {
+      return getComputedStyle(this.container).flexDirection === "column";
+    }
+    return this.options.orientation === "vertical";
+  }
+
   #bindKeyboard() {
     document.addEventListener("keydown", (e) => {
       // Only trigger when splitHandle is focused
       if (document.activeElement !== this.splitHandle) return;
 
       if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) return;
-      if (e.target.matches("textarea, input")) return;
 
       e.preventDefault();
-
       const step = e.shiftKey ? 5 : 2;
-      const direction = getComputedStyle(this.container).flexDirection;
 
-      if (direction === "row") {
+      // Handle logic based on orientation
+      if (this.isVertical) {
+        if (e.key === "ArrowUp") this.#adjust(-step);
+        if (e.key === "ArrowDown") this.#adjust(step);
+      } else {
         if (e.key === "ArrowLeft") this.#adjust(-step);
         if (e.key === "ArrowRight") this.#adjust(step);
-      } else {
-        if (e.key === "ArrowUp") this.#adjust(-step, { vertical: true });
-        if (e.key === "ArrowDown") this.#adjust(step, { vertical: true });
       }
     });
   }
@@ -85,36 +96,30 @@ export default class SplitPane {
     if (!this.isDragging) return;
 
     const rect = this.container.getBoundingClientRect();
-    const direction = getComputedStyle(this.container).flexDirection;
-
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
     let percent;
-    if (direction === "row") {
-      percent = ((clientX - rect.left) / rect.width) * 100;
-    } else {
+    if (this.isVertical) {
       percent = ((clientY - rect.top) / rect.height) * 100;
+    } else {
+      percent = ((clientX - rect.left) / rect.width) * 100;
     }
 
-    percent = clamp(percent, this.options.min, this.options.max);
-    this.#applySplit(percent);
+    this.#applySplit(clamp(percent, this.options.min, this.options.max));
   }
 
   // delta: horizontal by default, vertical when vertical=true
-  #adjust(delta, { vertical = false } = {}) {
+  #adjust(delta) {
     const rect = this.container.getBoundingClientRect();
-    const current = vertical
-      ? (this.leftPane.getBoundingClientRect().height / rect.height) * 100
-      : (this.leftPane.getBoundingClientRect().width / rect.width) * 100;
+    const paneRect = this.leftPane.getBoundingClientRect();
 
-    const newPercent = clamp(
-      current + delta,
-      this.options.min,
-      this.options.max
-    );
+    // Calculate current percentage based on active axis
+    const current = this.isVertical
+      ? (paneRect.height / rect.height) * 100
+      : (paneRect.width / rect.width) * 100;
 
-    this.#applySplit(newPercent);
+    this.#applySplit(clamp(current + delta, this.options.min, this.options.max));
   }
 
   #applySplit(percent) {

@@ -7,33 +7,12 @@
   --split-handle-size: var(--split-handle, 4px)
 
   display: flex
-  flex-direction: row
   background: var(--color-bg-default)
   overflow: hidden
   position: relative
 
-  &.resizing
-    cursor: col-resize
-
-    .split-handle
-      background: var(--color-border-accent-muted)
-
-  [data-pane]
-    min-height: 0
-    min-width: 0
-    overflow: hidden
-
-  [data-pane="left"]
-    flex: 0 0 var(--left-pane-size)
-
-  [data-pane="right"]
-    flex: 1 1 auto
-
   .split-handle
     background: var(--color-border-default)
-    width: var(--split-handle-size)
-    height: 100%
-    cursor: col-resize
     z-index: 5
 
     @include transition-properties(background, $duration: $motion-duration-default, $easing: $motion-easing-ease)
@@ -44,8 +23,22 @@
     &:focus
       outline: $border-radius-xs solid var(--color-border-accent)
 
-@include breakpoint.container-max(lg)
-  [data-split-pane]
+  &.resizing
+    .split-handle
+      background: var(--color-border-accent-muted)
+
+  &, &[data-orientation="horizontal"]
+    flex-direction: row
+
+    .split-handle
+      width: var(--split-handle-size)
+      height: 100%
+      cursor: col-resize
+
+    &.resizing
+      cursor: col-resize
+
+  &[data-orientation="vertical"]
     flex-direction: column
 
     .split-handle
@@ -55,3 +48,29 @@
 
     &.resizing
       cursor: row-resize
+
+  &:not([data-orientation="vertical"]):not([data-orientation="horizontal"])
+    @include breakpoint.container-max(lg)
+      flex-direction: column
+
+      .split-handle
+        width: 100%
+        height: var(--split-handle-size)
+        cursor: row-resize
+
+      &.resizing
+        cursor: row-resize
+
+  [data-pane]
+    min-height: 0
+    min-width: 0
+    overflow: hidden
+
+    &[data-pane="left"]
+      flex: 0 0 var(--left-pane-size)
+
+    &[data-pane="right"]
+      flex: 1 1 auto
+
+      .split-handle
+         background: var(--color-border-accent-muted)
