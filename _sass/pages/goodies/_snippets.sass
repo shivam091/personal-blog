@@ -1,5 +1,6 @@
 @use "abstracts/tokens" as *
 @use "abstracts/mixins/breakpoints" as breakpoint
+@use "abstracts/modules/section" as *
 
 .snippets-list
   display: grid
@@ -48,3 +49,9 @@
 
   &:not(:last-child)
     margin-block-end: $space-sm
+
+.snippet-content
+
+  h1,
+  h2
+    @extend %section
