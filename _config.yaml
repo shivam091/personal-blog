@@ -65,8 +65,7 @@ collections:
   series:
     output: false
   snippets:
-    output: true
-    permalink: /snippet/:slug/
+    output: false
 
 pagination:
   enabled: true

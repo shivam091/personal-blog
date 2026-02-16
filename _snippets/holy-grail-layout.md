@@ -1,6 +1,5 @@
 ---
 title: "The Holy Grail Layout (Grid Edition)"
-slug: "holy-grail-layout"
 excerpt: "A responsive Holy Grail layout built with CSS Grid and grid-template-areas—no floats, no hacks."
 description: |
   Build the classic Holy Grail layout using modern CSS Grid. Learn grid-template-areas to create a clean, responsive header,
