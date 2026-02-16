@@ -33,7 +33,7 @@ module Jekyll
 
       # Add all other collections except "posts"
       site.collections.each do |name, collection|
-        next if name == "posts" || name == "series" # already added
+        next if name == "posts" || name == "series" || name == "snippets" # already added
         all_docs.concat(collection.docs)
       end
 

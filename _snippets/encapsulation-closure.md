@@ -1,6 +1,5 @@
 ---
 title: "Encapsulation with Closures"
-slug: "encapsulation-closure"
 excerpt: "Encapsulate private variables using JavaScript closure patterns."
 description: "Master the functional approach to data encapsulation in JavaScript by leveraging lexical scoping to create immutable private variables."
 layout: "snippet"

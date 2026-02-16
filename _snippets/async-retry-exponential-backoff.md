@@ -1,6 +1,5 @@
 ---
 title: "Exponential Backoff Retry Utility"
-slug: "async-retry-exponential-backoff"
 excerpt: "Retry async operations with exponential backoff and caps."
 description: "A production-ready recursive utility to retry failed asynchronous operations with a configurable delay that doubles and caps to prevent infinite wait times."
 layout: "snippet"

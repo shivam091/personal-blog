@@ -1,6 +1,5 @@
 ---
 title: "Encapsulation with Private Class Fields"
-slug: "encapsulation-private-class-fields"
 excerpt: "Use native #private syntax to protect class properties in JavaScript."
 description: "Implement native engine-level privacy in your OOP structures using ES2022+ private class fields and memory-efficient prototype methods."
 layout: "snippet"

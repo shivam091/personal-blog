@@ -1,6 +1,5 @@
 ---
 title: "Exponential Backoff with Jitter"
-slug: "async-retry-jitter"
 excerpt: "Prevent server traffic spikes using random retry jitter."
 description: "Enhance your retry logic with 'Full Jitter' to decohere client requests and protect your infrastructure during recovery."
 layout: "snippet"
@@ -8,7 +7,7 @@ tags: [javascript, jitter, thundering-herd, backoff, distributed-systems, scalab
 category: [JavaScript]
 date: 2026-01-28
 image:
-  path: /assets/img/goodies/snippets/async-retry-jitter/cover.png
+  path: /assets/img/goodies/snippets/exponential-backoff-with-jitter/cover.png
   width: 1536
   height: 1024
   alt: "Visualization of exponential backoff with jitter, showing randomized retry intervals over time to prevent synchronized retries."

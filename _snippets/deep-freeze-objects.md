@@ -1,6 +1,5 @@
 ---
 title: "Deep Freeze Objects in JavaScript"
-slug: "deep-freeze-objects"
 excerpt: "Recursively lock every object level for true immutability"
 description: "Lock objects and their children immutably — prevent accidental mutations and enforce deep immutability in strict mode."
 layout: "snippet"
