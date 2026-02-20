@@ -44,8 +44,8 @@ operators:
   title: A Complete Guide to JavaScript Operators
   description: A complete guide to JavaScript operators, including arithmetic, assignment, comparison, logical, and unary operators.
 javascript:
-  title: All Posts Tagged JavaScript
-  description: All posts tagged with JavaScript, covering language fundamentals, advanced concepts, and practical applications.
+  title: "Modern JavaScript Development and Logic"
+  description: All posts covering JavaScript, from core syntax and ES6+ features to DOM manipulation and scripting dynamic SVG behaviors.
 tutorial:
   title: Step-by-Step Programming Tutorials
   description: Step-by-step instructional guides to help you learn and implement specific web development techniques and concepts.
@@ -202,3 +202,21 @@ oklch:
 scss:
   title: Streamlined Styling with SCSS and Preprocessors
   description: Optimize your CSS workflow using SCSS (Sass) features like variables, nesting, mixins, and modular imports for scalable and maintainable code.
+path-data:
+  title: "Mastering SVG Path Data: The 'd' Attribute"
+  description: Detailed guides on decoding and writing SVG path data, from basic LineTo commands to complex Bézier curves and elliptical arcs.
+vector:
+  title: "Working with Scalable Vector Graphics (SVG)"
+  description: Principles of vector-based design for the web, focusing on resolution independence, mathematical paths, and sharp rendering at any scale.
+icons:
+  title: "Designing and Implementing Custom Web Icons"
+  description: Best practices for building, optimizing, and managing custom SVG icon systems that are accessible, performant, and easy to style.
+frontend-development:
+  title: "Frontend Engineering: Building for the Modern Web"
+  description: Comprehensive resources on the intersection of HTML, CSS, JavaScript, and SVG to build high-performance, accessible user interfaces.
+bezier-curves:
+  title: "Understanding Bézier Curves in Web Graphics"
+  description: A technical deep dive into Quadratic and Cubic Bézier curves, explaining the math and logic behind smooth, organic vector paths and animations.
+web-animation:
+  title: "High-Performance Web Animation and Motion"
+  description: Techniques for creating engaging web experiences using CSS transitions, @keyframes, and JavaScript-driven motion for SVG and UI elements.
