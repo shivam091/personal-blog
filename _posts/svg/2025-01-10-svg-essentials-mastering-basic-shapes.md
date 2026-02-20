@@ -15,6 +15,8 @@ image:
     Illustration of an SVG coordinate system showing basic shapes like circle, rectangle, polygon, and polyline inside
     a viewBox grid, demonstrating scalable vector graphics and resolution-independent design.
 changelog:
+  - date: 2026-02-05
+    change: "Updated examples of Heart Shape, Radar Scanner, and Sun Rays Rotation and added references for other related posts"
   - date: 2026-01-10
     change: "Initial publication"
 ---
@@ -158,7 +160,9 @@ or equivalently:
 
 ## Basic Shapes
 
-Before moving on to complex paths, you must master these six standalone elements.
+Before moving on to [SVG Essentials: Mastering the Path Element](/post/svg-essentials-mastering-the-path-element)—the "pro" tool of
+SVG—you must first master these six standalone elements. Think of these as the building blocks that help you understand coordinate
+math before you start drawing custom curves.
 
 ### Lines
 
@@ -352,25 +356,29 @@ This defines the shape of the **corners** where two line segments meet.
 Some effects can only be achieved—or are much easier to manage—through CSS. This is where SVG truly shines for UI
 design, allowing for transitions and hover states.
 
+#### The Heart Shape
+
 {% codeblock %}
 {% highlight css linenos %}
 /* Target SVG elements just like HTML */
 .icon-heart {
-  fill: #d1d5db;
-  transition: fill 0.3s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  cursor: pointer;
-}
-
-.icon-heart:hover {
   fill: #f43f5e;
-  transform: scale(1.2);
+  fill-opacity: 0.2;
+  stroke: #e11d48;
+  stroke-width: 1;
+  cursor: pointer;
+  transition: fill 0.3s ease, transform 0.3s ease;
   /* The SVG "Gotcha": You MUST set the origin */
   transform-origin: center;
+}
+.icon-heart:hover {
+  fill: #e11d48;
+  transform: scale(1.1);
 }
 {% endhighlight %}
 {% endcodeblock %}
 
-{% interactive_panel demo_id:radar_demo id:"radar-demo" %}
+{% interactive_panel demo_id:heart_icon_demo id:"heart-icon-demo" %}
 
 > **⚠️ The `transform-origin` Warning:**
 > Unlike HTML elements (where the center is the default origin), SVG elements default to the **top-left (0,0)**
@@ -392,13 +400,20 @@ box as the reference point, rather than the top-left (0,0) of the entire SVG can
   /* 2. Now 'center' refers to the center of the shape */
   transform-origin: center;
 
-  transition: transform 0.5s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
-.sun-icon-rays:hover {
-  transform: rotate(90deg);
+.canvas:hover .sun-icon-rays {
+  transform: rotate(90deg) scale(1.1);
 }
 {% endhighlight %}
 {% endcodeblock %}
+
+{% interactive_panel demo_id:sun_rotation_demo id:"sun-rotation-demo" %}
+
+## Radar Scanner
+
+{% interactive_panel demo_id:radar_demo id:"radar-demo" %}
 
 ## Making SVGs Accessible
 
@@ -416,7 +431,8 @@ your graphic, always include a `<title>` as the first child of your `<svg>` tag.
 
 ## Summary
 
-In this post, we’ve laid the groundwork for building professional, resolution-independent graphics. By mastering the basics, you’ve moved past "copy-pasting" SVG code to actually understanding how it works:
+In this post, we’ve laid the groundwork for building professional, resolution-independent graphics. By mastering the basics, you’ve
+moved past "copy-pasting" SVG code to actually understanding how it works:
 
 - **Coordinate Logic:** You now know that the SVG world starts at the top-left (0,0) and that the Y-axis moves downward.
 - **The `viewBox` vs. Viewport:** You’ve mastered the distinction between the physical "window" (pixels) and the internal "canvas" (user units).
@@ -424,3 +440,9 @@ In this post, we’ve laid the groundwork for building professional, resolution-
 - **Styling & Interactivity:** You understand how to use `fill` and `stroke` and why `transform-origin` is critical when animating
   SVG elements with CSS.
 - **Accessibility:** You’ve learned that a simple `<title>` tag makes your graphics inclusive for screen-reader users.
+
+## What's Next?
+
+Now that you’ve mastered rectangles, circles, and polygons, you’re ready for the "Final Boss" of SVG. In my next guide,
+[SVG Essentials: Mastering the Path Element](/post/svg-essentials-mastering-the-path-element), we’ll move beyond fixed geometry to decode the "alphabet" of
+path commands—learning how to draw custom icons, complex branding, and organic Bézier curves.

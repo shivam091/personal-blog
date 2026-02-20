@@ -23,8 +23,8 @@ module Jekyll
 
       title = CGI.escapeHTML(demo["title"].to_s)
       css   = CGI.escapeHTML([demo["css"]].flatten.compact.join("\n"))
-      html  = CGI.escapeHTML(demo["html"].to_s)
-      js    = CGI.escapeHTML(demo["js"].to_s)
+      html  = CGI.escapeHTML([demo["html"]].flatten.compact.join("\n"))
+      js    = CGI.escapeHTML([demo["js"]].flatten.compact.join("\n"))
 
       <<~HTML
         <div class="interactive-panel">
