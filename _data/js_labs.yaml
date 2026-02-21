@@ -1,0 +1,238 @@
+event_loop:
+  title: "The Event Loop Challenge"
+  js: |
+    log("Starting Event Loop Challenge", true);
+    log("1. [Sync] Start");
+
+    setTimeout(() => log("4. [Macrotask] setTimeout (0ms)"), 0);
+
+    queueMicrotask(() => log("3. [Microtask] queueMicrotask"));
+
+    Promise.resolve().then(() => log("3. [Microtask] Promise.then"));
+
+    log("2. [Sync] End");
+
+parallel_execution:
+  title: "Serial vs Parallel Demos"
+  js: |
+    const mockFetch = (id, time) => new Promise((res) => setTimeout(() => res(`Data ${id}`), time));
+
+    log("Comparing Execution Speeds", true);
+
+    const startSerial = Date.now();
+    log("Starting Serial (await task1, then await task2)...");
+    await mockFetch("A", 1000);
+    await mockFetch("B", 1000);
+    log(`Serial Finished in: <span class="highlighted">${Date.now() - startSerial}ms</span>`);
+
+    const startParallel = Date.now();
+    log("Starting Parallel (Promise.all)...");
+    await Promise.all([mockFetch("C", 1000), mockFetch("D", 1000)]);
+    log(`Parallel Finished in: <span class="highlighted">${Date.now() - startParallel}ms</span>`);
+
+retry_logic:
+  title: "Exponential Backoff"
+  js: |
+    async function retry(fn, retries = 3, delay = 1000) {
+      try {
+        return await fn();
+      } catch (e) {
+        if (retries === 0) throw e;
+        log(`⚠️ Attempt failed. Retrying in ${delay}ms... (${retries} left)`, true);
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        return retry(fn, retries - 1, delay * 2);
+      }
+    }
+
+    log("Starting Flaky API Simulation", true);
+    let attempts = 0;
+    const flakyTask = () => new Promise((resolve, reject) => {
+      attempts++;
+      attempts < 3 ? reject("Network Error") : resolve("SUCCESS!");
+    });
+
+    try {
+      const res = await retry(flakyTask);
+      log(`Result: <span class="highlighted">${res}</span>`);
+    } catch (err) {
+      log(`Final Error: ${err}`);
+    }
+
+promisify:
+  title: "Promisification"
+  js: |
+    log("Promisifying a Callback", true);
+
+    const legacyApi = (id, cb) => {
+      setTimeout(() => cb(null, `User_${id}_Data`), 500);
+    };
+
+    const modernApi = (id) => new Promise((res, rej) => {
+      legacyApi(id, (err, data) => (err ? rej(err) : res(data)));
+    });
+
+    log("Calling promisified API...");
+    const data = await modernApi(101);
+    log(`Received: <span class="highlighted">${data}</span>`);
+
+abort_controller:
+  title: "AbortController Demo"
+  js: |
+    log("Fetching data... (Run again to cancel current)", true);
+    const controller = new AbortController();
+
+    // Attach listener to see the abort in real-time
+    controller.signal.onabort = () => log("System: Request was successfully cancelled.");
+
+    try {
+      await new Promise((res, rej) => {
+        const timeout = setTimeout(() => res(log("Fetch completed!")), 3000);
+        controller.signal.addEventListener("abort", () => {
+          clearTimeout(timeout);
+          rej(new Error("AbortError"));
+        });
+      });
+    } catch (err) {
+      if (err.name === "AbortError") {
+        log("Catch Block: Handled cancellation.");
+      }
+    }
+
+async_loops:
+  title: "Async Loop Comparison"
+  js: |
+    const ids = [1, 2, 3];
+    const delayFetch = (id) => new Promise((res) => setTimeout(() => res(`Item ${id}`), 800));
+
+    log("Async Loop Comparison", true);
+    log("Running for...of (Sequential/Correct)...", true);
+
+    for (const id of ids) {
+      const res = await delayFetch(id);
+      log(`for...of result: ${res}`);
+    }
+
+    log("Running Promise.all (Parallel/Fast)...", true);
+    const results = await Promise.all(ids.map(id => delayFetch(id)));
+    results.forEach(r => log(`Parallel result: ${r}`));
+
+microtask_starvation:
+  title: "Microtask Starvation"
+  js: |
+    log("Starvation Demo", true);
+    setTimeout(() => log("<span class='highlighted'>FINALLY! The Macrotask ran.</span>"), 0);
+
+    log("Starting 3s Microtask loop...");
+    const startTime = Date.now();
+
+    function infiniteMicrotask() {
+      if (Date.now() - startTime < 3000) {
+        Promise.resolve().then(infiniteMicrotask);
+      } else {
+        log("Stopping recursion after 3s.");
+      }
+    }
+    infiniteMicrotask();
+
+concurrency_limit:
+  title: "Concurrency Limit (Max 2)"
+  js: |
+    log("Concurrency Limit (Max 2)", true);
+    const tasks = [1, 2, 3, 4, 5, 6];
+    const limit = 2;
+    const activeTasks = new Set();
+
+    for (const id of tasks) {
+      if (activeTasks.size >= limit) {
+        await Promise.race(activeTasks);
+      }
+
+      log(`🚀 Starting Task ${id}`);
+      const promise = (async () => {
+        await new Promise((res) => setTimeout(res, Math.random() * 1500 + 500));
+        log(`Finished Task ${id}`);
+      })();
+
+      activeTasks.add(promise);
+      promise.finally(() => activeTasks.delete(promise));
+    }
+    await Promise.all(activeTasks);
+    log("All tasks complete!", true);
+
+promise_all_settled:
+  title: "Promise.allSettled"
+  js: |
+    const mockApi = (name, fail) => new Promise((res, rej) =>
+      setTimeout(() => fail ? rej(`${name} failed!`) : res(`${name} data`), 1000)
+    );
+
+    log("Fetching from 3 sources (one fails)...");
+    const results = await Promise.allSettled([
+      mockApi("Profile", false),
+      mockApi("Service", true),
+      mockApi("Settings", false)
+    ]);
+
+    results.forEach((res) => {
+      const color = res.status === "fulfilled" ? "#f59e0b" : "#ef4444";
+      log(`<span style="color: ${color}">${res.status}: ${res.value || res.reason}</span>`);
+    });
+
+promise_race:
+  title: "Promise.race (Timeout)"
+  js: |
+    const slowRequest = new Promise((res) => setTimeout(() => res("Safe Data"), 5000));
+    const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error("Timeout!")), 2000));
+
+    log("Request vs 2s Timeout...");
+    try {
+      const result = await Promise.race([slowRequest, timeout]);
+      log(`Result: ${result}`);
+    } catch (err) {
+      log(`Race Lost: ${err.message}`, true);
+    }
+
+promise_any:
+  title: "Promise.any (First Success)"
+  js: |
+    const fail = (msg, time) => new Promise((_, rej) => setTimeout(() => rej(msg), time));
+    const success = (msg, time) => new Promise((res) => setTimeout(() => res(msg), time));
+
+    log("Waiting for first success (A and C will fail)...");
+    try {
+      const result = await Promise.any([
+        fail("Server A Down", 500),
+        success("Data from Server B", 2000),
+        fail("Server C Down", 1000)
+      ]);
+      log(`Success: <span class="highlighted">${result}</span>`);
+    } catch (err) {
+      log("All failed.");
+    }
+
+promise_all:
+  title: "Promise.all (Fail-Fast)"
+  js: |
+    const t1 = new Promise((res) => setTimeout(() => res("Auth OK"), 1000));
+    const t2 = new Promise((_, rej) => setTimeout(() => rej("DB Failed"), 1500));
+
+    log("Starting tasks. Task 2 will fail at 1.5s...");
+    try {
+      await Promise.all([t1, t2]);
+    } catch (err) {
+      log(`Global Failure: <span class="error">${err}</span>`);
+      log("Note: The whole batch rejected because of Task 2.", true);
+    }
+
+async_iife:
+  title: "Async IIFE Wrapper"
+  js: |
+    log("Starting wrapper function...");
+
+    (async () => {
+      log("1. IIFE started.");
+      await new Promise(res => setTimeout(res, 1000));
+      log("2. IIFE complete.");
+    })();
+
+    log("End of sync code (IIFE still running).", true);

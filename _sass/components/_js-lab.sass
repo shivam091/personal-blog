@@ -1,0 +1,88 @@
+@use "abstracts/tokens" as *
+
+.js-lab-container
+  border: $border-default
+  border-radius: $border-radius-default
+  overflow: hidden
+  margin-block: $fluid-space-md
+  background: var(--color-bg-default)
+  box-shadow: var(--box-shadow-floating-legacy)
+  display: flex
+  flex-direction: column
+  font-size: $font-size-sm
+
+.js-lab-header
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: $space-sm $space-md
+  background: var(--color-bg-muted)
+  border-bottom: $border-muted
+
+.js-lab-code
+  padding: $space-md
+  background: var(--color-bg-default)
+  max-height: 300px
+  overflow-y: auto
+  border-bottom: $border-muted
+
+  pre
+    margin: 0
+    padding: 0
+    background: transparent
+
+  code
+    font-family: $font-stack-monospace
+    font-size: $font-size-sm
+    line-height: $line-height-code
+
+.js-lab-console
+  background: var(--color-bg-muted)
+  display: flex
+  flex-direction: column
+
+  .console-label
+    color: var(--color-fg-muted)
+    padding: $space-sm $space-md
+    background: var(--color-bg-muted)
+    border-bottom: $border-muted
+
+  .console-output
+    height: 180px
+    padding: $space-sm
+    overflow-y: auto
+    font-family: $font-stack-monospace
+    font-size: $font-size-sm
+    line-height: $line-height-code
+
+.log-line
+  border-bottom: $border-default
+  padding: 4px 0
+  display: flex
+  align-items: center
+  gap: $space-sm
+  color: var(--color-fg-default)
+
+  &::before
+    content: ">"
+
+  &.meta
+    color: var(--color-fg-accent)
+    font-weight: $font-weight-bold
+    font-size: 0.85rem
+
+    &::before
+      content: "—"
+
+.error
+  color: var(--color-fg-danger)
+
+.warn
+  color: var(--color-fg-attention)
+
+.highlighted
+  color: #f59e0b
+  font-weight: bold
+  background: rgba(245, 158, 11, 0.1)
+  padding: 0 4px
+  border-radius: 3px

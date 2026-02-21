@@ -91,6 +91,8 @@ Microtasks always run **before** the next macro task.
 
 **The Golden Rule:** The Event Loop will empty the *entire* Microtask Queue before moving to the next Macrotask.
 
+{% js_lab demo_id: "event_loop" %}
+
 ## Callbacks: The Original Pattern
 
 A **callback** is a function passed as an argument to another function and executed after an asynchronous operation completes. Callbacks were the earliest and most common way to handle async behavior in JavaScript.
@@ -279,6 +281,8 @@ console.log("End");
 {% endhighlight %}
 {% endcodeblock %}
 
+{% js_lab demo_id: "microtask_starvation" %}
+
 ### Promise Internals and Behavior
 
 Understanding Promise behavior is critical for avoiding subtle bugs.
@@ -334,6 +338,8 @@ const [dataA, dataB] = await Promise.all([taskA(), taskB()]);
 {% endhighlight %}
 {% endcodeblock %}
 
+{% js_lab demo_id: "promise_all" %}
+
 **Best Use Case:** When the tasks are dependent on each other. For example, you need both a user_id and an access_token to
 load a dashboard. If you don't get both, the dashboard is useless.
 
@@ -349,6 +355,8 @@ const outcomes = await Promise.allSettled([taskA(), taskB()]);
 {% endhighlight %}
 {% endcodeblock %}
 
+{% js_lab demo_id: "promise_all_settled" %}
+
 **Best Use Case:** When the tasks are independent. For example, loading five different widgets on a page. If the "Weather"
 widget fails, you still want the "Stock Market" and "News" widgets to display.
 
@@ -363,6 +371,8 @@ const firstSettled = await Promise.race([taskA(), taskB()]);
 {% endhighlight %}
 {% endcodeblock %}
 
+{% js_lab demo_id: "promise_race" %}
+
 **Best Use Case:** Implementing a timeout for a network request. If the request doesn't finish in 5 seconds, the "timeout"
 promise wins the race and rejects.
 
@@ -376,6 +386,8 @@ The Promise resolves as soon as the first promise fulfills (succeeds). It ignore
 const firstSuccess = await Promise.any([taskA(), taskB()]);
 {% endhighlight %}
 {% endcodeblock %}
+
+{% js_lab demo_id: "promise_any" %}
 
 **Best Use Case:** Requesting data from three different "mirror" servers. You don't care if two of them are down; you only need
 the first successful response.
@@ -499,6 +511,8 @@ name a function and call it later. It creates a private, asynchronous execution 
 {% endhighlight %}
 {% endcodeblock %}
 
+{% js_lab demo_id: "async_iife" %}
+
 **Why Use It?**
 
 * **Top-Level Await Alternative:** Useful in environments (like older Node.js versions or certain `<script>` tags) where you
@@ -564,6 +578,8 @@ This is essential for:
 * Navigation changes
 * Resource cleanup
 
+{% js_lab demo_id: "abort_controller" %}
+
 ## Error Handling Patterns
 
 ### Global Error Handling
@@ -596,6 +612,8 @@ async function retry(fn, retries = 3, delay = 1000) {
 {% endhighlight %}
 {% endcodeblock %}
 
+{% js_lab demo_id: "retry_logic" %}
+
 ## Sequential vs. Parallel Execution
 
 A common performance mistake is unnecessary sequential `await` usage. Async/await does not mean sequential-only.
@@ -625,6 +643,8 @@ const [a, b] = await Promise.all([
 This runs operations in parallel while keeping readable syntax.
 
 Use sequential execution **only** when one task depends on another.
+
+{% js_lab demo_id: "parallel_execution" %}
 
 ## Comparison Table: Which one to use?
 

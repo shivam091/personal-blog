@@ -121,3 +121,42 @@ window.addEventListener("message", (e) => {
     e.source?.postMessage({ type: "theme-change", theme }, "*");
   }
 });
+
+const runJsLabDemo = async (button, encodedJs) => {
+  const container = button.closest(".js-lab-container");
+  const output = container.querySelector(".console-output");
+
+  // 1. Clear previous output
+  output.innerHTML = "";
+
+  // 2. Define the trapped log function
+  const log = (message, isMeta = false) => {
+    const div = document.createElement("div");
+    div.className = isMeta ? "log-line meta" : "log-line";
+    div.innerHTML = message;
+    output.appendChild(div);
+    output.scrollTop = output.scrollHeight;
+  };
+
+  const clearConsole = () => { output.innerHTML = ''; };
+
+  try {
+    // 3. Decode and prepare execution
+    const rawCode = atob(encodedJs);
+    const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+
+    // 4. Create the runner (injecting log and clearConsole)
+    const runner = new AsyncFunction("log", "clearConsole", rawCode);
+
+    // 5. Execute
+    await runner(log, clearConsole);
+  } catch (err) {
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "log-line error";
+    errorDiv.textContent = `Runtime Error: ${err.message}`;
+    output.appendChild(errorDiv);
+  }
+};
+
+// EXPLICITLY ATTACH TO WINDOW
+window.runJsLabDemo = runJsLabDemo;
