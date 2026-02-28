@@ -220,3 +220,39 @@ bezier-curves:
 web-animation:
   title: "High-Performance Web Animation and Motion"
   description: Techniques for creating engaging web experiences using CSS transitions, @keyframes, and JavaScript-driven motion for SVG and UI elements.
+typography:
+  title: Web Typography and Fluid Font Styling
+  description: Mastering web fonts, fluid typography, and CSS text properties to enhance readability, visual hierarchy, and brand personality across all screen sizes.
+background-clip:
+  title: "Creating Visual Effects with CSS 'background-clip'"
+  description: Deep dive into the background-clip property to create stunning visual effects, including text-masking with gradients and creative border-box backgrounds.
+text-effects:
+  title: Creative CSS Text Effects and Styling Techniques
+  description: Explore advanced techniques for styling text, including shadows, variable font animations, masking, and interactive effects for impactful web typography.
+css-animation:
+  title: Declarative Web Motion with CSS Animations
+  description: Learn to create smooth, performant, and declarative animations using CSS @keyframes and transitions to enhance user interaction and interface storytelling.
+css3:
+  title: Evolving with the CSS3 Specification and Beyond
+  description: Exploring the foundational and modern features introduced in the CSS3 spec, from media queries and flexbox to advanced selectors and transitions.
+steps:
+  title: Precision Control with CSS Step Timing Functions
+  description: "Mastering the 'steps()' timing function for creating frame-based animations, perfect for sprite sheets, digital clocks, and non-linear transitions."
+css-tricks:
+  title: Clever CSS Techniques and Creative Solutions
+  description: 'A collection of "outside-the-box" CSS methods and clever hacks to solve complex design challenges and achieve unique visual results.'
+discrete-animation:
+  title: Transitioning Discrete CSS Properties and States
+  description: "Leveraging modern CSS to animate properties that traditionally couldn't be transitioned, such as 'display: none', 'overlay', and entry/exit states."
+typewriter-effect:
+  title: Implementing the Classic Typewriter Text Animation
+  description: "Step-by-step guides on creating the popular typewriter typing effect using pure CSS, 'steps()' timing, and clever overflow management."
+sprite-animation:
+  title: CSS Sprite Animations and Frame-Based Motion
+  description: "Techniques for creating high-performance animations using image sprites and the CSS 'background-position' property for retro-style motion."
+web-performance:
+  title: Core Principles of Web Performance Optimization
+  description: Comprehensive guides on optimizing page load speeds, reducing Core Web Vitals friction, and writing efficient code for a snappier user experience.
+ui-animation:
+  title: Designing Purposeful Animation for User Interfaces
+  description: Focus on using motion to improve UX—providing feedback, guiding user attention, and communicating state changes through meaningful UI transitions.
