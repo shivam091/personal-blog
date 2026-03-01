@@ -4,7 +4,6 @@ title: "Components"
 tags: [typography, design, styleguide]
 category: General
 excerpt: This post is a comprehensive test of various components. It includes alerts, code blocks, buttons, and more.
-slug: components
 image:
   path: /assets/img/posts/components/cover.png
   width: 1200

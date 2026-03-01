@@ -7,7 +7,6 @@ tags: [css, css-grid, grid, beginner, layout, grid-template-areas, grid-alignmen
 category: CSS
 description: "Take your CSS Grid skills to the next level by mastering semantic layouts with grid areas, item alignment, and element spanning techniques."
 series: css-grid-fundamentals
-slug: mastering-css-grid
 image:
   path: /assets/img/posts/css/mastering-css-grid-alignment-spanning/cover.png
   width: 1200

@@ -6,7 +6,6 @@ excerpt: "Craft high-performance, responsive UI motion with CSS transitions and 
 category: Animations
 tags: [css, animation, transition, will-change, performance, gpu-acceleration, transform, opacity, timing-function, microinteractions, ui-design]
 date: 2025-11-11 19:30
-slug: css-transitions-guide
 image:
   path: /assets/img/posts/animations/css-transitions-guide/cover.png
   width: 1024
