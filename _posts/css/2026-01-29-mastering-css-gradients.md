@@ -6,7 +6,6 @@ excerpt: "Design modern UI backgrounds using CSS gradients"
 description: "A deep dive into CSS gradients—linear, radial, conic, repeating—with examples, SCSS helpers, animations, and practical best practices for modern web design."
 tags: [css, gradients, background, linear-gradient, radial-gradient, conic-gradient, repeating-gradient, modern-css, ui-design, color-theory, oklch, animation, scss]
 category: CSS
-slug: mastering-css-gradients
 image:
   path: /assets/img/posts/css/mastering-css-gradients/cover.png
   width: 1536

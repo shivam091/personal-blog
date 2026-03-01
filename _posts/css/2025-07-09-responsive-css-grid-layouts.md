@@ -7,7 +7,6 @@ tags: [css, grid, beginner, responsive, layout, fr-units, minmax, media-queries,
 category: CSS
 description: "Learn how to build truly responsive CSS Grid layouts using “fr” units, “minmax()”, “auto-fit”, “auto-fill”, and modern media & container queries."
 series: css-grid-fundamentals
-slug: responsive-css-grid-layouts
 image:
   path: /assets/img/posts/css/responsive-css-grid-layouts/cover.png
   width: 1200

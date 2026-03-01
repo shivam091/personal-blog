@@ -1,9 +1,10 @@
 pinned:
-  - getting-started-with-css-grid
-  - mastering-css-grid
-  - responsive-css-grid-layouts
+  - css-step-timing-function
+  - mastering-css-gradients
 
 featured:
+  - svg-essentials-mastering-basic-shapes
+  - svg-essentials-mastering-the-path-element
 
 share:
   platforms:

@@ -6,7 +6,6 @@ excerpt: "Transform, compare, assign—write cleaner code."
 date: 2025-09-05
 category: [JavaScript]
 tags: [javascript, operators, syntax, tutorial, programming, webdev, es6+, frontend, cheatsheet]
-slug: mastering-js-operators
 image:
   path: /assets/img/posts/javascript/mastering-js-operators/cover.png
   width: 1200

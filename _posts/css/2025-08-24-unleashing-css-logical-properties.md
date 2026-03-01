@@ -6,7 +6,6 @@ excerpt: "Design once, adapt everywhere."
 description: "Future-proof your layouts with CSS Logical Properties — one set of styles that adapts across languages, directions, and writing modes — no more messy RTL hacks or duplicate stylesheets."
 tags: [css, web-development, layout, responsive, rtl, logical-properties, writing-modes, internationalization, i18n, frontend, best-practices, globalization, accessibility]
 category: CSS
-slug: unleashing-css-logical-properties
 image:
   path: /assets/img/posts/css/unleashing-css-logical-properties/cover.png
   width: 1200

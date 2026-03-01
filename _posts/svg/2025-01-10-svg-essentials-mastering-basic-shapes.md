@@ -6,7 +6,6 @@ excerpt: "Build sharp, scalable graphics with basic shapes."
 date: 2026-01-10
 category: [SVG]
 tags: [svg, graphics, advanced-css, frontend, web-design, vector-graphics, web-graphics, ui-development, coordinate-system, viewbox]
-slug: svg-essentials-mastering-basic-shapes
 image:
   path: /assets/img/posts/svg/svg-essentials-mastering-basic-shapes/cover.png
   width: 1536

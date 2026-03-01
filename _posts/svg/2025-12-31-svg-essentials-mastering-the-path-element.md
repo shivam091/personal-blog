@@ -8,7 +8,6 @@ excerpt: Understand SVG paths, curves, and commands
 date: 2026-02-20
 category: [SVG]
 tags: [svg, path-data, vector, javascript, icons, frontend-development, bezier-curves, web-animation, ui-design]
-slug: svg-essentials-mastering-the-path-element
 image:
   path: /assets/img/posts/svg/svg-essentials-mastering-the-path-element/cover.png
   width: 1536

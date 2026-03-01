@@ -6,7 +6,6 @@ excerpt: "Bring static designs to life with keyframes"
 category: Animations
 tags: [css, keyframes, animation, gpu-performance, multi-step, web-motion, ui-design, frontend, scroll-animation, view-timeline, advanced-css]
 date: 2026-01-13 01:39
-slug: css-keyframes-guide
 image:
   path: /assets/img/posts/animations/css-keyframes-guide/cover.png
   width: 1536

@@ -7,7 +7,6 @@ tags: [css, grid, css-grid, beginner, layout, web-design, frontend, 2d-layouts]
 category: CSS
 description: "A beginner-friendly introduction to CSS Grid that covers core concepts and guides you through building your first 2D layouts with real-world examples."
 series: css-grid-fundamentals
-slug: getting-started-with-css-grid
 image:
   path: /assets/img/posts/css/getting-started-with-css-grid/cover.png
   width: 1200
