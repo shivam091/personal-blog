@@ -1,0 +1,124 @@
+polyline_vs_polygon_example: |
+  <svg viewBox="0 0 100 100" width="200">
+    <!-- Polyline (open) -->
+    <polyline
+      points="10,90 40,20 70,70 90,10"
+      fill="none"
+      stroke="#06b6d4"
+      stroke-width="1" />
+
+    <!-- Polygon (closed) -->
+    <polygon
+      points="10,90 40,20 70,70 90,10"
+      fill="#f59e0b"
+      fill-opacity="0.2"
+      stroke="#b45309"
+      stroke-width="1"  />
+  </svg>
+
+nonzero_vs_evenodd: |
+  <svg viewBox="0 0 420 200" width="520">
+    <!-- nonzero -->
+    <polygon
+      points="100,15 140,180 20,70 180,70 60,180"
+      fill="#6366f1"
+      fill-opacity="0.6"
+      stroke="#4338ca"
+      stroke-width="1"
+      fill-rule="nonzero"
+    />
+
+    <text x="100" y="195" text-anchor="middle" font-size="13">
+      nonzero
+    </text>
+
+    <!-- evenodd -->
+    <polygon
+      points="310,15 350,180 230,70 390,70 270,180"
+      fill="#6366f1"
+      fill-opacity="0.6"
+      stroke="#4338ca"
+      stroke-width="1"
+      fill-rule="evenodd"
+    />
+
+    <text x="310" y="195" text-anchor="middle" font-size="13">
+      evenodd
+    </text>
+  </svg>
+
+triangle_example: |
+  <svg viewBox="0 0 100 100" width="256">
+    <polygon
+      points="50,15 90,85 10,85"
+      fill="#fde047"
+      stroke="#a16207"
+      stroke-width="1"
+      stroke-linejoin="round"
+    />
+  </svg>
+
+route_example: |
+  <svg viewBox="0 0 150 100" width="300">
+    <polyline
+      points="20,20 40,70 80,40 130,80"
+      fill="none"
+      stroke="#ef4444"
+      stroke-width="1"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-dasharray="1, 6"
+    />
+    <circle cx="20" cy="20" r="4" fill="#ef4444" />
+    <circle cx="130" cy="80" r="4" fill="#ef4444" />
+  </svg>
+
+line_chart_example: |
+  <svg viewBox="0 0 100 100" width="256">
+    <polyline
+      points="10,70 25,40 40,50 60,20 80,45 90,30"
+      fill="none"
+      stroke="#10b981"
+      stroke-width="1"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+
+star_example: |
+  <svg viewBox="0 0 100 100" width="256">
+    <polygon
+      points="50,10 61,38 90,38 66,57 76,85 50,68 24,85 34,57 10,38 39,38"
+      fill="#f59e0b"
+      stroke="#b45309"
+      stroke-width="1"
+      fill-rule="evenodd"
+    />
+  </svg>
+
+hybrid_area_chart_example: |
+  <svg viewBox="0 0 100 100" width="256">
+    <polygon
+      points="0,100 0,60 20,40 40,70 60,30 80,50 100,20 100,100"
+      fill="#3b82f6"
+      fill-opacity="0.2"
+    />
+    <polyline
+      points="0,60 20,40 40,70 60,30 80,50 100,20"
+      fill="none"
+      stroke="#3b82f6"
+      stroke-width="1"
+      stroke-linecap="round"
+    />
+  </svg>
+
+ui_hexagon_example: |
+  <svg viewBox="0 0 100 100" width="256">
+    <polygon
+      points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
+      fill="#8b5cf6"
+      stroke="#5b21b6"
+      stroke-width="1"
+    />
+    <text x="50" y="58" text-anchor="middle" fill="white" font-weight="bold" font-size="20">SVG</text>
+  </svg>
