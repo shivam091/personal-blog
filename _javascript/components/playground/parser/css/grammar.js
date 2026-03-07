@@ -123,6 +123,12 @@ export const cssGrammar = {
     // Rule to match and consume ID Selector.
     ID_SELECTOR: (p) => p.matchType("ID_SELECTOR"),
 
+    // Rule to match and consume pseudo classes.
+    PSEUDO_CLASS: (p) => p.matchType("PSEUDO_CLASS"),
+
+    // Rule to match and consume pseudo elements.
+    PSEUDO_ELEMENT: (p) => p.matchType("PSEUDO_ELEMENT"),
+
     // Rule to match and consume a single WHITESPACE token.
     WHITESPACE: (p) => p.matchType("WHITESPACE"),
 
