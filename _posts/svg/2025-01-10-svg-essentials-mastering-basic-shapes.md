@@ -14,6 +14,8 @@ image:
     Illustration of an SVG coordinate system showing basic shapes like circle, rectangle, polygon, and polyline inside
     a viewBox grid, demonstrating scalable vector graphics and resolution-independent design.
 changelog:
+  - date: 2026-03-07
+    change: "Added reference to post 'Polygon vs Polyline'"
   - date: 2026-02-05
     change: "Updated examples of Heart Shape, Radar Scanner, and Sun Rays Rotation and added references for other related posts"
   - date: 2026-01-10
@@ -157,6 +159,12 @@ or equivalently:
 
 `0, 0 1, 1 2, 2`
 
+> **Related Reading:**
+> If you want a deeper comparison between the two shapes that use the points
+> attribute—and a more detailed explanation of how the points coordinate
+> syntax works—check out
+> [SVG Polygon vs Polyline: Differences, Fill Rules, and Use Cases](/post/polygon-vs-polyline).
+
 ## Basic Shapes
 
 Before moving on to [SVG Essentials: Mastering the Path Element](/post/svg-essentials-mastering-the-path-element)—the "pro" tool of
@@ -273,6 +281,9 @@ A series of connected straight lines. It is an **open** shape (the last point do
 - The shape does not close automatically.
 - Use when you want continuous open lines (charts, graphs, routes).
 
+> Want a deeper explanation of when to use `polyline` vs `polygon`?
+> Read: [SVG Polygon vs Polyline: Differences, Fill Rules, and Use Cases](/post/polygon-vs-polyline)
+
 ### Polygons
 
 Exactly like a polyline, but it is a **closed** shape. The browser automatically draws a line from the last point back to the first.
@@ -296,6 +307,9 @@ Exactly like a polyline, but it is a **closed** shape. The browser automatically
 - The order of points matters:
   - Clockwise → fills normally.
   - Counter-clockwise → may invert fills depending on `fill-rule`.
+
+> If you're unsure when to use `polygon` vs `polyline`, see
+> [SVG Polygon vs Polyline: Differences, Fill Rules, and Use Cases](/post/polygon-vs-polyline)
 
 ## Styling and Visual Attributes
 
