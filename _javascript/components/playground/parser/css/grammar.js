@@ -123,6 +123,9 @@ export const cssGrammar = {
     // Rule to match and consume ID Selector.
     ID_SELECTOR: (p) => p.matchType("ID_SELECTOR"),
 
+    // Rule to match and consume a colon.
+    COLON: (p) => p.matchType("COLON"),
+
     // Rule to match and consume pseudo classes.
     PSEUDO_CLASS: (p) => p.matchType("PSEUDO_CLASS"),
 

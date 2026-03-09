@@ -204,7 +204,22 @@ export class CssLexer extends BaseLexer {
         continue;
       }
 
-      // 12. Pseudo-Classes/Elements
+      // 12. Colon (Separates property: value, or starts a pseudo-selector)
+      if (char === ":") {
+        const nextChar = this.peekChar(1);
+
+        // If followed by an identifier character or another colon, it's a pseudo-selector/element
+        if (nextChar === ":" || (nextChar && /[a-zA-Z_\-]/.test(nextChar))) {
+          // Do nothing, fall through to Pseudo-Classes/Elements Rule
+        } else {
+          // It's a standalone COLON (for a declaration or in a function call).
+          this.add("COLON", char, start, start + 1);
+          this.advancePosition(1);
+          continue;
+        }
+      }
+
+      // 13. Pseudo-Classes/Elements
       if (char === ":") {
         const colonStart = this.pos;
         let colonCount = 1;
@@ -261,7 +276,7 @@ export class CssLexer extends BaseLexer {
         }
       }
 
-      // 13. Ignore all other characters (including newlines and other content)
+      // 14. Ignore all other characters (including newlines and other content)
       this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
       continue;
