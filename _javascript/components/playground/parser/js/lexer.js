@@ -112,7 +112,46 @@ export class JsLexer extends BaseLexer {
         continue;
       }
 
-      // 12. Ignore all other characters (including newlines and other content)
+      // 12. String literals
+      if (char === "'" || char === '"') {
+        const quoteType = char;
+        this.advancePosition(1); // Consume opening quote
+
+        // Scan until the closing quote
+        while (!this.eof() && this.peekChar() !== quoteType) {
+          // Check for illegal newline inside unescaped string
+          // if (this.peekChar() === "\n" || this.peekChar() === "\r") {
+          //   this.lexerError(`Illegal newline in string literal: Expected '${quoteType}'`, start, this.pos);
+          //   this.add("ERROR_STRING", s.slice(start, this.pos), start, this.pos, "cp-token-error");
+          //   this.advancePosition(1); // Advance past the newline to recover
+          //   continue;
+          // }
+
+          // Handle escaped characters (e.g., 'it\'s')
+          // if (this.peekChar() === "\\" && this.peekChar(1)) {
+          //   this.advancePosition(2); // Consume '\' and the escaped character
+          //   continue;
+          // }
+
+          this.advancePosition(1);
+        }
+
+        const end = this.pos;
+
+        // Check for closing quote
+        if (this.peekChar() === quoteType) {
+          this.advancePosition(1); // Consume closing quote
+          this.add("STRING", s.slice(start, this.pos), start, this.pos, "token-string");
+        } else {
+          // Log error and create a LexerError object (using the refactored method)
+          this.lexerError(`Unclosed string literal: Expected '${quoteType}'`, start, end);
+          // Add the token anyway, but use a specific error type/class for visualization
+          this.add("ERROR_STRING", s.slice(start, end), start, end, "token-error");
+        }
+        continue;
+      }
+
+      // 13. Ignore all other characters (including newlines and other content)
       this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
       continue;
