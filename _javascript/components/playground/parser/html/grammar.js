@@ -157,6 +157,9 @@ export const htmlGrammar = {
       };
     },
 
+    // Rule to match and consume a HTML entity.
+    ENTITY: (p) => p.matchType("ENTITY"),
+
     // Rule to match and consume a single WHITESPACE token.
     WHITESPACE: (p) => p.matchType("WHITESPACE"),
 

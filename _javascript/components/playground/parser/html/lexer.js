@@ -119,7 +119,29 @@ export class HtmlLexer extends BaseLexer {
         continue;
       }
 
-      // 7. Ignore all other characters (Newlines, text content, unhandled symbols)
+      // 7. HTML Entity (&copy;)
+      if (char === "&") {
+        let currentPos = start + 1;
+        if (currentPos < this.length && /[a-zA-Z#]/.test(s[currentPos])) {
+          while (currentPos < this.length && s[currentPos] !== ";") {
+            currentPos++;
+          }
+
+          if (currentPos < this.length && s[currentPos] === ";") {
+            currentPos++; // Consume ';'
+            const entity = s.slice(start, currentPos);
+
+            if (htmlTokens.entities.has(entity)) {
+              this.add("ENTITY", entity, start, currentPos, "token-entity");
+              this.advancePosition(currentPos - start);
+              continue;
+            }
+          }
+        }
+        // If invalid entity, fall through to CONTENT
+      }
+
+      // 8. Ignore all other characters (Newlines, text content, unhandled symbols)
       this.add("TEXT", char, start, start + 1);
       this.advancePosition(1);
       continue;
