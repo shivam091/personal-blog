@@ -102,10 +102,19 @@ export const cssGrammar = {
       };
     },
 
+    // Rule to match and consume a parenthesis open token.
+    PAREN_OPEN: (p) => p.matchType("PAREN_OPEN"),
+
+    // Rule to match and consume a parenthesis close token.
+    PAREN_CLOSE: (p) => p.matchType("PAREN_CLOSE"),
+
     // Rule to match and consume a single WHITESPACE token.
     WHITESPACE: (p) => p.matchType("WHITESPACE"),
 
     // Rule to match and consume a single TAB token.
     TAB: (p) => p.matchType("TAB"),
+
+    // Rule to match and consume a new line.
+    NEWLINE: (p) => p.matchType("NEWLINE"),
   }
 };

@@ -8,13 +8,6 @@ import { getLineStarts, indexToLine } from "./utils";
  * and error collection, while delegating actual tokenization logic to subclasses.
  */
 export class BaseLexer {
-  static WHITESPACE_TYPES = {
-    " ":  { type: "WHITESPACE", highlightClass: "token-space" },
-    "\t": { type: "TAB",        highlightClass: "token-tab" },
-    "\n": { type: "NEWLINE",    highlightClass: undefined },
-    "\r": { type: "NEWLINE",    highlightClass: undefined }
-  };
-
   constructor(input = "") {
     this.input = input;
     this.pos = 0;
@@ -96,65 +89,5 @@ export class BaseLexer {
    */
   run() {
     throw new Error("BaseLexer.run must be implemented by subclass");
-  }
-
-  /*
-   * Consumes whitespace characters (spaces, tabs, newlines) using a fast O(1) lookup.
-   * Returns true if a whitespace character was matched and emitted.
-   */
-  handleWhitespace() {
-    const config = BaseLexer.WHITESPACE_TYPES[this.peekChar()];
-    if (!config) return false;
-
-    this.add(config.type, this.peekChar(), this.pos, this.pos + 1, config.highlightClass);
-    this.advancePosition(1);
-    return true;
-  }
-
-  /*
-   * Attempts to match the current position against a map of static strings.
-   * Expects keys to be sorted by length descending for correct matching.
-   */
-  handleStaticTokens(tokenMap, sortedKeys) {
-    for (const key of sortedKeys) {
-      if (this.input.startsWith(key, this.pos)) {
-        this.add(tokenMap[key], key, this.pos, this.pos + key.length);
-        this.advancePosition(key.length);
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /*
-   * Consumes a multi-line comment block, emitting the body line-by-line.
-   * This ensures efficient syntax highlighting and correct code folding ranges.
-   */
-  consumeMultiLineComment(openStr, closeStr) {
-    const start = this.pos;
-    const end = this.input.indexOf(closeStr, this.pos + openStr.length);
-
-    // 1. Open
-    this.add("COMMENT_OPEN", openStr, start, start + openStr.length, "token-comment");
-    this.advancePosition(openStr.length);
-
-    // 2. Body (Line-by-line)
-    const bodyEnd = (end === -1) ? this.length : end;
-    while (this.pos < bodyEnd) {
-      let lineEnd = this.input.indexOf("\n", this.pos);
-      if (lineEnd === -1 || lineEnd >= bodyEnd) lineEnd = bodyEnd;
-      else lineEnd += 1;
-
-      this.add("COMMENT_TEXT", this.input.slice(this.pos, lineEnd), this.pos, lineEnd, "token-comment");
-      this.advancePosition(lineEnd - this.pos);
-    }
-
-    // 3. Close
-    if (end !== -1) {
-      this.add("COMMENT_CLOSE", closeStr, end, end + closeStr.length, "token-comment");
-      this.advancePosition(closeStr.length);
-    } else {
-      this.lexerError(`Unclosed comment: Expected '${closeStr}'`, start, this.length);
-    }
   }
 }
