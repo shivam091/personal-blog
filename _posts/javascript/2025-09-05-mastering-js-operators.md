@@ -5,7 +5,7 @@ description: "A complete breakdown of all JavaScript operators including arithme
 excerpt: "Transform, compare, assign—write cleaner code."
 date: 2025-09-05
 category: [JavaScript]
-tags: [javascript, operators, syntax, tutorial, programming, webdev, es6+, frontend, cheatsheet]
+tags: [javascript, js-fundamentals, operators, syntax, tutorial, programming, webdev, es6+, frontend, cheatsheet]
 image:
   path: /assets/img/posts/javascript/mastering-js-operators/cover.png
   width: 1200
@@ -14,6 +14,8 @@ image:
     Illustration with gradient background showing JavaScript operators in a code-like style, representing arithmetic, logical, assignment, comparison,
     and modern operators for mastering JavaScript.
 changelog:
+  - date: 2026-03-19
+    change: "Added meta tag 'js-fundamentals'"
   - date: 2025-09-05
     change: "Initial publication"
 ---
