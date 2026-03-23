@@ -2,8 +2,11 @@
 @use "abstracts/modules/section" as *
 @use "abstracts/modules/no-cursor" as *
 @use "abstracts/modules/text-clip" as *
+@use "abstracts/animations/reveal-post" as *
 @use "abstracts/mixins/transition-properties" as *
 @use "abstracts/mixins/breakpoints" as breakpoint
+
+$post-count: 10 // safe upper bound of 10 as applied pagination
 
 .post-layout
   display: grid
@@ -44,6 +47,20 @@
   padding: $space-none
 
 .post-preview
+  /* Initial state */
+  opacity: 0
+  transform: translateY(32px) scale(0.98)
+  will-change: transform, opacity
+
+  /* Animation */
+  animation: reveal-post 0.7s cubic-bezier(0.22, 1, 0.36, 1) both
+
+  /* Scroll-driven (BEST for this use case) */
+  animation-timeline: view()
+
+  /* Stagger using scroll instead of delay */
+  animation-range: entry calc(8% + (var(--stagger) * 3%)) cover 35%
+
   .post-series
     font-size: $font-size-sm
     color: var(--color-fg-muted)
