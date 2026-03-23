@@ -316,3 +316,9 @@ core-web-vitals:
 lazy-loading:
   title: Performance Optimization with Lazy Loading
   description: Techniques for deferring the loading of non-critical resources like images and iframes until they are actually needed, utilizing native attributes and the Intersection Observer API for a snappier initial load.
+borders:
+  title: Mastering CSS Borders and Box Decorations
+  description: Comprehensive guides on using border properties, including shorthand syntax, border-radius for rounded corners, and creative styling for UI containers.
+mixins:
+  title: Reusable Logic with SCSS Mixins
+  description: Learn how to write and implement SCSS mixins to create reusable blocks of styles, maintain DRY (Don't Repeat Yourself) code, and manage complex CSS patterns efficiently.

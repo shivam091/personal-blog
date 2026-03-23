@@ -1,0 +1,248 @@
+id: css-gradient-borders
+name: CSS Gradient Borders
+url: "https://codepen.io/shivam091/pen/MYjEqeo"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <section class="app">
+        <h1>CSS Gradient Borders</h1>
+
+        <!-- Controls -->
+        <div class="controls">
+          <div class="control">
+            <label>Gradient Type</label>
+            <select id="type">
+              <option value="linear">Linear</option>
+              <option value="conic">Conic</option>
+              <option value="radial">Radial</option>
+              <option value="repeating">Repeating</option>
+            </select>
+          </div>
+          <div class="control">
+            <label>Angle: <span id="angleVal">45</span>°</label>
+            <input type="range" min="0" max="360" value="45" id="angle">
+          </div>
+
+          <div class="control">
+            <label>Border Size</label>
+            <input type="range" min="2" max="20" value="6" id="size">
+          </div>
+
+          <div class="control">
+            <label>Radius</label>
+            <input type="range" min="0" max="40" value="12" id="radius">
+          </div>
+
+          <div class="control">
+            <label>Start Color</label>
+            <input type="color" id="color1" value="#ff6a00">
+          </div>
+
+          <div class="control">
+            <label>End Color</label>
+            <input type="color" id="color2" value="#ee0979">
+          </div>
+
+          <div class="checkbox">
+            <label>Animate Border</label>
+            <input type="checkbox" id="animate">
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview-box" id="preview">
+          Gradient Border
+        </div>
+
+        <!-- CSS Output -->
+        <pre class="code" id="cssOutput"></pre>
+      </section>
+  - name: variables.css
+    type: css
+    code: |
+      :root {
+        --angle: 45deg;
+        --size: 6px;
+        --radius: 12px;
+        --color1: #ff6a00;
+        --color2: #ee0979;
+      }
+  - name: style.css
+    type: css
+    code: |
+      :root {
+        --angle: 45deg;
+        --size: 6px;
+        --radius: 12px;
+        --color1: #ff6a00;
+        --color2: #ee0979;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+
+      .app {
+        max-width: 900px;
+        margin: auto;
+        padding: 2rem;
+        display: grid;
+        gap: 2rem;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .controls {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        background: #1e293b;
+        padding: 1rem;
+        border-radius: 12px;
+      }
+
+      .control {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      .checkbox {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      label {
+        font-size: 0.85rem;
+        font-weight: bold;
+      }
+      .control label {
+        margin-bottom: 0.5rem;
+      }
+
+      .preview-box {
+        padding: 3rem;
+        text-align: center;
+        font-weight: bold;
+
+        border: var(--size) solid transparent;
+        border-radius: var(--radius);
+
+        background: linear-gradient(#0f172a, #0f172a) padding-box,
+          var(--gradient) border-box;
+
+        background-size: 300% 300%;
+      }
+
+      .preview-box.animate {
+        animation: move 4s linear infinite;
+      }
+
+      @keyframes move {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      input[type="range"],
+      select {
+        width: 100%;
+      }
+
+      .code {
+        background: #020617;
+        padding: 1rem;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        overflow-x: auto;
+      }
+  - name: script.js
+    type: js
+    code: |
+      const controls = {
+        type: document.getElementById("type"),
+        angle: document.getElementById("angle"),
+        size: document.getElementById("size"),
+        radius: document.getElementById("radius"),
+        color1: document.getElementById("color1"),
+        color2: document.getElementById("color2"),
+        animate: document.getElementById("animate")
+      };
+
+      const preview = document.getElementById("preview");
+      const cssOutput = document.getElementById("cssOutput");
+      const angleVal = document.getElementById("angleVal");
+
+      function getGradient() {
+        const angle = controls.angle.value;
+        const c1 = controls.color1.value;
+        const c2 = controls.color2.value;
+
+        switch (controls.type.value) {
+          case "conic":
+            return `conic-gradient(from ${angle}deg, ${c1}, ${c2}, ${c1})`;
+          case "radial":
+            return `radial-gradient(circle, ${c1}, ${c2})`;
+          case "repeating":
+            return `repeating-linear-gradient(${angle}deg, ${c1} 0 10px, ${c2} 10px 20px)`;
+          default:
+            return `linear-gradient(${angle}deg, ${c1}, ${c2})`;
+        }
+      }
+
+      function update() {
+        const gradient = getGradient();
+
+        document.documentElement.style.setProperty("--angle", controls.angle.value + "deg");
+        document.documentElement.style.setProperty("--size", controls.size.value + "px");
+        document.documentElement.style.setProperty("--radius", controls.radius.value + "px");
+        document.documentElement.style.setProperty("--color1", controls.color1.value);
+        document.documentElement.style.setProperty("--color2", controls.color2.value);
+
+        document.documentElement.style.setProperty("--gradient", gradient);
+
+        // Animation toggle
+        preview.classList.toggle("animate", controls.animate.checked);
+
+        // Update CSS output
+        cssOutput.textContent = `
+      .gradient-border {
+        border: ${controls.size.value}px solid transparent;
+        border-radius: ${controls.radius.value}px;
+
+        background:
+          linear-gradient(#0f172a, #0f172a) padding-box,
+          ${gradient} border-box;
+
+        ${
+          controls.animate.checked
+            ? `
+        background-size: 300% 300%;
+        animation: move 4s linear infinite;
+        `
+            : ""
+        }
+      }
+      `;
+
+        angleVal.textContent = controls.angle.value;
+      }
+
+      // Bind events
+      Object.values(controls).forEach((input) =>
+        input.addEventListener("input", update)
+      );
+
+      // Init
+      update();
