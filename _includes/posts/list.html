@@ -4,7 +4,7 @@
   <h2 id="posts-list-title" class="visually-hidden">List of blog posts</h2>
 
   {% for post in posts %}
-    <article class="card post-preview">
+    <article class="card post-preview" style="--stagger: {{ forloop.index0 }}">
       <header class="card-header">
         <h2 class="card-title post-title" title="{{ post.title }}">
           <a href="{{ post.url | relative_url }}" class="card-link" aria-label="Read post: {{ post.title }}">

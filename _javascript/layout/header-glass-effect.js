@@ -30,7 +30,7 @@ export default class HeaderGlassEffect {
       window.addEventListener("scroll", this.updateGlassEffectBound, { passive: true });
       this.isScrolling = true;
     }
-    this.updateGlassEffect(); // Initial
+    this.updateGlassEffect();
   }
 
   static stopTrackingScroll() {
@@ -50,6 +50,7 @@ export default class HeaderGlassEffect {
   static initialize() {
     if (!this.siteHeader || !this.glassTrigger || !this.skyContainer) return;
 
+    // 1. Manage Glass Effect State
     this.observerTrigger = new IntersectionObserver(
       ([entry]) => {
         entry.isIntersecting ? this.stopTrackingScroll() : this.startTrackingScroll();
@@ -58,9 +59,11 @@ export default class HeaderGlassEffect {
     );
     this.observerTrigger.observe(this.glassTrigger);
 
+    // 2. Manage "Past Sky" Threshold
     this.observerSky = new IntersectionObserver(
       ([entry]) => {
-        this.siteHeader?.toggleAttribute("data-is-over-threshold", entry.boundingClientRect.bottom <= 0);
+        const isPastSky = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        this.siteHeader.toggleAttribute("data-is-over-threshold", isPastSky);
       },
       { threshold: 0 }
     );
