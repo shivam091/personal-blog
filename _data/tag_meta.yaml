@@ -286,3 +286,33 @@ microtasks:
 gradient-text:
   title: Vibrant Typography with CSS Text Gradients
   description: Techniques for applying linear, radial, and conic gradients to web typography using the 'background-clip' property and transparent text colors for high-impact headers.
+web-apis:
+  title: Leveraging Browser Web APIs for Extended Functionality
+  description: Explore the powerful tools provided by the browser environment, including Fetch, Geolocation, and Storage, which offload complex tasks from the main JavaScript thread.
+observer-pattern:
+  title: Implementing the Observer Pattern in JavaScript
+  description: Understanding the behavioral design pattern where objects 'subscribe' to state changes, forming the architectural basis for event-driven and reactive web systems.
+reactive-programming:
+  title: Reactive Programming Patterns and Data Streams
+  description: Learn to manage asynchronous data streams and the propagation of change, creating highly responsive interfaces that react dynamically to user and system events.
+event-listener:
+  title: Managing DOM Events and User Interactions
+  description: Mastering the 'addEventListener' API to capture and handle user actions like clicks, scrolls, and keyboard input for building interactive web experiences.
+mutation-observer:
+  title: Monitoring DOM Tree Changes with MutationObserver
+  description: A deep dive into the MutationObserver API for efficiently tracking additions, removals, or attribute changes within the DOM without the performance overhead of legacy events.
+intersection-observer:
+  title: Viewport Awareness with the Intersection Observer API
+  description: Optimize performance by using Intersection Observer for lazy-loading images, implementing infinite scroll, and triggering animations as elements enter the viewport.
+resize-observer:
+  title: Element-Based Responsiveness with Resize Observer
+  description: Go beyond media queries by using the Resize Observer API to detect and respond to changes in the specific dimensions of individual DOM elements.
+dom:
+  title: Mastering the Document Object Model (DOM)
+  description: The core interface for web documents. Learn to programmatically access, traverse, and manipulate HTML structures to create dynamic and living web pages.
+core-web-vitals:
+  title: Optimizing for Core Web Vitals (CWV)
+  description: A deep dive into Google's essential user experience metrics—LCP, CLS, and INP—focusing on technical strategies to improve loading performance, visual stability, and interactivity.
+lazy-loading:
+  title: Performance Optimization with Lazy Loading
+  description: Techniques for deferring the loading of non-critical resources like images and iframes until they are actually needed, utilizing native attributes and the Intersection Observer API for a snappier initial load.
