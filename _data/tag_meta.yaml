@@ -283,3 +283,6 @@ event-loop:
 microtasks:
   title: "Task Prioritization: Microtasks vs. Macrotasks"
   description: Learn why Promises execute before SetTimeout. Master the microtask queue, the queueMicrotask() API, and how to avoid "event loop starvation" in high-performance apps.
+gradient-text:
+  title: Vibrant Typography with CSS Text Gradients
+  description: Techniques for applying linear, radial, and conic gradients to web typography using the 'background-clip' property and transparent text colors for high-impact headers.
