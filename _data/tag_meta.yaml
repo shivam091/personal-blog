@@ -322,3 +322,24 @@ borders:
 mixins:
   title: Reusable Logic with SCSS Mixins
   description: Learn how to write and implement SCSS mixins to create reusable blocks of styles, maintain DRY (Don't Repeat Yourself) code, and manage complex CSS patterns efficiently.
+canvas:
+  title: "Dynamic Graphics with the HTML5 Canvas API"
+  description: "Harness the power of the <canvas> element to render 2D shapes, images, and text programmatically, focusing on the 2D rendering context and real-time pixel manipulation."
+html5:
+  title: "Modern Web Features and the HTML5 Specification"
+  description: "An exploration of the core HTML5 APIs and semantic elements that drive modern web experiences, from multimedia integration to high-performance graphic containers."
+drawing:
+  title: "Programmatic Drawing and Generative Visuals"
+  description: "The art of creating visuals through code. Learn to manipulate paths, strokes, and gradients to build complex illustrations and interactive diagrams on the web."
+webgl:
+  title: "High-Performance 3D Rendering with WebGL"
+  description: "Leveraging the Graphics Processing Unit (GPU) for hardware-accelerated 2D and 3D graphics in the browser, covering the WebGL API, shaders, and complex rendering pipelines."
+gradient-overlay:
+  title: Depth and Contrast with Gradient Overlays
+  description: Mastering the use of semi-transparent gradients over background images to improve text legibility, maintain brand consistency, and add visual depth to UI components.
+hero-banner:
+  title: Designing Impactful Hero Banners
+  description: Best practices for building high-impact "above-the-fold" sections, focusing on the synergy between layout, responsive imagery, typography, and call-to-action placement.
+css-techniques:
+  title: Advanced CSS Implementation Techniques
+  description: A collection of specific, practical methods and architectural approaches for solving complex styling challenges using modern CSS features and creative workarounds.
