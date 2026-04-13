@@ -1,0 +1,323 @@
+id: css-gradient-overlays
+name: Demostrating CSS Gradient Overlays
+url: "https://codepen.io/shivam091/pen/MYjRmbe"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <div class="app">
+        <aside class="controls">
+          <h2>Gradient Overlay Lab</h2>
+
+          <label>Pattern</label>
+          <select id="pattern">
+            <option value="flat">Flat</option>
+            <option value="fade">Fade</option>
+            <option value="diagonal">Diagonal</option>
+            <option value="multi">Multi-color</option>
+            <option value="radial">Radial Spotlight</option>
+            <option value="split">Split</option>
+            <option value="layered">Layered</option>
+            <option value="blend">Blend Mode</option>
+          </select>
+
+          <label>Opacity</label>
+          <input type="range" id="opacity" min="0" max="1" step="0.05" value="0.5">
+
+          <label>Direction</label>
+          <select id="direction">
+            <option value="to bottom">Top → Bottom</option>
+            <option value="to top">Bottom → Top</option>
+            <option value="to right">Left → Right</option>
+            <option value="to left">Right → Left</option>
+            <option value="135deg">Diagonal</option>
+          </select>
+
+          <label>Primary Color</label>
+          <input type="color" id="color1" value="#000000">
+
+          <label>Secondary Color</label>
+          <input type="color" id="color2" value="#ff0000">
+
+          <label>Radial X (%)</label>
+          <input type="range" id="posX" min="0" max="100" value="50">
+
+          <label>Radial Y (%)</label>
+          <input type="range" id="posY" min="0" max="100" value="50">
+
+          <label>Blend Mode</label>
+          <select id="blendMode">
+            <option value="normal">Normal</option>
+            <option value="overlay">Overlay</option>
+            <option value="multiply">Multiply</option>
+            <option value="screen">Screen</option>
+            <option value="soft-light">Soft Light</option>
+          </select>
+
+          <label>Background Image</label>
+          <select id="image">
+            <option value="nature">Nature</option>
+            <option value="city">City</option>
+            <option value="abstract">Abstract</option>
+          </select>
+
+          <label>
+            <input type="checkbox" id="textShadow">
+            Improve Text Readability
+          </label>
+
+          <label>
+            <input type="checkbox" id="mobileBoost">
+            Mobile Overlay Boost
+          </label>
+
+          <label>Animation Speed</label>
+          <input type="range" id="speed" min="2" max="20" value="6">
+
+          <label>
+            <input type="checkbox" id="animate">
+            Animate Gradient
+          </label>
+
+          <div class="meta">
+            <p>Layers: <span id="layerCount">1</span></p>
+            <button id="copyCSS">Copy CSS</button>
+          </div>
+        </aside>
+
+        <main class="preview">
+          <div class="hero" id="hero">
+            <div class="content" id="content">
+              <h1>Gradient Overlay Playground</h1>
+              <p>Advanced UI controls + real-world patterns</p>
+              <button>Get Started</button>
+            </div>
+          </div>
+
+          <pre id="cssOutput"></pre>
+        </main>
+      </div>
+  - name: style.css
+    type: css
+    code: |
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        font-family: system-ui, sans-serif;
+      }
+
+      .app {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        min-height: 100vh;
+      }
+
+      .controls {
+        padding: 20px;
+        background: #0e0e0e;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .controls label {
+        font-size: 12px;
+        opacity: 0.7;
+      }
+
+      .controls input,
+      .controls select {
+        padding: 6px;
+        border-radius: 6px;
+        border: none;
+      }
+
+      .meta {
+        margin-top: 10px;
+      }
+
+      .meta button {
+        margin-top: 8px;
+        padding: 8px;
+        width: 100%;
+      }
+
+      .preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #1c1c1c;
+      }
+
+      .hero {
+        width: 90%;
+        height: 420px;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .content {
+        position: relative;
+        z-index: 2;
+        color: white;
+        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .content.shadow {
+        text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      }
+
+      button {
+        margin-top: 12px;
+        padding: 10px 16px;
+        border: none;
+        background: orange;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .animate {
+        background-size: 200% 200%;
+        animation: move linear infinite;
+      }
+
+      @keyframes move {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+      }
+
+      pre {
+        margin-top: 16px;
+        background: #111;
+        color: #0f0;
+        padding: 12px;
+        width: 90%;
+        font-size: 12px;
+        overflow: auto;
+      }
+  - name: script.js
+    type: js
+    code: |
+      const hero = document.getElementById("hero");
+      const content = document.getElementById("content");
+      const cssOutput = document.getElementById("cssOutput");
+      const layerCount = document.getElementById("layerCount");
+
+      const images = {
+        nature: "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+        city: "https://images.unsplash.com/photo-1494526585095-c41746248156",
+        abstract: "https://images.unsplash.com/photo-1557683316-973673baf926"
+      };
+
+      const controls = document.querySelectorAll("input, select");
+
+      function hexToRgba(hex, alpha) {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+
+      function update() {
+        const pattern = document.getElementById("pattern").value;
+        const opacity = document.getElementById("opacity").value;
+        const dir = document.getElementById("direction").value;
+        const c1 = hexToRgba(document.getElementById("color1").value, opacity);
+        const c2 = hexToRgba(document.getElementById("color2").value, opacity);
+        const x = document.getElementById("posX").value;
+        const y = document.getElementById("posY").value;
+        const blend = document.getElementById("blendMode").value;
+        const img = images[document.getElementById("image").value];
+        const animate = document.getElementById("animate").checked;
+        const speed = document.getElementById("speed").value;
+        const mobileBoost = document.getElementById("mobileBoost").checked;
+
+        let gradient = "";
+        let layers = 1;
+
+        if (mobileBoost) {
+          opacity *= 1.2;
+        }
+
+        switch (pattern) {
+          case "flat":
+            gradient = `linear-gradient(${c1}, ${c1})`;
+            break;
+
+          case "fade":
+            gradient = `linear-gradient(${dir}, ${c1}, transparent)`;
+            break;
+
+          case "diagonal":
+            gradient = `linear-gradient(135deg, ${c1}, ${c2})`;
+            break;
+
+          case "multi":
+            gradient = `linear-gradient(${c1}, ${c2}, rgba(255,255,0,${opacity}))`;
+            break;
+
+          case "radial":
+            gradient = `radial-gradient(circle at ${x}% ${y}%, ${c1}, ${c2})`;
+            break;
+
+          case "split":
+            gradient = `linear-gradient(to right, ${c1} 50%, transparent 50%)`;
+            break;
+
+          case "layered":
+            gradient = `
+              linear-gradient(${dir}, ${c1}, ${c2}),
+              linear-gradient(120deg, ${c2}, ${c1})
+            `;
+            layers = 2;
+            break;
+
+          case "blend":
+            gradient = `linear-gradient(${dir}, ${c1}, ${c2})`;
+            break;
+        }
+
+        hero.style.backgroundImage = `${gradient}, url(${img})`;
+        hero.style.backgroundBlendMode = blend;
+
+        // Animation
+        if (animate) {
+          hero.classList.add("animate");
+          hero.style.animationDuration = `${speed}s`;
+        } else {
+          hero.classList.remove("animate");
+        }
+
+        // Text shadow
+        content.classList.toggle(
+          "shadow",
+          document.getElementById("textShadow").checked
+        );
+
+        // CSS Output
+        const css = `
+        .hero {
+          background-image: ${gradient}, url(${img});
+          background-blend-mode: ${blend};
+        }
+        `;
+
+        cssOutput.textContent = css;
+        layerCount.textContent = layers;
+      }
+
+      controls.forEach(el => el.addEventListener("input", update));
+
+      document.getElementById("copyCSS").onclick = () => {
+        navigator.clipboard.writeText(cssOutput.textContent);
+      };
+
+      update();
