@@ -12,6 +12,8 @@ image:
   height: 1024
   alt: Gradient cover illustration for CSS keyframes guide showing animated UI elements, motion paths, progress indicators, and code panels representing multi-step CSS animations.
 changelog:
+  - date: 2026-04-18
+    change: "Added the 'Hybrid Approach' best practice and cross-linked to the companion JavaScript Observers guide."
   - date: 2026-01-13
     change: "Initial publication"
 toc:
@@ -413,7 +415,9 @@ You can specify multiple play states for multiple animations, maintaining the or
 This property is most commonly manipulated using JavaScript (by toggling a CSS class) to give users control over animations, such as:
 
 - **User Control:** Allowing a user to click a "Pause" or "Play" button.
-- **Accessibility:** Automatically pausing animations when an element is not visible (e.g., using the Intersection Observer API).
+- **Accessibility:** Automatically pausing animations when an element is not visible. While this can be done with CSS, using the
+  [Intersection Observer API](/post/mastering-js-observers#intersectionobserver-the-viewport-watcher) allows for more complex logic,
+  such as pausing animations across an entire page to save CPU cycles when a tab is in the background.
 - **Interactivity:** Pausing an animation when a user hovers over the element (which can also be done entirely with CSS using the `:hover` pseudo-class).
 
 ### 9. `animation-timeline`
@@ -525,12 +529,13 @@ This example runs two animations simultaneously on a single element: one that is
 
 This feature is powerful for creating effects like:
 
-- Elements smoothly fading in or sliding into place as they become visible.
-- A fixed header's background changing color as the user scrolls past a certain point.
-- A progress bar filling up based on how far the user has scrolled through an article.
+- Elements smoothly fading in as they become visible.
+- A progress bar filling up based on scroll depth.
 
-> **💡 Browser Support Note:** This property is cutting-edge and currently requires high browser compatibility (e.g., **Chromium browsers**).
-> It often works in conjunction with the `@scroll-timeline` rule or the simpler `scroll()` and `view()` functions within `animation-timeline`.
+💡 **CSS vs. JavaScript:** While `animation-timeline` is excellent for simple visual parity with scroll depth, use
+  [IntersectionObserver](/post/mastering-js-observers#intersectionobserver-the-viewport-watcher)
+  if you need to trigger side effects—like starting a video, fetching data, or logging analytics—when an  element enters
+  the viewport.
 
 ### 10. `animation`
 
@@ -717,18 +722,26 @@ definition itself to ensure cleaner browser parsing.
 - **Respect Accessibility:** Use `animation-play-state: paused` and/or CSS media queries (like `prefers-reduced-motion`) to honor users who prefer minimal or no motion. **Avoid continuous, distracting loops** unless absolutely necessary (e.g., loading spinners).
 - **Combine with animation-fill-mode:** Always explicitly set `animation-fill-mode` (usually to `forwards`) if the element needs to maintain its final animated state. Don't rely on the element resetting unexpectedly.
 - **Vendor Prefix Note (Legacy):** While not required in modern, stable browsers, if you need to support very old browser versions (e.g., specific Android or Safari targets), you may still need to use **vendor prefixes** for both the keyframe definition and the properties (e.g., `@-webkit-keyframes` and `-webkit-animation:`).
+- **The Hybrid Approach:** For the ultimate performance-to-control ratio, combine CSS Keyframes with JS Observers. Use
+  [MutationObserver](/post/mastering-js-observers#mutationobserver-watching-the-dom-structure)
+  to detect when a specific component is added to the DOM, then apply a CSS class that triggers a high-performance
+  `@keyframes` intro animation. This keeps your "motion" in CSS and your "logic" in JavaScript.
 
 ## Conclusion
 
-**CSS keyframe animations** empower you to define complex, multi-stage motion with ultimate precision and intent. By mastering the
-sequence and control properties, and critically, by leveraging **GPU-accelerated properties** like `transform` and `opacity`, you can
-create highly engaging and advanced visual effects.
-
-Used wisely, keyframes make interfaces feel truly alive — they provide full control over timing, direction, and repetition
-**without compromising performance or usability**. Master this tool, and you unlock the full expressive power of modern CSS motion.
+**CSS keyframe animations** empower you to define complex, multi-stage motion with ultimate precision and intent. By mastering the sequence
+and control properties, and critically, by leveraging **GPU-accelerated properties** like `transform` and `opacity`, you can create highly
+engaging visual effects that make interfaces feel truly alive. They provide full control over timing, direction, and repetition
+**without compromising performance or usability**.
 
 **Key Takeaways:**
+
 - **Full Control:** Define multi-step motion using `%` checkpoints.
 - **Performance First:** Prefer `transform` and `opacity` to utilize the GPU.
 - **Layering:** Chain multiple animations using comma-separated values.
-- **Usability:** Respect user preference using `animation-play-state` and accessibility media queries.
+- **Usability:** Respect user preferences using `animation-play-state` and accessibility media queries.
+
+Mastering keyframes unlocks the full expressive power of modern CSS motion. However, animation is only half of the "Reactive Web" story.
+To learn how to trigger these animations dynamically based on DOM changes, element resizing, or scroll visibility, check out my
+companion guide:
+[Mastering JavaScript Observers: A Complete Guide to Reactive Web APIs](/post/mastering-js-observers).
