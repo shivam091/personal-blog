@@ -1,0 +1,351 @@
+id: mastering-js-observers
+name: Mastering JavaScript Observers
+url: "https://codepen.io/shivam091/pen/XJjGYNa"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <h1 class="heading">Demonstrate JavaScript Observers</h1>
+      <p class="sub-heading">
+        Interact with the cards to trigger reactive browser APIs.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>EventListener</h3>
+            <span class="badge">User Action</span>
+          </div>
+          <button id="btn">Click Me</button>
+          <div class="metric" id="clickCount">Clicks: 0</div>
+          <div class="log" id="eventLog"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>MutationObserver</h3>
+            <span class="badge">DOM Structure</span>
+          </div>
+          <div class="box" id="mutationBox">Target</div>
+          <button id="mutate">Update Text</button>
+          <div class="log" id="mutationLog"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>IntersectionObserver</h3>
+            <span class="badge">Visibility</span>
+          </div>
+          <div class="scroll-container">
+            <div class="spacer">Scroll Down ↓</div>
+            <div class="box" id="intersectBox">Visible!</div>
+            <div class="spacer">Scroll Up ↑</div>
+          </div>
+          <div class="log" id="intersectionLog"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>ResizeObserver</h3>
+            <span class="badge">Dimensions</span>
+          </div>
+          <div class="box" id="resizeBox">Resize</div>
+          <button id="grow">Expand Width</button>
+          <div class="metric" id="sizeMetric">Width: 100px</div>
+          <div class="log" id="resizeLog"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>PerformanceObserver</h3>
+            <span class="badge">Core Vitals</span>
+          </div>
+          <button id="heavy">Block Main Thread</button>
+          <div class="metric" id="perfMetric">No long tasks yet...</div>
+          <div class="log" id="perfLog"></div>
+          <small style="font-size: 0.7rem; color: var(--fg-muted);">*Chrome/Edge recommended</small>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Custom Observer</h3>
+            <span class="badge">Pub/Sub</span>
+          </div>
+          <button id="notify">Broadcast Event</button>
+          <div class="metric" id="customCount">Events: 0</div>
+          <div class="log" id="customLog"></div>
+        </div>
+      </div>
+
+  - name: style.css
+    type: css
+    code: |
+      :root {
+        --bg-default: #ffffff;
+        --bg-muted: #f8f9fa;
+        --bg-accent: #2563eb;
+        --bg-success: #16a34a;
+        --fg-default: #1e293b;
+        --fg-muted: #64748b;
+        --border-default: #e2e8f0;
+        --accent-light: #dbeafe;
+      }
+
+      body {
+        margin: 0;
+        padding: 2rem;
+        font-family: "Inter", system-ui, sans-serif;
+        background: var(--bg-muted);
+        color: var(--fg-default);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .card {
+        background: var(--bg-default);
+        border: 1px solid var(--border-default);
+        border-radius: 12px;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      .badge {
+        font-size: 0.7rem;
+        background: var(--accent-light);
+        color: var(--bg-accent);
+        padding: 2px 8px;
+        border-radius: 99px;
+        font-weight: 600;
+      }
+
+      button {
+        padding: 0.6rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-default);
+        background: var(--bg-default);
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      button:hover {
+        background: var(--bg-muted);
+        border-color: var(--bg-accent);
+      }
+
+      .heading {
+        text-align: center;
+      }
+
+      .sub-heading {
+        text-align: center;
+        color: var(--fg-muted);
+        margin-bottom: 2rem;
+      }
+
+      .log {
+        background: #1e293b;
+        color: #94a3b8;
+        margin-top: 1rem;
+        padding: 0.75rem;
+        font-family: "Fira Code", monospace;
+        font-size: 0.75rem;
+        height: 80px;
+        overflow-y: auto;
+        border-radius: 6px;
+        line-height: 1.4;
+      }
+
+      .box {
+        width: 100px;
+        height: 60px;
+        background: var(--bg-accent);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: background 0.3s, transform 0.2s;
+        margin-bottom: 1rem;
+      }
+
+      .highlight {
+        transform: scale(1.05);
+        outline: 2px solid var(--bg-accent);
+      }
+
+      .scroll-container {
+        height: 100px;
+        overflow-y: auto;
+        border: 2px dashed var(--border-default);
+        border-radius: 8px;
+        background: white;
+      }
+
+      .spacer {
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--fg-muted);
+        font-size: 0.8rem;
+      }
+
+      .metric {
+        font-size: 0.8rem;
+        margin: 0.5rem 0;
+        color: var(--fg-muted);
+        font-weight: 500;
+      }
+
+  - name: script.js
+    type: js
+    code: |
+      const log = (el, msg) => {
+        const time = new Date().toLocaleTimeString([], {
+          hour12: false,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        });
+        el.innerHTML += `<div><span style="color: #38bdf8">[${time}]</span> ${msg}</div>`;
+        el.scrollTop = el.scrollHeight;
+      };
+
+      const flash = (el) => {
+        el.classList.add("highlight");
+        setTimeout(() => el.classList.remove("highlight"), 300);
+      };
+
+      // 1. Event Listener
+      let clicks = 0;
+      document.getElementById("btn").onclick = () => {
+        clicks++;
+        document.getElementById("clickCount").textContent = `Clicks: ${clicks}`;
+        log(document.getElementById("eventLog"), "Interaction detected");
+      };
+
+      // 2. MutationObserver
+      const mutationBox = document.getElementById("mutationBox");
+      const mo = new MutationObserver((mutations) => {
+        mutations.forEach((m) => {
+          log(document.getElementById("mutationLog"), `DOM: ${m.type} updated`);
+          flash(mutationBox);
+        });
+      });
+      mo.observe(mutationBox, {
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
+
+      document.getElementById("mutate").onclick = () => {
+        mutationBox.textContent = Math.random()
+          .toString(36)
+          .slice(2, 6)
+          .toUpperCase();
+      };
+
+      // 3. IntersectionObserver
+      const intersectBox = document.getElementById("intersectBox");
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              intersectBox.style.background = "var(--bg-success)";
+              log(document.getElementById("intersectionLog"), "Target is visible");
+              flash(intersectBox);
+            } else {
+              intersectBox.style.background = "var(--bg-accent)";
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      io.observe(intersectBox);
+
+      // 4. ResizeObserver (Modern Syntax)
+      const resizeBox = document.getElementById("resizeBox");
+      const ro = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          // Using inlineSize (width) from contentBoxSize for future-proofing
+          const width = Math.round(entry.contentBoxSize[0].inlineSize);
+          document.getElementById("sizeMetric").textContent = `Width: ${width}px`;
+          log(document.getElementById("resizeLog"), `Resized to ${width}px`);
+          flash(resizeBox);
+        }
+      });
+      ro.observe(resizeBox);
+
+      document.getElementById("grow").onclick = () => {
+        const currentWidth = resizeBox.offsetWidth;
+        resizeBox.style.width = (currentWidth > 200 ? 100 : currentWidth + 30) + "px";
+      };
+
+      // 5. PerformanceObserver
+      const po = new PerformanceObserver((list) => {
+        list.getEntries().forEach((entry) => {
+          const duration = entry.duration.toFixed(2);
+          document.getElementById(
+            "perfMetric"
+          ).textContent = `Last Task: ${duration}ms`;
+          log(document.getElementById("perfLog"), `Long Task: ${duration}ms`);
+        });
+      });
+      try {
+        po.observe({ entryTypes: ["longtask"] });
+      } catch (e) {
+        console.warn("Longtask not supported");
+      }
+
+      document.getElementById("heavy").onclick = () => {
+        const start = performance.now();
+        while (performance.now() - start < 100) {} // Artificially block main thread
+      };
+
+      // 6. Custom Observable
+      class Observable {
+        constructor() {
+          this.observers = new Set();
+        }
+        subscribe(fn) {
+          this.observers.add(fn);
+          return () => this.observers.delete(fn);
+        }
+        notify(data) {
+          this.observers.forEach((fn) => fn(data));
+        }
+      }
+
+      const store = new Observable();
+      let eventCount = 0;
+      store.subscribe((msg) => {
+        eventCount++;
+        document.getElementById("customCount").textContent = `Events: ${eventCount}`;
+        log(document.getElementById("customLog"), msg);
+      });
+
+      document.getElementById("notify").onclick = () =>
+        store.notify("Custom message sent");
+
