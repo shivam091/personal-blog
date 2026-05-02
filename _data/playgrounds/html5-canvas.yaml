@@ -1,0 +1,275 @@
+id: html5-canvas-demo
+name: Interactive Canvas Animation Demo
+url: "https://codepen.io/shivam091/pen/qEqEgMe"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <div class="wrapper">
+        <div class="canvas-container">
+          <canvas id="canvas"></canvas>
+          <div class="overlay">
+            <h2>Canvas Playground</h2>
+            <p>Move mouse to interact • 60 FPS Animation</p>
+          </div>
+        </div>
+
+        <div class="info">
+          <h3>Technical Highlights</h3>
+          <ul class="feature-list">
+            <li><strong>Drawing:</strong> Procedural circles & radial gradients</li>
+            <li><strong>Loop:</strong> High-performance <code>requestAnimationFrame</code></li>
+            <li><strong>Physics:</strong> Edge collision & mouse repulsion</li>
+            <li><strong>Layout:</strong> Fully responsive container queries</li>
+          </ul>
+        </div>
+      </div>
+  - name: style.css
+    type: css
+    code: |
+      :root {
+        --accent: #00f2fe;
+        --bg-dark: #0f2027;
+        --glass: rgba(255, 255, 255, 0.05);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background: #121212;
+        color: #e0e0e0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .wrapper {
+        width: min(1200px, 100%);
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .canvas-container {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #000;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+        container-type: inline-size;
+        aspect-ratio: 16 / 9;
+      }
+
+      canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: rgba(15, 32, 39, 0.7);
+        padding: 1rem 1.25rem;
+        border-radius: 12px;
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,255,255,0.1);
+        pointer-events: none;
+      }
+
+      .overlay h2 {
+        font-size: 1.1rem;
+        color: var(--accent);
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .overlay p {
+        font-size: 0.85rem;
+        opacity: 0.7;
+      }
+
+      .info {
+        background: var(--glass);
+        padding: 1.5rem;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.05);
+      }
+
+      .info h3 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        color: #fff;
+      }
+
+      .feature-list {
+        list-style: none;
+      }
+
+      .feature-list li {
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .feature-list li::before {
+        content: "→";
+        color: var(--accent);
+        font-weight: bold;
+      }
+
+      code {
+        background: rgba(0,0,0,0.3);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: monospace;
+        color: #ff79c6;
+      }
+
+      @container (min-width: 700px) {
+        .wrapper {
+          grid-template-columns: 2.5fr 1fr;
+          align-items: start;
+        }
+      }
+  - name: script.js
+    type: js
+    code: |
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      let particles = [];
+      let mouse = { x: null, y: null };
+
+      // Resize canvas
+      function resizeCanvas() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      // Mouse interaction
+      canvas.addEventListener("mousemove", (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+
+      // Particle class
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.radius = Math.random() * 3 + 1;
+          this.dx = (Math.random() - 0.5) * 1.5;
+          this.dy = (Math.random() - 0.5) * 1.5;
+        }
+
+        draw() {
+          const gradient = ctx.createRadialGradient(
+            this.x,
+            this.y,
+            0,
+            this.x,
+            this.y,
+            this.radius * 5
+          );
+          gradient.addColorStop(0, "#00f2fe");
+          gradient.addColorStop(1, "transparent");
+
+          ctx.beginPath();
+          ctx.fillStyle = gradient;
+          ctx.arc(this.x, this.y, this.radius * 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        update() {
+          this.x += this.dx;
+          this.y += this.dy;
+
+          // Bounce
+          if (this.x < 0 || this.x > canvas.width) this.dx *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.dy *= -1;
+
+          // Mouse interaction
+          if (mouse.x && mouse.y) {
+            const dx = this.x - mouse.x;
+            const dy = this.y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 100) {
+              this.x += dx * 0.02;
+              this.y += dy * 0.02;
+            }
+          }
+
+          this.draw();
+        }
+      }
+
+      // Create particles
+      function init() {
+        particles = [];
+        for (let i = 0; i < 80; i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      // Bouncing ball
+      let ball = {
+        x: 100,
+        y: 100,
+        dx: 3,
+        dy: 2,
+        r: 20
+      };
+
+      function drawBall() {
+        ctx.beginPath();
+        ctx.fillStyle = "#ff6b6b";
+        ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function updateBall() {
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+
+        if (ball.x < ball.r || ball.x > canvas.width - ball.r) ball.dx *= -1;
+        if (ball.y < ball.r || ball.y > canvas.height - ball.r) ball.dy *= -1;
+      }
+
+      // Animation loop
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Background gradient
+        const bg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        bg.addColorStop(0, "#0f2027");
+        bg.addColorStop(1, "#2c5364");
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p) => p.update());
+
+        updateBall();
+        drawBall();
+
+        // Text
+        ctx.fillStyle = "#fff";
+        ctx.font = "16px sans-serif";
+        ctx.fillText("Canvas Demo", 20, canvas.height - 20);
+
+        requestAnimationFrame(animate);
+      }
+
+      init();
+      animate();
