@@ -29,7 +29,13 @@ layout: page
   </div>
 
   <div class="page-signoff">
-    <p>I hope you found this post informative and helpful. It took a lot of work to create, and I’m thrilled to finally share it with the world. Thank you for reading. 💖</p>
+    <p>
+      {% if page.signoff %}
+        {{ page.signoff }}
+      {% else %}
+        I hope you found this post informative and helpful. It took a lot of work to create, and I’m thrilled to finally share it with the world. Thank you for reading. 💖
+      {% endif %}
+    </p>
 
     <div class="signoff-wave">
       {% svg wave-divider %}
