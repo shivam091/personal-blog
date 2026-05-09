@@ -15,6 +15,8 @@ image:
     Polygon vs Polyline comparison showing an open cyan polyline and a filled star-shaped polygon on a grid background, illustrating open
     versus closed SVG shapes.
 changelog:
+  - date: 2026-05-09
+    change: "Updated playground demo"
   - date: 2026-04-11
     change: "Initial publication & added tags' meta"
 ---
@@ -295,7 +297,7 @@ This can be mitigated by:
 To truly grasp how coordinates and closing logic work, use the playground below. Try dragging the vertices into an "hourglass" shape or
 switching to **Polyline** mode to see the "Phantom Fill" effect in real-time.
 
-{% playground id:"polygon-vs-polyline" %}
+{% interactive_panel demo_id:polygon_vs_polyline_demo id:"polygon_vs_polyline_demo" %}
 
 ## Wrapping Up
 
