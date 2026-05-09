@@ -1585,7 +1585,7 @@ a_command_demo:
         ghost.setAttribute("cx", (sx + ex) / 2);
         ghost.setAttribute("cy", (sy + ey) / 2);
         ghost.setAttribute("rx", rx);
-        ghost.setAttribute("ry", ry); 
+        ghost.setAttribute("ry", ry);
         ghost.setAttribute("transform", `rotate(${rot}, ${(sx + ex) / 2}, ${(sy + ey) / 2})`);
 
         inputs.forEach(id => document.getElementById(id).parentElement.querySelector(".range-value").textContent = document.getElementById(id).value);
@@ -1669,4 +1669,245 @@ heart_shape_demo:
           path.style.fillOpacity = "0.2";
         });
       });
+      update();
+polygon_vs_polyline_demo:
+  title: "Interactive Example - Polygon vs Polyline"
+  html: |
+    <div class="wrapper">
+      <div class="canvas">
+        <svg id="svgCanvas" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+          <polygon id="mainShape" points="25,25 75,25 75,75 25,75" fill="rgba(99, 102, 241, 0.2)" stroke="#6366f1" stroke-width="1" />
+          <g id="handles"></g>
+        </svg>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label>Element Type</label>
+          <button id="toggleType" class="btn-action">Switch to Polyline</button>
+        </div>
+        <div class="field">
+          <label>Fill State</label>
+          <button id="toggleFill" class="btn-action">Remove Fill</button>
+        </div>
+        <div class="field full-width">
+          <label>Presets</label>
+          <div class="preset-row">
+            <button class="btn-alt" onclick="loadPreset('square')">Square</button>
+            <button class="btn-alt" onclick="loadPreset('hexagon')">Hexagon</button>
+            <button class="btn-alt" onclick="loadPreset('star')">Star</button>
+          </div>
+        </div>
+        <div class="field full-width">
+          <label>Live SVG Code</label>
+          <div class="code-preview" id="codeDisplay">&lt;polygon points="..." /&gt;</div>
+        </div>
+        <div class="field full-width instructions">
+          <ul>
+            <li><strong>Drag</strong> red circles to move points.</li>
+            <li><strong>Observe</strong> how the last point connects in Polygon mode but stays open in Polyline mode.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  css:
+    - *shared_css
+    - |
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: system-ui, sans-serif;
+        background: var(--color-bg-default);
+        color: var(--color-fg-default);
+      }
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        max-height: 600px;
+      }
+      .canvas {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        background: var(--color-bg-default);
+      }
+      .canvas::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(var(--color-fg-muted) 0.5px, transparent 0.5px);
+        background-size: 15px 15px;
+        opacity: 0.2;
+      }
+      svg {
+        width: 100%;
+        height: 100%;
+        max-width: 300px;
+        max-height: 300px;
+        background: var(--color-bg-muted);
+        border-radius: 8px;
+        z-index: 1;
+        overflow: visible;
+      }
+      .controls {
+        background: var(--color-bg-muted);
+        order-top: 1px solid var(--color-border-default);
+        padding: 16px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .full-width {
+        grid-column: 1 / -1;
+      }
+      label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--color-fg-muted);
+      }
+      /* Component Styles */
+      .btn-action,
+      .btn-alt {
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid var(--color-border-default);
+        font-size: 12px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn-action {
+        background: var(--color-fg-accent);
+        color: white;
+        border: none;
+      }
+      .btn-alt {
+        background: var(--color-bg-default);
+        color: var(--color-fg-default);
+      }
+      .preset-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+      }
+      .code-preview {
+        background: #1e293b;
+        color: #7dd3fc;
+        padding: 10px;
+        border-radius: 6px;
+        font-family: monospace;
+        font-size: 11px;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .handle {
+        fill: #ef4444;
+        stroke: white;
+        stroke-width: 1;
+        cursor: grab;
+      }
+      .handle:active {
+        cursor: grabbing;
+      }
+      .instructions {
+        font-size: 0.75rem;
+        color: var(--color-fg-muted);
+        line-height: 1.4;
+        padding-left: 1.25rem;
+      }
+  js:
+    - *shared_js
+    - |
+      const canvas = document.getElementById("svgCanvas");
+      const handlesGroup = document.getElementById("handles");
+      const codeDisplay = document.getElementById("codeDisplay");
+      const toggleTypeBtn = document.getElementById("toggleType");
+      const toggleFillBtn = document.getElementById("toggleFill");
+
+      const presets = {
+        square: [{x:25,y:25}, {x:75,y:25}, {x:75,y:75}, {x:25,y:75}],
+        hexagon: [{x:50,y:10}, {x:85,y:30}, {x:85,y:70}, {x:50,y:90}, {x:15,y:70}, {x:15,y:30}],
+        star: [{x:50,y:5}, {x:61,y:35}, {x:95,y:35}, {x:67,y:55}, {x:78,y:85}, {x:50,y:65}, {x:22,y:85}, {x:33,y:55}, {x:5,y:35}, {x:39,y:35}]
+      };
+
+      let points = [...presets.square];
+      let isPolygon = true;
+      let hasFill = true;
+      let draggedIdx = null;
+
+      const getShape = () => document.getElementById("mainShape");
+
+      function update() {
+        const shape = getShape();
+        const strPoints = points.map(p => `${p.x},${p.y}`).join(" ");
+        shape.setAttribute("points", strPoints);
+        shape.style.fill = hasFill ? "rgba(99, 102, 241, 0.2)" : "none";
+
+        const tag = isPolygon ? "polygon" : "polyline";
+        codeDisplay.textContent = `<${tag} points="${strPoints}" ${hasFill ? '' : 'fill="none"'} />`;
+        renderHandles();
+      }
+
+      function renderHandles() {
+        handlesGroup.innerHTML = "";
+        points.forEach((p, i) => {
+          const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          circle.setAttribute("cx", p.x);
+          circle.setAttribute("cy", p.y);
+          circle.setAttribute("r", 2.5);
+          circle.setAttribute("class", "handle");
+          circle.onmousedown = (e) => { draggedIdx = i; e.stopPropagation(); };
+          circle.ontouchstart = (e) => { draggedIdx = i; e.preventDefault(); };
+          handlesGroup.appendChild(circle);
+        });
+      }
+
+      window.onmousemove = window.ontouchmove = (e) => {
+        if (draggedIdx === null) return;
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+        // Map screen coords to 0-100 viewBox
+        points[draggedIdx].x = Math.round(((clientX - rect.left) / rect.width) * 100);
+        points[draggedIdx].y = Math.round(((clientY - rect.top) / rect.height) * 100);
+        update();
+      };
+
+      window.onmouseup = window.ontouchend = () => { draggedIdx = null; };
+
+      toggleTypeBtn.onclick = () => {
+        isPolygon = !isPolygon;
+        const old = getShape();
+        const newEl = document.createElementNS("http://www.w3.org/2000/svg", isPolygon ? "polygon" : "polyline");
+        newEl.id = "mainShape";
+        newEl.setAttribute("stroke", "#6366f1");
+        newEl.setAttribute("stroke-width", "1");
+        old.parentNode.replaceChild(newEl, old);
+        toggleTypeBtn.textContent = isPolygon ? "Switch to Polyline" : "Switch to Polygon";
+        update();
+      };
+
+      toggleFillBtn.onclick = () => {
+        hasFill = !hasFill;
+        toggleFillBtn.textContent = hasFill ? "Remove Fill" : "Add Fill";
+        update();
+      };
+
+      window.loadPreset = (name) => {
+        points = JSON.parse(JSON.stringify(presets[name]));
+        update();
+      };
+
       update();
