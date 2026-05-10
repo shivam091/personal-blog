@@ -1,0 +1,514 @@
+id: css-masking-playground
+name: Demonstration of CSS Masking
+url: "https://codepen.io/shivam091/pen/EaNKRPg"
+files:
+  - name: index.html
+    type: html
+    code: |
+      <div class="app">
+
+        <aside class="controls">
+
+          <h2>Demonstration of CSS Masking</h2>
+
+          <div class="control-group">
+            <label>Mask Type</label>
+            <select id="maskType">
+              <option value="linear">Linear Gradient</option>
+              <option value="radial">Radial Gradient</option>
+              <option value="conic">Conic Gradient</option>
+              <option value="spotlight">Spotlight</option>
+              <option value="stripes">Repeating Stripes</option>
+              <option value="waves">Wave Pattern</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label>Mask Mode</label>
+            <select id="maskMode">
+              <option value="alpha">Alpha</option>
+              <option value="luminance">Luminance</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label>Mask Size</label>
+            <input type="range" id="maskSize" min="50" max="300" value="100">
+            <span id="maskSizeValue">100%</span>
+          </div>
+
+          <div class="control-group">
+            <label>Mask Position X</label>
+            <input type="range" id="posX" min="0" max="100" value="50">
+          </div>
+
+          <div class="control-group">
+            <label>Mask Position Y</label>
+            <input type="range" id="posY" min="0" max="100" value="50">
+          </div>
+
+          <div class="control-group">
+            <label>Mask Repeat</label>
+            <select id="maskRepeat">
+              <option value="no-repeat">No Repeat</option>
+              <option value="repeat">Repeat</option>
+              <option value="repeat-x">Repeat X</option>
+              <option value="repeat-y">Repeat Y</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label>Mask Composite</label>
+            <select id="maskComposite">
+              <option value="add">Add</option>
+              <option value="subtract">Subtract</option>
+              <option value="intersect">Intersect</option>
+              <option value="exclude">Exclude</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label>Animation</label>
+            <select id="animationType">
+              <option value="none">None</option>
+              <option value="shine">Shine</option>
+              <option value="pulse">Pulse</option>
+              <option value="rotate">Rotate</option>
+              <option value="scan">Scanline</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label>Animation Speed</label>
+            <input type="range" id="speed" min="1" max="20" value="6">
+            <span id="speedValue">6s</span>
+          </div>
+
+          <div class="control-group">
+            <label>
+              <input type="checkbox" id="showLayer">
+              Show Mask Layer Overlay
+            </label>
+          </div>
+
+          <div class="control-group">
+            <label>
+              <input type="checkbox" id="enableSecondMask">
+              Enable Second Mask Layer
+            </label>
+          </div>
+
+        </aside>
+
+        <main class="preview-area">
+
+          <div class="stage">
+
+            <div class="masked-card" id="maskedCard">
+              <div class="content">
+                <h1>CSS Masking</h1>
+                <p>
+                  Explore gradients, compositing,
+                  layering, animation, and advanced
+                  masking techniques interactively.
+                </p>
+              </div>
+            </div>
+
+            <div class="mask-overlay" id="maskOverlay"></div>
+
+          </div>
+
+          <div class="code-panel">
+            <pre><code id="generatedCode"></code></pre>
+          </div>
+
+        </main>
+
+      </div>
+  - name: style.css
+    type: css
+    code: |
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, sans-serif;
+        background:
+          radial-gradient(circle at top left, #1f2937, #0f172a);
+        color: white;
+        min-height: 100vh;
+      }
+
+      .app {
+        display: grid;
+        grid-template-columns: 340px 1fr;
+        min-height: 100vh;
+      }
+
+      .controls {
+        padding: 24px;
+        background: rgba(255,255,255,0.04);
+        border-right: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
+        overflow-y: auto;
+      }
+
+      .controls h2 {
+        margin-top: 0;
+        font-size: 1.6rem;
+      }
+
+      .control-group {
+        margin-bottom: 22px;
+      }
+
+      .control-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+      }
+
+      .control-group input,
+      .control-group select {
+        width: 100%;
+      }
+
+      .preview-area {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 24px;
+      }
+
+      .stage {
+        position: relative;
+        flex: 1;
+        min-height: 500px;
+        display: grid;
+        place-items: center;
+        border-radius: 24px;
+        overflow: hidden;
+        background:
+          linear-gradient(135deg, #111827, #1e293b);
+      }
+
+      .masked-card {
+        width: 420px;
+        height: 420px;
+        padding: 40px;
+        border-radius: 32px;
+        position: relative;
+        overflow: hidden;
+
+        background:
+          linear-gradient(
+            135deg,
+            rgba(255,255,255,0.15),
+            rgba(255,255,255,0.02)
+          ),
+          url("https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop")
+          center/cover;
+
+        backdrop-filter: blur(10px);
+
+        transition:
+          mask-image 300ms ease,
+          -webkit-mask-image 300ms ease;
+      }
+
+      .content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .content h1 {
+        margin-top: 0;
+        font-size: 3rem;
+      }
+
+      .content p {
+        line-height: 1.7;
+        font-size: 1.05rem;
+      }
+
+      .mask-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 250ms ease;
+      }
+
+      .mask-overlay.visible {
+        opacity: 1;
+      }
+
+      .code-panel {
+        background: rgba(255,255,255,0.05);
+        border-radius: 18px;
+        padding: 20px;
+        overflow: auto;
+      }
+
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+      }
+
+      @keyframes shine {
+        from {
+          mask-position: 0%;
+        }
+
+        to {
+          mask-position: 200%;
+        }
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          transform: scale(1);
+        }
+
+        50% {
+          transform: scale(1.06);
+        }
+      }
+
+      @keyframes rotateMask {
+        from {
+          transform: rotate(0deg);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes scan {
+        from {
+          mask-position: 0 0;
+        }
+
+        to {
+          mask-position: 0 300px;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .app {
+          grid-template-columns: 1fr;
+        }
+
+        .masked-card {
+          width: 90%;
+          height: 360px;
+        }
+      }
+  - name: script.js
+    type: js
+    code: |
+      class MaskPlayground {
+        constructor() {
+          this.card = document.getElementById("maskedCard");
+          this.overlay = document.getElementById("maskOverlay");
+          this.code = document.getElementById("generatedCode");
+
+          this.controls = {
+            maskType: document.getElementById("maskType"),
+            maskMode: document.getElementById("maskMode"),
+            maskSize: document.getElementById("maskSize"),
+            posX: document.getElementById("posX"),
+            posY: document.getElementById("posY"),
+            maskRepeat: document.getElementById("maskRepeat"),
+            maskComposite: document.getElementById("maskComposite"),
+            animationType: document.getElementById("animationType"),
+            speed: document.getElementById("speed"),
+            showLayer: document.getElementById("showLayer"),
+            enableSecondMask: document.getElementById("enableSecondMask")
+          };
+
+          this.bindEvents();
+          this.update();
+        }
+
+        bindEvents() {
+          Object.values(this.controls).forEach(control => {
+            control.addEventListener("input", () => this.update());
+          });
+
+          this.card.addEventListener("mousemove", e => {
+            const rect = this.card.getBoundingClientRect();
+
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+            if (this.controls.maskType.value === "spotlight") {
+              this.controls.posX.value = x;
+              this.controls.posY.value = y;
+
+              this.update();
+            }
+          });
+        }
+
+        getMask() {
+          const type = this.controls.maskType.value;
+          const x = this.controls.posX.value;
+          const y = this.controls.posY.value;
+
+          switch(type) {
+            case "linear":
+              return `
+                linear-gradient(
+                  135deg,
+                  black 40%,
+                  transparent 80%
+                )
+              `;
+
+            case "radial":
+              return `
+                radial-gradient(
+                  circle at ${x}% ${y}%,
+                  black 25%,
+                  transparent 65%
+                )
+              `;
+
+            case "conic":
+              return `
+                conic-gradient(
+                  from 180deg at center,
+                  black,
+                  transparent,
+                  black
+                )
+              `;
+
+            case "spotlight":
+              return `
+                radial-gradient(
+                  circle at ${x}% ${y}%,
+                  black 18%,
+                  transparent 42%
+                )
+              `;
+
+            case "stripes":
+              return `
+                repeating-linear-gradient(
+                  45deg,
+                  black 0 20px,
+                  transparent 20px 40px
+                )
+              `;
+
+            case "waves":
+              return `
+                radial-gradient(
+                  circle at top,
+                  transparent 20%,
+                  black 21%
+                )
+              `;
+          }
+        }
+
+        update() {
+          const mask = this.getMask();
+
+          const size = this.controls.maskSize.value;
+          const repeat = this.controls.maskRepeat.value;
+          const mode = this.controls.maskMode.value;
+          const composite = this.controls.maskComposite.value;
+          const animation = this.controls.animationType.value;
+          const speed = this.controls.speed.value;
+
+          let finalMask = mask;
+
+          if (this.controls.enableSecondMask.checked) {
+            finalMask += `,
+              linear-gradient(
+                to right,
+                black,
+                transparent
+              )
+            `;
+          }
+
+          this.card.style.webkitMaskImage = finalMask;
+          this.card.style.maskImage = finalMask;
+
+          this.card.style.webkitMaskSize = `${size}%`;
+          this.card.style.maskSize = `${size}%`;
+
+          this.card.style.webkitMaskRepeat = repeat;
+          this.card.style.maskRepeat = repeat;
+
+          this.card.style.webkitMaskMode = mode;
+          this.card.style.maskMode = mode;
+
+          this.card.style.webkitMaskComposite = composite;
+          this.card.style.maskComposite = composite;
+
+          this.card.style.animation = "none";
+
+          if (animation === "shine") {
+            this.card.style.animation = `shine ${speed}s linear infinite`;
+          }
+
+          if (animation === "pulse") {
+            this.card.style.animation = `pulse ${speed}s ease-in-out infinite`;
+          }
+
+          if (animation === "rotate") {
+            this.card.style.animation = `rotateMask ${speed}s linear infinite`;
+          }
+
+          if (animation === "scan") {
+            this.card.style.animation = `scan ${speed}s linear infinite`;
+          }
+
+          this.overlay.classList.toggle(
+            "visible",
+            this.controls.showLayer.checked
+          );
+
+          this.overlay.style.background = finalMask;
+
+          document.getElementById("maskSizeValue").textContent =
+            `${size}%`;
+
+          document.getElementById("speedValue").textContent =
+            `${speed}s`;
+
+          this.generateCode(finalMask);
+        }
+
+        generateCode(mask) {
+          this.code.textContent = `
+      .element {
+        -webkit-mask-image: ${mask};
+        mask-image: ${mask};
+
+        -webkit-mask-size: ${this.controls.maskSize.value}%;
+        mask-size: ${this.controls.maskSize.value}%;
+
+        -webkit-mask-repeat: ${this.controls.maskRepeat.value};
+        mask-repeat: ${this.controls.maskRepeat.value};
+
+        -webkit-mask-mode: ${this.controls.maskMode.value};
+        mask-mode: ${this.controls.maskMode.value};
+
+        -webkit-mask-composite: ${this.controls.maskComposite.value};
+        mask-composite: ${this.controls.maskComposite.value};
+      }
+          `;
+        }
+      }
+
+      new MaskPlayground();
